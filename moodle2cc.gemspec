@@ -8,6 +8,9 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{TODO: Write a gem summary}
   gem.homepage      = ""
 
+  gem.add_runtime_dependency "rubyzip"
+  gem.add_runtime_dependency "multi_xml"
+
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest"
 
