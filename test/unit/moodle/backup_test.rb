@@ -25,6 +25,13 @@ class TestUnitMoodleBackup < MiniTest::Unit::TestCase
       </MOD>
     </DETAILS>
   </INFO>
+  <COURSE>
+    <HEADER>
+      <ID>12345</ID>
+      <FULLNAME>My Course</FULLNAME>
+      <SHORTNAME>EDU 101</SHORTNAME>
+    </HEADER>
+  </COURSE>
 </MOODLE_BACKUP>
 XML
     @moodle_backup_path = File.expand_path("../../../tmp/moodle_backup.zip", __FILE__)
@@ -33,36 +40,20 @@ XML
     end
   end
 
-  def test_it_has_hashie_mash_attributes
+  def test_it_stores_the_xml_file
     backup = Moodle2CC::Moodle::Backup.parse @moodle_backup_path
-    assert_instance_of Hashie::Mash, backup.attributes
+    assert_instance_of Nokogiri::XML::Document, backup.xml
   end
 
-  def test_it_converts_moodle_backup_to_mash
+  def test_is_has_info
     backup = Moodle2CC::Moodle::Backup.parse @moodle_backup_path
-    attrs = Hashie::Mash.new(
-      'moodle_backup' => {
-        'info' => {
-          'name' => 'moodle_backup.zip',
-          'details' => {
-            'mod' => {
-              'name' => 'assignment',
-              'included' => 'true',
-              'userinfo' => 'true',
-              'instances' => {
-                'instance' => {
-                  'id' => '1',
-                  'name' => 'Create a Rails site',
-                  'included' => 'true',
-                  'userinfo' => 'true'
-                }
-              }
-            }
-          }
-        }
-      }
-    )
+    assert_instance_of Nokogiri::XML::Element, backup.info
+    assert_equal 'INFO', backup.info.name
+  end
 
-    assert_equal attrs, backup.attributes
+  def test_it_has_a_course
+    backup = Moodle2CC::Moodle::Backup.parse @moodle_backup_path
+    assert_instance_of Nokogiri::XML::Element, backup.course
+    assert_equal 'COURSE', backup.course.name
   end
 end

@@ -1,10 +1,8 @@
 require 'zip/zipfilesystem'
-require 'multi_xml'
-require 'hashie/mash'
 
 module Moodle2CC::Moodle
   class Backup
-    attr_accessor :attributes
+    attr_accessor :xml
 
     def self.parse(backup_file)
       backup = Backup.new
@@ -12,32 +10,17 @@ module Moodle2CC::Moodle
       backup
     end
 
-    def root
-      @attributes.moodle_backup
+    def info
+      @xml.xpath('//MOODLE_BACKUP/INFO').first
     end
 
     def course
-      root.course
+      @xml.xpath('//MOODLE_BACKUP/COURSE').first
     end
 
     def parse(backup_file)
       Zip::ZipFile.open(backup_file) do |zipfile|
-        attrs = MultiXml.parse(zipfile.file.read("moodle.xml"))
-        attrs = Hash[attrs.map { |k,v| [k.downcase, downcase_hash_keys(v)] }]
-        @attributes = Hashie::Mash.new attrs
-      end
-    end
-
-  private
-
-    def downcase_hash_keys(value)
-      case value
-      when Array
-        value.map { |v| downcase_hash_keys(v) }
-      when Hash
-        Hash[value.map { |k, v| [k.downcase, downcase_hash_keys(v)] }]
-      else
-        value
+        @xml = Nokogiri::XML(zipfile.file.read("moodle.xml"))
       end
     end
   end
