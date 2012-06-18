@@ -3,7 +3,7 @@ require 'moodle2cc'
 require 'zip/zipfilesystem'
 
 class TestUnitMoodleBackup < MiniTest::Unit::TestCase
-  def test_it_converts_moodle_backup_to_hash
+  def setup
     xml = <<-XML
 <?xml version="1.0" encoding="UTF-8"?>
 <MOODLE_BACKUP>
@@ -27,33 +27,42 @@ class TestUnitMoodleBackup < MiniTest::Unit::TestCase
   </INFO>
 </MOODLE_BACKUP>
 XML
-    moodle_backup_path = File.expand_path("../../../tmp/moodle_backup.zip", __FILE__)
-    Zip::ZipFile.open(moodle_backup_path, Zip::ZipFile::CREATE) do |zipfile|
+    @moodle_backup_path = File.expand_path("../../../tmp/moodle_backup.zip", __FILE__)
+    Zip::ZipFile.open(@moodle_backup_path, Zip::ZipFile::CREATE) do |zipfile|
       zipfile.file.open("moodle.xml", "w") { |f| f.write xml }
     end
+  end
 
-    backup = Moodle2CC::Moodle::Backup.new moodle_backup_path
-    assert_equal({
-      'MOODLE_BACKUP' => {
-        'INFO' => {
-          'NAME' => 'moodle_backup.zip',
-          'DETAILS' => {
-            'MOD' => {
-              'NAME' => 'assignment',
-              'INCLUDED' => 'true',
-              'USERINFO' => 'true',
-              'INSTANCES' => {
-                'INSTANCE' => {
-                  'ID' => '1',
-                  'NAME' => 'Create a Rails site',
-                  'INCLUDED' => 'true',
-                  'USERINFO' => 'true'
+  def test_it_has_hashie_mash_attributes
+    backup = Moodle2CC::Moodle::Backup.parse @moodle_backup_path
+    assert_instance_of Hashie::Mash, backup.attributes
+  end
+
+  def test_it_converts_moodle_backup_to_mash
+    backup = Moodle2CC::Moodle::Backup.parse @moodle_backup_path
+    attrs = Hashie::Mash.new(
+      'moodle_backup' => {
+        'info' => {
+          'name' => 'moodle_backup.zip',
+          'details' => {
+            'mod' => {
+              'name' => 'assignment',
+              'included' => 'true',
+              'userinfo' => 'true',
+              'instances' => {
+                'instance' => {
+                  'id' => '1',
+                  'name' => 'Create a Rails site',
+                  'included' => 'true',
+                  'userinfo' => 'true'
                 }
               }
             }
           }
         }
       }
-    }, backup.attributes)
+    )
+
+    assert_equal attrs, backup.attributes
   end
 end
