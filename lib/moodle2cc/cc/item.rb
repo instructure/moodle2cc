@@ -15,11 +15,15 @@ module Moodle2CC::CC
         href = "wiki_content/summary-of-week-#{number}.html"
         resource.href = href
         resource.type = "webcontent"
+        resource.identifier = CCHelper.create_key(href, "_resource")
 
         file = File.new
         file.href = href
         file.content = context.xpath('SUMMARY').text
         resource.files << file
+
+        item.identifierref = resource.identifier
+        manifest.resources << resource
 
         item.items = []
         context.xpath('MODS/MOD').each do |mod|

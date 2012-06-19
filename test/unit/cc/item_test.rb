@@ -86,6 +86,8 @@ XML
 
     resource = @manifest.resources.first
     assert resource
+    assert resource.identifier
+    assert_equal resource.identifier, item.identifierref
   end
 
   def test_it_gets_the_title_from_the_module
