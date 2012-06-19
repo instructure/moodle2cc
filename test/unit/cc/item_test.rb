@@ -8,21 +8,6 @@ class TestUnitCCItem < MiniTest::Unit::TestCase
 <MOODLE_BACKUP>
   <INFO>
     <NAME>moodle_backup.zip</NAME>
-    <DETAILS>
-      <MOD>
-        <NAME>assignment</NAME>
-        <INCLUDED>true</INCLUDED>
-        <USERINFO>true</USERINFO>
-        <INSTANCES>
-          <INSTANCE>
-          <ID>987</ID>
-          <NAME>Create a Rails site</NAME>
-          <INCLUDED>true</INCLUDED>
-          <USERINFO>true</USERINFO>
-          </INSTANCE>
-        </INSTANCES>
-      </MOD>
-    </DETAILS>
   </INFO>
   <COURSE>
     <HEADER>
@@ -54,9 +39,98 @@ class TestUnitCCItem < MiniTest::Unit::TestCase
             <ROLES_ASSIGNMENTS>
             </ROLES_ASSIGNMENTS>
           </MOD>
+          <MOD>
+            <ID>22222</ID>
+            <TYPE>resource</TYPE>
+            <INSTANCE>876</INSTANCE>
+            <ADDED>1338472800</ADDED>
+            <SCORE>0</SCORE>
+            <INDENT>0</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER>$@NULL@$</IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
+          <MOD>
+            <ID>33333</ID>
+            <TYPE>forum</TYPE>
+            <INSTANCE>765</INSTANCE>
+            <ADDED>1338472800</ADDED>
+            <SCORE>0</SCORE>
+            <INDENT>0</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER>$@NULL@$</IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
         </MODS>
       </SECTION>
     </SECTIONS>
+    <MODULES>
+      <MOD>
+        <ID>987</ID>
+        <MODTYPE>assignment</MODTYPE>
+        <NAME>Create a Rails site</NAME>
+        <DESCRIPTION>&lt;h1&gt;Hello World&lt;/h1&gt;</DESCRIPTION>
+        <FORMAT>0</FORMAT>
+        <RESUBMIT>0</RESUBMIT>
+        <PREVENTLATE>0</PREVENTLATE>
+        <EMAILTEACHERS>0</EMAILTEACHERS>
+        <VAR1>0</VAR1>
+        <VAR2>0</VAR2>
+        <VAR3>0</VAR3>
+        <VAR4>0</VAR4>
+        <VAR5>0</VAR5>
+        <ASSIGNMENTTYPE>offline</ASSIGNMENTTYPE>
+        <MAXBYTES>100000</MAXBYTES>
+        <TIMEDUE>0</TIMEDUE>
+        <TIMEAVAILABLE>0</TIMEAVAILABLE>
+        <GRADE>5</GRADE>
+        <TIMEMODIFIED>1338485904</TIMEMODIFIED>
+      </MOD>
+      <MOD>
+        <ID>876</ID>
+        <MODTYPE>resource</MODTYPE>
+        <NAME>About Your Instructor</NAME>
+        <TYPE>file</TYPE>
+        <REFERENCE>http://en.wikipedia.org/wiki/Einstein</REFERENCE>
+        <SUMMARY></SUMMARY>
+        <ALLTEXT></ALLTEXT>
+        <POPUP>resizable=1,scrollbars=1,directories=1,location=1,menubar=1,toolbar=1,status=1,width=1024,height=768</POPUP>
+        <OPTIONS></OPTIONS>
+        <TIMEMODIFIED>1338472800</TIMEMODIFIED>
+      </MOD>
+      <MOD>
+        <ID>765</ID>
+        <MODTYPE>forum</MODTYPE>
+        <TYPE>news</TYPE>
+        <NAME>Announcements</NAME>
+        <INTRO>General news and announcements</INTRO>
+        <ASSESSED>0</ASSESSED>
+        <ASSESSTIMESTART>0</ASSESSTIMESTART>
+        <ASSESSTIMEFINISH>0</ASSESSTIMEFINISH>
+        <MAXBYTES>0</MAXBYTES>
+        <SCALE>0</SCALE>
+        <FORCESUBSCRIBE>1</FORCESUBSCRIBE>
+        <TRACKINGTYPE>1</TRACKINGTYPE>
+        <RSSTYPE>0</RSSTYPE>
+        <RSSARTICLES>0</RSSARTICLES>
+        <TIMEMODIFIED>1338472516</TIMEMODIFIED>
+        <WARNAFTER>0</WARNAFTER>
+        <BLOCKAFTER>0</BLOCKAFTER>
+        <BLOCKPERIOD>0</BLOCKPERIOD>
+      </MOD>
+    </MODULES>
   </COURSE>
 </MOODLE_BACKUP>
 XML
@@ -100,5 +174,28 @@ XML
     item = Moodle2CC::CC::Item.from_manifest @manifest, @backup.course.xpath('SECTIONS/SECTION[1]/MODS/MOD[1]').first
 
     assert_equal 'i2a72d79e274dcae2b276ba7177245ccb', item.identifier
+  end
+
+  def test_it_creates_a_weblink_resource
+    item = Moodle2CC::CC::Item.from_manifest @manifest, @backup.course.xpath('SECTIONS/SECTION[1]/MODS/MOD[2]').first
+
+    resource = @manifest.resources.first
+    assert resource
+    assert resource.identifier
+    assert_equal resource.identifier, item.identifierref
+    assert_equal "imswl_xmlv1p1", resource.type
+    assert_equal "http://en.wikipedia.org/wiki/Einstein", resource.href
+  end
+
+  def test_it_creates_a_discussion_topic_resource
+    item = Moodle2CC::CC::Item.from_manifest @manifest, @backup.course.xpath('SECTIONS/SECTION[1]/MODS/MOD[3]').first
+
+    resource = @manifest.resources.first
+    assert resource
+    assert resource.identifier
+    assert_equal resource.identifier, item.identifierref
+    assert_equal "imsdt_xmlv1p1", resource.type
+    assert_equal "Announcements", resource.title
+    assert_equal "General news and announcements", resource.text
   end
 end

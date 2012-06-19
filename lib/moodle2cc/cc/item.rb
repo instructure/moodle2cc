@@ -4,6 +4,10 @@ module Moodle2CC::CC
 
     attr_accessor :identifier, :identifierref, :title, :items
 
+    def initialize
+      @items = []
+    end
+
     def self.from_manifest(manifest, context)
       item = Item.new
       if context.name == 'SECTION'
@@ -11,28 +15,21 @@ module Moodle2CC::CC
         number = context.xpath('NUMBER').text
         item.title = "week #{number}"
 
-        resource = Resource.new
-        href = "wiki_content/summary-of-week-#{number}.html"
-        resource.href = href
-        resource.type = "webcontent"
-        resource.identifier = CCHelper.create_key(href, "_resource")
-
-        file = File.new
-        file.href = href
-        file.content = context.xpath('SUMMARY').text
-        resource.files << file
-
+        resource = Resource.from_manifest(manifest, context)
         item.identifierref = resource.identifier
-        manifest.resources << resource
 
-        item.items = []
         context.xpath('MODS/MOD').each do |mod|
           item.items << Item.from_manifest(manifest, mod)
         end
       elsif context.name == 'MOD'
         item.identifier = CCHelper.create_key(context.xpath('ID').text, "item_")
         instance = context.xpath('INSTANCE').text
-        item.title = manifest.moodle_backup.info.xpath("DETAILS/MOD/INSTANCES/INSTANCE[ID='#{instance}']/NAME").text
+
+        module_node = manifest.moodle_backup.course.xpath("MODULES/MOD[ID='#{instance}']").first
+        item.title = module_node.xpath("NAME").text
+
+        resource = Resource.from_manifest(manifest, module_node)
+        item.identifierref = resource.identifier
       end
       item
     end

@@ -4,6 +4,10 @@ module Moodle2CC::CC
 
     attr_accessor :items
 
+    def initialize
+      @items = []
+    end
+
     def self.from_manifest(manifest)
       organization = Organization.new
       organization.items = []
