@@ -2,25 +2,16 @@ require 'zip/zipfilesystem'
 
 module Moodle2CC::Moodle
   class Backup
-    attr_accessor :xml
+    include HappyMapper
 
-    def self.parse(backup_file)
-      backup = Backup.new
-      backup.parse backup_file
-      backup
-    end
+    tag 'MOODLE_BACKUP'
+    has_one :info, Info
+    has_one :course, Course
 
-    def info
-      @xml.xpath('//MOODLE_BACKUP/INFO').first
-    end
-
-    def course
-      @xml.xpath('//MOODLE_BACKUP/COURSE').first
-    end
-
-    def parse(backup_file)
+    def self.read(backup_file)
       Zip::ZipFile.open(backup_file) do |zipfile|
-        @xml = Nokogiri::XML(zipfile.file.read("moodle.xml"))
+        xml = zipfile.file.read("moodle.xml")
+        parse xml
       end
     end
   end

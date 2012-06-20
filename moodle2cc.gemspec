@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = ""
 
   gem.add_runtime_dependency "rubyzip"
-  gem.add_runtime_dependency "nokogiri"
+  gem.add_runtime_dependency "happymapper"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest"

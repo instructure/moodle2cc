@@ -1,4 +1,4 @@
-require 'nokogiri'
+require 'happymapper'
 require 'moodle2cc/version'
 require 'moodle2cc/error'
 require 'moodle2cc/migrator'
@@ -14,5 +14,9 @@ module Moodle2CC
   end
   module Moodle
     autoload :Backup, 'moodle2cc/moodle/backup'
+    autoload :Info, 'moodle2cc/moodle/info'
+    autoload :Course, 'moodle2cc/moodle/course'
+    autoload :Section, 'moodle2cc/moodle/section'
+    autoload :Mod, 'moodle2cc/moodle/mod'
   end
 end
