@@ -1,4 +1,5 @@
 require 'happymapper'
+require 'builder'
 require 'moodle2cc/version'
 require 'moodle2cc/error'
 require 'moodle2cc/migrator'
@@ -6,6 +7,7 @@ require 'moodle2cc/migrator'
 module Moodle2CC
   module CC
     autoload :CCHelper, 'moodle2cc/cc/cc_helper'
+    autoload :Converter, 'moodle2cc/cc/converter'
     autoload :Manifest, 'moodle2cc/cc/manifest'
     autoload :Organization, 'moodle2cc/cc/organization'
     autoload :Resource, 'moodle2cc/cc/resource'

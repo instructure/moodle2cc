@@ -10,9 +10,11 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency "rubyzip"
   gem.add_runtime_dependency "happymapper"
+  gem.add_runtime_dependency "builder"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest"
+  gem.add_development_dependency "nokogiri"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
