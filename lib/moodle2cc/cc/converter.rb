@@ -144,6 +144,9 @@ module Moodle2CC::CC
         ) do |resource_node|
           resource_node.file(:href => "#{identifier}.xml")
         end
+
+        web_link = WebLink.new(mod)
+        web_link.create_files(@export_dir)
       else
         href = "wiki_content/#{file_slug(mod.name)}.html"
         resources_node.resource(

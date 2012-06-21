@@ -4,6 +4,12 @@ require 'test/test_helper'
 require 'moodle2cc'
 
 class TestUnitCCAssignment < MiniTest::Unit::TestCase
+  include TestHelper
+
+  def teardown
+    clean_tmp_folder
+  end
+
   def test_it_converts_id
     mod = Moodle2CC::Moodle::Mod.new
     mod.id = 123
