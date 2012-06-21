@@ -105,7 +105,7 @@ module TestHelper
 
   def clean_tmp_folder
     Dir[File.expand_path("../tmp/*", __FILE__)].each do |file|
-      FileUtils.rm file
+      FileUtils.rm_r file
     end
   end
 end

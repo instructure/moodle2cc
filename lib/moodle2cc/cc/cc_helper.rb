@@ -79,6 +79,10 @@ module CCHelper
     CCHelper.ims_datetime(date)
   end
 
+  def file_slug(name)
+    CCHelper.file_slug(name)
+  end
+
   def self.create_key(object, prepend="")
     key = object.to_s
     "i" + Digest::MD5.hexdigest(prepend + key)
@@ -92,6 +96,10 @@ module CCHelper
   def self.ims_datetime(date=nil)
     date ||= Time.now
     date.respond_to?(:utc) ? date.utc.strftime(IMS_DATETIME) : date.strftime(IMS_DATETIME)
+  end
+
+  def self.file_slug(name)
+    name.downcase.gsub(/\s/, '-')
   end
 
   def get_html_title_and_body_and_id(doc)

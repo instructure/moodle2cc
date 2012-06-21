@@ -11,10 +11,6 @@ module Moodle2CC::CC
       @imscc_path ||= ::File.join(@export_dir, "#{@moodle_backup.course.fullname.downcase.gsub(/\s/, '_')}.imscc")
     end
 
-    def file_slug(name)
-      name.downcase.gsub(/\s/, '-')
-    end
-
     def convert
       ::File.open(::File.join(@export_dir, MANIFEST), 'w') do |file|
         @document = Builder::XmlMarkup.new(:target => file, :indent => 2)
@@ -124,16 +120,19 @@ module Moodle2CC::CC
     end
 
     def create_assignment_resource(resources_node, mod)
-      identifier = create_key(mod.id, 'resource_')
-      href = "#{identifier}/#{file_slug(mod.name)}.html"
+      assignment = Assignment.new(mod)
+
+      href = "#{assignment.identifier}/#{file_slug(mod.name)}.html"
       resources_node.resource(
         :href => href,
         :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
-        :identifier => identifier
+        :identifier => assignment.identifier
       ) do |resource_node|
         resource_node.file(:href => href)
-        resource_node.file(:href => "#{identifier}/assignment_settings.xml")
+        resource_node.file(:href => File.join(assignment.identifier, ASSIGNMENT_SETTINGS))
       end
+
+      assignment.create_files(@export_dir)
     end
 
     def create_web_resource(resources_node, mod)

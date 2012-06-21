@@ -20,6 +20,26 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert_equal 987, @mods[0].id
   end
 
+  def test_it_has_an_var1
+    assert_equal 0, @mods[0].var1
+  end
+
+  def test_it_has_an_var2
+    assert_equal 1, @mods[0].var2
+  end
+
+  def test_it_has_an_var3
+    assert_equal 2, @mods[0].var3
+  end
+
+  def test_it_has_an_var4
+    assert_equal 3, @mods[0].var4
+  end
+
+  def test_it_has_an_var5
+    assert_equal 4, @mods[0].var5
+  end
+
   def test_it_has_a_mod_type
     assert_equal "assignment", @mods[0].mod_type
   end

@@ -4,6 +4,11 @@ module Moodle2CC::Moodle
 
     tag 'MODULES/MOD'
     element :id, Integer, :tag => 'ID'
+    element :var1, Integer, :tag => 'VAR1'
+    element :var2, Integer, :tag => 'VAR2'
+    element :var3, Integer, :tag => 'VAR3'
+    element :var4, Integer, :tag => 'VAR4'
+    element :var5, Integer, :tag => 'VAR5'
     element :mod_type, String, :tag => 'MODTYPE'
     element :type, String, :tag => 'TYPE'
     element :name, String, :tag => 'NAME'

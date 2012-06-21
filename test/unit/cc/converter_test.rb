@@ -19,6 +19,12 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     end
   end
 
+  def get_imscc_file(file)
+    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
+      zipfile.read(file)
+    end
+  end
+
   def test_it_has_the_path_to_the_imscc_package
     assert_equal File.expand_path("../../../tmp/my_course.imscc", __FILE__), @converter.imscc_path
   end
