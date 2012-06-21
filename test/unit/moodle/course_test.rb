@@ -28,6 +28,6 @@ class TestUnitMoodleCourse < MiniTest::Unit::TestCase
   end
 
   def test_it_has_modules
-    assert @course.modules.length > 0
+    assert @course.mods.length > 0
   end
 end
