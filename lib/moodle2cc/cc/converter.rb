@@ -113,51 +113,67 @@ module Moodle2CC::CC
 
           case mod.mod_type
           when 'assignment'
-            href = "#{identifier}/#{file_slug(mod.name)}.html"
-            resources_node.resource(
-              :href => href,
-              :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
-              :identifier => identifier
-            ) do |resource_node|
-              resource_node.file(:href => href)
-              resource_node.file(:href => "#{identifier}/assignment_settings.xml")
-            end
+            create_assignment_resource(resources_node, mod)
           when 'resource'
-            if mod.type == 'file'
-              resources_node.resource(
-                :type => 'imswl_xmlv1p1',
-                :identifier => identifier
-              ) do |resource_node|
-                resource_node.file(:href => "#{identifier}.xml")
-              end
-            else
-              href = "wiki_content/#{file_slug(mod.name)}.html"
-              resources_node.resource(
-                :type => 'webcontent',
-                :identifier => identifier,
-                :href => href
-              ) do |resource_node|
-                resource_node.file(:href => href)
-              end
-            end
+            create_web_resource(resources_node, mod)
           when 'forum'
-            dependency_ref = create_key(mod.id, 'topic_meta_')
-            resources_node.resource(
-              :type => 'imsdt_xmlv1p1',
-              :identifier => identifier
-            ) do |resource_node|
-              resource_node.file(:href => "#{identifier}.xml")
-              resource_node.dependency(:identifierref => dependency_ref)
-            end
-            resources_node.resource(
-              :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
-              :identifier => dependency_ref,
-              :href => "#{dependency_ref}.xml"
-            ) do |resource_node|
-              resource_node.file(:href => "#{dependency_ref}.xml")
-            end
+            create_forum_resource(resources_node, mod)
           end
         end
+      end
+    end
+
+    def create_assignment_resource(resources_node, mod)
+      identifier = create_key(mod.id, 'resource_')
+      href = "#{identifier}/#{file_slug(mod.name)}.html"
+      resources_node.resource(
+        :href => href,
+        :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
+        :identifier => identifier
+      ) do |resource_node|
+        resource_node.file(:href => href)
+        resource_node.file(:href => "#{identifier}/assignment_settings.xml")
+      end
+    end
+
+    def create_web_resource(resources_node, mod)
+      identifier = create_key(mod.id, 'resource_')
+      if mod.type == 'file'
+        resources_node.resource(
+          :type => 'imswl_xmlv1p1',
+          :identifier => identifier
+        ) do |resource_node|
+          resource_node.file(:href => "#{identifier}.xml")
+        end
+      else
+        href = "wiki_content/#{file_slug(mod.name)}.html"
+        resources_node.resource(
+          :type => 'webcontent',
+          :identifier => identifier,
+          :href => href
+        ) do |resource_node|
+          resource_node.file(:href => href)
+        end
+      end
+    end
+
+    def create_forum_resource(resources_node, mod)
+      identifier = create_key(mod.id, 'resource_')
+
+      dependency_ref = create_key(mod.id, 'topic_meta_')
+      resources_node.resource(
+        :type => 'imsdt_xmlv1p1',
+        :identifier => identifier
+      ) do |resource_node|
+        resource_node.file(:href => "#{identifier}.xml")
+        resource_node.dependency(:identifierref => dependency_ref)
+      end
+      resources_node.resource(
+        :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
+        :identifier => dependency_ref,
+        :href => "#{dependency_ref}.xml"
+      ) do |resource_node|
+        resource_node.file(:href => "#{dependency_ref}.xml")
       end
     end
 
