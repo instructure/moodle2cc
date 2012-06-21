@@ -17,23 +17,23 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
     assert_equal @course, @section.course
   end
 
-  def test_is_has_all_the_sections
+  def test_it_has_all_the_sections
     assert_equal 1, @sections.length
   end
 
-  def test_is_has_an_id
+  def test_it_has_an_id
     assert_equal 12345, @section.id
   end
 
-  def test_is_has_a_number
+  def test_it_has_a_number
     assert_equal 0, @section.number
   end
 
-  def test_is_has_a_summary
+  def test_it_has_a_summary
     assert_equal "<h1>Week 0 Summary</h1>", @section.summary
   end
 
-  def test_is_has_a_visibility
+  def test_it_has_a_visibility
     assert_equal true, @section.visible
   end
 

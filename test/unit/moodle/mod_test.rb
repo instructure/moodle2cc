@@ -64,11 +64,11 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert_equal 0, @mods[0].time_available
   end
 
-  def test_is_has_a_reference
+  def test_it_has_a_reference
     assert_equal "http://en.wikipedia.org/wiki/Einstein", @mods[1].reference
   end
 
-  def test_is_has_an_intro
+  def test_it_has_an_intro
     assert_equal "General news and announcements", @mods[2].intro
   end
 
