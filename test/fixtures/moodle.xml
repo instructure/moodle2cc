@@ -131,6 +131,18 @@
         <CONTENT>&lt;h1&gt;Label 1&lt;/h1&gt;</CONTENT>
         <TIMEMODIFIED>1317073854</TIMEMODIFIED>
       </MOD>
+      <MOD>
+        <ID>543</ID>
+        <MODTYPE>resource</MODTYPE>
+        <NAME>Instructor Resources</NAME>
+        <TYPE>html</TYPE>
+        <REFERENCE></REFERENCE>
+        <SUMMARY></SUMMARY>
+        <ALLTEXT>&lt;p&gt;&lt;strong&gt; Instructor Resources &lt;/strong&gt;&lt;/p&gt;</ALLTEXT>
+        <POPUP>resizable=1,scrollbars=1,directories=1,location=1,menubar=1,toolbar=1,status=1,width=1024,height=768</POPUP>
+        <OPTIONS></OPTIONS>
+        <TIMEMODIFIED>1338472800</TIMEMODIFIED>
+      </MOD>
     </MODULES>
   </COURSE>
 </MOODLE_BACKUP>

@@ -11,6 +11,10 @@ module Moodle2CC::CC
       @imscc_path ||= ::File.join(@export_dir, "#{@moodle_backup.course.fullname.downcase.gsub(/\s/, '_')}.imscc")
     end
 
+    def file_slug(name)
+      name.downcase.gsub(/\s/, '-')
+    end
+
     def convert
       ::File.open(::File.join(@export_dir, MANIFEST), 'w') do |file|
         @document = Builder::XmlMarkup.new(:target => file, :indent => 2)
@@ -62,6 +66,7 @@ module Moodle2CC::CC
         end
 
         create_organizations
+        create_resources
       end
     end
 
@@ -92,5 +97,69 @@ module Moodle2CC::CC
         end
       end
     end
+
+    def create_resources
+      @manifest_node.resources do |resources_node|
+        syllabus_href = 'course_settings/syllabus.html'
+        resources_node.resource(
+          :intendeduse => 'syllabus',
+          :href => syllabus_href,
+          :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
+          :identifier => create_key(syllabus_href, 'resource_')
+        )
+
+        @moodle_backup.course.mods.each do |mod|
+          identifier = create_key(mod.id, 'resource_')
+
+          case mod.mod_type
+          when 'assignment'
+            href = "#{identifier}/#{file_slug(mod.name)}.html"
+            resources_node.resource(
+              :href => href,
+              :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
+              :identifier => identifier
+            ) do |resource_node|
+              resource_node.file(:href => href)
+              resource_node.file(:href => "#{identifier}/assignment_settings.xml")
+            end
+          when 'resource'
+            if mod.type == 'file'
+              resources_node.resource(
+                :type => 'imswl_xmlv1p1',
+                :identifier => identifier
+              ) do |resource_node|
+                resource_node.file(:href => "#{identifier}.xml")
+              end
+            else
+              href = "wiki_content/#{file_slug(mod.name)}.html"
+              resources_node.resource(
+                :type => 'webcontent',
+                :identifier => identifier,
+                :href => href
+              ) do |resource_node|
+                resource_node.file(:href => href)
+              end
+            end
+          when 'forum'
+            dependency_ref = create_key(mod.id, 'topic_meta_')
+            resources_node.resource(
+              :type => 'imsdt_xmlv1p1',
+              :identifier => identifier
+            ) do |resource_node|
+              resource_node.file(:href => "#{identifier}.xml")
+              resource_node.dependency(:identifierref => dependency_ref)
+            end
+            resources_node.resource(
+              :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
+              :identifier => dependency_ref,
+              :href => "#{dependency_ref}.xml"
+            ) do |resource_node|
+              resource_node.file(:href => "#{dependency_ref}.xml")
+            end
+          end
+        end
+      end
+    end
+
   end
 end

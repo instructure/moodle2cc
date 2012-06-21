@@ -1,98 +1,16 @@
 require 'minitest/autorun'
+require 'test/test_helper'
 require 'moodle2cc'
 require 'nokogiri'
 
 class TestUnitCCConverter < MiniTest::Unit::TestCase
+  include TestHelper
   def setup
-    @export_dir = File.expand_path("../../../tmp", __FILE__)
-    @backup = Moodle2CC::Moodle::Backup.new
-
-    course = Moodle2CC::Moodle::Course.new
-    course.id = 123
-    course.fullname = "My Course"
-    course.shortname = "EDU 101"
-
-    @backup.course = course
-
-    sections = []
-
-    section = Moodle2CC::Moodle::Section.new
-    section.id = 12345
-    section.number = 0
-    section.course = course
-    sections << section
-
-    mods = []
-    mod = Moodle2CC::Moodle::Section::Mod.new
-    mod.instance_id = 987
-    mod.section = section
-    mods << mod
-    mod = Moodle2CC::Moodle::Section::Mod.new
-    mod.instance_id = 876
-    mod.section = section
-    mods << mod
-    section.mods = mods
-
-    section = Moodle2CC::Moodle::Section.new
-    section.id = 23456
-    section.number = 1
-    section.course = course
-    sections << section
-
-    mods = []
-    mod = Moodle2CC::Moodle::Section::Mod.new
-    mod.instance_id = 765
-    mod.section = section
-    mods << mod
-    mod = Moodle2CC::Moodle::Section::Mod.new
-    mod.instance_id = 654
-    mod.section = section
-    mods << mod
-    section.mods = mods
-
-    course.sections = sections
-
-    mods = []
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 987
-    mod.mod_type = "assignment"
-    mod.name = "Create a Rails site"
-    mod.description = "<h1>Hello World</h1>"
-    mods << mod
-
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 876
-    mod.mod_type = "resource"
-    mod.name = "About Your Instructor"
-    mod.type = "file"
-    mod.reference = "http://en.wikipedia.org/wiki/Einstein"
-    mods << mod
-
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 765
-    mod.mod_type = "forum"
-    mod.type = "news"
-    mod.name = "Announcements"
-    mod.intro = "General news and announcements"
-    mods << mod
-
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 654
-    mod.mod_type = "label"
-    mod.name = "label123"
-    mod.content = "Section 1"
-    mods << mod
-
-    course.mods = mods
-
-    @converter = Moodle2CC::CC::Converter.new @backup, @export_dir
-    @converter.convert
+    stub_moodle_backup
   end
 
   def teardown
-    Dir[File.expand_path("../../../tmp/*", __FILE__)].each do |file|
-      FileUtils.rm file
-    end
+    clean_tmp_folder
   end
 
   def get_imsmanifest_xml
@@ -210,5 +128,81 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert item
     assert_equal "ia854661225b2b463d5c61a219a8dbbc0", item.attributes['identifier'].value
     assert_equal 'Section 1', item.xpath('xmlns:title').text
+  end
+
+  def test_imsmanifest_has_a_resource
+    xml = get_imsmanifest_xml
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource').first
+    assert resource
+    assert_equal 'syllabus', resource.attributes['intendeduse'].value
+    assert_equal 'course_settings/syllabus.html', resource.attributes['href'].value
+    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
+    assert_equal 'i056ad8a52e3d89b15c15c97434aa0e91', resource.attributes['identifier'].value
+  end
+
+  def test_imsmanifest_has_an_assignment_resource
+    xml = get_imsmanifest_xml
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[2]').first
+    assert resource
+    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
+    assert_equal 'i0f77b146a52ac0f709e1690512154726/create-a-rails-site.html', resource.attributes['href'].value
+    assert_equal 'i0f77b146a52ac0f709e1690512154726', resource.attributes['identifier'].value
+
+    file = resource.xpath('xmlns:file[@href="i0f77b146a52ac0f709e1690512154726/create-a-rails-site.html"]').first
+    assert file
+
+    file = resource.xpath('xmlns:file[@href="i0f77b146a52ac0f709e1690512154726/assignment_settings.xml"]').first
+    assert file
+  end
+
+  def test_imsmanifest_has_a_weblink_resource
+    xml = get_imsmanifest_xml
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[3]').first
+    assert resource
+    assert_equal 'imswl_xmlv1p1', resource.attributes['type'].value
+    assert_equal 'ibd69090f0854ccc9bc06276117c9fffd', resource.attributes['identifier'].value
+
+    file = resource.xpath('xmlns:file[@href="ibd69090f0854ccc9bc06276117c9fffd.xml"]').first
+    assert file
+  end
+
+  def test_imsmanifest_has_a_discussion_topic_resource
+    xml = get_imsmanifest_xml
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[4]').first
+    assert resource
+    assert_equal 'imsdt_xmlv1p1', resource.attributes['type'].value
+    assert_equal 'i8a209c39591f6092d924695fca34d98c', resource.attributes['identifier'].value
+
+    file = resource.xpath('xmlns:file[@href="i8a209c39591f6092d924695fca34d98c.xml"]').first
+    assert file
+
+    dependency = resource.xpath('xmlns:dependency[@identifierref="i05a5b1468af5e9257a2f6b0827a0bd96"]').first
+    assert dependency
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[5]').first
+    assert resource
+    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
+    assert_equal 'i05a5b1468af5e9257a2f6b0827a0bd96', resource.attributes['identifier'].value
+    assert_equal 'i05a5b1468af5e9257a2f6b0827a0bd96.xml', resource.attributes['href'].value
+
+    file = resource.xpath('xmlns:file[@href="i05a5b1468af5e9257a2f6b0827a0bd96.xml"]').first
+    assert file
+  end
+
+  def test_imsmanifest_has_a_webcontent_resource
+    xml = get_imsmanifest_xml
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[6]').first
+    assert resource
+    assert_equal 'webcontent', resource.attributes['type'].value
+    assert_equal 'iba86a128db9938df9fcb00979b436e1f', resource.attributes['identifier'].value
+    assert_equal 'wiki_content/instructor-resources.html', resource.attributes['href'].value
+
+    file = resource.xpath('xmlns:file[@href="wiki_content/instructor-resources.html"]').first
+    assert file
   end
 end

@@ -13,7 +13,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 4, @mods.length
+    assert_equal 5, @mods.length
   end
 
   def test_it_has_an_id
@@ -70,5 +70,9 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_is_has_an_intro
     assert_equal "General news and announcements", @mods[2].intro
+  end
+
+  def test_it_has_alltext
+    assert_equal "<p><strong> Instructor Resources </strong></p>", @mods[4].alltext
   end
 end
