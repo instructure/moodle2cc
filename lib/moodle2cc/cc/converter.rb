@@ -156,6 +156,9 @@ module Moodle2CC::CC
         ) do |resource_node|
           resource_node.file(:href => href)
         end
+
+        web_content = WebContent.new(mod)
+        web_content.create_files(@export_dir)
       end
     end
 
