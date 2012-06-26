@@ -11,6 +11,7 @@ module Moodle2CC
     autoload :CCHelper, 'moodle2cc/cc/cc_helper'
     autoload :Converter, 'moodle2cc/cc/converter'
     autoload :Assignment, 'moodle2cc/cc/assignment'
+    autoload :DiscussionTopic, 'moodle2cc/cc/discussion_topic'
     autoload :WebContent, 'moodle2cc/cc/web_content'
     autoload :WebLink, 'moodle2cc/cc/web_link'
     autoload :Manifest, 'moodle2cc/cc/manifest'

@@ -180,6 +180,8 @@ module Moodle2CC::CC
       ) do |resource_node|
         resource_node.file(:href => "#{dependency_ref}.xml")
       end
+      discussion_topic = DiscussionTopic.new(mod)
+      discussion_topic.create_files(@export_dir)
     end
 
   end

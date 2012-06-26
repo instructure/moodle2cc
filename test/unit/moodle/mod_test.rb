@@ -95,4 +95,8 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   def test_it_has_alltext
     assert_equal "<p><strong> Instructor Resources </strong></p>", @mods[4].alltext
   end
+
+  def test_it_has_section_mods
+    assert_equal @course.sections.first.mods.first, @mods[0].section_mod
+  end
 end

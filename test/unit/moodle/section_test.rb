@@ -52,4 +52,8 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
   def test_mods_have_instances
     assert_equal @course.mods.first.id, @section.mods.first.instance.id
   end
+
+  def test_mods_have_added
+    assert_equal 1338410699, @section.mods.first.added
+  end
 end

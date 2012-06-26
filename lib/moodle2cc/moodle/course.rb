@@ -11,6 +11,7 @@ module Moodle2CC::Moodle
 
     after_parse do |course|
       course.sections.each { |section| section.course = course }
+      course.mods.each { |mod| mod.course = course }
     end
   end
 end

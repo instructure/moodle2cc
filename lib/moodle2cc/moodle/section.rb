@@ -13,6 +13,7 @@ module Moodle2CC::Moodle
 
       element :id, Integer, :tag => 'ID'
       element :instance_id, Integer, :tag => 'INSTANCE'
+      element :added, Integer, :tag => 'ADDED'
 
       def instance
         section.course.mods.find { |mod| mod.id == instance_id }

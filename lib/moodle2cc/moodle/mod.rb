@@ -2,6 +2,8 @@ module Moodle2CC::Moodle
   class Mod
     include HappyMapper
 
+    attr_accessor :course
+
     tag 'MODULES/MOD'
     element :id, Integer, :tag => 'ID'
     element :var1, Integer, :tag => 'VAR1'
@@ -23,5 +25,9 @@ module Moodle2CC::Moodle
     element :grade, Integer, :tag => 'GRADE'
     element :time_due, Integer, :tag => 'TIMEDUE'
     element :time_available, Integer, :tag => 'TIMEAVAILABLE'
+
+    def section_mod
+      course.sections.map { |section| section.mods.find { |mod| mod.instance_id == id } }.compact.first
+    end
   end
 end

@@ -197,6 +197,9 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
 
     file = resource.xpath('xmlns:file[@href="i05a5b1468af5e9257a2f6b0827a0bd96.xml"]').first
     assert file
+
+    assert get_imscc_file('i8a209c39591f6092d924695fca34d98c.xml') # topic xml
+    assert get_imscc_file('i05a5b1468af5e9257a2f6b0827a0bd96.xml') # topic meta xml
   end
 
   def test_imsmanifest_has_a_webcontent_resource
