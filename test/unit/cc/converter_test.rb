@@ -244,6 +244,24 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert file
   end
 
+  def test_imsmanifest_has_file_resources
+    xml = get_imsmanifest_xml
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[7]').first
+    assert resource
+    assert_equal 'webcontent', resource.attributes['type'].value
+    assert_equal 'ib98bb8ec201a97840ae4ed4bb40207c0', resource.attributes['identifier'].value
+    assert_equal 'web_resources/test.txt', resource.attributes['href'].value
+    assert resource.xpath('xmlns:file[@href="web_resources/test.txt"]').first
+
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[8]').first
+    assert resource
+    assert_equal 'webcontent', resource.attributes['type'].value
+    assert_equal 'i2fbc9b5ef920655b8240824d3d7b677a', resource.attributes['identifier'].value
+    assert_equal 'web_resources/folder/test.txt', resource.attributes['href'].value
+    assert resource.xpath('xmlns:file[@href="web_resources/folder/test.txt"]').first
+  end
+
   def test_it_deletes_all_files_except_imscc
     dir = File.dirname(@converter.imscc_path)
     files = Dir["#{dir}/**/*"]

@@ -115,6 +115,17 @@ module Moodle2CC::CC
             create_forum_resource(resources_node, mod)
           end
         end
+
+        @moodle_backup.files.each do |file|
+          href = "web_resources/#{file}"
+          resources_node.resource(
+            :type => 'webcontent',
+            :identifier => create_key(href, 'resource_'),
+            :href => href
+          ) do |resource_node|
+            resource_node.file(:href => href)
+          end
+        end
       end
     end
 
