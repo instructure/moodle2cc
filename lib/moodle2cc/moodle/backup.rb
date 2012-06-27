@@ -15,7 +15,9 @@ module Moodle2CC::Moodle
         xml = zipfile.file.read("moodle.xml")
         backup = parse xml
         backup.backup_file = backup_file
-        backup.files = zipfile.entries.select { |e| e.name =~ /^course_files/ }.map { |e| e.name.sub('course_files/', '') }.sort
+        backup.files = zipfile.entries.select { |e| e.name =~ /^course_files/ }.
+          map { |e| e.name.sub('course_files/', '') }.
+          reject { |f| f.length == 0 }.sort
         backup
       end
     end
