@@ -13,6 +13,10 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
     @section = @sections.first
   end
 
+  def teardown
+    clean_tmp_folder
+  end
+
   def test_it_has_a_course
     assert_equal @course, @section.course
   end
@@ -35,6 +39,10 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
 
   def test_it_has_a_visibility
     assert_equal true, @section.visible
+  end
+
+  def test_mods_have_an_indent
+    assert_equal 0, @section.mods[0].indent
   end
 
   def test_it_has_mods

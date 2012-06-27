@@ -5,6 +5,7 @@ require 'nokogiri'
 
 class TestUnitCCConverter < MiniTest::Unit::TestCase
   include TestHelper
+
   def setup
     stub_moodle_backup
   end
@@ -136,7 +137,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'Section 1', item.xpath('xmlns:title').text
   end
 
-  def test_imsmanifest_has_a_resource
+  def test_imsmanifest_has_a_course_resource
     xml = get_imsmanifest_xml
 
     resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource').first
@@ -145,6 +146,25 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'course_settings/syllabus.html', resource.attributes['href'].value
     assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
     assert_equal 'i056ad8a52e3d89b15c15c97434aa0e91', resource.attributes['identifier'].value
+
+    # syllabus
+    assert get_imscc_file('course_settings/syllabus.html')
+
+    # course settings
+    assert get_imscc_file('course_settings/course_settings.xml')
+
+    # files meta
+    assert get_imscc_file('course_settings/files_meta.xml')
+
+    # module meta
+    assert get_imscc_file('course_settings/module_meta.xml')
+
+    # assignment groups
+    assert get_imscc_file('course_settings/assignment_groups.xml')
+
+    # web resources
+    assert get_imscc_file('web_resources/folder/test.txt')
+    assert get_imscc_file('web_resources/test.txt')
   end
 
   def test_imsmanifest_has_an_assignment_resource

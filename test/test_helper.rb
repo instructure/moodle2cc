@@ -4,7 +4,9 @@ module TestHelper
   def create_moodle_backup_zip
     moodle_backup_path = File.expand_path("../tmp/moodle_backup.zip", __FILE__)
     Zip::ZipFile.open(moodle_backup_path, Zip::ZipFile::CREATE) do |zipfile|
-      zipfile.file.open("moodle.xml", "w") { |f| f.write File.read(File.expand_path("../fixtures/moodle.xml", __FILE__)) }
+      zipfile.add("moodle.xml", File.expand_path("../fixtures/moodle_backup/moodle.xml", __FILE__))
+      zipfile.add("course_files/test.txt", File.expand_path("../fixtures/moodle_backup/course_files/test.txt", __FILE__))
+      zipfile.add("course_files/folder/test.txt", File.expand_path("../fixtures/moodle_backup/course_files/folder/test.txt", __FILE__))
     end
     moodle_backup_path
   end
@@ -12,11 +14,15 @@ module TestHelper
   def stub_moodle_backup
     @export_dir = File.expand_path("../tmp", __FILE__)
     @backup = Moodle2CC::Moodle::Backup.new
+    @backup.backup_file = create_moodle_backup_zip
+    @backup.files = ["test.txt", "folder/test.txt"]
 
     course = Moodle2CC::Moodle::Course.new
     course.id = 123
     course.fullname = "My Course"
     course.shortname = "EDU 101"
+    course.startdate = 1339390800
+    course.visible = true
 
     @backup.course = course
 
@@ -25,16 +31,19 @@ module TestHelper
     section = Moodle2CC::Moodle::Section.new
     section.id = 12345
     section.number = 0
+    section.summary = 'This is the Syllabus'
     section.course = course
     sections << section
 
     mods = []
     mod = Moodle2CC::Moodle::Section::Mod.new
     mod.instance_id = 987
+    mod.indent = 0
     mod.section = section
     mods << mod
     mod = Moodle2CC::Moodle::Section::Mod.new
     mod.instance_id = 876
+    mod.indent = 1
     mod.section = section
     mods << mod
     section.mods = mods
@@ -48,10 +57,12 @@ module TestHelper
     mods = []
     mod = Moodle2CC::Moodle::Section::Mod.new
     mod.instance_id = 765
+    mod.indent = 0
     mod.section = section
     mods << mod
     mod = Moodle2CC::Moodle::Section::Mod.new
     mod.instance_id = 654
+    mod.indent = 1
     mod.section = section
     mods << mod
     section.mods = mods

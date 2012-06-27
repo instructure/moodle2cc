@@ -11,6 +11,10 @@ class TestUnitMoodleCourse < MiniTest::Unit::TestCase
     @course = @backup.course
   end
 
+  def teardown
+    clean_tmp_folder
+  end
+
   def test_it_has_an_id
     assert_equal 55555, @course.id
   end
@@ -21,6 +25,14 @@ class TestUnitMoodleCourse < MiniTest::Unit::TestCase
 
   def test_it_has_a_shortname
     assert_equal "EDU 101", @course.shortname
+  end
+
+  def test_it_has_a_startdate
+    assert_equal 1339390800, @course.startdate
+  end
+
+  def test_it_has_a_visibility
+    assert_equal true, @course.visible
   end
 
   def test_it_has_sections

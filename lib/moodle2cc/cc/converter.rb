@@ -17,6 +17,7 @@ module Moodle2CC::CC
         @document.instruct!
         create_manifest
       end
+      create_web_resources
       Zip::ZipFile.open(imscc_path, Zip::ZipFile::CREATE) do |zipfile|
         Dir["#{@export_dir}/**/*"].each do |file|
           zipfile.add(file.sub(@export_dir + '/', ''), file)
@@ -96,13 +97,7 @@ module Moodle2CC::CC
 
     def create_resources
       @manifest_node.resources do |resources_node|
-        syllabus_href = 'course_settings/syllabus.html'
-        resources_node.resource(
-          :intendeduse => 'syllabus',
-          :href => syllabus_href,
-          :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
-          :identifier => create_key(syllabus_href, 'resource_')
-        )
+        create_course_content(resources_node)
 
         @moodle_backup.course.mods.each do |mod|
           identifier = create_key(mod.id, 'resource_')
@@ -182,6 +177,25 @@ module Moodle2CC::CC
       end
       discussion_topic = DiscussionTopic.new(mod)
       discussion_topic.create_files(@export_dir)
+    end
+
+    def create_course_content(resources_node)
+      syllabus_href = 'course_settings/syllabus.html'
+      resources_node.resource(
+        :intendeduse => 'syllabus',
+        :href => syllabus_href,
+        :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
+        :identifier => create_key(syllabus_href, 'resource_')
+      )
+
+      course = Course.new(@moodle_backup.course)
+      course.create_files(@export_dir)
+    end
+
+    def create_web_resources
+      web_resources_folder = File.join(@export_dir, WEB_RESOURCES_FOLDER)
+      FileUtils.mkdir(web_resources_folder)
+      @moodle_backup.copy_files_to(web_resources_folder)
     end
 
   end

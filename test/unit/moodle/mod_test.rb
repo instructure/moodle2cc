@@ -12,6 +12,10 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @mods = @course.mods
   end
 
+  def teardown
+    clean_tmp_folder
+  end
+
   def test_it_has_all_the_mods
     assert_equal 5, @mods.length
   end

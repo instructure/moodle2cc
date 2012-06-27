@@ -11,6 +11,10 @@ class TestUnitMoodleInfo < MiniTest::Unit::TestCase
     @info = @backup.info
   end
 
+  def teardown
+    clean_tmp_folder
+  end
+
   def test_it_has_a_name
     assert_equal "moodle_backup.zip", @info.name
   end
