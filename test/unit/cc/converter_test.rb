@@ -119,21 +119,25 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[1]').first
     assert item
     assert_equal "ibc48cce1126bca1ffe34877330f33864", item.attributes['identifier'].value
+    assert_equal "i0f77b146a52ac0f709e1690512154726", item.attributes['identifierref'].value
     assert_equal 'Create a Rails site', item.xpath('xmlns:title').text
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[2]').first
     assert item
     assert_equal "i4415a1a262d5e1a5759802e73f207a01", item.attributes['identifier'].value
+    assert_equal "ibd69090f0854ccc9bc06276117c9fffd", item.attributes['identifierref'].value
     assert_equal 'About Your Instructor', item.xpath('xmlns:title').text
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[1]').first
     assert item
     assert_equal "i485c622e5b692e8989fee0472c218726", item.attributes['identifier'].value
+    assert_equal "i8a209c39591f6092d924695fca34d98c", item.attributes['identifierref'].value
     assert_equal 'Announcements', item.xpath('xmlns:title').text
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[2]').first
     assert item
     assert_equal "ia854661225b2b463d5c61a219a8dbbc0", item.attributes['identifier'].value
+    assert_equal "iacf4799e4ceb10fa5907ef9b3005052c", item.attributes['identifierref'].value
     assert_equal 'Section 1', item.xpath('xmlns:title').text
   end
 

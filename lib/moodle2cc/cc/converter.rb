@@ -79,10 +79,10 @@ module Moodle2CC::CC
         ) do |org|
           org.item(:identifier => "LearningModules") do |root_item|
             @moodle_backup.course.sections.each do |section|
-              root_item.item(:identifier => CCHelper.create_key(section.id, "section_")) do |item|
+              root_item.item(:identifier => create_key(section.id, "section_")) do |item|
                 item.title "week #{section.number}"
                 section.mods.each do |mod|
-                  item.item(:identifier => CCHelper.create_key(mod.instance_id, "mod_")) do |sub_item|
+                  item.item(:identifier => create_key(mod.instance_id, "mod_"), :identifierref => create_key(mod.instance_id, "resource_")) do |sub_item|
                     title = case mod.instance.mod_type
                             when 'assignment', 'resource', 'forum'
                               mod.instance.name
