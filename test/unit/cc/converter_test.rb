@@ -152,7 +152,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'i056ad8a52e3d89b15c15c97434aa0e91', resource.attributes['identifier'].value
 
     # syllabus
-    assert resource.xpath('xmlns:file[@href="syllabus.html"]').first
+    assert resource.xpath('xmlns:file[@href="course_settings/syllabus.html"]').first
     assert get_imscc_file('course_settings/syllabus.html')
 
     # course settings

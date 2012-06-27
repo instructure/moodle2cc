@@ -202,7 +202,7 @@ module Moodle2CC::CC
         :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
         :identifier => create_key(syllabus_href, 'resource_')
       ) do |resource_node|
-        resource_node.file(:href => "syllabus.html")
+        resource_node.file(:href => "course_settings/syllabus.html")
         resource_node.file(:href => "course_settings/course_settings.xml")
         resource_node.file(:href => "course_settings/files_meta.xml")
         resource_node.file(:href => "course_settings/module_meta.xml")
