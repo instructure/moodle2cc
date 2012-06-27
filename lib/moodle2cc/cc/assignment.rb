@@ -3,7 +3,8 @@ module Moodle2CC::CC
     include CCHelper
 
     SETTINGS_ATTRIBUTES = [:title, :points_possible, :grading_type, :due_at,
-      :lock_at, :unlock_at, :all_day, :all_day_date, :submission_types, :position]
+      :lock_at, :unlock_at, :all_day, :all_day_date, :submission_types,
+      :position, :assignment_group_identifierref]
 
     attr_accessor :id, :body, *SETTINGS_ATTRIBUTES
 
@@ -41,6 +42,7 @@ module Moodle2CC::CC
                             'none'
                           end
       @position = position
+      @assignment_group_identifierref = create_key(mod.section_mod.section.id, 'assignment_group_')
     end
 
     def identifier
