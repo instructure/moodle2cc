@@ -234,4 +234,10 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     file = resource.xpath('xmlns:file[@href="wiki_content/instructor-resources.html"]').first
     assert file
   end
+
+  def test_it_deletes_all_files_except_imscc
+    dir = File.dirname(@converter.imscc_path)
+    files = Dir["#{dir}/**/*"]
+    assert_equal [@converter.imscc_path], files
+  end
 end

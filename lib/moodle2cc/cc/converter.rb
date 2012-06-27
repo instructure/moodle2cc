@@ -23,6 +23,10 @@ module Moodle2CC::CC
           zipfile.add(file.sub(@export_dir + '/', ''), file)
         end
       end
+      Dir["#{@export_dir}/**/*"].each do |file|
+        next if file.end_with?(imscc_path)
+        FileUtils.rm_r(file) if File.exists?(file)
+      end
     end
 
     def create_manifest
