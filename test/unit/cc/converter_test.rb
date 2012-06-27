@@ -152,18 +152,23 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'i056ad8a52e3d89b15c15c97434aa0e91', resource.attributes['identifier'].value
 
     # syllabus
+    assert resource.xpath('xmlns:file[@href="syllabus.html"]').first
     assert get_imscc_file('course_settings/syllabus.html')
 
     # course settings
+    assert resource.xpath('xmlns:file[@href="course_settings/course_settings.xml"]').first
     assert get_imscc_file('course_settings/course_settings.xml')
 
     # files meta
+    assert resource.xpath('xmlns:file[@href="course_settings/files_meta.xml"]').first
     assert get_imscc_file('course_settings/files_meta.xml')
 
     # module meta
+    assert resource.xpath('xmlns:file[@href="course_settings/module_meta.xml"]').first
     assert get_imscc_file('course_settings/module_meta.xml')
 
     # assignment groups
+    assert resource.xpath('xmlns:file[@href="course_settings/assignment_groups.xml"]').first
     assert get_imscc_file('course_settings/assignment_groups.xml')
 
     # web resources
