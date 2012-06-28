@@ -83,13 +83,7 @@ module Moodle2CC::CC
                 item.title "week #{section.number}"
                 section.mods.each do |mod|
                   item.item(:identifier => create_key(mod.instance_id, "mod_"), :identifierref => create_key(mod.instance_id, "resource_")) do |sub_item|
-                    title = case mod.instance.mod_type
-                            when 'assignment', 'resource', 'forum'
-                              mod.instance.name
-                            when 'label'
-                              mod.instance.content
-                            end
-                    sub_item.title title
+                    sub_item.title mod.instance.name
                   end
                 end
               end

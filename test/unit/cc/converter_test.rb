@@ -126,7 +126,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert item
     assert_equal "ia854661225b2b463d5c61a219a8dbbc0", item.attributes['identifier'].value
     assert_equal "iacf4799e4ceb10fa5907ef9b3005052c", item.attributes['identifierref'].value
-    assert_equal 'Section 1', item.xpath('xmlns:title').text
+    assert_equal 'label123', item.xpath('xmlns:title').text
   end
 
   def test_imsmanifest_has_file_resources
