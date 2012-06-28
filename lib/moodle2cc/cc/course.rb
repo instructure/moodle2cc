@@ -92,25 +92,25 @@ module Moodle2CC::CC
               module_node.require_sequential_progress false
               module_node.items do |items_node|
                 section.mods.each_with_index do |mod,index|
-                  next if mod.instance.mod_type == 'assignment'
                   items_node.item(:identifier => create_key(mod.instance_id, 'mod_')) do |item_node|
                     item_node.title mod.instance.name
                     item_node.position index
                     item_node.new_tab ''
                     item_node.indent mod.indent
+                    item_node.identifierref create_key(mod.instance.id, 'resource_') unless mod.instance.mod_type == 'label'
+
                     case mod.instance.mod_type
+                    when 'assignment'
+                      item_node.content_type 'Assignment'
                     when 'resource'
                       if mod.instance.type == 'file'
                         item_node.content_type 'ExternalUrl'
                         item_node.url mod.instance.reference
-                        item_node.identifierref create_key(mod.instance.id, 'resource_')
                       else
                         item_node.content_type 'WikiPage'
-                        item_node.identifierref create_key(mod.instance.id, 'resource_')
                       end
                     when 'forum'
                       item_node.content_type 'DiscussionTopic'
-                      item_node.identifierref create_key(mod.instance.id, 'resource_')
                     when 'label'
                       item_node.content_type 'ContextModuleSubHeader'
                     end

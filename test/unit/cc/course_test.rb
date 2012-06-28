@@ -117,13 +117,23 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
 
     assert xml.xpath('//xmlns:modules/xmlns:module').count == 2
 
-    first_module = xml.xpath('//xmlns:modules/xmlns:module').first
-    assert_equal 'week 0', first_module.xpath('xmlns:title').text
-    assert_equal '0', first_module.xpath('xmlns:position').text
-    assert_equal 'false', first_module.xpath('xmlns:require_sequential_progress').text
-    assert_equal 1, first_module.xpath('xmlns:items').first.xpath('xmlns:item').count
+    module_node = xml.xpath('//xmlns:modules/xmlns:module[1]').first
+    assert_equal 'week 0', module_node.xpath('xmlns:title').text
+    assert_equal '0', module_node.xpath('xmlns:position').text
+    assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
+    assert_equal 2, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
-    item_node = first_module.xpath('xmlns:items').first.xpath('xmlns:item').first
+    item_node = module_node.xpath('xmlns:items/xmlns:item[1]').first
+    assert_equal 'ibc48cce1126bca1ffe34877330f33864', item_node.attributes['identifier'].value
+    assert_equal 'Assignment', item_node.xpath('xmlns:content_type').text
+    assert_equal 'Create a Rails site', item_node.xpath('xmlns:title').text
+    assert_equal '0', item_node.xpath('xmlns:position').text
+    assert_equal '', item_node.xpath('xmlns:new_tab').text
+    assert_equal '0', item_node.xpath('xmlns:indent').text
+    assert_equal 'i0f77b146a52ac0f709e1690512154726', item_node.xpath('xmlns:identifierref').text
+
+    item_node = module_node.xpath('xmlns:items/xmlns:item[2]').first
+    assert_equal 'i4415a1a262d5e1a5759802e73f207a01', item_node.attributes['identifier'].value
     assert_equal 'ExternalUrl', item_node.xpath('xmlns:content_type').text
     assert_equal 'About Your Instructor', item_node.xpath('xmlns:title').text
     assert_equal '1', item_node.xpath('xmlns:position').text
@@ -131,6 +141,29 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '1', item_node.xpath('xmlns:indent').text
     assert_equal 'http://en.wikipedia.org/wiki/Einstein', item_node.xpath('xmlns:url').text
     assert_equal 'ibd69090f0854ccc9bc06276117c9fffd', item_node.xpath('xmlns:identifierref').text
+
+    module_node = xml.xpath('//xmlns:modules/xmlns:module[2]').first
+    assert_equal 'week 1', module_node.xpath('xmlns:title').text
+    assert_equal '1', module_node.xpath('xmlns:position').text
+    assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
+    assert_equal 2, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+
+    item_node = module_node.xpath('xmlns:items/xmlns:item[1]').first
+    assert_equal 'i485c622e5b692e8989fee0472c218726', item_node.attributes['identifier'].value
+    assert_equal 'DiscussionTopic', item_node.xpath('xmlns:content_type').text
+    assert_equal 'Announcements', item_node.xpath('xmlns:title').text
+    assert_equal '0', item_node.xpath('xmlns:position').text
+    assert_equal '', item_node.xpath('xmlns:new_tab').text
+    assert_equal '0', item_node.xpath('xmlns:indent').text
+    assert_equal 'i8a209c39591f6092d924695fca34d98c', item_node.xpath('xmlns:identifierref').text
+
+    item_node = module_node.xpath('xmlns:items/xmlns:item[2]').first
+    assert_equal 'ia854661225b2b463d5c61a219a8dbbc0', item_node.attributes['identifier'].value
+    assert_equal 'ContextModuleSubHeader', item_node.xpath('xmlns:content_type').text
+    assert_equal 'label123', item_node.xpath('xmlns:title').text
+    assert_equal '1', item_node.xpath('xmlns:position').text
+    assert_equal '', item_node.xpath('xmlns:new_tab').text
+    assert_equal '1', item_node.xpath('xmlns:indent').text
   end
 
   def test_it_creates_assignment_groups_xml
