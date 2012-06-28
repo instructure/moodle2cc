@@ -11,6 +11,26 @@ module TestHelper
     moodle_backup_path
   end
 
+  def convert_moodle_backup
+    @backup_path = create_moodle_backup_zip
+    @backup = Moodle2CC::Moodle::Backup.read @backup_path
+    @export_dir = File.expand_path("../tmp", __FILE__)
+    @converter = Moodle2CC::CC::Converter.new @backup, @export_dir
+    @converter.convert
+  end
+
+  def get_imsmanifest_xml
+    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
+      xml = Nokogiri::XML(zipfile.read("imsmanifest.xml"))
+    end
+  end
+
+  def get_imscc_file(file)
+    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
+      zipfile.read(file)
+    end
+  end
+
   def clean_tmp_folder
     Dir[File.expand_path("../tmp/*", __FILE__)].each do |file|
       FileUtils.rm_r file

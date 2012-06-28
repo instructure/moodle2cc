@@ -7,8 +7,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @backup_path = create_moodle_backup_zip
-    @backup = Moodle2CC::Moodle::Backup.read @backup_path
+    convert_moodle_backup
     @course = @backup.course
     @cc_course = Moodle2CC::CC::Course.new @course
   end
@@ -39,6 +38,42 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
 
   def test_it_converts_syllabus_body
     assert_equal '<h1>This is the Syllabus</h1>', @cc_course.syllabus_body
+  end
+
+  def test_it_creates_resource_in_imsmanifest
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(@cc_course.create_resources_node(node))
+
+    resource = xml.xpath('resource').first
+    assert resource
+    assert_equal 'syllabus', resource.attributes['intendeduse'].value
+    assert_equal 'course_settings/syllabus.html', resource.attributes['href'].value
+    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
+    assert_equal 'i056ad8a52e3d89b15c15c97434aa0e91', resource.attributes['identifier'].value
+
+    # syllabus
+    assert resource.xpath('file[@href="course_settings/syllabus.html"]').first
+    assert get_imscc_file('course_settings/syllabus.html')
+
+    # course settings
+    assert resource.xpath('file[@href="course_settings/course_settings.xml"]').first
+    assert get_imscc_file('course_settings/course_settings.xml')
+
+    # files meta
+    assert resource.xpath('file[@href="course_settings/files_meta.xml"]').first
+    assert get_imscc_file('course_settings/files_meta.xml')
+
+    # module meta
+    assert resource.xpath('file[@href="course_settings/module_meta.xml"]').first
+    assert get_imscc_file('course_settings/module_meta.xml')
+
+    # assignment groups
+    assert resource.xpath('file[@href="course_settings/assignment_groups.xml"]').first
+    assert get_imscc_file('course_settings/assignment_groups.xml')
+
+    # web resources
+    assert get_imscc_file('web_resources/folder/test.txt')
+    assert get_imscc_file('web_resources/test.txt')
   end
 
   def test_it_creates_syllabus_file

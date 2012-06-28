@@ -195,21 +195,8 @@ module Moodle2CC::CC
     end
 
     def create_course_content(resources_node)
-      syllabus_href = 'course_settings/syllabus.html'
-      resources_node.resource(
-        :intendeduse => 'syllabus',
-        :href => syllabus_href,
-        :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
-        :identifier => create_key(syllabus_href, 'resource_')
-      ) do |resource_node|
-        resource_node.file(:href => "course_settings/syllabus.html")
-        resource_node.file(:href => "course_settings/course_settings.xml")
-        resource_node.file(:href => "course_settings/files_meta.xml")
-        resource_node.file(:href => "course_settings/module_meta.xml")
-        resource_node.file(:href => "course_settings/assignment_groups.xml")
-      end
-
       course = Course.new(@moodle_backup.course)
+      course.create_resources_node(resources_node)
       course.create_files(@export_dir)
     end
 

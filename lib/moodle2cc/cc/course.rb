@@ -19,6 +19,22 @@ module Moodle2CC::CC
       create_key(id, 'course_')
     end
 
+    def create_resources_node(resources_node)
+      syllabus_href = File.join(COURSE_SETTINGS_DIR, SYLLABUS)
+      resources_node.resource(
+        :intendeduse => 'syllabus',
+        :href => syllabus_href,
+        :type => LOR,
+        :identifier => create_key(syllabus_href, 'resource_')
+      ) do |resource_node|
+        resource_node.file(:href => File.join(COURSE_SETTINGS_DIR, SYLLABUS))
+        resource_node.file(:href => File.join(COURSE_SETTINGS_DIR, COURSE_SETTINGS))
+        resource_node.file(:href => File.join(COURSE_SETTINGS_DIR, FILES_META))
+        resource_node.file(:href => File.join(COURSE_SETTINGS_DIR, MODULE_META))
+        resource_node.file(:href => File.join(COURSE_SETTINGS_DIR, ASSIGNMENT_GROUPS))
+      end
+    end
+
     def create_files(export_dir)
       create_syllabus_file(export_dir)
       create_course_settings_xml(export_dir)

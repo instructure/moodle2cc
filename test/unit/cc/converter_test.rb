@@ -7,27 +7,11 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @backup_path = create_moodle_backup_zip
-    @backup = Moodle2CC::Moodle::Backup.read @backup_path
-    @export_dir = File.expand_path("../../../tmp", __FILE__)
-    @converter = Moodle2CC::CC::Converter.new @backup, @export_dir
-    @converter.convert
+    convert_moodle_backup
   end
 
   def teardown
     clean_tmp_folder
-  end
-
-  def get_imsmanifest_xml
-    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
-      xml = Nokogiri::XML(zipfile.read("imsmanifest.xml"))
-    end
-  end
-
-  def get_imscc_file(file)
-    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
-      zipfile.read(file)
-    end
   end
 
   def test_it_has_the_path_to_the_imscc_package
@@ -143,41 +127,6 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal "ia854661225b2b463d5c61a219a8dbbc0", item.attributes['identifier'].value
     assert_equal "iacf4799e4ceb10fa5907ef9b3005052c", item.attributes['identifierref'].value
     assert_equal 'Section 1', item.xpath('xmlns:title').text
-  end
-
-  def test_imsmanifest_has_a_course_resource
-    xml = get_imsmanifest_xml
-
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource').first
-    assert resource
-    assert_equal 'syllabus', resource.attributes['intendeduse'].value
-    assert_equal 'course_settings/syllabus.html', resource.attributes['href'].value
-    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
-    assert_equal 'i056ad8a52e3d89b15c15c97434aa0e91', resource.attributes['identifier'].value
-
-    # syllabus
-    assert resource.xpath('xmlns:file[@href="course_settings/syllabus.html"]').first
-    assert get_imscc_file('course_settings/syllabus.html')
-
-    # course settings
-    assert resource.xpath('xmlns:file[@href="course_settings/course_settings.xml"]').first
-    assert get_imscc_file('course_settings/course_settings.xml')
-
-    # files meta
-    assert resource.xpath('xmlns:file[@href="course_settings/files_meta.xml"]').first
-    assert get_imscc_file('course_settings/files_meta.xml')
-
-    # module meta
-    assert resource.xpath('xmlns:file[@href="course_settings/module_meta.xml"]').first
-    assert get_imscc_file('course_settings/module_meta.xml')
-
-    # assignment groups
-    assert resource.xpath('xmlns:file[@href="course_settings/assignment_groups.xml"]').first
-    assert get_imscc_file('course_settings/assignment_groups.xml')
-
-    # web resources
-    assert get_imscc_file('web_resources/folder/test.txt')
-    assert get_imscc_file('web_resources/test.txt')
   end
 
   def test_imsmanifest_has_an_assignment_resource
