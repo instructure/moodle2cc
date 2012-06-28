@@ -129,19 +129,6 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'Section 1', item.xpath('xmlns:title').text
   end
 
-  def test_imsmanifest_has_a_webcontent_resource
-    xml = get_imsmanifest_xml
-
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[6]').first
-    assert resource
-    assert_equal 'webcontent', resource.attributes['type'].value
-    assert_equal 'iba86a128db9938df9fcb00979b436e1f', resource.attributes['identifier'].value
-    assert_equal 'wiki_content/instructor-resources.html', resource.attributes['href'].value
-
-    file = resource.xpath('xmlns:file[@href="wiki_content/instructor-resources.html"]').first
-    assert file
-  end
-
   def test_imsmanifest_has_file_resources
     xml = get_imsmanifest_xml
 

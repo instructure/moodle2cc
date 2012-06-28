@@ -14,6 +14,18 @@ module Moodle2CC::CC
       create_key(id, 'resource_')
     end
 
+    def create_resource_node(resources_node)
+      identifier = create_key(@id, 'resource_')
+      href = File.join(WIKI_FOLDER, "#{file_slug(@title)}.html")
+      resources_node.resource(
+        :type => WEBCONTENT,
+        :identifier => identifier,
+        :href => href
+      ) do |resource_node|
+        resource_node.file(:href => href)
+      end
+    end
+
     def create_files(export_dir)
       create_html(export_dir)
     end

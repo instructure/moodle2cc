@@ -6,50 +6,65 @@ require 'moodle2cc'
 class TestUnitCCWebContent < MiniTest::Unit::TestCase
   include TestHelper
 
+  def setup
+    convert_moodle_backup
+    @mod = @backup.course.mods.find { |m| m.mod_type == "resource" && m.type == "html" }
+  end
+
   def teardown
     clean_tmp_folder
   end
 
   def test_it_converts_id
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 543
+    @mod.id = 543
 
-    web_content = Moodle2CC::CC::WebContent.new mod
+    web_content = Moodle2CC::CC::WebContent.new @mod
     assert_equal 543, web_content.id
   end
 
   def test_it_converts_title
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.name = "Instructor Resources"
+    @mod.name = "Instructor Resources"
 
-    web_content = Moodle2CC::CC::WebContent.new mod
+    web_content = Moodle2CC::CC::WebContent.new @mod
     assert_equal "Instructor Resources", web_content.title
   end
 
   def test_it_converts_body
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.alltext = "<p><strong>Instructor Resources</strong></p>"
+    @mod.alltext = "<p><strong>Instructor Resources</strong></p>"
 
-    web_content = Moodle2CC::CC::WebContent.new mod
+    web_content = Moodle2CC::CC::WebContent.new @mod
     assert_equal "<p><strong>Instructor Resources</strong></p>", web_content.body
   end
 
   def test_it_has_an_identifier
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 543
+    @mod.id = 543
 
-    web_content = Moodle2CC::CC::WebContent.new mod
+    web_content = Moodle2CC::CC::WebContent.new @mod
     assert_equal 'iba86a128db9938df9fcb00979b436e1f', web_content.identifier
   end
 
+  def test_it_creates_resource_in_imsmanifest
+    web_content = Moodle2CC::CC::WebContent.new @mod
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(web_content.create_resource_node(node))
+
+    resource = xml.xpath('resource').first
+    assert resource
+    assert_equal 'webcontent', resource.attributes['type'].value
+    assert_equal 'iba86a128db9938df9fcb00979b436e1f', resource.attributes['identifier'].value
+    assert_equal 'wiki_content/instructor-resources.html', resource.attributes['href'].value
+
+    file = resource.xpath('file[@href="wiki_content/instructor-resources.html"]').first
+    assert file
+  end
+
   def test_it_creates_html
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 543
-    mod.name = "Instructor Resources"
-    mod.alltext = "<p><strong>Instructor Resources</strong></p>"
+    @mod.id = 543
+    @mod.name = "Instructor Resources"
+    @mod.alltext = "<p><strong>Instructor Resources</strong></p>"
 
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
-    web_content = Moodle2CC::CC::WebContent.new mod
+    web_content = Moodle2CC::CC::WebContent.new @mod
     web_content.create_html(tmp_dir)
     html = Nokogiri::HTML(File.read(File.join(tmp_dir, 'wiki_content', 'instructor-resources.html')))
 

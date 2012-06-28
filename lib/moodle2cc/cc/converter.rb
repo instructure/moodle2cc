@@ -136,22 +136,13 @@ module Moodle2CC::CC
     end
 
     def create_web_resource(resources_node, mod)
-      identifier = create_key(mod.id, 'resource_')
       if mod.type == 'file'
         web_link = WebLink.new(mod)
         web_link.create_resource_node(resources_node)
         web_link.create_files(@export_dir)
       else
-        href = "wiki_content/#{file_slug(mod.name)}.html"
-        resources_node.resource(
-          :type => 'webcontent',
-          :identifier => identifier,
-          :href => href
-        ) do |resource_node|
-          resource_node.file(:href => href)
-        end
-
         web_content = WebContent.new(mod)
+        web_content.create_resource_node(resources_node)
         web_content.create_files(@export_dir)
       end
     end
