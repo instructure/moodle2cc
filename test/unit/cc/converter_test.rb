@@ -141,33 +141,6 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert file
   end
 
-  def test_imsmanifest_has_a_discussion_topic_resource
-    xml = get_imsmanifest_xml
-
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[4]').first
-    assert resource
-    assert_equal 'imsdt_xmlv1p1', resource.attributes['type'].value
-    assert_equal 'i8a209c39591f6092d924695fca34d98c', resource.attributes['identifier'].value
-
-    file = resource.xpath('xmlns:file[@href="i8a209c39591f6092d924695fca34d98c.xml"]').first
-    assert file
-
-    dependency = resource.xpath('xmlns:dependency[@identifierref="i05a5b1468af5e9257a2f6b0827a0bd96"]').first
-    assert dependency
-
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[5]').first
-    assert resource
-    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
-    assert_equal 'i05a5b1468af5e9257a2f6b0827a0bd96', resource.attributes['identifier'].value
-    assert_equal 'i05a5b1468af5e9257a2f6b0827a0bd96.xml', resource.attributes['href'].value
-
-    file = resource.xpath('xmlns:file[@href="i05a5b1468af5e9257a2f6b0827a0bd96.xml"]').first
-    assert file
-
-    assert get_imscc_file('i8a209c39591f6092d924695fca34d98c.xml') # topic xml
-    assert get_imscc_file('i05a5b1468af5e9257a2f6b0827a0bd96.xml') # topic meta xml
-  end
-
   def test_imsmanifest_has_a_webcontent_resource
     xml = get_imsmanifest_xml
 

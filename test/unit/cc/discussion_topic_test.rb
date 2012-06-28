@@ -7,11 +7,7 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @backup_path = create_moodle_backup_zip
-    @backup = Moodle2CC::Moodle::Backup.read @backup_path
-    @export_dir = File.expand_path("../../../tmp", __FILE__)
-    @converter = Moodle2CC::CC::Converter.new @backup, @export_dir
-    @converter.convert
+    convert_moodle_backup
     @mod = @backup.course.mods[2] # discussion topic module
   end
 
@@ -70,6 +66,39 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
     discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
     assert_equal 'ic2f863a4aeaa551a04dfbea65d6e72bb', discussion_topic.identifierref
   end
+
+  def test_it_creates_resource_in_imsmanifest
+    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    node = Builder::XmlMarkup.new
+    xml = node.root do |root_node|
+      discussion_topic.create_resource_node(node)
+    end
+    xml = Nokogiri::XML(xml)
+
+    resource = xml.root.xpath('resource[1]').first
+    assert resource
+    assert_equal 'imsdt_xmlv1p1', resource.attributes['type'].value
+    assert_equal 'i8a209c39591f6092d924695fca34d98c', resource.attributes['identifier'].value
+
+    file = resource.xpath('file[@href="i8a209c39591f6092d924695fca34d98c.xml"]').first
+    assert file
+
+    dependency = resource.xpath('dependency[@identifierref="i05a5b1468af5e9257a2f6b0827a0bd96"]').first
+    assert dependency
+
+    resource = xml.root.xpath('resource[2]').first
+    assert resource
+    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
+    assert_equal 'i05a5b1468af5e9257a2f6b0827a0bd96', resource.attributes['identifier'].value
+    assert_equal 'i05a5b1468af5e9257a2f6b0827a0bd96.xml', resource.attributes['href'].value
+
+    file = resource.xpath('file[@href="i05a5b1468af5e9257a2f6b0827a0bd96.xml"]').first
+    assert file
+
+    assert get_imscc_file('i8a209c39591f6092d924695fca34d98c.xml') # topic xml
+    assert get_imscc_file('i05a5b1468af5e9257a2f6b0827a0bd96.xml') # topic meta xml
+  end
+
 
   def test_it_create_topic_xml
     @mod.name = "Announcements"

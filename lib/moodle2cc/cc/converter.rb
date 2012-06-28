@@ -163,24 +163,8 @@ module Moodle2CC::CC
     end
 
     def create_forum_resource(resources_node, mod)
-      identifier = create_key(mod.id, 'resource_')
-
-      dependency_ref = create_key(mod.id, 'topic_meta_')
-      resources_node.resource(
-        :type => 'imsdt_xmlv1p1',
-        :identifier => identifier
-      ) do |resource_node|
-        resource_node.file(:href => "#{identifier}.xml")
-        resource_node.dependency(:identifierref => dependency_ref)
-      end
-      resources_node.resource(
-        :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
-        :identifier => dependency_ref,
-        :href => "#{dependency_ref}.xml"
-      ) do |resource_node|
-        resource_node.file(:href => "#{dependency_ref}.xml")
-      end
       discussion_topic = DiscussionTopic.new(mod)
+      discussion_topic.create_resource_node(resources_node)
       discussion_topic.create_files(@export_dir)
     end
 

@@ -25,6 +25,26 @@ module Moodle2CC::CC
       create_key(id, 'topic_meta_')
     end
 
+    def create_resource_node(resources_node)
+      identifier = create_key(@id, 'resource_')
+      dependency_ref = create_key(@id, 'topic_meta_')
+
+      resources_node.resource(
+        :type => DISCUSSION_TOPIC,
+        :identifier => identifier
+      ) do |resource_node|
+        resource_node.file(:href => "#{identifier}.xml")
+        resource_node.dependency(:identifierref => dependency_ref)
+      end
+      resources_node.resource(
+        :type => LOR,
+        :identifier => dependency_ref,
+        :href => "#{dependency_ref}.xml"
+      ) do |resource_node|
+        resource_node.file(:href => "#{dependency_ref}.xml")
+      end
+    end
+
     def create_files(export_dir)
       create_topic_xml(export_dir)
       create_topic_meta_xml(export_dir)
