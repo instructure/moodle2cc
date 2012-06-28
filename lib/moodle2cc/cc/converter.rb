@@ -186,7 +186,7 @@ module Moodle2CC::CC
 
     def create_course_content(resources_node)
       course = Course.new(@moodle_backup.course)
-      course.create_resources_node(resources_node)
+      course.create_resource_node(resources_node)
       course.create_files(@export_dir)
     end
 

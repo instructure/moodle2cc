@@ -19,7 +19,7 @@ module Moodle2CC::CC
       create_key(id, 'course_')
     end
 
-    def create_resources_node(resources_node)
+    def create_resource_node(resources_node)
       syllabus_href = File.join(COURSE_SETTINGS_DIR, SYLLABUS)
       resources_node.resource(
         :intendeduse => 'syllabus',

@@ -42,7 +42,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
 
   def test_it_creates_resource_in_imsmanifest
     node = Builder::XmlMarkup.new
-    xml = Nokogiri::XML(@cc_course.create_resources_node(node))
+    xml = Nokogiri::XML(@cc_course.create_resource_node(node))
 
     resource = xml.xpath('resource').first
     assert resource
