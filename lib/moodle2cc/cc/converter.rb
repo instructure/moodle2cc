@@ -117,9 +117,9 @@ module Moodle2CC::CC
         end
 
         @moodle_backup.files.each do |file|
-          href = "web_resources/#{file}"
+          href = File.join(WEB_RESOURCES_FOLDER, file)
           resources_node.resource(
-            :type => 'webcontent',
+            :type => WEBCONTENT,
             :identifier => create_key(href, 'resource_'),
             :href => href
           ) do |resource_node|
