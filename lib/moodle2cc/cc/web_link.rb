@@ -14,6 +14,16 @@ module Moodle2CC::CC
       create_key(id, 'resource_')
     end
 
+    def create_resource_node(resources_node)
+      identifier = create_key(@id, 'resource_')
+      resources_node.resource(
+        :type => WEB_LINK,
+        :identifier => identifier
+      ) do |resource_node|
+        resource_node.file(:href => "#{identifier}.xml")
+      end
+    end
+
     def create_files(export_dir)
       create_xml(export_dir)
     end

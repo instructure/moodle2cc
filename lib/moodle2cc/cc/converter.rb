@@ -138,14 +138,8 @@ module Moodle2CC::CC
     def create_web_resource(resources_node, mod)
       identifier = create_key(mod.id, 'resource_')
       if mod.type == 'file'
-        resources_node.resource(
-          :type => 'imswl_xmlv1p1',
-          :identifier => identifier
-        ) do |resource_node|
-          resource_node.file(:href => "#{identifier}.xml")
-        end
-
         web_link = WebLink.new(mod)
+        web_link.create_resource_node(resources_node)
         web_link.create_files(@export_dir)
       else
         href = "wiki_content/#{file_slug(mod.name)}.html"

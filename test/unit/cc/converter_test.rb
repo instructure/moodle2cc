@@ -129,18 +129,6 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'Section 1', item.xpath('xmlns:title').text
   end
 
-  def test_imsmanifest_has_a_weblink_resource
-    xml = get_imsmanifest_xml
-
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[3]').first
-    assert resource
-    assert_equal 'imswl_xmlv1p1', resource.attributes['type'].value
-    assert_equal 'ibd69090f0854ccc9bc06276117c9fffd', resource.attributes['identifier'].value
-
-    file = resource.xpath('xmlns:file[@href="ibd69090f0854ccc9bc06276117c9fffd.xml"]').first
-    assert file
-  end
-
   def test_imsmanifest_has_a_webcontent_resource
     xml = get_imsmanifest_xml
 

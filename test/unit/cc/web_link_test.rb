@@ -6,50 +6,64 @@ require 'moodle2cc'
 class TestUnitCCWebLink < MiniTest::Unit::TestCase
   include TestHelper
 
+  def setup
+    convert_moodle_backup
+    @mod = @backup.course.mods.find { |m| m.mod_type == "resource" && m.type == "file" }
+  end
+
   def teardown
     clean_tmp_folder
   end
 
   def test_it_converts_id
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 123
+    @mod.id = 123
 
-    web_link = Moodle2CC::CC::WebLink.new mod
+    web_link = Moodle2CC::CC::WebLink.new @mod
     assert_equal 123, web_link.id
   end
 
   def test_it_converts_title
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.name = "About Your Instructor"
+    @mod.name = "About Your Instructor"
 
-    web_link = Moodle2CC::CC::WebLink.new mod
+    web_link = Moodle2CC::CC::WebLink.new @mod
     assert_equal "About Your Instructor", web_link.title
   end
 
   def test_it_converts_url
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.reference = "http://en.wikipedia.org/wiki/Einstein"
+    @mod.reference = "http://en.wikipedia.org/wiki/Einstein"
 
-    web_link = Moodle2CC::CC::WebLink.new mod
+    web_link = Moodle2CC::CC::WebLink.new @mod
     assert_equal "http://en.wikipedia.org/wiki/Einstein", web_link.url
   end
 
   def test_it_has_an_identifier
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 123
+    @mod.id = 123
 
-    web_link = Moodle2CC::CC::WebLink.new mod
+    web_link = Moodle2CC::CC::WebLink.new @mod
     assert_equal 'i802fea43604b8e56736e233ae2ca2ee9', web_link.identifier
   end
 
+  def test_it_creates_resource_in_imsmanifest
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(web_link.create_resource_node(node))
+
+    resource = xml.xpath('resource').first
+    assert resource
+    assert_equal 'imswl_xmlv1p1', resource.attributes['type'].value
+    assert_equal 'ibd69090f0854ccc9bc06276117c9fffd', resource.attributes['identifier'].value
+
+    file = resource.xpath('file[@href="ibd69090f0854ccc9bc06276117c9fffd.xml"]').first
+    assert file
+  end
+
   def test_it_creates_xml
-    mod = Moodle2CC::Moodle::Mod.new
-    mod.id = 123
-    mod.name = "About Your Instructor"
-    mod.reference = "http://en.wikipedia.org/wiki/Einstein"
+    @mod.id = 123
+    @mod.name = "About Your Instructor"
+    @mod.reference = "http://en.wikipedia.org/wiki/Einstein"
 
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
-    web_link = Moodle2CC::CC::WebLink.new mod
+    web_link = Moodle2CC::CC::WebLink.new @mod
     web_link.create_xml(tmp_dir)
     xml = Nokogiri::XML(File.read(File.join(tmp_dir, "#{web_link.identifier}.xml")))
 
