@@ -7,7 +7,8 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    stub_moodle_backup
+    @backup_path = create_moodle_backup_zip
+    @backup = Moodle2CC::Moodle::Backup.read @backup_path
     @course = @backup.course
     @cc_course = Moodle2CC::CC::Course.new @course
   end
@@ -17,7 +18,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_id
-    assert_equal 123, @cc_course.id
+    assert_equal 55555, @cc_course.id
   end
 
   def test_it_converts_title
@@ -37,7 +38,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_syllabus_body
-    assert_equal 'This is the Syllabus', @cc_course.syllabus_body
+    assert_equal '<h1>This is the Syllabus</h1>', @cc_course.syllabus_body
   end
 
   def test_it_creates_syllabus_file

@@ -61,7 +61,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_content
-    assert_equal "<h1>Label 1</h1>", @mods[3].content
+    assert_equal "Section 1", @mods[3].content
   end
 
   def test_it_has_an_assignment_type

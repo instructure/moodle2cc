@@ -7,7 +7,11 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    stub_moodle_backup
+    @backup_path = create_moodle_backup_zip
+    @backup = Moodle2CC::Moodle::Backup.read @backup_path
+    @export_dir = File.expand_path("../../../tmp", __FILE__)
+    @converter = Moodle2CC::CC::Converter.new @backup, @export_dir
+    @converter.convert
   end
 
   def teardown
@@ -43,7 +47,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   def test_imsmanifest_has_manifest_root
     xml = get_imsmanifest_xml
     assert_equal "manifest", xml.root.name
-    assert_equal "i169d3646de97621daf8cdd49878a95dc", xml.root.attributes['identifier'].value
+    assert_equal "i24f498fba015133ae97c6e6693a32b4d", xml.root.attributes['identifier'].value
   end
 
   def test_imsmanifest_has_proper_namespaces
@@ -109,7 +113,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]').first
     assert item
-    assert_equal "i84cbfb8e81c780e847d0087e024dd2f2", item.attributes['identifier'].value
+    assert_equal "iebbd12be3d1d1ba16e241599099c4795", item.attributes['identifier'].value
     assert_equal 'week 1', item.xpath('xmlns:title').text
   end
 
@@ -250,16 +254,16 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[7]').first
     assert resource
     assert_equal 'webcontent', resource.attributes['type'].value
-    assert_equal 'ib98bb8ec201a97840ae4ed4bb40207c0', resource.attributes['identifier'].value
-    assert_equal 'web_resources/test.txt', resource.attributes['href'].value
-    assert resource.xpath('xmlns:file[@href="web_resources/test.txt"]').first
+    assert_equal 'i2fbc9b5ef920655b8240824d3d7b677a', resource.attributes['identifier'].value
+    assert_equal 'web_resources/folder/test.txt', resource.attributes['href'].value
+    assert resource.xpath('xmlns:file[@href="web_resources/folder/test.txt"]').first
 
     resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[8]').first
     assert resource
     assert_equal 'webcontent', resource.attributes['type'].value
-    assert_equal 'i2fbc9b5ef920655b8240824d3d7b677a', resource.attributes['identifier'].value
-    assert_equal 'web_resources/folder/test.txt', resource.attributes['href'].value
-    assert resource.xpath('xmlns:file[@href="web_resources/folder/test.txt"]').first
+    assert_equal 'ib98bb8ec201a97840ae4ed4bb40207c0', resource.attributes['identifier'].value
+    assert_equal 'web_resources/test.txt', resource.attributes['href'].value
+    assert resource.xpath('xmlns:file[@href="web_resources/test.txt"]').first
   end
 
   def test_it_deletes_all_files_except_imscc

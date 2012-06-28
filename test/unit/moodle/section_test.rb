@@ -22,7 +22,7 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_sections
-    assert_equal 1, @sections.length
+    assert_equal 2, @sections.length
   end
 
   def test_it_has_an_id
@@ -34,7 +34,7 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
   end
 
   def test_it_has_a_summary
-    assert_equal "<h1>Week 0 Summary</h1>", @section.summary
+    assert_equal "<h1>This is the Syllabus</h1>", @section.summary
   end
 
   def test_it_has_a_visibility

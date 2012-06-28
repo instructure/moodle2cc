@@ -7,7 +7,11 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    stub_moodle_backup
+    @backup_path = create_moodle_backup_zip
+    @backup = Moodle2CC::Moodle::Backup.read @backup_path
+    @export_dir = File.expand_path("../../../tmp", __FILE__)
+    @converter = Moodle2CC::CC::Converter.new @backup, @export_dir
+    @converter.convert
     @mod = @backup.course.mods[2] # discussion topic module
   end
 

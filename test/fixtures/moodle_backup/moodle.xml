@@ -15,7 +15,7 @@
       <SECTION>
         <ID>12345</ID>
         <NUMBER>0</NUMBER>
-        <SUMMARY>&lt;h1&gt;Week 0 Summary&lt;/h1&gt;</SUMMARY>
+        <SUMMARY>&lt;h1&gt;This is the Syllabus&lt;/h1&gt;</SUMMARY>
         <VISIBLE>1</VISIBLE>
         <MODS>
           <MOD>
@@ -41,6 +41,31 @@
             <INSTANCE>876</INSTANCE>
             <ADDED>1338472800</ADDED>
             <SCORE>0</SCORE>
+            <INDENT>1</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER>$@NULL@$</IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
+        </MODS>
+      </SECTION>
+      <SECTION>
+        <ID>12345</ID>
+        <NUMBER>1</NUMBER>
+        <SUMMARY>&lt;h1&gt;Week 1 Summary&lt;/h1&gt;</SUMMARY>
+        <VISIBLE>1</VISIBLE>
+        <MODS>
+          <MOD>
+            <ID>33333</ID>
+            <TYPE>forum</TYPE>
+            <INSTANCE>765</INSTANCE>
+            <ADDED>1338472800</ADDED>
+            <SCORE>0</SCORE>
             <INDENT>0</INDENT>
             <VISIBLE>1</VISIBLE>
             <GROUPMODE>0</GROUPMODE>
@@ -53,12 +78,12 @@
             </ROLES_ASSIGNMENTS>
           </MOD>
           <MOD>
-            <ID>33333</ID>
-            <TYPE>forum</TYPE>
-            <INSTANCE>765</INSTANCE>
+            <ID>44444</ID>
+            <TYPE>label</TYPE>
+            <INSTANCE>654</INSTANCE>
             <ADDED>1338472800</ADDED>
             <SCORE>0</SCORE>
-            <INDENT>0</INDENT>
+            <INDENT>1</INDENT>
             <VISIBLE>1</VISIBLE>
             <GROUPMODE>0</GROUPMODE>
             <GROUPINGID>0</GROUPINGID>
@@ -129,8 +154,8 @@
       <MOD>
         <ID>654</ID>
         <MODTYPE>label</MODTYPE>
-        <NAME>label13403</NAME>
-        <CONTENT>&lt;h1&gt;Label 1&lt;/h1&gt;</CONTENT>
+        <NAME>label123</NAME>
+        <CONTENT>Section 1</CONTENT>
         <TIMEMODIFIED>1317073854</TIMEMODIFIED>
       </MOD>
       <MOD>
