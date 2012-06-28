@@ -129,22 +129,6 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'Section 1', item.xpath('xmlns:title').text
   end
 
-  def test_imsmanifest_has_an_assignment_resource
-    xml = get_imsmanifest_xml
-
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[2]').first
-    assert resource
-    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
-    assert_equal 'i0f77b146a52ac0f709e1690512154726/create-a-rails-site.html', resource.attributes['href'].value
-    assert_equal 'i0f77b146a52ac0f709e1690512154726', resource.attributes['identifier'].value
-
-    file = resource.xpath('xmlns:file[@href="i0f77b146a52ac0f709e1690512154726/create-a-rails-site.html"]').first
-    assert file
-
-    file = resource.xpath('xmlns:file[@href="i0f77b146a52ac0f709e1690512154726/assignment_settings.xml"]').first
-    assert file
-  end
-
   def test_imsmanifest_has_a_weblink_resource
     xml = get_imsmanifest_xml
 

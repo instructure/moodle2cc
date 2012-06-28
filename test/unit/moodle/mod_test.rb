@@ -73,7 +73,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_a_prevent_late
-    assert_equal false, @mods[0].prevent_late
+    assert_equal true, @mods[0].prevent_late
   end
 
   def test_it_has_a_grade
@@ -81,11 +81,11 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_a_time_due
-    assert_equal 0, @mods[0].time_due
+    assert_equal 1355356740, @mods[0].time_due
   end
 
   def test_it_has_a_time_available
-    assert_equal 0, @mods[0].time_available
+    assert_equal 1355314332, @mods[0].time_available
   end
 
   def test_it_has_a_reference

@@ -131,17 +131,7 @@ module Moodle2CC::CC
 
     def create_assignment_resource(resources_node, mod)
       assignment = Assignment.new(mod)
-
-      href = "#{assignment.identifier}/#{file_slug(mod.name)}.html"
-      resources_node.resource(
-        :href => href,
-        :type => 'associatedcontent/imscc_xmlv1p1/learning-application-resource',
-        :identifier => assignment.identifier
-      ) do |resource_node|
-        resource_node.file(:href => href)
-        resource_node.file(:href => File.join(assignment.identifier, ASSIGNMENT_SETTINGS))
-      end
-
+      assignment.create_resource_node(resources_node)
       assignment.create_files(@export_dir)
     end
 

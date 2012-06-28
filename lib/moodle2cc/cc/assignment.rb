@@ -49,6 +49,18 @@ module Moodle2CC::CC
       create_key(id, 'resource_')
     end
 
+    def create_resource_node(resources_node)
+      href = "#{identifier}/#{file_slug(@title)}.html"
+      resources_node.resource(
+        :href => href,
+        :type => LOR,
+        :identifier => identifier
+      ) do |resource_node|
+        resource_node.file(:href => href)
+        resource_node.file(:href => File.join(identifier, ASSIGNMENT_SETTINGS))
+      end
+    end
+
     def create_files(export_dir)
       create_html(export_dir)
       create_settings_xml(export_dir)
