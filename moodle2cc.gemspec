@@ -15,6 +15,9 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "nokogiri"
+  gem.add_development_dependency "guard"
+  gem.add_development_dependency "guard-bundler"
+  gem.add_development_dependency "guard-minitest"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
