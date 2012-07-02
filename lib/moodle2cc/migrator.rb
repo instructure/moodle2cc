@@ -8,7 +8,9 @@ module Moodle2CC
     end
 
     def migrate
-      FileUtils.cp @source, File.join(@destination, File.basename(@source).sub(/\.zip$/, '') + '.imscc')
+      backup = Moodle2CC::Moodle::Backup.read @source
+      converter = Moodle2CC::CC::Converter.new backup, @destination
+      converter.convert
     end
   end
 end

@@ -1,15 +1,18 @@
 require 'minitest/autorun'
+require 'test/test_helper'
 require 'moodle2cc'
 
 class TestAcceptanceMigrator < MiniTest::Unit::TestCase
+  include TestHelper
+
   def setup
-    @source = File.expand_path("../../fixtures/moodle_backup.zip", __FILE__)
+    @source = create_moodle_backup_zip
     @destination = File.expand_path("../../tmp", __FILE__)
-    @package = File.expand_path("../../tmp/moodle_backup.imscc", __FILE__)
+    @package = File.expand_path("../../tmp/my-course.imscc", __FILE__)
   end
 
   def teardown
-    Dir[File.expand_path("../../tmp/**", __FILE__)].each { |file| FileUtils.rm file }
+    clean_tmp_folder
   end
 
   def test_it_creates_a_cc_package

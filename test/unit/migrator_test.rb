@@ -1,10 +1,17 @@
 require 'minitest/autorun'
+require 'test/test_helper'
 require 'moodle2cc'
 
 class TestUnitMigrator < MiniTest::Unit::TestCase
+  include TestHelper
+
   def setup
-    @valid_source = File.expand_path("../../fixtures/moodle_backup.zip", __FILE__)
+    @valid_source = create_moodle_backup_zip
     @valid_destination = File.expand_path("../../tmp", __FILE__)
+  end
+
+  def teardown
+    clean_tmp_folder
   end
 
   def test_it_accepts_a_source_and_destination
@@ -22,5 +29,12 @@ class TestUnitMigrator < MiniTest::Unit::TestCase
     assert_raises Moodle2CC::Error, "'is_not_a_directory' is not a directory" do
       Moodle2CC::Migrator.new @valid_source, 'is_not_a_directory'
     end
+  end
+
+  def test_it_converts_moodle_backup
+    migrator = Moodle2CC::Migrator.new @valid_source, @valid_destination
+    migrator.migrate
+    imscc_file = File.join(@valid_destination, "my-course.imscc")
+    assert File.exists?(imscc_file), "#{imscc_file} does not exist"
   end
 end
