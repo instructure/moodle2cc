@@ -29,5 +29,9 @@ module Moodle2CC::Moodle
     def section_mod
       course.sections.map { |section| section.mods.find { |mod| mod.instance_id == id } }.compact.first
     end
+
+    def grade_item
+      course.grade_items.find { |grade_item| grade_item.item_instance == id }
+    end
   end
 end

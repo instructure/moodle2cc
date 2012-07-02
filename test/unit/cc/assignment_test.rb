@@ -41,9 +41,10 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_points_possible
-    @mod.grade = 5
+    grade_item = @mod.grade_item
+    grade_item.grade_max = 187
     assignment = Moodle2CC::CC::Assignment.new @mod
-    assert_equal 5, assignment.points_possible
+    assert_equal 187, assignment.points_possible
   end
 
   def test_it_converts_grading_type
@@ -165,7 +166,7 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
 
     assert_equal 'Create a Rails site', xml.xpath('xmlns:assignment/xmlns:title').text
     assert_equal 'i521ff0228432bb106b9535e8c5139df3', xml.xpath('xmlns:assignment/xmlns:assignment_group_identifierref').text
-    assert_equal '5', xml.xpath('xmlns:assignment/xmlns:points_possible').text
+    assert_equal '150.0', xml.xpath('xmlns:assignment/xmlns:points_possible').text
     assert_equal 'points', xml.xpath('xmlns:assignment/xmlns:grading_type').text
     assert_equal 'true', xml.xpath('xmlns:assignment/xmlns:all_day').text
     assert_equal 'none', xml.xpath('xmlns:assignment/xmlns:submission_types').text

@@ -12,7 +12,7 @@ module Moodle2CC::CC
       @id = mod.id
       @title = mod.name
       @body = mod.description
-      @points_possible = mod.grade
+      @points_possible = mod.grade_item.grade_max
       @grading_type = 'points'
       if mod.time_due.to_i > 0
         @due_at = ims_datetime(Time.at(mod.time_due))

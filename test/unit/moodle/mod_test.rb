@@ -103,4 +103,10 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   def test_it_has_section_mods
     assert_equal @course.sections.first.mods.first, @mods[0].section_mod
   end
+
+  def test_it_has_a_grade_item
+    mod = @mods.find { |m| m.id == 987 }
+    grade_item = @course.grade_items.find { |g| g.item_instance == mod.id }
+    assert_equal grade_item, mod.grade_item
+  end
 end

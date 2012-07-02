@@ -24,6 +24,7 @@ module Moodle2CC
     autoload :Backup, 'moodle2cc/moodle/backup'
     autoload :Info, 'moodle2cc/moodle/info'
     autoload :Course, 'moodle2cc/moodle/course'
+    autoload :GradeItem, 'moodle2cc/moodle/grade_item'
     autoload :Section, 'moodle2cc/moodle/section'
     autoload :Mod, 'moodle2cc/moodle/mod'
   end
