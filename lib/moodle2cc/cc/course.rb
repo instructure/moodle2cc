@@ -104,7 +104,7 @@ module Moodle2CC::CC
                       item_node.content_type 'Assignment'
                     when 'resource'
                       if mod.instance.type == 'file'
-                        item_node.content_type 'Attachment'
+                        item_node.content_type 'ExternalUrl'
                         item_node.url mod.instance.reference
                       else
                         item_node.content_type 'WikiPage'

@@ -138,7 +138,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[2]').first
     assert_equal 'i4415a1a262d5e1a5759802e73f207a01', item_node.attributes['identifier'].value
-    assert_equal 'Attachment', item_node.xpath('xmlns:content_type').text
+    assert_equal 'ExternalUrl', item_node.xpath('xmlns:content_type').text
     assert_equal 'About Your Instructor', item_node.xpath('xmlns:title').text
     assert_equal '1', item_node.xpath('xmlns:position').text
     assert_equal '', item_node.xpath('xmlns:new_tab').text
