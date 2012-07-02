@@ -17,7 +17,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 5, @mods.length
+    assert_equal 6, @mods.length
   end
 
   def test_it_has_an_id

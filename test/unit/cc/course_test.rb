@@ -150,7 +150,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal 'week 1', module_node.xpath('xmlns:title').text
     assert_equal '1', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
-    assert_equal 2, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+    assert_equal 4, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[1]').first
     assert_equal 'i485c622e5b692e8989fee0472c218726', item_node.attributes['identifier'].value
@@ -168,6 +168,24 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '1', item_node.xpath('xmlns:position').text
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '1', item_node.xpath('xmlns:indent').text
+
+    item_node = module_node.xpath('xmlns:items/xmlns:item[3]').first
+    assert_equal 'iff46847689e6d41a1940d86bd4229c50', item_node.attributes['identifier'].value
+    assert_equal 'WikiPage', item_node.xpath('xmlns:content_type').text
+    assert_equal 'Instructor Resources', item_node.xpath('xmlns:title').text
+    assert_equal '2', item_node.xpath('xmlns:position').text
+    assert_equal '', item_node.xpath('xmlns:new_tab').text
+    assert_equal '1', item_node.xpath('xmlns:indent').text
+    assert_equal 'iba86a128db9938df9fcb00979b436e1f', item_node.xpath('xmlns:identifierref').text
+
+    item_node = module_node.xpath('xmlns:items/xmlns:item[4]').first
+    assert_equal 'i40c98474eaa3165ec89ba880ced59151', item_node.attributes['identifier'].value
+    assert_equal 'Attachment', item_node.xpath('xmlns:content_type').text
+    assert_equal 'Test Text File', item_node.xpath('xmlns:title').text
+    assert_equal '3', item_node.xpath('xmlns:position').text
+    assert_equal '', item_node.xpath('xmlns:new_tab').text
+    assert_equal '1', item_node.xpath('xmlns:indent').text
+    assert_equal 'i2fbc9b5ef920655b8240824d3d7b677a', item_node.xpath('xmlns:identifierref').text
   end
 
   def test_it_creates_assignment_groups_xml

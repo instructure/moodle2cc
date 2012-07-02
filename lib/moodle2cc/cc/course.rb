@@ -97,20 +97,29 @@ module Moodle2CC::CC
                     item_node.position index
                     item_node.new_tab ''
                     item_node.indent mod.indent
-                    item_node.identifierref create_key(mod.instance.id, 'resource_') unless mod.instance.mod_type == 'label'
 
                     case mod.instance.mod_type
                     when 'assignment'
                       item_node.content_type 'Assignment'
+                      item_node.identifierref create_key(mod.instance.id, 'resource_')
                     when 'resource'
                       if mod.instance.type == 'file'
-                        item_node.content_type 'ExternalUrl'
-                        item_node.url mod.instance.reference
+                        uri = URI.parse(mod.instance.reference)
+                        if uri.scheme
+                          item_node.content_type 'ExternalUrl'
+                          item_node.url mod.instance.reference
+                          item_node.identifierref create_key(mod.instance.id, 'resource_')
+                        else
+                          item_node.content_type 'Attachment'
+                          item_node.identifierref create_key(File.join(WEB_RESOURCES_FOLDER, mod.instance.reference), 'resource_')
+                        end
                       else
                         item_node.content_type 'WikiPage'
+                        item_node.identifierref create_key(mod.instance.id, 'resource_')
                       end
                     when 'forum'
                       item_node.content_type 'DiscussionTopic'
+                      item_node.identifierref create_key(mod.instance.id, 'resource_')
                     when 'label'
                       item_node.content_type 'ContextModuleSubHeader'
                     end
