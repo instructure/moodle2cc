@@ -5,6 +5,8 @@ module TestHelper
     moodle_backup_path = File.expand_path("../tmp/moodle_backup.zip", __FILE__)
     Zip::ZipFile.open(moodle_backup_path, Zip::ZipFile::CREATE) do |zipfile|
       zipfile.add("moodle.xml", File.expand_path("../fixtures/moodle_backup/moodle.xml", __FILE__))
+      zipfile.mkdir("course_files")
+      zipfile.mkdir("course_files/folder")
       zipfile.add("course_files/test.txt", File.expand_path("../fixtures/moodle_backup/course_files/test.txt", __FILE__))
       zipfile.add("course_files/folder/test.txt", File.expand_path("../fixtures/moodle_backup/course_files/folder/test.txt", __FILE__))
     end
