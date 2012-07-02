@@ -99,7 +99,7 @@ module CCHelper
   end
 
   def self.file_slug(name)
-    name.downcase.gsub(/\s/, '-')
+    name.downcase.gsub(/\s/, '-').gsub(/[^a-z0-9\.\-]/, '')
   end
 
   def get_html_title_and_body_and_id(doc)
