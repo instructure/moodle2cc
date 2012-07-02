@@ -12,7 +12,7 @@ module Moodle2CC::CC
       @course_code = course.shortname
       @start_at = ims_datetime(Time.at(course.startdate))
       @is_public = course.visible
-      @syllabus_body = course.sections.first.summary
+      @syllabus_body = convert_file_path_tokens(course.sections.first.summary)
     end
 
     def identifier

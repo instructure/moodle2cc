@@ -11,7 +11,7 @@ module Moodle2CC::CC
     def initialize(mod, position=0)
       @id = mod.id
       @title = mod.name
-      @body = mod.description
+      @body = convert_file_path_tokens(mod.description)
       @points_possible = mod.grade_item.grade_max
       @grading_type = 'points'
       if mod.time_due.to_i > 0

@@ -7,7 +7,7 @@ module Moodle2CC::CC
     def initialize(mod)
       @id = mod.id
       @title = mod.name
-      @body = mod.alltext
+      @body = convert_file_path_tokens(mod.alltext)
     end
 
     def identifier

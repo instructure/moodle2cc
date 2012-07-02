@@ -7,7 +7,7 @@ module Moodle2CC::CC
     def initialize(mod, position=0)
       @id = mod.id
       @title = mod.name
-      @text = mod.intro
+      @text = convert_file_path_tokens(mod.intro)
 
       if mod.section_mod && mod.section_mod.added.to_i > 0
         @posted_at = ims_datetime(Time.at(mod.section_mod.added))

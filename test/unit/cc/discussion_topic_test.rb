@@ -30,10 +30,10 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_text
-    @mod.intro = "<h1>Hello World</h1>"
+    @mod.intro = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
 
     discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
-    assert_equal "<h1>Hello World</h1>", discussion_topic.text
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), discussion_topic.text
   end
 
   def test_it_converts_posted_at

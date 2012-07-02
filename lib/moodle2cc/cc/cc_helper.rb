@@ -44,6 +44,8 @@ module CCHelper
   COURSE_TOKEN = "$CANVAS_COURSE_REFERENCE$"
   WIKI_TOKEN = "$WIKI_REFERENCE$"
   WEB_CONTENT_TOKEN = "$IMS_CC_FILEBASE$"
+  MOODLE_FILEBASE_TOKEN = "$@FILEPHP@$"
+  MOODLE_SLASH_TOKEN = "$@SLASH@$"
 
   # file names/paths
   ASSESSMENT_CC_QTI = "assessment_qti.xml"
@@ -83,6 +85,10 @@ module CCHelper
     CCHelper.file_slug(name)
   end
 
+  def convert_file_path_tokens(content)
+    CCHelper.convert_file_path_tokens(content)
+  end
+
   def self.create_key(object, prepend="")
     key = object.to_s
     "i" + Digest::MD5.hexdigest(prepend + key)
@@ -100,6 +106,10 @@ module CCHelper
 
   def self.file_slug(name)
     name.downcase.gsub(/\s/, '-').gsub(/[^a-z0-9\.\-]/, '')
+  end
+
+  def self.convert_file_path_tokens(content)
+    content.gsub(MOODLE_FILEBASE_TOKEN, WEB_CONTENT_TOKEN).gsub(MOODLE_SLASH_TOKEN, '/')
   end
 
   def get_html_title_and_body_and_id(doc)

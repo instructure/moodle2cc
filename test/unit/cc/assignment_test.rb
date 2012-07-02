@@ -29,9 +29,9 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_body
-    @mod.description = "<h1>Hello World</h1>"
+    @mod.description = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
     assignment = Moodle2CC::CC::Assignment.new @mod
-    assert_equal "<h1>Hello World</h1>", assignment.body
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assignment.body
   end
 
   def test_it_converts_assignment_group_identifierref

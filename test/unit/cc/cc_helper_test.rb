@@ -8,4 +8,8 @@ class TestUnitCCCCHelper < MiniTest::Unit::TestCase
   def test_it_creates_valid_file_names
     assert_equal 'psy101-isnt-this-a-cool-course', Moodle2CC::CC::CCHelper.file_slug("PSY101 Isn't this a cool course?")
   end
+
+  def test_is_converts_file_path_tokens
+    assert_equal '$IMS_CC_FILEBASE$/folder/stuff.jpg', Moodle2CC::CC::CCHelper.convert_file_path_tokens('$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg')
+  end
 end

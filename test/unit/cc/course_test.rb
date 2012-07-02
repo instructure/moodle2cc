@@ -37,7 +37,11 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_syllabus_body
-    assert_equal '<h1>This is the Syllabus</h1>', @cc_course.syllabus_body
+    section = Moodle2CC::Moodle::Section.new
+    section.summary = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    @course.sections = [section]
+    cc_course = Moodle2CC::CC::Course.new @course
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), cc_course.syllabus_body
   end
 
   def test_it_creates_resource_in_imsmanifest

@@ -30,10 +30,10 @@ class TestUnitCCWebContent < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_body
-    @mod.alltext = "<p><strong>Instructor Resources</strong></p>"
+    @mod.alltext = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
 
     web_content = Moodle2CC::CC::WebContent.new @mod
-    assert_equal "<p><strong>Instructor Resources</strong></p>", web_content.body
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), web_content.body
   end
 
   def test_it_has_an_identifier
