@@ -2,31 +2,38 @@ module Moodle2CC::CC
   class Converter
     include CCHelper
 
-    def initialize(moodle_backup, export_dir)
+    def initialize(moodle_backup, destination_dir)
       @moodle_backup = moodle_backup
-      @export_dir = export_dir
+      @export_dir = Dir.mktmpdir
+      @destination_dir = destination_dir
+    end
+
+    def imscc_file_name
+      "#{file_slug(@moodle_backup.course.fullname)}.imscc"
     end
 
     def imscc_path
-      @imscc_path ||= ::File.join(@export_dir, "#{@moodle_backup.course.fullname.downcase.gsub(/\s/, '_')}.imscc")
+      @imscc_path ||= File.join(@destination_dir, imscc_file_name)
+    end
+
+    def imscc_tmp_path
+      @imscc_tmp_path ||= File.join(@export_dir, imscc_file_name)
     end
 
     def convert
-      ::File.open(::File.join(@export_dir, MANIFEST), 'w') do |file|
+      File.open(File.join(@export_dir, MANIFEST), 'w') do |file|
         @document = Builder::XmlMarkup.new(:target => file, :indent => 2)
         @document.instruct!
         create_manifest
       end
       create_web_resources
-      Zip::ZipFile.open(imscc_path, Zip::ZipFile::CREATE) do |zipfile|
+      Zip::ZipFile.open(imscc_tmp_path, Zip::ZipFile::CREATE) do |zipfile|
         Dir["#{@export_dir}/**/*"].each do |file|
           zipfile.add(file.sub(@export_dir + '/', ''), file)
         end
       end
-      Dir["#{@export_dir}/**/*"].each do |file|
-        next if file.end_with?(imscc_path)
-        FileUtils.rm_r(file) if File.exists?(file)
-      end
+      FileUtils.mv imscc_tmp_path, imscc_path
+      FileUtils.rm_r @export_dir
     end
 
     def create_manifest

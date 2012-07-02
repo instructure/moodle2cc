@@ -15,7 +15,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   end
 
   def test_it_has_the_path_to_the_imscc_package
-    assert_equal File.expand_path("../../../tmp/my_course.imscc", __FILE__), @converter.imscc_path
+    assert_equal File.expand_path("../../../tmp/my-course.imscc", __FILE__), @converter.imscc_path
   end
 
   def test_it_creates_imscc_package
@@ -148,8 +148,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   end
 
   def test_it_deletes_all_files_except_imscc
-    dir = File.dirname(@converter.imscc_path)
-    files = Dir["#{dir}/**/*"]
-    assert_equal [@converter.imscc_path], files
+    refute File.exists? @converter.imscc_tmp_path
+    assert File.exists? @converter.imscc_path
   end
 end
