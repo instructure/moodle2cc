@@ -131,6 +131,84 @@
         </MODS>
       </SECTION>
     </SECTIONS>
+    <QUESTION_CATEGORIES>
+      <QUESTION_CATEGORY>
+        <ID>121</ID>
+        <NAME>Default for Beginning Ruby on Rails</NAME>
+        <INFO>The default category for questions shared in context 'Beginning Ruby on Rails'.</INFO>
+        <CONTEXT>
+          <LEVEL>course</LEVEL>
+        </CONTEXT>
+        <STAMP>moodle19.divergentlogic.com+120607210554+LT0tLH</STAMP>
+        <PARENT>0</PARENT>
+        <SORTORDER>999</SORTORDER>
+        <QUESTIONS>
+          <QUESTION>
+            <ID>989</ID>
+            <PARENT>0</PARENT>
+            <NAME>Basic Arithmetic</NAME>
+            <QUESTIONTEXT>How much is {a} + {b} ?</QUESTIONTEXT>
+            <QUESTIONTEXTFORMAT>1</QUESTIONTEXTFORMAT>
+            <IMAGE></IMAGE>
+            <GENERALFEEDBACK>This should be easy</GENERALFEEDBACK>
+            <DEFAULTGRADE>1</DEFAULTGRADE>
+            <PENALTY>0.1</PENALTY>
+            <QTYPE>calculated</QTYPE>
+            <LENGTH>1</LENGTH>
+            <STAMP>moodle19.divergentlogic.com+120611190033+aAEkO6</STAMP>
+            <VERSION>moodle19.divergentlogic.com+120611211048+IWDtN1</VERSION>
+            <HIDDEN>0</HIDDEN>
+            <TIMECREATED>1339441233</TIMECREATED>
+            <TIMEMODIFIED>1339449048</TIMEMODIFIED>
+            <CREATEDBY>2</CREATEDBY>
+            <MODIFIEDBY>2</MODIFIEDBY>
+            <CALCULATED>
+              <ANSWER>16</ANSWER>
+              <TOLERANCE>0.01</TOLERANCE>
+              <TOLERANCETYPE>1</TOLERANCETYPE>
+              <CORRECTANSWERLENGTH>2</CORRECTANSWERLENGTH>
+              <CORRECTANSWERFORMAT>1</CORRECTANSWERFORMAT>
+              <DATASET_DEFINITIONS>
+                <DATASET_DEFINITION>
+                  <CATEGORY>0</CATEGORY>
+                  <NAME>a</NAME>
+                  <TYPE>1</TYPE>
+                  <OPTIONS>uniform:1.0:10.0:1</OPTIONS>
+                  <ITEMCOUNT>1</ITEMCOUNT>
+                  <DATASET_ITEMS>
+                    <DATASET_ITEM>
+                      <NUMBER>1</NUMBER>
+                      <VALUE>6.7</VALUE>
+                    </DATASET_ITEM>
+                  </DATASET_ITEMS>
+                </DATASET_DEFINITION>
+                <DATASET_DEFINITION>
+                  <CATEGORY>0</CATEGORY>
+                  <NAME>b</NAME>
+                  <TYPE>1</TYPE>
+                  <OPTIONS>uniform:1.0:10.0:1</OPTIONS>
+                  <ITEMCOUNT>1</ITEMCOUNT>
+                  <DATASET_ITEMS>
+                    <DATASET_ITEM>
+                      <NUMBER>1</NUMBER>
+                      <VALUE>3.0</VALUE>
+                    </DATASET_ITEM>
+                  </DATASET_ITEMS>
+                </DATASET_DEFINITION>
+              </DATASET_DEFINITIONS>
+            </CALCULATED>
+            <ANSWERS>
+              <ANSWER>
+                <ID>16</ID>
+                <ANSWER_TEXT>{a} + {b}</ANSWER_TEXT>
+                <FRACTION>1</FRACTION>
+                <FEEDBACK>Great job!</FEEDBACK>
+              </ANSWER>
+            </ANSWERS>
+          </QUESTION>
+        </QUESTIONS>
+      </QUESTION_CATEGORY>
+    </QUESTION_CATEGORIES>
     <MODULES>
       <MOD>
         <ID>987</ID>

@@ -11,6 +11,7 @@ module Moodle2CC::Moodle
     has_many :sections, Section
     has_many :mods, Mod
     has_many :grade_items, GradeItem
+    has_many :question_categories, QuestionCategory
 
     after_parse do |course|
       course.sections.each { |section| section.course = course }

@@ -46,4 +46,8 @@ class TestUnitMoodleCourse < MiniTest::Unit::TestCase
   def test_it_has_grade_items
     assert @course.grade_items.length > 0
   end
+
+  def test_it_has_question_categories
+    assert @course.question_categories.length > 0
+  end
 end

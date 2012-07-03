@@ -28,5 +28,7 @@ module Moodle2CC
     autoload :GradeItem, 'moodle2cc/moodle/grade_item'
     autoload :Section, 'moodle2cc/moodle/section'
     autoload :Mod, 'moodle2cc/moodle/mod'
+    autoload :QuestionCategory, 'moodle2cc/moodle/question_category'
+    autoload :Question, 'moodle2cc/moodle/question'
   end
 end
