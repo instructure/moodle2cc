@@ -2,10 +2,10 @@
 require File.expand_path('../lib/moodle2cc/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Christopher Durtschi"]
-  gem.email         = ["christopher.durtschi@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.authors       = ["Christopher Durtschi", "Kevin Carter"]
+  gem.email         = ["christopher.durtschi@gmail.com", "cartkev@gmail.com"]
+  gem.description   = %q{Migrates Moodle backup ZIP to IMS Common Cartridge package}
+  gem.summary       = %q{Migrates Moodle backup ZIP to IMS Common Cartridge package}
   gem.homepage      = ""
 
   gem.add_runtime_dependency "rubyzip"
