@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "rubyzip"
   gem.add_runtime_dependency "happymapper"
   gem.add_runtime_dependency "builder"
+  gem.add_runtime_dependency "thor"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest"

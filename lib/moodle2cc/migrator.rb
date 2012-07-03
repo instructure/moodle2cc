@@ -9,8 +9,12 @@ module Moodle2CC
 
     def migrate
       backup = Moodle2CC::Moodle::Backup.read @source
-      converter = Moodle2CC::CC::Converter.new backup, @destination
-      converter.convert
+      @converter = Moodle2CC::CC::Converter.new backup, @destination
+      @converter.convert
+    end
+
+    def imscc_path
+      @converter.imscc_path
     end
   end
 end

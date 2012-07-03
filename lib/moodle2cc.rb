@@ -1,4 +1,5 @@
-require 'pathname'
+require 'uri'
+require 'fileutils'
 require 'erb'
 require 'happymapper'
 require 'builder'

@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 module Moodle2CC::CC
 module CCHelper
 
