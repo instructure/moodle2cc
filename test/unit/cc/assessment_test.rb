@@ -145,4 +145,28 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert_equal '127.0.0.1', xml.xpath('xmlns:quiz/xmlns:ip_filter').text
     assert_equal 'true', xml.xpath('xmlns:quiz/xmlns:shuffle_answers').text
   end
+
+  def test_it_creates_qti_xml
+    tmp_dir = File.expand_path('../../../tmp', __FILE__)
+    @assessment.create_qti_xml(tmp_dir)
+    xml = Nokogiri::XML(File.read(File.join(tmp_dir, 'non_cc_assessments', "#{@assessment.identifier}.xml.qti")))
+
+    assert xml
+    assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/xsd/ims_qtiasiv1p2p1.xsd", xml.root.attributes['schemaLocation'].value
+    assert_equal "http://www.w3.org/2001/XMLSchema-instance", xml.namespaces['xmlns:xsi']
+    assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2", xml.namespaces['xmlns']
+    assert_equal 'questestinterop', xml.root.name
+
+    assert_equal "First Quiz", xml.root.xpath('xmlns:assessment').first.attributes['title'].value
+    assert_equal @assessment.identifier, xml.root.xpath('xmlns:assessment').first.attributes['identifier'].value
+
+    time_data = xml.root.xpath('xmlns:assessment/xmlns:qtimetadata/xmlns:qtimetadatafield[xmlns:fieldlabel="qmd_timelimit" and xmlns:fieldentry="45"]').first
+    assert time_data, 'qtimetadata does not exist for time limit'
+
+    time_data = xml.root.xpath('xmlns:assessment/xmlns:qtimetadata/xmlns:qtimetadatafield[xmlns:fieldlabel="cc_maxattempts" and xmlns:fieldentry="2"]').first
+    assert time_data, 'qtimetadata does not exist for max attempts'
+
+    section = xml.root.xpath('xmlns:assessment/xmlns:section[@ident="root_section"]').first
+    assert section, 'root sections node does not exist'
+  end
 end
