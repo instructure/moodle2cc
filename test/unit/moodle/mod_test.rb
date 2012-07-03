@@ -10,6 +10,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @backup = Moodle2CC::Moodle::Backup.read @moodle_backup_path
     @course = @backup.course
     @mods = @course.mods
+    @quiz_mod = @mods.find { |mod| mod.mod_type == 'quiz' }
   end
 
   def teardown
@@ -17,7 +18,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 6, @mods.length
+    assert_equal 7, @mods.length
   end
 
   def test_it_has_an_id
@@ -98,6 +99,34 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_it_has_alltext
     assert_equal "<p><strong> Instructor Resources </strong></p>", @mods[4].alltext
+  end
+
+  def test_it_has_time_open
+    assert_equal 1339440600, @quiz_mod.time_open
+  end
+
+  def test_it_has_time_close
+    assert_equal 1339527000, @quiz_mod.time_close
+  end
+
+  def test_it_has_attempts_number
+    assert_equal 2, @quiz_mod.attempts_number
+  end
+
+  def test_it_has_a_grade_method
+    assert_equal 1, @quiz_mod.grade_method
+  end
+
+  def test_it_has_a_password
+    assert_equal 'password', @quiz_mod.password
+  end
+
+  def test_it_has_a_subnet
+    assert_equal '127.0.0.1', @quiz_mod.subnet
+  end
+
+  def test_it_has_shuffle_answers
+    assert_equal true, @quiz_mod.shuffle_answers
   end
 
   def test_it_has_section_mods

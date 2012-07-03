@@ -150,7 +150,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal 'week 1', module_node.xpath('xmlns:title').text
     assert_equal '1', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
-    assert_equal 4, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+    assert_equal 5, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[1]').first
     assert_equal 'i485c622e5b692e8989fee0472c218726', item_node.attributes['identifier'].value

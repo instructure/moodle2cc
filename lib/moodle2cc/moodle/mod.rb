@@ -25,6 +25,13 @@ module Moodle2CC::Moodle
     element :grade, Integer, :tag => 'GRADE'
     element :time_due, Integer, :tag => 'TIMEDUE'
     element :time_available, Integer, :tag => 'TIMEAVAILABLE'
+    element :time_open, Integer, :tag => 'TIMEOPEN'
+    element :time_close, Integer, :tag => 'TIMECLOSE'
+    element :attempts_number, Integer, :tag => 'ATTEMPTS_NUMBER'
+    element :grade_method, Integer, :tag => 'GRADEMETHOD'
+    element :password, String, :tag => 'PASSWORD'
+    element :subnet, String, :tag => 'SUBNET'
+    element :shuffle_answers, Boolean, :tag => 'SHUFFLEANSWERS'
 
     def section_mod
       course.sections.map { |section| section.mods.find { |mod| mod.instance_id == id } }.compact.first

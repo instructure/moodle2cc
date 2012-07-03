@@ -128,6 +128,23 @@
             <ROLES_ASSIGNMENTS>
             </ROLES_ASSIGNMENTS>
           </MOD>
+          <MOD>
+            <ID>77777</ID>
+            <TYPE>quiz</TYPE>
+            <INSTANCE>321</INSTANCE>
+            <ADDED>1339440849</ADDED>
+            <SCORE>0</SCORE>
+            <INDENT>0</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER></IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
         </MODS>
       </SECTION>
     </SECTIONS>
@@ -293,6 +310,79 @@
         <POPUP>resizable=1,scrollbars=1,directories=1,location=1,menubar=1,toolbar=1,status=1,width=1024,height=768</POPUP>
         <OPTIONS></OPTIONS>
         <TIMEMODIFIED>1338472800</TIMEMODIFIED>
+      </MOD>
+      <MOD>
+        <ID>321</ID>
+        <MODTYPE>quiz</MODTYPE>
+        <NAME>First Quiz</NAME>
+        <INTRO>Pop quiz hot shot</INTRO>
+        <TIMEOPEN>1339440600</TIMEOPEN>
+        <TIMECLOSE>1339527000</TIMECLOSE>
+        <OPTIONFLAGS>1</OPTIONFLAGS>
+        <PENALTYSCHEME>1</PENALTYSCHEME>
+        <ATTEMPTS_NUMBER>2</ATTEMPTS_NUMBER>
+        <ATTEMPTONLAST>1</ATTEMPTONLAST>
+        <GRADEMETHOD>1</GRADEMETHOD>
+        <DECIMALPOINTS>2</DECIMALPOINTS>
+        <REVIEW>4652015</REVIEW>
+        <QUESTIONSPERPAGE>10</QUESTIONSPERPAGE>
+        <SHUFFLEQUESTIONS>1</SHUFFLEQUESTIONS>
+        <SHUFFLEANSWERS>1</SHUFFLEANSWERS>
+        <QUESTIONS>16,0</QUESTIONS>
+        <SUMGRADES>19</SUMGRADES>
+        <GRADE>10</GRADE>
+        <TIMECREATED>0</TIMECREATED>
+        <TIMEMODIFIED>1341339972</TIMEMODIFIED>
+        <TIMELIMIT>45</TIMELIMIT>
+        <PASSWORD>password</PASSWORD>
+        <SUBNET>127.0.0.1</SUBNET>
+        <POPUP>1</POPUP>
+        <DELAY1>7200</DELAY1>
+        <DELAY2>7200</DELAY2>
+        <QUESTION_INSTANCES>
+          <QUESTION_INSTANCE>
+            <ID>697</ID>
+            <QUESTION>16</QUESTION>
+            <GRADE>1</GRADE>
+          </QUESTION_INSTANCE>
+        </QUESTION_INSTANCES>
+        <FEEDBACKS>
+          <FEEDBACK>
+            <ID>39</ID>
+            <QUIZID>321</QUIZID>
+            <FEEDBACKTEXT>Great Job!</FEEDBACKTEXT>
+            <MINGRADE>8</MINGRADE>
+            <MAXGRADE>11</MAXGRADE>
+          </FEEDBACK>
+          <FEEDBACK>
+            <ID>40</ID>
+            <QUIZID>321</QUIZID>
+            <FEEDBACKTEXT>You can do better</FEEDBACKTEXT>
+            <MINGRADE>6</MINGRADE>
+            <MAXGRADE>8</MAXGRADE>
+          </FEEDBACK>
+          <FEEDBACK>
+            <ID>41</ID>
+            <QUIZID>321</QUIZID>
+            <FEEDBACKTEXT>Apply yourself!</FEEDBACKTEXT>
+            <MINGRADE>4</MINGRADE>
+            <MAXGRADE>6</MAXGRADE>
+          </FEEDBACK>
+          <FEEDBACK>
+            <ID>42</ID>
+            <QUIZID>321</QUIZID>
+            <FEEDBACKTEXT>You disappoint me</FEEDBACKTEXT>
+            <MINGRADE>2</MINGRADE>
+            <MAXGRADE>4</MAXGRADE>
+          </FEEDBACK>
+          <FEEDBACK>
+            <ID>43</ID>
+            <QUIZID>321</QUIZID>
+            <FEEDBACKTEXT>Get out of my classroom</FEEDBACKTEXT>
+            <MINGRADE>0</MINGRADE>
+            <MAXGRADE>2</MAXGRADE>
+          </FEEDBACK>
+        </FEEDBACKS>
       </MOD>
     </MODULES>
     <GRADEBOOK>
