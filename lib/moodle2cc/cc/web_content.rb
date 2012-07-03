@@ -1,21 +1,18 @@
 module Moodle2CC::CC
   class WebContent
     include CCHelper
+    include Resource
 
     attr_accessor :id, :title, :body
 
     def initialize(mod)
+      super
       @id = mod.id
       @title = mod.name
       @body = convert_file_path_tokens(mod.alltext)
     end
 
-    def identifier
-      create_key(id, 'resource_')
-    end
-
     def create_resource_node(resources_node)
-      identifier = create_key(@id, 'resource_')
       href = File.join(WIKI_FOLDER, "#{file_slug(@title)}.html")
       resources_node.resource(
         :type => WEBCONTENT,

@@ -1,10 +1,12 @@
 module Moodle2CC::CC
   class DiscussionTopic
     include CCHelper
+    include Resource
 
     attr_accessor :id, :title, :posted_at, :position, :type, :text
 
     def initialize(mod, position=0)
+      super
       @id = mod.id
       @title = mod.name
       @text = convert_file_path_tokens(mod.intro)
@@ -17,16 +19,11 @@ module Moodle2CC::CC
       @type = 'topic'
     end
 
-    def identifier
-      create_key(id, 'resource_')
-    end
-
     def identifierref
       create_key(id, 'topic_meta_')
     end
 
     def create_resource_node(resources_node)
-      identifier = create_key(@id, 'resource_')
       dependency_ref = create_key(@id, 'topic_meta_')
 
       resources_node.resource(

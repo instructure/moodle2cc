@@ -1,6 +1,7 @@
 module Moodle2CC::CC
   class Assignment
     include CCHelper
+    include Resource
 
     SETTINGS_ATTRIBUTES = [:title, :points_possible, :grading_type, :due_at,
       :lock_at, :unlock_at, :all_day, :all_day_date, :submission_types,
@@ -9,6 +10,7 @@ module Moodle2CC::CC
     attr_accessor :id, :body, *SETTINGS_ATTRIBUTES
 
     def initialize(mod, position=0)
+      super
       @id = mod.id
       @title = mod.name
       @body = convert_file_path_tokens(mod.description)
@@ -43,10 +45,6 @@ module Moodle2CC::CC
                           end
       @position = position
       @assignment_group_identifierref = create_key(mod.section_mod.section.id, 'assignment_group_')
-    end
-
-    def identifier
-      create_key(id, 'resource_')
     end
 
     def create_resource_node(resources_node)

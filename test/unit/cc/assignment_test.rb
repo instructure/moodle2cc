@@ -122,7 +122,7 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
   def test_it_has_an_identifier
     @mod.id = 987
     assignment = Moodle2CC::CC::Assignment.new @mod
-    assert_equal 'i0f77b146a52ac0f709e1690512154726', assignment.identifier
+    assert_equal 'i6b162484accdf6081cea43b39219d129', assignment.identifier
   end
 
   def test_it_creates_resource_in_imsmanifest
@@ -132,13 +132,13 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
     resource = xml.xpath('resource').first
     assert resource
     assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
-    assert_equal 'i0f77b146a52ac0f709e1690512154726/create-a-rails-site.html', resource.attributes['href'].value
-    assert_equal 'i0f77b146a52ac0f709e1690512154726', resource.attributes['identifier'].value
+    assert_equal 'i6b162484accdf6081cea43b39219d129/create-a-rails-site.html', resource.attributes['href'].value
+    assert_equal 'i6b162484accdf6081cea43b39219d129', resource.attributes['identifier'].value
 
-    file = resource.xpath('file[@href="i0f77b146a52ac0f709e1690512154726/create-a-rails-site.html"]').first
+    file = resource.xpath('file[@href="i6b162484accdf6081cea43b39219d129/create-a-rails-site.html"]').first
     assert file
 
-    file = resource.xpath('file[@href="i0f77b146a52ac0f709e1690512154726/assignment_settings.xml"]').first
+    file = resource.xpath('file[@href="i6b162484accdf6081cea43b39219d129/assignment_settings.xml"]').first
     assert file
   end
 

@@ -11,6 +11,7 @@ module Moodle2CC
   module CC
     autoload :CCHelper, 'moodle2cc/cc/cc_helper'
     autoload :Converter, 'moodle2cc/cc/converter'
+    autoload :Resource, 'moodle2cc/cc/resource'
     autoload :Assignment, 'moodle2cc/cc/assignment'
     autoload :Course, 'moodle2cc/cc/course'
     autoload :DiscussionTopic, 'moodle2cc/cc/discussion_topic'

@@ -1,21 +1,18 @@
 module Moodle2CC::CC
   class WebLink
     include CCHelper
+    include Resource
 
     attr_accessor :id, :title, :url
 
     def initialize(mod)
+      super
       @id = mod.id
       @title = mod.name
       @url = mod.reference
     end
 
-    def identifier
-      create_key(id, 'resource_')
-    end
-
     def create_resource_node(resources_node)
-      identifier = create_key(@id, 'resource_')
       resources_node.resource(
         :type => WEB_LINK,
         :identifier => identifier

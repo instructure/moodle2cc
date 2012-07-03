@@ -57,7 +57,7 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
     @mod.id = 123
 
     discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
-    assert_equal 'i802fea43604b8e56736e233ae2ca2ee9', discussion_topic.identifier
+    assert_equal 'ifb967ca1271d3e119ae5e22d32eeae1b', discussion_topic.identifier
   end
 
   def test_it_has_an_identifierref
@@ -78,9 +78,9 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
     resource = xml.root.xpath('resource[1]').first
     assert resource
     assert_equal 'imsdt_xmlv1p1', resource.attributes['type'].value
-    assert_equal 'i8a209c39591f6092d924695fca34d98c', resource.attributes['identifier'].value
+    assert_equal 'if7091ac80f57e45c757345555327b248', resource.attributes['identifier'].value
 
-    file = resource.xpath('file[@href="i8a209c39591f6092d924695fca34d98c.xml"]').first
+    file = resource.xpath('file[@href="if7091ac80f57e45c757345555327b248.xml"]').first
     assert file
 
     dependency = resource.xpath('dependency[@identifierref="i05a5b1468af5e9257a2f6b0827a0bd96"]').first
@@ -95,7 +95,7 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
     file = resource.xpath('file[@href="i05a5b1468af5e9257a2f6b0827a0bd96.xml"]').first
     assert file
 
-    assert get_imscc_file('i8a209c39591f6092d924695fca34d98c.xml') # topic xml
+    assert get_imscc_file('if7091ac80f57e45c757345555327b248.xml') # topic xml
     assert get_imscc_file('i05a5b1468af5e9257a2f6b0827a0bd96.xml') # topic meta xml
   end
 

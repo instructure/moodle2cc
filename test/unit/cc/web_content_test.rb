@@ -40,7 +40,7 @@ class TestUnitCCWebContent < MiniTest::Unit::TestCase
     @mod.id = 543
 
     web_content = Moodle2CC::CC::WebContent.new @mod
-    assert_equal 'iba86a128db9938df9fcb00979b436e1f', web_content.identifier
+    assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', web_content.identifier
   end
 
   def test_it_creates_resource_in_imsmanifest
@@ -51,7 +51,7 @@ class TestUnitCCWebContent < MiniTest::Unit::TestCase
     resource = xml.xpath('resource').first
     assert resource
     assert_equal 'webcontent', resource.attributes['type'].value
-    assert_equal 'iba86a128db9938df9fcb00979b436e1f', resource.attributes['identifier'].value
+    assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', resource.attributes['identifier'].value
     assert_equal 'wiki_content/instructor-resources.html', resource.attributes['href'].value
 
     file = resource.xpath('file[@href="wiki_content/instructor-resources.html"]').first
@@ -69,7 +69,7 @@ class TestUnitCCWebContent < MiniTest::Unit::TestCase
     html = Nokogiri::HTML(File.read(File.join(tmp_dir, 'wiki_content', 'instructor-resources.html')))
 
     assert html
-    assert_equal 'iba86a128db9938df9fcb00979b436e1f', html.search('head meta[name="identifier"]').first.attributes['content'].value
+    assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', html.search('head meta[name="identifier"]').first.attributes['content'].value
     assert_equal "Instructor Resources", html.search('title').text
     assert_equal "<p><strong>Instructor Resources</strong></p>", html.search('body').inner_html.strip
   end

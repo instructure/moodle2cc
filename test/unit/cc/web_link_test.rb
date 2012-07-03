@@ -40,7 +40,7 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
     @mod.id = 123
 
     web_link = Moodle2CC::CC::WebLink.new @mod
-    assert_equal 'i802fea43604b8e56736e233ae2ca2ee9', web_link.identifier
+    assert_equal 'iecc4b622fbc1adf8b8a2085e0974ac7d', web_link.identifier
   end
 
   def test_it_creates_resource_in_imsmanifest
@@ -51,9 +51,9 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
     resource = xml.xpath('resource').first
     assert resource
     assert_equal 'imswl_xmlv1p1', resource.attributes['type'].value
-    assert_equal 'ibd69090f0854ccc9bc06276117c9fffd', resource.attributes['identifier'].value
+    assert_equal 'i15aaccec404aa2ad557108a689bbba8f', resource.attributes['identifier'].value
 
-    file = resource.xpath('file[@href="ibd69090f0854ccc9bc06276117c9fffd.xml"]').first
+    file = resource.xpath('file[@href="i15aaccec404aa2ad557108a689bbba8f.xml"]').first
     assert file
   end
 
