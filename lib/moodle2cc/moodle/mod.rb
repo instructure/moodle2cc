@@ -27,6 +27,7 @@ module Moodle2CC::Moodle
     element :time_available, Integer, :tag => 'TIMEAVAILABLE'
     element :time_open, Integer, :tag => 'TIMEOPEN'
     element :time_close, Integer, :tag => 'TIMECLOSE'
+    element :time_limit, Integer, :tag => 'TIMELIMIT'
     element :attempts_number, Integer, :tag => 'ATTEMPTS_NUMBER'
     element :grade_method, Integer, :tag => 'GRADEMETHOD'
     element :password, String, :tag => 'PASSWORD'

@@ -109,6 +109,10 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert_equal 1339527000, @quiz_mod.time_close
   end
 
+  def test_it_has_a_time_limit
+    assert_equal 45, @quiz_mod.time_limit
+  end
+
   def test_it_has_attempts_number
     assert_equal 2, @quiz_mod.attempts_number
   end

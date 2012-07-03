@@ -46,6 +46,12 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert_equal '2012-12-12T12:12:12', assessment.unlock_at
   end
 
+  def test_it_converts_time_limit
+    @mod.time_limit = 45
+    assessment = Moodle2CC::CC::Assessment.new @mod
+    assert_equal 45, assessment.time_limit
+  end
+
   def test_it_converts_allowed_attempts
     @mod.attempts_number = 2
     assessment = Moodle2CC::CC::Assessment.new @mod
@@ -132,6 +138,7 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert_equal 'Pop quiz hot shot', xml.xpath('xmlns:quiz/xmlns:description').text
     assert_equal '2012-06-11T18:50:00', xml.xpath('xmlns:quiz/xmlns:unlock_at').text
     assert_equal '2012-06-12T18:50:00', xml.xpath('xmlns:quiz/xmlns:lock_at').text
+    assert_equal '45', xml.xpath('xmlns:quiz/xmlns:time_limit').text
     assert_equal '2', xml.xpath('xmlns:quiz/xmlns:allowed_attempts').text
     assert_equal 'keep_highest', xml.xpath('xmlns:quiz/xmlns:scoring_policy').text
     assert_equal 'password', xml.xpath('xmlns:quiz/xmlns:access_code').text
