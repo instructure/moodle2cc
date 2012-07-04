@@ -4,6 +4,22 @@ module Moodle2CC::Moodle
 
     attr_accessor :course
 
+    class QuestionInstance
+      include HappyMapper
+
+      attr_accessor :mod
+
+      tag 'QUESTION_INSTANCES/QUESTION_INSTANCE'
+      element :question_id, Integer, :tag => 'QUESTION'
+      element :grade, Integer, :tag => 'GRADE'
+
+      def question
+        mod.course.question_categories.map do |qc|
+          qc.questions.find { |q| q.id == question_id }
+        end.compact.first
+      end
+    end
+
     tag 'MODULES/MOD'
     element :id, Integer, :tag => 'ID'
     element :var1, Integer, :tag => 'VAR1'
@@ -33,6 +49,11 @@ module Moodle2CC::Moodle
     element :password, String, :tag => 'PASSWORD'
     element :subnet, String, :tag => 'SUBNET'
     element :shuffle_answers, Boolean, :tag => 'SHUFFLEANSWERS'
+    has_many :question_instances, QuestionInstance
+
+    after_parse do |mod|
+      mod.question_instances.each { |question_instance| question_instance.mod = mod }
+    end
 
     def section_mod
       course.sections.map { |section| section.mods.find { |mod| mod.instance_id == id } }.compact.first

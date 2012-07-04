@@ -11,6 +11,8 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @course = @backup.course
     @mods = @course.mods
     @quiz_mod = @mods.find { |mod| mod.mod_type == 'quiz' }
+    @question_instance = @quiz_mod.question_instances.first
+    @question = @course.question_categories.first.questions.first
   end
 
   def teardown
@@ -131,6 +133,26 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_it_has_shuffle_answers
     assert_equal true, @quiz_mod.shuffle_answers
+  end
+
+  def test_it_has_question_instances
+    assert @quiz_mod.question_instances.length > 0, 'quiz mod does not have question_instances'
+  end
+
+  def test_question_instance_has_a_question_id
+    assert_equal 989, @question_instance.question_id
+  end
+
+  def test_question_instance_has_a_grade
+    assert_equal 1, @question_instance.grade
+  end
+
+  def test_question_instance_has_a_mod
+    assert_equal @quiz_mod, @question_instance.mod
+  end
+
+  def test_question_instance_has_a_question
+    assert_equal @question, @question_instance.question
   end
 
   def test_it_has_section_mods
