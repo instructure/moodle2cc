@@ -17,6 +17,27 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     clean_tmp_folder
   end
 
+  def match_question!
+    @question.type = 'match'
+
+    match1 = Moodle2CC::Moodle::Question::Match.new
+    match1.code = 123
+    match1.question_text = 'Ruby on Rails is written in this language'
+    match1.answer_text = 'Ruby'
+
+    match2 = Moodle2CC::Moodle::Question::Match.new
+    match2.code = 234
+    match2.question_text = ''
+    match2.answer_text = 'Python'
+
+    match3 = Moodle2CC::Moodle::Question::Match.new
+    match3.code = 345
+    match3.question_text = 'Files with .coffee extension use which language?'
+    match3.answer_text = 'CoffeeScript'
+
+    @question.matches = [match1, match2, match3]
+  end
+
   def test_it_converts_id
     @question.id = 989
     question = Moodle2CC::CC::Question.new @question_instance
@@ -167,6 +188,23 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert_equal({:vars => {'a' => 5.5, 'b' => 1.0}, :answer => 6.5}, question.var_sets.last)
   end
 
+  def test_it_converts_matches
+    match_question!
+
+    question = Moodle2CC::CC::Question.new @question_instance
+    assert_equal 2, question.matches.length
+    assert_equal({
+      :question => 'Ruby on Rails is written in this language',
+      :answers => {123 => 'Ruby', 234 => 'Python', 345 => 'CoffeeScript'},
+      :answer => 123
+    }, question.matches.first)
+    assert_equal({
+      :question => 'Files with .coffee extension use which language?',
+      :answers => {123 => 'Ruby', 234 => 'Python', 345 => 'CoffeeScript'},
+      :answer => 345
+    }, question.matches.last)
+  end
+
   def test_it_has_an_identifier
     @question.id = 989
     question = Moodle2CC::CC::Question.new @question_instance
@@ -276,5 +314,61 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert var_set2.xpath('var[@name="a"][5.5]'), 'second var_set does not have a value for a'
     assert var_set2.xpath('var[@name="b"][1.0]'), 'second var_set does not have a value for b'
     assert var_set2.xpath('answer[6.5]'), 'second var_set does not have an answer'
+  end
+
+  def test_it_creates_item_xml_for_essay_question
+    @question.type = 'essay'
+    question = Moodle2CC::CC::Question.new @question_instance
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    response = xml.root.xpath('presentation/response_str').first
+    assert_equal 'Single', response.attributes['rcardinality'].value
+    assert_equal 'response1', response.attributes['ident'].value
+    assert_equal 'No', response.xpath('render_fib/response_label').first.attributes['rshuffle'].value
+    assert_equal 'answer1', response.xpath('render_fib/response_label').first.attributes['ident'].value
+
+    # No Continue Condition
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]').first
+    assert condition, 'no continue condition node does not exist'
+    assert condition.xpath('conditionvar/other').first, 'conditionvar does not exist for no continue condition node'
+  end
+
+  def test_it_creates_item_xml_for_matching_question
+    match_question!
+
+    question = Moodle2CC::CC::Question.new @question_instance
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    response = xml.root.xpath('presentation/response_lid[@ident="response_123"]').first
+    assert response, 'response for first matching question does not exist'
+    assert_equal 'Ruby on Rails is written in this language', response.xpath('material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="123"]/material/mattext').text
+    assert_equal 'Python', response.xpath('render_choice/response_label[@ident="234"]/material/mattext').text
+    assert_equal 'CoffeeScript', response.xpath('render_choice/response_label[@ident="345"]/material/mattext').text
+
+    response = xml.root.xpath('presentation/response_lid[@ident="response_345"]').first
+    assert response, 'response for second matching question does not exist'
+    assert_equal 'Files with .coffee extension use which language?', response.xpath('material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="123"]/material/mattext').text
+    assert_equal 'Python', response.xpath('render_choice/response_label[@ident="234"]/material/mattext').text
+    assert_equal 'CoffeeScript', response.xpath('render_choice/response_label[@ident="345"]/material/mattext').text
+
+    condition = xml.root.xpath('resprocessing/respcondition/conditionvar[varequal=123]/..').first
+    assert condition, 'first matching condition does not exist'
+    assert condition.xpath('conditionvar/varequal[@respident="response_123"]').first, 'condition does not reference correct response'
+    set_var = condition.xpath('setvar').first
+    assert_equal 'SCORE', set_var.attributes['varname'].value
+    assert_equal 'Add', set_var.attributes['action'].value
+    assert_equal '50.00', set_var.text
+
+    condition = xml.root.xpath('resprocessing/respcondition/conditionvar[varequal=345]/..').first
+    assert condition, 'second matching condition does not exist'
+    assert condition.xpath('conditionvar/varequal[@respident="response_345"]').first, 'condition does not reference correct response'
+    set_var = condition.xpath('setvar').first
+    assert_equal 'SCORE', set_var.attributes['varname'].value
+    assert_equal 'Add', set_var.attributes['action'].value
+    assert_equal '50.00', set_var.text
   end
 end

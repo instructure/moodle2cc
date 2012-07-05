@@ -10,11 +10,16 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
     @backup = Moodle2CC::Moodle::Backup.read @moodle_backup_path
     @course = @backup.course
     @question_category = @course.question_categories.first
-    @question = @question_category.questions.first
-    @answer = @question.answers.first
-    @calculation = @question.calculations.first
+
+    @calculated_question = @question_category.questions.find { |q| q.type == 'calculated' }
+    @match_question = @question_category.questions.find { |q| q.type == 'match' }
+
+    @answer = @calculated_question.answers.first
+    @calculation = @calculated_question.calculations.first
     @dataset_definition = @calculation.dataset_definitions.first
     @dataset_item = @dataset_definition.dataset_items.first
+
+    @match = @match_question.matches.first
   end
 
   def teardown
@@ -22,31 +27,31 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
   end
 
   def test_it_has_an_id
-    assert_equal 989, @question.id
+    assert_equal 989, @calculated_question.id
   end
 
   def test_it_has_a_name
-    assert_equal 'Basic Arithmetic', @question.name
+    assert_equal 'Basic Arithmetic', @calculated_question.name
   end
 
   def test_it_has_text
-    assert_equal 'How much is {a} + {b} ?', @question.text
+    assert_equal 'How much is {a} + {b} ?', @calculated_question.text
   end
 
   def test_it_has_general_feedback
-    assert_equal 'This should be easy', @question.general_feedback
+    assert_equal 'This should be easy', @calculated_question.general_feedback
   end
 
   def test_it_has_default_grade
-    assert_equal 1, @question.default_grade
+    assert_equal 1, @calculated_question.default_grade
   end
 
   def test_it_has_a_type
-    assert_equal 'calculated', @question.type
+    assert_equal 'calculated', @calculated_question.type
   end
 
   def test_it_has_calculations
-    assert @question.calculations.length > 0, 'question has no calculations'
+    assert @calculated_question.calculations.length > 0, 'question has no calculations'
   end
 
   def test_calculation_has_answer_id
@@ -90,7 +95,7 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
   end
 
   def test_it_has_answers
-    assert @question.answers.length > 0, 'question does not have answers'
+    assert @calculated_question.answers.length > 0, 'question does not have answers'
   end
 
   def test_answer_has_an_id
@@ -107,5 +112,25 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
 
   def test_answer_has_feedback
     assert_equal 'Great job!', @answer.feedback
+  end
+
+  def test_it_has_matches
+    assert @match_question.matches.length > 0, 'question does not have matches'
+  end
+
+  def test_match_has_an_id
+    assert_equal 7, @match.id
+  end
+
+  def test_match_has_a_code
+    assert_equal 400458432, @match.code
+  end
+
+  def test_match_has_question_text
+    assert_equal 'Ruby on Rails is written in this language', @match.question_text
+  end
+
+  def test_match_has_answer_text
+    assert_equal 'Ruby', @match.answer_text
   end
 end

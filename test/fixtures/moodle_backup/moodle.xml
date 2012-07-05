@@ -231,6 +231,49 @@
               </ANSWER>
             </ANSWERS>
           </QUESTION>
+          <QUESTION>
+            <ID>12</ID>
+            <PARENT>0</PARENT>
+            <NAME>Matching Question</NAME>
+            <QUESTIONTEXT>Match this stuff</QUESTIONTEXT>
+            <QUESTIONTEXTFORMAT>1</QUESTIONTEXTFORMAT>
+            <IMAGE></IMAGE>
+            <GENERALFEEDBACK>Wow! You are amazing?</GENERALFEEDBACK>
+            <DEFAULTGRADE>1</DEFAULTGRADE>
+            <PENALTY>0.1</PENALTY>
+            <QTYPE>match</QTYPE>
+            <LENGTH>1</LENGTH>
+            <STAMP>moodle19.divergentlogic.com+120611200604+b3ggRQ</STAMP>
+            <VERSION>moodle19.divergentlogic.com+120611200604+wnKtrx</VERSION>
+            <HIDDEN>0</HIDDEN>
+            <TIMECREATED>1339445164</TIMECREATED>
+            <TIMEMODIFIED>1339445164</TIMEMODIFIED>
+            <CREATEDBY>2</CREATEDBY>
+            <MODIFIEDBY>2</MODIFIEDBY>
+            <MATCHOPTIONS>
+              <SHUFFLEANSWERS>1</SHUFFLEANSWERS>
+            </MATCHOPTIONS>
+            <MATCHS>
+              <MATCH>
+                <ID>7</ID>
+                <CODE>400458432</CODE>
+                <QUESTIONTEXT>Ruby on Rails is written in this language</QUESTIONTEXT>
+                <ANSWERTEXT>Ruby</ANSWERTEXT>
+              </MATCH>
+              <MATCH>
+                <ID>8</ID>
+                <CODE>384023714</CODE>
+                <QUESTIONTEXT></QUESTIONTEXT>
+                <ANSWERTEXT>Python</ANSWERTEXT>
+              </MATCH>
+              <MATCH>
+                <ID>9</ID>
+                <CODE>656414511</CODE>
+                <QUESTIONTEXT>Files with .coffee extension use which language?</QUESTIONTEXT>
+                <ANSWERTEXT>CoffeeScript</ANSWERTEXT>
+              </MATCH>
+            </MATCHS>
+          </QUESTION>
         </QUESTIONS>
       </QUESTION_CATEGORY>
     </QUESTION_CATEGORIES>

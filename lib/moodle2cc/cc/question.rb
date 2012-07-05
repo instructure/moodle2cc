@@ -16,7 +16,8 @@ module Moodle2CC::CC
       }
 
     attr_accessor :id, :title, :material, :general_feedback, :answer_tolerance,
-      :formulas, :formula_decimal_places, :vars, :var_sets, :identifier, *META_ATTRIBUTES
+      :formulas, :formula_decimal_places, :vars, :var_sets, :matches, :identifier,
+      *META_ATTRIBUTES
 
     def initialize(question_instance)
       question = question_instance.question
@@ -26,6 +27,7 @@ module Moodle2CC::CC
       @points_possible = question_instance.grade
       @material = question.text.gsub(/\{(.*?)\}/, '[\1]')
       @general_feedback = question.general_feedback
+
       calculation = question.calculations.first
       if calculation
         @answer_tolerance = calculation.tolerance
@@ -54,6 +56,19 @@ module Moodle2CC::CC
           var_set[:answer] = answer
         end
       end
+
+      if question.matches.length > 0
+        answers = question.matches.inject({}) do |result, match|
+          result[match.code] = match.answer_text
+          result
+        end
+        @matches = question.matches.select do |match|
+          match.question_text && match.question_text.strip.length > 0
+        end.map do |match|
+          {:question => match.question_text, :answers => answers, :answer => match.code}
+        end
+      end
+
       @identifier = create_key(@id, 'question_')
     end
 
@@ -118,6 +133,29 @@ module Moodle2CC::CC
             render_node.response_label(:ident => 'answer1')
           end
         end
+      when 'essay_question'
+        presentation_node.response_str(:rcardinality => 'Single', :ident => 'response1') do |response_node|
+          response_node.render_fib do |render_node|
+            render_node.response_label(:ident => 'answer1', :rshuffle => 'No')
+          end
+        end
+      when 'matching_question'
+        @matches.each do |match|
+          presentation_node.response_lid(:ident => "response_#{match[:answer]}") do |response_node|
+            response_node.material do |material_node|
+              material_node.mattext(match[:question], :texttype => 'text/plain')
+            end
+            response_node.render_choice do |choice_node|
+              match[:answers].each do |ident, text|
+                choice_node.response_label(:ident => ident) do |label_node|
+                  label_node.material do |material_node|
+                    material_node.mattext text
+                  end
+                end
+              end
+            end
+          end
+        end
       end
     end
 
@@ -135,6 +173,22 @@ module Moodle2CC::CC
             var_node.other
           end
           condition.setvar('0', :varname => 'SCORE', :action => 'Set')
+        end
+      when 'essay_question'
+        processing_node.respcondition(:continue => 'No') do |condition|
+          condition.conditionvar do |var_node|
+            var_node.other
+          end
+        end
+      when 'matching_question'
+        score = 100.0 / @matches.length.to_f
+        @matches.each do |match|
+          processing_node.respcondition do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.varequal match[:answer], :respident => "response_#{match[:answer]}"
+            end
+            condition_node.setvar "%.2f" % score, :varname => 'SCORE', :action => 'Add'
+          end
         end
       end
     end

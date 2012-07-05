@@ -40,6 +40,16 @@ module Moodle2CC::Moodle
       has_many :dataset_definitions, DatasetDefinition
     end
 
+    class Match
+      include HappyMapper
+
+      tag 'MATCHS/MATCH'
+      element :id, Integer, :tag => 'ID'
+      element :code, Integer, :tag => 'CODE'
+      element :question_text, String, :tag => 'QUESTIONTEXT'
+      element :answer_text, String, :tag => 'ANSWERTEXT'
+    end
+
     tag 'QUESTIONS/QUESTION'
     element :id, Integer, :tag => 'ID'
     element :name, String, :tag => 'NAME'
@@ -49,5 +59,6 @@ module Moodle2CC::Moodle
     element :type, String, :tag => 'QTYPE'
     has_many :answers, Answer
     has_many :calculations, Calculation
+    has_many :matches, Match
   end
 end
