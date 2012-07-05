@@ -195,7 +195,11 @@
                   <DATASET_ITEMS>
                     <DATASET_ITEM>
                       <NUMBER>1</NUMBER>
-                      <VALUE>6.7</VALUE>
+                      <VALUE>3.0</VALUE>
+                    </DATASET_ITEM>
+                    <DATASET_ITEM>
+                      <NUMBER>2</NUMBER>
+                      <VALUE>5.5</VALUE>
                     </DATASET_ITEM>
                   </DATASET_ITEMS>
                 </DATASET_DEFINITION>
@@ -208,7 +212,11 @@
                   <DATASET_ITEMS>
                     <DATASET_ITEM>
                       <NUMBER>1</NUMBER>
-                      <VALUE>3.0</VALUE>
+                      <VALUE>6.0</VALUE>
+                    </DATASET_ITEM>
+                    <DATASET_ITEM>
+                      <NUMBER>2</NUMBER>
+                      <VALUE>1.0</VALUE>
                     </DATASET_ITEM>
                   </DATASET_ITEMS>
                 </DATASET_DEFINITION>

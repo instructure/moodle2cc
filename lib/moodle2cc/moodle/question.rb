@@ -43,7 +43,7 @@ module Moodle2CC::Moodle
     tag 'QUESTIONS/QUESTION'
     element :id, Integer, :tag => 'ID'
     element :name, String, :tag => 'NAME'
-    element :question_text, String, :tag => 'QUESTIONTEXT'
+    element :text, String, :tag => 'QUESTIONTEXT'
     element :general_feedback, String, :tag => 'GENERALFEEDBACK'
     element :default_grade, Integer, :tag => 'DEFAULTGRADE'
     element :type, String, :tag => 'QTYPE'

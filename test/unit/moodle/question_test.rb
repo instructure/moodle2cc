@@ -29,8 +29,8 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
     assert_equal 'Basic Arithmetic', @question.name
   end
 
-  def test_it_has_question_text
-    assert_equal 'How much is {a} + {b} ?', @question.question_text
+  def test_it_has_text
+    assert_equal 'How much is {a} + {b} ?', @question.text
   end
 
   def test_it_has_general_feedback
@@ -86,7 +86,7 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
   end
 
   def test_dataset_item_has_a_value
-    assert_equal 6.7, @dataset_item.value
+    assert_equal 3.0, @dataset_item.value
   end
 
   def test_it_has_answers
