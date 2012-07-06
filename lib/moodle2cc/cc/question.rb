@@ -138,7 +138,7 @@ module Moodle2CC::CC
             render_node.response_label(:ident => 'answer1')
           end
         end
-      when 'essay_question'
+      when 'essay_question', 'short_answer_question'
         presentation_node.response_str(:rcardinality => 'Single', :ident => 'response1') do |response_node|
           response_node.render_fib do |render_node|
             render_node.response_label(:ident => 'answer1', :rshuffle => 'No')
@@ -250,6 +250,18 @@ module Moodle2CC::CC
             condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{numerical[:answer][:id]}_fb") if numerical[:answer][:feedback] && numerical[:answer][:feedback].strip.length > 0
           end
         end
+      when 'short_answer_question'
+        # Feeback
+        @answers.each do |answer|
+          next unless answer[:feedback] && answer[:feedback].strip.length > 0
+          processing_node.respcondition(:continue => 'No') do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.varequal answer[:text], :respident => 'response1'
+            end
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb")
+            condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => "Set")
+          end
+        end
       end
     end
 
@@ -266,7 +278,7 @@ module Moodle2CC::CC
       end
 
       case @question_type
-      when 'multiple_choice_question', 'numerical_question'
+      when 'multiple_choice_question', 'numerical_question', 'short_answer_question'
         @answers.each do |answer|
           next unless answer[:feedback] && answer[:feedback].strip.length > 0
           item_node.itemfeedback(:ident => "#{answer[:id]}_fb") do |feedback_node|

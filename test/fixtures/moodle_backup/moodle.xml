@@ -306,6 +306,50 @@
               </ANSWER>
             </ANSWERS>
           </QUESTION>
+          <QUESTION>
+            <ID>22</ID>
+            <PARENT>0</PARENT>
+            <NAME>Short Answer</NAME>
+            <QUESTIONTEXT>What is your favorite programming language?</QUESTIONTEXT>
+            <QUESTIONTEXTFORMAT>1</QUESTIONTEXTFORMAT>
+            <IMAGE></IMAGE>
+            <GENERALFEEDBACK>Yay!</GENERALFEEDBACK>
+            <DEFAULTGRADE>1</DEFAULTGRADE>
+            <PENALTY>0.1</PENALTY>
+            <QTYPE>shortanswer</QTYPE>
+            <LENGTH>1</LENGTH>
+            <STAMP>moodle19.divergentlogic.com+120611201429+lvcAKV</STAMP>
+            <VERSION>moodle19.divergentlogic.com+120611201429+futzCM</VERSION>
+            <HIDDEN>0</HIDDEN>
+            <TIMECREATED>1339445669</TIMECREATED>
+            <TIMEMODIFIED>1339445669</TIMEMODIFIED>
+            <CREATEDBY>2</CREATEDBY>
+            <MODIFIEDBY>2</MODIFIEDBY>
+            <SHORTANSWER>
+              <ANSWERS>40,41,42</ANSWERS>
+              <USECASE>0</USECASE>
+            </SHORTANSWER>
+            <ANSWERS>
+              <ANSWER>
+                <ID>40</ID>
+                <ANSWER_TEXT>Ruby</ANSWER_TEXT>
+                <FRACTION>1</FRACTION>
+                <FEEDBACK>Good choice!</FEEDBACK>
+              </ANSWER>
+              <ANSWER>
+                <ID>41</ID>
+                <ANSWER_TEXT>JavaScript</ANSWER_TEXT>
+                <FRACTION>0.5</FRACTION>
+                <FEEDBACK>Not what I would have chosen...</FEEDBACK>
+              </ANSWER>
+              <ANSWER>
+                <ID>42</ID>
+                <ANSWER_TEXT>Java</ANSWER_TEXT>
+                <FRACTION>0.1</FRACTION>
+                <FEEDBACK>You're kidding, right?</FEEDBACK>
+              </ANSWER>
+            </ANSWERS>
+          </QUESTION>
         </QUESTIONS>
       </QUESTION_CATEGORY>
     </QUESTION_CATEGORIES>
@@ -434,8 +478,13 @@
             <GRADE>1</GRADE>
           </QUESTION_INSTANCE>
           <QUESTION_INSTANCE>
-            <ID>698</ID>
+            <ID>699</ID>
             <QUESTION>23</QUESTION>
+            <GRADE>1</GRADE>
+          </QUESTION_INSTANCE>
+          <QUESTION_INSTANCE>
+            <ID>700</ID>
+            <QUESTION>22</QUESTION>
             <GRADE>1</GRADE>
           </QUESTION_INSTANCE>
         </QUESTION_INSTANCES>
