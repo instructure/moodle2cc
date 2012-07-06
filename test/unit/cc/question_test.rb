@@ -114,7 +114,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
 
     @question.type = 'multianswer'
     question = Moodle2CC::CC::Question.new @question_instance
-    assert_equal 'multiple_answers_question', question.question_type
+    assert_equal 'embedded_answers_question', question.question_type
 
     @question.type = 'multichoice'
     question = Moodle2CC::CC::Question.new @question_instance
@@ -656,4 +656,21 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert_equal 'What exactly are you doing?', feedback.text
   end
 
+  def test_it_creates_item_xml_for_embedded_answers_question
+    @question.type = 'multianswer'
+    question = Moodle2CC::CC::Question.new @question_instance
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    response = xml.root.xpath('presentation/response_str').first
+    assert_equal 'Single', response.attributes['rcardinality'].value
+    assert_equal 'response1', response.attributes['ident'].value
+    assert_equal 'No', response.xpath('render_fib/response_label').first.attributes['rshuffle'].value
+    assert_equal 'answer1', response.xpath('render_fib/response_label').first.attributes['ident'].value
+
+    # No Continue Condition
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]').first
+    assert condition, 'no continue condition node does not exist'
+    assert condition.xpath('conditionvar/other').first, 'conditionvar does not exist for no continue condition node'
+  end
 end

@@ -8,7 +8,7 @@ module Moodle2CC::CC
         'description' => 'text_only_question',
         'essay' => 'essay_question',
         'match' => 'matching_question',
-        'multianswer' => 'multiple_answers_question',
+        'multianswer' => 'embedded_answers_question',
         'multichoice' => 'multiple_choice_question',
         'shortanswer' => 'short_answer_question',
         'numerical' => 'numerical_question',
@@ -138,7 +138,7 @@ module Moodle2CC::CC
             render_node.response_label(:ident => 'answer1')
           end
         end
-      when 'essay_question', 'short_answer_question'
+      when 'essay_question', 'short_answer_question', 'embedded_answers_question'
         presentation_node.response_str(:rcardinality => 'Single', :ident => 'response1') do |response_node|
           response_node.render_fib do |render_node|
             render_node.response_label(:ident => 'answer1', :rshuffle => 'No')
@@ -209,7 +209,7 @@ module Moodle2CC::CC
           end
           condition.setvar('0', :varname => 'SCORE', :action => 'Set')
         end
-      when 'essay_question'
+      when 'essay_question', 'embedded_answers_question'
         processing_node.respcondition(:continue => 'No') do |condition|
           condition.conditionvar do |var_node|
             var_node.other
