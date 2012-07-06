@@ -17,7 +17,7 @@ module Moodle2CC::CC
 
     attr_accessor :id, :title, :material, :general_feedback, :answer_tolerance,
       :formulas, :formula_decimal_places, :vars, :var_sets, :matches, :answers,
-      :identifier, *META_ATTRIBUTES
+      :identifier, :numericals, *META_ATTRIBUTES
 
     def initialize(question_instance)
       question = question_instance.question
@@ -65,6 +65,13 @@ module Moodle2CC::CC
         end
       end
 
+      @numericals = question.numericals.map do |n|
+        {
+          :answer => @answers.find { |a| a[:id] == n.answer_id },
+          :tolerance => n.tolerance,
+        }
+      end
+
       if question.matches.length > 0
         answers = question.matches.inject({}) do |result, match|
           result[match.code] = match.answer_text
@@ -100,7 +107,7 @@ module Moodle2CC::CC
           presentation_node.material do |material_node|
             material_node.mattext(@material, :texttype => 'text/html')
           end
-          create_response_str(presentation_node)
+          create_responses(presentation_node)
         end
 
         item_node.resprocessing do |processing_node|
@@ -123,7 +130,7 @@ module Moodle2CC::CC
       end
     end
 
-    def create_response_str(presentation_node)
+    def create_responses(presentation_node)
       case @question_type
       when 'calculated_question'
         presentation_node.response_str(:rcardinality => 'Single', :ident => 'response1') do |response_node|
@@ -164,6 +171,12 @@ module Moodle2CC::CC
                 end
               end
             end
+          end
+        end
+      when 'numerical_question'
+        presentation_node.response_str(:rcardinality => 'Single', :ident => 'response1') do |response_node|
+          response_node.render_fib(:fibtype => 'Decimal') do |render_fib_node|
+            render_fib_node.response_label(:ident => 'answer1')
           end
         end
       end
@@ -221,6 +234,22 @@ module Moodle2CC::CC
             condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => 'Set')
           end
         end
+      when 'numerical_question'
+        @numericals.each do |numerical|
+          processing_node.respcondition(:continue => 'No') do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.or do |or_node|
+                or_node.varequal numerical[:answer][:text], :respident => 'response1'
+                or_node.and do |and_node|
+                  and_node.vargte numerical[:answer][:text].to_f - numerical[:tolerance].to_f, :respident => 'response1'
+                  and_node.varlte numerical[:answer][:text].to_f + numerical[:tolerance].to_f, :respident => 'response1'
+                end
+              end
+            end
+            condition_node.setvar((100 * numerical[:answer][:fraction]).to_i, :varname => "SCORE", :action => 'Set')
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{numerical[:answer][:id]}_fb") if numerical[:answer][:feedback] && numerical[:answer][:feedback].strip.length > 0
+          end
+        end
       end
     end
 
@@ -237,7 +266,7 @@ module Moodle2CC::CC
       end
 
       case @question_type
-      when 'multiple_choice_question'
+      when 'multiple_choice_question', 'numerical_question'
         @answers.each do |answer|
           next unless answer[:feedback] && answer[:feedback].strip.length > 0
           item_node.itemfeedback(:ident => "#{answer[:id]}_fb") do |feedback_node|

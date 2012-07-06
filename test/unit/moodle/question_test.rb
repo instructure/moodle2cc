@@ -13,6 +13,7 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
 
     @calculated_question = @question_category.questions.find { |q| q.type == 'calculated' }
     @match_question = @question_category.questions.find { |q| q.type == 'match' }
+    @numerical_question = @question_category.questions.find { |q| q.type == 'numerical' }
 
     @answer = @calculated_question.answers.first
     @calculation = @calculated_question.calculations.first
@@ -92,6 +93,18 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
 
   def test_dataset_item_has_a_value
     assert_equal 3.0, @dataset_item.value
+  end
+
+  def test_it_has_numericals
+    assert @numerical_question.numericals.length > 0, 'question does not have numericals'
+  end
+
+  def test_numericals_has_an_answer_id
+    assert_equal 43, @numerical_question.numericals.first.answer_id
+  end
+
+  def test_numericals_has_a_tolerance
+    assert_equal 2, @numerical_question.numericals.first.tolerance
   end
 
   def test_it_has_answers

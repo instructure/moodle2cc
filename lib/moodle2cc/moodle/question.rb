@@ -50,6 +50,14 @@ module Moodle2CC::Moodle
       element :answer_text, String, :tag => 'ANSWERTEXT'
     end
 
+    class Numerical
+      include HappyMapper
+
+      tag 'NUMERICAL'
+      element :answer_id, Integer, :tag => 'ANSWER'
+      element :tolerance, Integer, :tag => 'TOLERANCE'
+    end
+
     tag 'QUESTIONS/QUESTION'
     element :id, Integer, :tag => 'ID'
     element :name, String, :tag => 'NAME'
@@ -57,6 +65,7 @@ module Moodle2CC::Moodle
     element :general_feedback, String, :tag => 'GENERALFEEDBACK'
     element :default_grade, Integer, :tag => 'DEFAULTGRADE'
     element :type, String, :tag => 'QTYPE'
+    has_many :numericals, Numerical
     has_many :answers, Answer
     has_many :calculations, Calculation
     has_many :matches, Match

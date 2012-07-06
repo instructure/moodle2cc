@@ -274,6 +274,38 @@
               </MATCH>
             </MATCHS>
           </QUESTION>
+          <QUESTION>
+            <ID>23</ID>
+            <PARENT>0</PARENT>
+            <NAME>Numerical Question</NAME>
+            <QUESTIONTEXT>How old are you?</QUESTIONTEXT>
+            <QUESTIONTEXTFORMAT>1</QUESTIONTEXTFORMAT>
+            <IMAGE></IMAGE>
+            <GENERALFEEDBACK>Wow, you're old!</GENERALFEEDBACK>
+            <DEFAULTGRADE>1</DEFAULTGRADE>
+            <PENALTY>0.1</PENALTY>
+            <QTYPE>numerical</QTYPE>
+            <LENGTH>1</LENGTH>
+            <STAMP>moodle19.divergentlogic.com+120611201635+dGu0Ws</STAMP>
+            <VERSION>moodle19.divergentlogic.com+120611201635+bUiSIi</VERSION>
+            <HIDDEN>0</HIDDEN>
+            <TIMECREATED>1339445795</TIMECREATED>
+            <TIMEMODIFIED>1339445795</TIMEMODIFIED>
+            <CREATEDBY>2</CREATEDBY>
+            <MODIFIEDBY>2</MODIFIEDBY>
+            <NUMERICAL>
+              <ANSWER>43</ANSWER>
+              <TOLERANCE>2</TOLERANCE>
+            </NUMERICAL>
+            <ANSWERS>
+              <ANSWER>
+                <ID>43</ID>
+                <ANSWER_TEXT>28</ANSWER_TEXT>
+                <FRACTION>1</FRACTION>
+                <FEEDBACK>Great age!</FEEDBACK>
+              </ANSWER>
+            </ANSWERS>
+          </QUESTION>
         </QUESTIONS>
       </QUESTION_CATEGORY>
     </QUESTION_CATEGORIES>
@@ -394,6 +426,16 @@
           <QUESTION_INSTANCE>
             <ID>697</ID>
             <QUESTION>989</QUESTION>
+            <GRADE>1</GRADE>
+          </QUESTION_INSTANCE>
+          <QUESTION_INSTANCE>
+            <ID>698</ID>
+            <QUESTION>12</QUESTION>
+            <GRADE>1</GRADE>
+          </QUESTION_INSTANCE>
+          <QUESTION_INSTANCE>
+            <ID>698</ID>
+            <QUESTION>23</QUESTION>
             <GRADE>1</GRADE>
           </QUESTION_INSTANCE>
         </QUESTION_INSTANCES>

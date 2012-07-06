@@ -68,6 +68,11 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     @question.answers = [answer1, answer2, answer3, answer4]
   end
 
+  def numerical_question!
+    @question_instance = @mod.question_instances.map { |qi| qi if qi.question.type == 'numerical' }.compact.first
+    @question = @question_instance.question
+  end
+
   def test_it_converts_id
     @question.id = 989
     question = Moodle2CC::CC::Question.new @question_instance
@@ -233,6 +238,25 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
       :answers => {123 => 'Ruby', 234 => 'Python', 345 => 'CoffeeScript'},
       :answer => 345
     }, question.matches.last)
+  end
+
+  def test_it_converts_numericals
+    answer = Moodle2CC::Moodle::Question::Answer.new
+    answer.id = 43
+    answer.text = "Blah"
+    numerical = Moodle2CC::Moodle::Question::Numerical.new
+    numerical.answer_id = 43
+    numerical.tolerance = 3
+    @question.numericals = [numerical]
+    @question.answers = [answer]
+    question = Moodle2CC::CC::Question.new @question_instance
+
+    assert_equal 1, question.numericals.length
+
+    assert_equal({
+      :answer => question.answers.first,
+      :tolerance => 3,
+    }, question.numericals.first)
   end
 
   def test_it_converts_answers
@@ -507,5 +531,36 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert condition, 'condition does not exist for first answer'
     var = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="0"]').first
     assert var, 'score does not exist for fourth answer'
+  end
+
+  def test_it_creates_item_xml_for_numerical_question
+    numerical_question!
+
+    question = Moodle2CC::CC::Question.new @question_instance
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    response = xml.root.xpath('presentation/response_str').first
+    assert_equal 'Single', response.attributes['rcardinality'].value
+    assert_equal 'response1', response.attributes['ident'].value
+    assert_equal 'Decimal', response.xpath('render_fib').first.attributes['fibtype'].value
+    assert_equal 'answer1', response.xpath('render_fib/response_label').first.attributes['ident'].value
+
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"][1]').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('conditionvar/or/varequal[@respident="response1" and text()="28"]').first
+    assert var, 'conditionvar varequal does not exist for first answer'
+    var = condition.xpath('conditionvar/or/and/vargte[@respident="response1" and text()="26.0"]').first
+    assert var, 'conditionvar vargte does not exist for first answer'
+    var = condition.xpath('conditionvar/or/and/varlte[@respident="response1" and text()="30.0"]').first
+    assert var, 'conditionvar varlte does not exist for first answer'
+    setvar = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="100"]').first
+    assert setvar, 'setvar does not exist for first answer'
+    feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="43_fb"]').first
+    assert feedback, 'displayfeedback does not exist for first answer'
+
+    feedback = xml.root.xpath('itemfeedback[@ident="43_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    assert feedback, 'feedback text does not exist for first answer'
+    assert_equal 'Great age!', feedback.text
   end
 end
