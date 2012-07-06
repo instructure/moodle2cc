@@ -38,6 +38,36 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     @question.matches = [match1, match2, match3]
   end
 
+  def multiple_choice_question!
+    @question.type = 'multichoice'
+
+    answer1 = Moodle2CC::Moodle::Question::Answer.new
+    answer1.id = 123
+    answer1.text = 'Ruby'
+    answer1.fraction = 1
+    answer1.feedback = 'Yippee!'
+
+    answer2 = Moodle2CC::Moodle::Question::Answer.new
+    answer2.id = 234
+    answer2.text = 'CoffeeScript'
+    answer2.fraction = 0.75
+    answer2.feedback = 'Nope'
+
+    answer3 = Moodle2CC::Moodle::Question::Answer.new
+    answer3.id = 345
+    answer3.text = 'Java'
+    answer3.fraction = 0.25
+    answer3.feedback = 'No way'
+
+    answer4 = Moodle2CC::Moodle::Question::Answer.new
+    answer4.id = 456
+    answer4.text = 'Clojure'
+    answer4.fraction = 0
+    answer4.feedback = 'Not even close'
+
+    @question.answers = [answer1, answer2, answer3, answer4]
+  end
+
   def test_it_converts_id
     @question.id = 989
     question = Moodle2CC::CC::Question.new @question_instance
@@ -205,6 +235,38 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     }, question.matches.last)
   end
 
+  def test_it_converts_answers
+    multiple_choice_question!
+
+    question = Moodle2CC::CC::Question.new @question_instance
+    assert_equal 4, question.answers.length
+
+    assert_equal({
+      :id => 123,
+      :text => 'Ruby',
+      :fraction => 1,
+      :feedback => 'Yippee!'
+    }, question.answers[0])
+    assert_equal({
+      :id => 234,
+      :text => 'CoffeeScript',
+      :fraction => 0.75,
+      :feedback => 'Nope'
+    }, question.answers[1])
+    assert_equal({
+      :id => 345,
+      :text => 'Java',
+      :fraction => 0.25,
+      :feedback => 'No way'
+    }, question.answers[2])
+    assert_equal({
+      :id => 456,
+      :text => 'Clojure',
+      :fraction => 0,
+      :feedback => 'Not even close'
+    }, question.answers[3])
+  end
+
   def test_it_has_an_identifier
     @question.id = 989
     question = Moodle2CC::CC::Question.new @question_instance
@@ -370,5 +432,80 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert_equal 'SCORE', set_var.attributes['varname'].value
     assert_equal 'Add', set_var.attributes['action'].value
     assert_equal '50.00', set_var.text
+  end
+
+  def test_it_creates_item_xml_for_multiple_choice_question
+    multiple_choice_question!
+
+    question = Moodle2CC::CC::Question.new @question_instance
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    # Responses
+    response = xml.root.xpath('presentation/response_lid[@ident="response1"]').first
+    assert response, 'response for multiple choice question does not exist'
+    assert_equal 'Single', response.attributes['rcardinality'].value
+    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="123"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal 'CoffeeScript', response.xpath('render_choice/response_label[@ident="234"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Java', response.xpath('render_choice/response_label[@ident="345"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Clojure', response.xpath('render_choice/response_label[@ident="456"]/material/mattext[@texttype="text/plain"]').text
+
+    # Feedback
+    feedback = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="123"]/../..').first
+    assert feedback, 'feedback does not exist for first answer'
+    display = feedback.xpath('displayfeedback[@feedbacktype="Response"][@linkrefid="123_fb"]').first
+    assert display, 'display feedback does not exist for first answer'
+
+    feedback = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="234"]/../..').first
+    assert feedback, 'feedback does not exist for second answer'
+    display = feedback.xpath('displayfeedback[@feedbacktype="Response"][@linkrefid="234_fb"]').first
+    assert display, 'display feedback does not exist for second answer'
+
+    feedback = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="345"]/../..').first
+    assert feedback, 'feedback does not exist for third answer'
+    display = feedback.xpath('displayfeedback[@feedbacktype="Response"][@linkrefid="345_fb"]').first
+    assert display, 'display feedback does not exist for third answer'
+
+    feedback = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="456"]/../..').first
+    assert feedback, 'feedback does not exist for fourth answer'
+    display = feedback.xpath('displayfeedback[@feedbacktype="Response"][@linkrefid="456_fb"]').first
+    assert display, 'display feedback does not exist for fourth answer'
+
+    feedback = xml.root.xpath('itemfeedback[@ident="123_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    assert feedback, 'feedback text does not exist for first answer'
+    assert_equal 'Yippee!', feedback.text
+
+    feedback = xml.root.xpath('itemfeedback[@ident="234_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    assert feedback, 'feedback text does not exist for second answer'
+    assert_equal 'Nope', feedback.text
+
+    feedback = xml.root.xpath('itemfeedback[@ident="345_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    assert feedback, 'feedback text does not exist for third answer'
+    assert_equal 'No way', feedback.text
+
+    feedback = xml.root.xpath('itemfeedback[@ident="456_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    assert feedback, 'feedback text does not exist for fourth answer'
+    assert_equal 'Not even close', feedback.text
+
+    # Conditions
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="123"]/../..').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="100"]').first
+    assert var, 'score does not exist for first answer'
+
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="234"]/../..').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="75"]').first
+    assert var, 'score does not exist for second answer'
+
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="345"]/../..').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="25"]').first
+    assert var, 'score does not exist for third answer'
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="456"]/../..').first
+
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="0"]').first
+    assert var, 'score does not exist for fourth answer'
   end
 end

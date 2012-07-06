@@ -16,8 +16,8 @@ module Moodle2CC::CC
       }
 
     attr_accessor :id, :title, :material, :general_feedback, :answer_tolerance,
-      :formulas, :formula_decimal_places, :vars, :var_sets, :matches, :identifier,
-      *META_ATTRIBUTES
+      :formulas, :formula_decimal_places, :vars, :var_sets, :matches, :answers,
+      :identifier, *META_ATTRIBUTES
 
     def initialize(question_instance)
       question = question_instance.question
@@ -27,6 +27,14 @@ module Moodle2CC::CC
       @points_possible = question_instance.grade
       @material = question.text.gsub(/\{(.*?)\}/, '[\1]')
       @general_feedback = question.general_feedback
+      @answers = question.answers.map do |answer|
+        {
+          :id => answer.id,
+          :text => answer.text,
+          :fraction => answer.fraction,
+          :feedback => answer.feedback
+        }
+      end
 
       calculation = question.calculations.first
       if calculation
@@ -110,17 +118,7 @@ module Moodle2CC::CC
           create_response_conditions(processing_node)
         end
 
-        # Feeback
-        if @general_feedback
-          item_node.itemfeedback(:ident => 'general_fb') do |fb_node|
-            fb_node.flow_mat do |flow_node|
-              flow_node.material do |material_node|
-                material_node.mattext(@general_feedback, :texttype => 'text/plain')
-              end
-            end
-          end
-        end
-
+        create_feedback_nodes(item_node)
         create_additional_nodes(item_node)
       end
     end
@@ -151,6 +149,18 @@ module Moodle2CC::CC
                   label_node.material do |material_node|
                     material_node.mattext text
                   end
+                end
+              end
+            end
+          end
+        end
+      when 'multiple_choice_question'
+        presentation_node.response_lid(:ident => 'response1', :rcardinality => 'Single') do |response_node|
+          response_node.render_choice do |choice_node|
+            @answers.each do |answer|
+              choice_node.response_label(:ident => answer[:id]) do |label_node|
+                label_node.material do |material_node|
+                  material_node.mattext answer[:text], :texttype => 'text/plain'
                 end
               end
             end
@@ -188,6 +198,54 @@ module Moodle2CC::CC
               var_node.varequal match[:answer], :respident => "response_#{match[:answer]}"
             end
             condition_node.setvar "%.2f" % score, :varname => 'SCORE', :action => 'Add'
+          end
+        end
+      when 'multiple_choice_question'
+        # Feeback
+        @answers.each do |answer|
+          next unless answer[:feedback] && answer[:feedback].strip.length > 0
+          processing_node.respcondition(:continue => 'Yes') do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.varequal answer[:id], :respident => 'response1'
+            end
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb")
+          end
+        end
+
+        # Scores
+        @answers.each do |answer|
+          processing_node.respcondition(:continue => 'No') do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.varequal answer[:id], :respident => 'response1'
+            end
+            condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => 'Set')
+          end
+        end
+      end
+    end
+
+    def create_feedback_nodes(item_node)
+      # Feeback
+      if @general_feedback
+        item_node.itemfeedback(:ident => 'general_fb') do |fb_node|
+          fb_node.flow_mat do |flow_node|
+            flow_node.material do |material_node|
+              material_node.mattext(@general_feedback, :texttype => 'text/plain')
+            end
+          end
+        end
+      end
+
+      case @question_type
+      when 'multiple_choice_question'
+        @answers.each do |answer|
+          next unless answer[:feedback] && answer[:feedback].strip.length > 0
+          item_node.itemfeedback(:ident => "#{answer[:id]}_fb") do |feedback_node|
+            feedback_node.flow_mat do |flow_node|
+              flow_node.material do |material_node|
+                material_node.mattext answer[:feedback], :texttype => 'text/plain'
+              end
+            end
           end
         end
       end
