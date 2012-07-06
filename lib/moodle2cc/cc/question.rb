@@ -179,6 +179,18 @@ module Moodle2CC::CC
             render_fib_node.response_label(:ident => 'answer1')
           end
         end
+      when 'true_false_question'
+        presentation_node.response_lid(:rcardinality => 'Single', :ident => 'response1') do |response_node|
+          response_node.render_choice do |render_choice_node|
+            @answers.each do |answer|
+              render_choice_node.response_label(:ident => answer[:id]) do |response_label_node|
+                response_label_node.material do |material_node|
+                  material_node.mattext(answer[:text], :texttype => 'text/plain')
+                end
+              end
+            end
+          end
+        end
       end
     end
 
@@ -253,12 +265,21 @@ module Moodle2CC::CC
       when 'short_answer_question'
         # Feeback
         @answers.each do |answer|
-          next unless answer[:feedback] && answer[:feedback].strip.length > 0
           processing_node.respcondition(:continue => 'No') do |condition_node|
             condition_node.conditionvar do |var_node|
               var_node.varequal answer[:text], :respident => 'response1'
             end
-            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb")
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb") if answer[:feedback] && answer[:feedback].strip.length > 0
+            condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => "Set")
+          end
+        end
+      when 'true_false_question'
+        @answers.each do |answer|
+          processing_node.respcondition(:continue => 'No') do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.varequal answer[:id], :respident => 'response1'
+            end
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb") if answer[:feedback] && answer[:feedback].strip.length > 0
             condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => "Set")
           end
         end
@@ -278,7 +299,7 @@ module Moodle2CC::CC
       end
 
       case @question_type
-      when 'multiple_choice_question', 'numerical_question', 'short_answer_question'
+      when 'multiple_choice_question', 'numerical_question', 'short_answer_question', 'true_false_question'
         @answers.each do |answer|
           next unless answer[:feedback] && answer[:feedback].strip.length > 0
           item_node.itemfeedback(:ident => "#{answer[:id]}_fb") do |feedback_node|
