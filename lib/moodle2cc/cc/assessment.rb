@@ -40,6 +40,11 @@ module Moodle2CC::CC
       end
     end
 
+    def create_files(export_dir)
+      create_assessment_meta_xml(export_dir)
+      create_qti_xml(export_dir)
+    end
+
     def create_assessment_meta_xml(export_dir)
       path = File.join(export_dir, identifier, ASSESSMENT_META)
       FileUtils.mkdir_p(File.dirname(path))
@@ -82,6 +87,10 @@ module Moodle2CC::CC
               end
             end
             assessment_node.section(:ident => 'root_section') do |section_node|
+              @mod.question_instances.each do |question_instance|
+                question = Question.new question_instance
+                question.create_item_xml(section_node)
+              end
             end
           end
         end

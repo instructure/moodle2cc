@@ -114,6 +114,8 @@ module Moodle2CC::CC
             create_web_resource(resources_node, mod)
           when 'forum'
             create_forum_resource(resources_node, mod)
+          when 'quiz'
+            create_quiz_resource(resources_node, mod)
           end
         end
 
@@ -152,6 +154,12 @@ module Moodle2CC::CC
       discussion_topic = DiscussionTopic.new(mod)
       discussion_topic.create_resource_node(resources_node)
       discussion_topic.create_files(@export_dir)
+    end
+
+    def create_quiz_resource(resources_node, mod)
+      assessment = Assessment.new(mod)
+      assessment.create_resource_node(resources_node)
+      assessment.create_files(@export_dir)
     end
 
     def create_course_content(resources_node)

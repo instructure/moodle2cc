@@ -186,6 +186,15 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '1', item_node.xpath('xmlns:indent').text
     assert_equal 'i2fbc9b5ef920655b8240824d3d7b677a', item_node.xpath('xmlns:identifierref').text
+
+    item_node = module_node.xpath('xmlns:items/xmlns:item[5]').first
+    assert_equal 'i4b9d03a2e409299ffd8bd30e90486656', item_node.attributes['identifier'].value
+    assert_equal 'Quiz', item_node.xpath('xmlns:content_type').text
+    assert_equal 'First Quiz', item_node.xpath('xmlns:title').text
+    assert_equal '4', item_node.xpath('xmlns:position').text
+    assert_equal '', item_node.xpath('xmlns:new_tab').text
+    assert_equal '0', item_node.xpath('xmlns:indent').text
+    assert_equal 'ib7b544955ea75a8511109ec7af08a48b', item_node.xpath('xmlns:identifierref').text
   end
 
   def test_it_creates_assignment_groups_xml
@@ -218,4 +227,23 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal 1, xml.xpath('//xmlns:filesMeta').count
   end
 
+  def test_it_creates_qti_xml
+    tmp_dir = File.expand_path('../../../tmp', __FILE__)
+    @cc_course.create_qti_xml(tmp_dir)
+    xml = Nokogiri::XML(File.read(File.join(tmp_dir, 'non_cc_assessments', "i02849cd800255cc6c762cdafd8d8db67.xml.qti")))
+
+    assert xml
+    assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/xsd/ims_qtiasiv1p2p1.xsd", xml.root.attributes['schemaLocation'].value
+    assert_equal "http://www.w3.org/2001/XMLSchema-instance", xml.namespaces['xmlns:xsi']
+    assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2", xml.namespaces['xmlns']
+    assert_equal 'questestinterop', xml.root.name
+
+    assert_equal 'i02849cd800255cc6c762cdafd8d8db67', xml.root.xpath('xmlns:objectbank').first.attributes['identifier'].value
+
+    time_data = xml.root.xpath('xmlns:objectbank/xmlns:qtimetadata/xmlns:qtimetadatafield[xmlns:fieldlabel="bank_title" and xmlns:fieldentry="Default for Beginning Ruby on Rails"]').first
+    assert time_data, 'qtimetadata does not exist for time limit'
+
+    items = xml.root.xpath('xmlns:objectbank/xmlns:item')
+    assert_equal 5, items.length
+  end
 end

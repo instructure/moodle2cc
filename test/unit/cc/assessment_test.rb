@@ -168,5 +168,8 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
 
     section = xml.root.xpath('xmlns:assessment/xmlns:section[@ident="root_section"]').first
     assert section, 'root sections node does not exist'
+
+    items = xml.root.xpath('xmlns:assessment/xmlns:section/xmlns:item')
+    assert_equal 5, items.length
   end
 end

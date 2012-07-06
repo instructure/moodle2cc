@@ -12,12 +12,13 @@ module Moodle2CC::Moodle
       tag 'MODS/MOD'
 
       element :id, Integer, :tag => 'ID'
+      element :mod_type, String, :tag => 'TYPE'
       element :instance_id, Integer, :tag => 'INSTANCE'
       element :added, Integer, :tag => 'ADDED'
       element :indent, Integer, :tag => 'INDENT'
 
       def instance
-        section.course.mods.find { |mod| mod.id == instance_id }
+        section.course.mods.find { |mod| mod.id == instance_id && mod.mod_type == mod_type }
       end
     end
 

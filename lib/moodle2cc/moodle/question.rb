@@ -2,6 +2,8 @@ module Moodle2CC::Moodle
   class Question
     include HappyMapper
 
+    attr_accessor :question_category
+
     class Answer
       include HappyMapper
 
@@ -69,5 +71,15 @@ module Moodle2CC::Moodle
     has_many :answers, Answer
     has_many :calculations, Calculation
     has_many :matches, Match
+
+    def instance
+      question_category.course.mods.select do |mod|
+        mod.mod_type == 'quiz'
+      end.map do |mod|
+        mod.question_instances.find do |qi|
+          qi.question_id == id
+        end
+      end.compact.first
+    end
   end
 end

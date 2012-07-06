@@ -146,4 +146,10 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
   def test_match_has_answer_text
     assert_equal 'Ruby', @match.answer_text
   end
+
+  def test_it_has_an_instance
+    quiz_mod = @course.mods.find { |mod| mod.mod_type == 'quiz' }
+    instance = quiz_mod.question_instances.find { |i| i.question_id == @calculated_question.id }
+    assert_equal instance, @calculated_question.instance
+  end
 end

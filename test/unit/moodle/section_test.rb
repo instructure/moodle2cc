@@ -64,4 +64,8 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
   def test_mods_have_added
     assert_equal 1338410699, @section.mods.first.added
   end
+
+  def test_mods_have_a_mod_type
+    assert_equal 'assignment', @section.mods.first.mod_type
+  end
 end

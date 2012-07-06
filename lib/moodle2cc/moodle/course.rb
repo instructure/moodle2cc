@@ -17,6 +17,7 @@ module Moodle2CC::Moodle
       course.sections.each { |section| section.course = course }
       course.mods.each { |mod| mod.course = course }
       course.grade_items.each { |grade_item| grade_item.course = course }
+      course.question_categories.each { |question_category| question_category.course = course }
     end
   end
 end
