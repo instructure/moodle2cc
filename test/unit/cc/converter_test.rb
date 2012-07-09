@@ -132,17 +132,15 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   def test_imsmanifest_has_file_resources
     xml = get_imsmanifest_xml
 
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[8]').first
-    assert resource
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[@identifier="i2fbc9b5ef920655b8240824d3d7b677a"]').first
+    assert resource, 'resources does not exist for "web_resources/folder/test.txt" file'
     assert_equal 'webcontent', resource.attributes['type'].value
-    assert_equal 'i2fbc9b5ef920655b8240824d3d7b677a', resource.attributes['identifier'].value
     assert_equal 'web_resources/folder/test.txt', resource.attributes['href'].value
     assert resource.xpath('xmlns:file[@href="web_resources/folder/test.txt"]').first
 
-    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[9]').first
-    assert resource
+    resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[@identifier="ib98bb8ec201a97840ae4ed4bb40207c0"]').first
+    assert resource, 'resources does not exist for "web_resources/test.txt" file'
     assert_equal 'webcontent', resource.attributes['type'].value
-    assert_equal 'ib98bb8ec201a97840ae4ed4bb40207c0', resource.attributes['identifier'].value
     assert_equal 'web_resources/test.txt', resource.attributes['href'].value
     assert resource.xpath('xmlns:file[@href="web_resources/test.txt"]').first
   end
