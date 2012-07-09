@@ -105,8 +105,6 @@ module Moodle2CC::CC
         create_course_content(resources_node)
 
         @moodle_backup.course.mods.each do |mod|
-          identifier = create_key(mod.id, 'resource_')
-
           case mod.mod_type
           when 'assignment'
             create_assignment_resource(resources_node, mod)
