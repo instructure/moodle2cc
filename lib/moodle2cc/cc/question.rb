@@ -265,11 +265,21 @@ module Moodle2CC::CC
       when 'short_answer_question'
         # Feeback
         @answers.each do |answer|
+          next unless answer[:feedback] && answer[:feedback].strip.length > 0
+          processing_node.respcondition(:continue => 'Yes') do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.varequal answer[:text], :respident => 'response1'
+            end
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb")
+          end
+        end
+
+        # Conditions
+        @answers.each do |answer|
           processing_node.respcondition(:continue => 'No') do |condition_node|
             condition_node.conditionvar do |var_node|
               var_node.varequal answer[:text], :respident => 'response1'
             end
-            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb") if answer[:feedback] && answer[:feedback].strip.length > 0
             condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => "Set")
           end
         end

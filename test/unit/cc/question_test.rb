@@ -588,27 +588,37 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert_equal 'No', response.xpath('render_fib/response_label').first.attributes['rshuffle'].value
     assert_equal 'answer1', response.xpath('render_fib/response_label').first.attributes['ident'].value
 
-
+    # Conditions
     condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="Ruby"]/../..').first
     assert condition, 'condition does not exist for first answer'
-    feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="40_fb"]').first
-    assert feedback, 'displayfeedback does not exist for first answer'
     setvar = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="100"]').first
     assert setvar, 'setvar does not exist for first answer'
 
     condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="JavaScript"]/../..').first
     assert condition, 'condition does not exist for second answer'
-    feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="41_fb"]').first
-    assert feedback, 'displayfeedback does not exist for second answer'
     setvar = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="50"]').first
     assert setvar, 'setvar does not exist for second answer'
 
     condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="Java"]/../..').first
     assert condition, 'condition does not exist for third answer'
-    feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="42_fb"]').first
-    assert feedback, 'displayfeedback does not exist for third answer'
     setvar = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="10"]').first
     assert setvar, 'setvar does not exist for third answer'
+
+    # Feedback
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="Ruby"]/../..').first
+    assert condition, 'feedback condition does not exist for first answer'
+    feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="40_fb"]').first
+    assert feedback, 'displayfeedback does not exist for first answer'
+
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="JavaScript"]/../..').first
+    assert condition, 'feedback condition does not exist for second answer'
+    feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="41_fb"]').first
+    assert feedback, 'displayfeedback does not exist for second answer'
+
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="Java"]/../..').first
+    assert condition, 'feedback condition does not exist for third answer'
+    feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="42_fb"]').first
+    assert feedback, 'displayfeedback does not exist for third answer'
 
     feedback = xml.root.xpath('itemfeedback[@ident="40_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
     assert feedback, 'feedback text does not exist for first answer'
