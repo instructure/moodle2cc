@@ -2,7 +2,7 @@ module Moodle2CC::CC
   class Course
     include CCHelper
 
-    attr_accessor :id, :title, :course_code, :start_at, :is_public, :syllabus_body
+    attr_accessor :id, :title, :course_code, :start_at, :format, :is_public, :syllabus_body
 
     def initialize(course)
       @course = course
@@ -11,6 +11,12 @@ module Moodle2CC::CC
       @title = course.fullname
       @course_code = course.shortname
       @start_at = ims_datetime(Time.at(course.startdate))
+      @format = case course.format
+                when 'weeks', 'weekscss'
+                  'Week'
+                else
+                  'Topic'
+                end
       @is_public = course.visible
       @syllabus_body = convert_file_path_tokens(course.sections.first.summary)
     end
@@ -88,7 +94,7 @@ module Moodle2CC::CC
           @course.sections.each do |section|
             next unless section.visible
             modules_node.module(:identifier => create_key(section.id, 'section_')) do |module_node|
-              module_node.title "week #{section.number}"
+              module_node.title "#{@format} #{section.number}"
               module_node.position section.number
               module_node.require_sequential_progress false
               module_node.items do |items_node|

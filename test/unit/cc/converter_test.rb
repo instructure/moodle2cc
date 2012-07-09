@@ -93,12 +93,12 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]').first
     assert item
     assert_equal "iebbd12be3d1d1ba16e241599099c4795", item.attributes['identifier'].value
-    assert_equal 'week 0', item.xpath('xmlns:title').text
+    assert_equal 'Week 0', item.xpath('xmlns:title').text
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]').first
     assert item
     assert_equal "i84cbfb8e81c780e847d0087e024dd2f2", item.attributes['identifier'].value
-    assert_equal 'week 1', item.xpath('xmlns:title').text
+    assert_equal 'Week 1', item.xpath('xmlns:title').text
   end
 
   def test_imsmanifest_does_not_create_item_for_invisible_sections

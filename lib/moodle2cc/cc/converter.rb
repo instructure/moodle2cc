@@ -79,6 +79,7 @@ module Moodle2CC::CC
     end
 
     def create_organizations
+      course = Course.new(@moodle_backup.course)
       @manifest_node.organizations do |orgs|
         orgs.organization(
           :identifier => 'org_1',
@@ -88,7 +89,7 @@ module Moodle2CC::CC
             @moodle_backup.course.sections.each do |section|
               next unless section.visible
               root_item.item(:identifier => create_key(section.id, "section_")) do |item|
-                item.title "week #{section.number}"
+                item.title "#{course.format} #{section.number}"
                 section.mods.each do |mod|
                   item.item(:identifier => create_key(mod.instance_id, "mod_"), :identifierref => create_key(mod.instance_id, "resource_")) do |sub_item|
                     sub_item.title mod.instance.name

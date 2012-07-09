@@ -31,6 +31,10 @@ class TestUnitMoodleCourse < MiniTest::Unit::TestCase
     assert_equal 1339390800, @course.startdate
   end
 
+  def test_it_has_a_format
+    assert_equal 'weeks', @course.format
+  end
+
   def test_it_has_a_visibility
     assert_equal true, @course.visible
   end

@@ -7,6 +7,7 @@ module Moodle2CC::Moodle
     element :fullname, String, :tag => 'HEADER/FULLNAME'
     element :shortname, String, :tag => 'HEADER/SHORTNAME'
     element :startdate, Integer, :tag => 'HEADER/STARTDATE'
+    element :format, String, :tag => 'HEADER/FORMAT'
     element :visible, Boolean, :tag => 'HEADER/VISIBLE'
     has_many :sections, Section
     has_many :mods, Mod

@@ -32,6 +32,24 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '2012-06-11T05:00:00', @cc_course.start_at
   end
 
+  def test_it_converts_format
+    @course.format = 'weeks'
+    cc_course = Moodle2CC::CC::Course.new @course
+    assert_equal 'Week', cc_course.format
+
+    @course.format = 'weekscss'
+    cc_course = Moodle2CC::CC::Course.new @course
+    assert_equal 'Week', cc_course.format
+
+    @course.format = 'social'
+    cc_course = Moodle2CC::CC::Course.new @course
+    assert_equal 'Topic', cc_course.format
+
+    @course.format = 'topics'
+    cc_course = Moodle2CC::CC::Course.new @course
+    assert_equal 'Topic', cc_course.format
+  end
+
   def test_it_converts_is_public
     assert_equal true, @cc_course.is_public
   end
@@ -122,7 +140,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert xml.xpath('//xmlns:modules/xmlns:module').count == 2
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[1]').first
-    assert_equal 'week 0', module_node.xpath('xmlns:title').text
+    assert_equal 'Week 0', module_node.xpath('xmlns:title').text
     assert_equal '0', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
     assert_equal 2, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
@@ -147,7 +165,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal 'ibd69090f0854ccc9bc06276117c9fffd', item_node.xpath('xmlns:identifierref').text
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[2]').first
-    assert_equal 'week 1', module_node.xpath('xmlns:title').text
+    assert_equal 'Week 1', module_node.xpath('xmlns:title').text
     assert_equal '1', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
     assert_equal 5, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
