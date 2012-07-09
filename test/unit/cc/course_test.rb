@@ -195,6 +195,12 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '0', item_node.xpath('xmlns:indent').text
     assert_equal 'ib7b544955ea75a8511109ec7af08a48b', item_node.xpath('xmlns:identifierref').text
+
+    item_node = module_node.xpath('xmlns:items/xmlns:item[6]').first
+    refute item_node, 'item exists for invisible mod'
+
+    module_node = xml.xpath('//xmlns:modules/xmlns:module[3]').first
+    refute module_node, 'module exists for invisible section'
   end
 
   def test_it_creates_assignment_groups_xml

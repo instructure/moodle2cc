@@ -101,6 +101,13 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'week 1', item.xpath('xmlns:title').text
   end
 
+  def test_imsmanifest_does_not_create_item_for_invisible_sections
+    xml = get_imsmanifest_xml
+
+    item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[@identifier="i9a57aafbbb5993c28a89c2e363e97f87"]').first
+    refute item, 'invisible section has item node'
+  end
+
   def test_imsmanifest_has_sub_items
     xml = get_imsmanifest_xml
 

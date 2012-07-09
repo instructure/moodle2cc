@@ -22,7 +22,7 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_sections
-    assert_equal 2, @sections.length
+    assert_equal 3, @sections.length
   end
 
   def test_it_has_an_id
@@ -41,10 +41,6 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
     assert_equal true, @section.visible
   end
 
-  def test_mods_have_an_indent
-    assert_equal 0, @section.mods[0].indent
-  end
-
   def test_it_has_mods
     assert @section.mods.length > 0
   end
@@ -55,6 +51,14 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
 
   def test_mods_have_an_instance_id
     assert 987, @section.mods.first.instance_id
+  end
+
+  def test_mods_have_an_indent
+    assert_equal 0, @section.mods[0].indent
+  end
+
+  def test_mods_have_a_visibility
+    assert_equal true, @section.mods[0].visible
   end
 
   def test_mods_have_instances

@@ -86,12 +86,14 @@ module Moodle2CC::CC
           'xmlns' => "http://canvas.instructure.com/xsd/cccv1p0"
         ) do |modules_node|
           @course.sections.each do |section|
+            next unless section.visible
             modules_node.module(:identifier => create_key(section.id, 'section_')) do |module_node|
               module_node.title "week #{section.number}"
               module_node.position section.number
               module_node.require_sequential_progress false
               module_node.items do |items_node|
                 section.mods.each_with_index do |mod,index|
+                  next unless mod.visible
                   items_node.item(:identifier => create_key(mod.instance_id, 'mod_')) do |item_node|
                     item_node.title mod.instance.name
                     item_node.position index
@@ -147,7 +149,8 @@ module Moodle2CC::CC
           'xmlns' => "http://canvas.instructure.com/xsd/cccv1p0"
         ) do |assignment_groups_node|
           @course.sections.each do |section|
-            next unless section.mods.select { |mod| mod.instance.mod_type == "assignment" }.length > 0
+            next unless section.visible
+            next unless section.mods.select { |mod| mod.visible && mod.instance.mod_type == "assignment" }.length > 0
             assignment_groups_node.assignmentGroup(:identifier => create_key(section.id, "assignment_group_")) do |assignment_group_node|
               assignment_group_node.title "Week #{section.number}"
             end

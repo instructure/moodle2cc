@@ -16,6 +16,7 @@ module Moodle2CC::Moodle
       element :instance_id, Integer, :tag => 'INSTANCE'
       element :added, Integer, :tag => 'ADDED'
       element :indent, Integer, :tag => 'INDENT'
+      element :visible, Boolean, :tag => 'VISIBLE'
 
       def instance
         section.course.mods.find { |mod| mod.id == instance_id && mod.mod_type == mod_type }
