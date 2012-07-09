@@ -41,7 +41,6 @@ module Moodle2CC::CC
       create_files_meta_xml(export_dir)
       create_assignment_groups_xml(export_dir)
       create_module_meta_xml(export_dir)
-      create_qti_xml(export_dir)
     end
 
     def create_syllabus_file(export_dir)
@@ -167,35 +166,6 @@ module Moodle2CC::CC
           'xsi:schemaLocation' => "http://canvas.instructure.com/xsd/cccv1p0 http://canvas.instructure.com/xsd/cccv1p0.xsd",
           'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
           'xmlns' => "http://canvas.instructure.com/xsd/cccv1p0")
-      end
-    end
-
-    def create_qti_xml(export_dir)
-      @course.question_categories.each do |question_category|
-        identifier = create_key(question_category.id, 'objectbank_')
-        path = File.join(export_dir, ASSESSMENT_NON_CC_FOLDER, "#{identifier}.xml.qti")
-        FileUtils.mkdir_p(File.dirname(path))
-        File.open(path, 'w') do |file|
-          node = Builder::XmlMarkup.new(:target => file, :indent => 2)
-          node.instruct!
-          node.questestinterop(
-            'xsi:schemaLocation' => "http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/xsd/ims_qtiasiv1p2p1.xsd",
-            'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
-            'xmlns' => "http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
-          ) do |root_node|
-            root_node.objectbank(:identifier => identifier) do |objectbank_node|
-              objectbank_node.qtimetadata do |qtimetadata_node|
-                qtimetadata_node.qtimetadatafield do |qtimetadatafield_node|
-                  qtimetadatafield_node.fieldlabel "bank_title"
-                  qtimetadatafield_node.fieldentry question_category.name
-                end
-              end
-              question_category.questions.each do |question|
-                Question.new(question.instance).create_item_xml(objectbank_node) if question.instance
-              end
-            end
-          end
-        end
       end
     end
 

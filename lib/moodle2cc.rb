@@ -16,6 +16,7 @@ module Moodle2CC
     autoload :Course, 'moodle2cc/cc/course'
     autoload :DiscussionTopic, 'moodle2cc/cc/discussion_topic'
     autoload :Question, 'moodle2cc/cc/question'
+    autoload :QuestionBank, 'moodle2cc/cc/question_bank'
     autoload :Resource, 'moodle2cc/cc/resource'
     autoload :WebContent, 'moodle2cc/cc/web_content'
     autoload :WebLink, 'moodle2cc/cc/web_link'

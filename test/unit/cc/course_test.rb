@@ -226,24 +226,4 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
 
     assert_equal 1, xml.xpath('//xmlns:filesMeta').count
   end
-
-  def test_it_creates_qti_xml
-    tmp_dir = File.expand_path('../../../tmp', __FILE__)
-    @cc_course.create_qti_xml(tmp_dir)
-    xml = Nokogiri::XML(File.read(File.join(tmp_dir, 'non_cc_assessments', "i02849cd800255cc6c762cdafd8d8db67.xml.qti")))
-
-    assert xml
-    assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/xsd/ims_qtiasiv1p2p1.xsd", xml.root.attributes['schemaLocation'].value
-    assert_equal "http://www.w3.org/2001/XMLSchema-instance", xml.namespaces['xmlns:xsi']
-    assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2", xml.namespaces['xmlns']
-    assert_equal 'questestinterop', xml.root.name
-
-    assert_equal 'i02849cd800255cc6c762cdafd8d8db67', xml.root.xpath('xmlns:objectbank').first.attributes['identifier'].value
-
-    time_data = xml.root.xpath('xmlns:objectbank/xmlns:qtimetadata/xmlns:qtimetadatafield[xmlns:fieldlabel="bank_title" and xmlns:fieldentry="Default for Beginning Ruby on Rails"]').first
-    assert time_data, 'qtimetadata does not exist for time limit'
-
-    items = xml.root.xpath('xmlns:objectbank/xmlns:item')
-    assert_equal 5, items.length
-  end
 end

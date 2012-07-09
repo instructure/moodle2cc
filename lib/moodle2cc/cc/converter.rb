@@ -117,6 +117,10 @@ module Moodle2CC::CC
           end
         end
 
+        @moodle_backup.course.question_categories.each do |question_category|
+          create_question_bank_resource(resources_node, question_category)
+        end
+
         @moodle_backup.files.each do |file|
           href = File.join(WEB_RESOURCES_FOLDER, file)
           resources_node.resource(
@@ -158,6 +162,12 @@ module Moodle2CC::CC
       assessment = Assessment.new(mod)
       assessment.create_resource_node(resources_node)
       assessment.create_files(@export_dir)
+    end
+
+    def create_question_bank_resource(resources_node, question_category)
+      question_bank = QuestionBank.new(question_category)
+      question_bank.create_resource_node(resources_node)
+      question_bank.create_files(@export_dir)
     end
 
     def create_course_content(resources_node)
