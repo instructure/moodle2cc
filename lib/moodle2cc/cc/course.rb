@@ -98,48 +98,10 @@ module Moodle2CC::CC
               module_node.position section.number
               module_node.require_sequential_progress false
               module_node.items do |items_node|
-                section.mods.each_with_index do |mod,index|
+                section.mods.each_with_index do |mod, index|
                   next unless mod.visible
-                  items_node.item(:identifier => create_key(mod.instance_id, 'mod_')) do |item_node|
-                    item_node.title mod.instance.name
-                    item_node.position index
-                    item_node.new_tab ''
-                    item_node.indent mod.indent
-
-                    case mod.instance.mod_type
-                    when 'assignment'
-                      item_node.content_type 'Assignment'
-                      item_node.identifierref Assignment.new(mod.instance).identifier
-                    when 'resource'
-                      if mod.instance.type == 'file'
-                        uri = URI.parse(mod.instance.reference)
-                        if uri.scheme
-                          item_node.content_type 'ExternalUrl'
-                          item_node.url mod.instance.reference
-                          item_node.identifierref WebLink.new(mod.instance).identifier
-                        else
-                          item_node.content_type 'Attachment'
-                          item_node.identifierref create_key(File.join(WEB_RESOURCES_FOLDER, mod.instance.reference), 'resource_')
-                        end
-                      else
-                        item_node.content_type 'WikiPage'
-                        item_node.identifierref WebContent.new(mod.instance).identifier
-                      end
-                    when 'forum'
-                      item_node.content_type 'DiscussionTopic'
-                      item_node.identifierref DiscussionTopic.new(mod.instance).identifier
-                    when 'quiz'
-                      item_node.content_type 'Quiz'
-                      item_node.identifierref Assessment.new(mod.instance).identifier
-                    when 'wiki'
-                      item_node.content_type 'WikiPage'
-                      wiki = Wiki.new(mod.instance)
-                      root_page = wiki.root_page
-                      item_node.identifierref root_page.identifier if root_page
-                    when 'label'
-                      item_node.content_type 'ContextModuleSubHeader'
-                    end
-                  end
+                  resource = Resource.get_from_mod(mod.instance)
+                  resource.create_module_meta_item_node(items_node, index)
                 end
               end
             end

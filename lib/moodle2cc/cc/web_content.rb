@@ -3,12 +3,10 @@ module Moodle2CC::CC
     include CCHelper
     include Resource
 
-    attr_accessor :id, :title, :body
+    attr_accessor :body
 
     def initialize(mod)
       super
-      @id = mod.id
-      @title = mod.name
       @body = convert_file_path_tokens(mod.alltext)
     end
 
@@ -35,6 +33,11 @@ module Moodle2CC::CC
         erb = ERB.new(File.read(template))
         file.write(erb.result(binding))
       end
+    end
+
+    def create_module_meta_item_elements(item_node)
+      item_node.content_type 'WikiPage'
+      item_node.identifierref @identifier
     end
   end
 end

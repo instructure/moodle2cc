@@ -17,6 +17,7 @@ module Moodle2CC
     autoload :Converter, 'moodle2cc/cc/converter'
     autoload :Course, 'moodle2cc/cc/course'
     autoload :DiscussionTopic, 'moodle2cc/cc/discussion_topic'
+    autoload :Label, 'moodle2cc/cc/label'
     autoload :Question, 'moodle2cc/cc/question'
     autoload :QuestionBank, 'moodle2cc/cc/question_bank'
     autoload :Resource, 'moodle2cc/cc/resource'

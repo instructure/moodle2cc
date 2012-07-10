@@ -6,12 +6,10 @@ module Moodle2CC::CC
     META_ATTRIBUTES = [:title, :description, :lock_at, :unlock_at, :allowed_attempts,
       :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit]
 
-    attr_accessor :id, :non_cc_assessments_identifier, *META_ATTRIBUTES
+    attr_accessor :non_cc_assessments_identifier, *META_ATTRIBUTES
 
     def initialize(mod, position=0)
       super
-      @id = mod.id
-      @title = mod.name
       @description = convert_file_path_tokens(mod.intro)
       if mod.time_close.to_i > 0
         @lock_at = ims_datetime(Time.at(mod.time_close))
@@ -95,6 +93,11 @@ module Moodle2CC::CC
           end
         end
       end
+    end
+
+    def create_module_meta_item_elements(item_node)
+      item_node.content_type 'Quiz'
+      item_node.identifierref @identifier
     end
   end
 end

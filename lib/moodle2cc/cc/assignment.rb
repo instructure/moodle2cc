@@ -7,12 +7,10 @@ module Moodle2CC::CC
       :lock_at, :unlock_at, :all_day, :all_day_date, :submission_types,
       :position, :assignment_group_identifierref]
 
-    attr_accessor :id, :body, *SETTINGS_ATTRIBUTES
+    attr_accessor :body, *SETTINGS_ATTRIBUTES
 
     def initialize(mod, position=0)
       super
-      @id = mod.id
-      @title = mod.name
       @body = convert_file_path_tokens(mod.description)
       @points_possible = mod.grade_item.grade_max
       @grading_type = 'points'
@@ -91,6 +89,11 @@ module Moodle2CC::CC
           end
         end
       end
+    end
+
+    def create_module_meta_item_elements(item_node)
+      item_node.content_type 'Assignment'
+      item_node.identifierref @identifier
     end
   end
 end

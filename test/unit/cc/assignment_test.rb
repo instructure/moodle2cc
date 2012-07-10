@@ -142,6 +142,20 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
     assert file
   end
 
+  def test_it_creates_items_in_module_meta
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(@assignment.create_module_meta_item_node(node, 5))
+
+    assert_equal 'item', xml.root.name
+    assert_equal 'i10241816e5909d8e76da003b2814c6a4', xml.root.attributes['identifier'].value
+    assert_equal 'Create a Rails site', xml.root.xpath('title').text
+    assert_equal '5', xml.root.xpath('position').text
+    assert_equal '', xml.root.xpath('new_tab').text
+    assert_equal '0', xml.root.xpath('indent').text
+    assert_equal 'Assignment', xml.root.xpath('content_type').text
+    assert_equal 'i6b162484accdf6081cea43b39219d129', xml.root.xpath('identifierref').text
+  end
+
   def test_it_creates_assignment_html
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
     @assignment.create_html(tmp_dir)

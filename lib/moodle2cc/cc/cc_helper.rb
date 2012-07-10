@@ -75,6 +75,14 @@ module CCHelper
     CCHelper.create_key(object, prepend)
   end
 
+  def create_mod_key(mod)
+    CCHelper.create_mod_key(mod)
+  end
+
+  def create_resource_key(mod)
+    CCHelper.create_resource_key(mod)
+  end
+
   def ims_date(date=nil)
     CCHelper.ims_date(date)
   end
@@ -94,6 +102,14 @@ module CCHelper
   def self.create_key(object, prepend="")
     key = object.to_s
     "i" + Digest::MD5.hexdigest(prepend + key)
+  end
+
+  def self.create_mod_key(mod)
+    create_key("#{mod.mod_type}_#{mod.id}", 'mod_')
+  end
+
+  def self.create_resource_key(mod)
+    create_key("#{mod.mod_type}_#{mod.id}", 'resource_')
   end
 
   def self.ims_date(date=nil)

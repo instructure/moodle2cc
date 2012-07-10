@@ -3,13 +3,19 @@ module Moodle2CC::CC
     include CCHelper
     include Resource
 
-    attr_accessor :id, :title, :url
+    attr_accessor :url
 
     def initialize(mod)
       super
-      @id = mod.id
-      @title = mod.name
       @url = mod.reference
+    end
+
+    def self.create_resource_key(mod)
+      if !URI.parse(mod.reference).scheme
+        create_key(File.join(WEB_RESOURCES_FOLDER, mod.reference), 'resource_')
+      else
+        super
+      end
     end
 
     def create_resource_node(resources_node)
@@ -40,6 +46,18 @@ module Moodle2CC::CC
           web_link_node.title @title
           web_link_node.url(:href => @url)
         end
+      end
+    end
+
+    def create_module_meta_item_elements(item_node)
+      item_node.identifierref @identifier
+
+      uri = URI.parse(@url)
+      if uri.scheme
+        item_node.url @url
+        item_node.content_type 'ExternalUrl'
+      else
+        item_node.content_type 'Attachment'
       end
     end
   end

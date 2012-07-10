@@ -3,12 +3,10 @@ module Moodle2CC::CC
     include CCHelper
     include Resource
 
-    attr_accessor :id, :title, :posted_at, :position, :type, :text
+    attr_accessor :posted_at, :position, :type, :text
 
     def initialize(mod, position=0)
       super
-      @id = mod.id
-      @title = mod.name
       @text = convert_file_path_tokens(mod.intro)
 
       if mod.section_mod && mod.section_mod.added.to_i > 0
@@ -82,6 +80,11 @@ module Moodle2CC::CC
           topic_meta.type @type
         end
       end
+    end
+
+    def create_module_meta_item_elements(item_node)
+      item_node.content_type 'DiscussionTopic'
+      item_node.identifierref @identifier
     end
   end
 end

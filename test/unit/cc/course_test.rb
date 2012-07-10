@@ -145,83 +145,11 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
     assert_equal 2, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
-    item_node = module_node.xpath('xmlns:items/xmlns:item[1]').first
-    assert_equal 'ibc48cce1126bca1ffe34877330f33864', item_node.attributes['identifier'].value
-    assert_equal 'Assignment', item_node.xpath('xmlns:content_type').text
-    assert_equal 'Create a Rails site', item_node.xpath('xmlns:title').text
-    assert_equal '0', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'i6b162484accdf6081cea43b39219d129', item_node.xpath('xmlns:identifierref').text
-
-    item_node = module_node.xpath('xmlns:items/xmlns:item[2]').first
-    assert_equal 'i4415a1a262d5e1a5759802e73f207a01', item_node.attributes['identifier'].value
-    assert_equal 'ExternalUrl', item_node.xpath('xmlns:content_type').text
-    assert_equal 'About Your Instructor', item_node.xpath('xmlns:title').text
-    assert_equal '1', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '1', item_node.xpath('xmlns:indent').text
-    assert_equal 'http://en.wikipedia.org/wiki/Einstein', item_node.xpath('xmlns:url').text
-    assert_equal 'i15aaccec404aa2ad557108a689bbba8f', item_node.xpath('xmlns:identifierref').text
-
     module_node = xml.xpath('//xmlns:modules/xmlns:module[2]').first
     assert_equal 'Week 1', module_node.xpath('xmlns:title').text
     assert_equal '1', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
     assert_equal 6, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
-
-    item_node = module_node.xpath('xmlns:items/xmlns:item[1]').first
-    assert_equal 'i485c622e5b692e8989fee0472c218726', item_node.attributes['identifier'].value
-    assert_equal 'DiscussionTopic', item_node.xpath('xmlns:content_type').text
-    assert_equal 'Announcements', item_node.xpath('xmlns:title').text
-    assert_equal '0', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'if7091ac80f57e45c757345555327b248', item_node.xpath('xmlns:identifierref').text
-
-    item_node = module_node.xpath('xmlns:items/xmlns:item[2]').first
-    assert_equal 'ia854661225b2b463d5c61a219a8dbbc0', item_node.attributes['identifier'].value
-    assert_equal 'ContextModuleSubHeader', item_node.xpath('xmlns:content_type').text
-    assert_equal 'label123', item_node.xpath('xmlns:title').text
-    assert_equal '1', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '1', item_node.xpath('xmlns:indent').text
-
-    item_node = module_node.xpath('xmlns:items/xmlns:item[3]').first
-    assert_equal 'iff46847689e6d41a1940d86bd4229c50', item_node.attributes['identifier'].value
-    assert_equal 'WikiPage', item_node.xpath('xmlns:content_type').text
-    assert_equal 'Instructor Resources', item_node.xpath('xmlns:title').text
-    assert_equal '2', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '1', item_node.xpath('xmlns:indent').text
-    assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', item_node.xpath('xmlns:identifierref').text
-
-    item_node = module_node.xpath('xmlns:items/xmlns:item[4]').first
-    assert_equal 'i40c98474eaa3165ec89ba880ced59151', item_node.attributes['identifier'].value
-    assert_equal 'Attachment', item_node.xpath('xmlns:content_type').text
-    assert_equal 'Test Text File', item_node.xpath('xmlns:title').text
-    assert_equal '3', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '1', item_node.xpath('xmlns:indent').text
-    assert_equal 'i2fbc9b5ef920655b8240824d3d7b677a', item_node.xpath('xmlns:identifierref').text
-
-    item_node = module_node.xpath('xmlns:items/xmlns:item[5]').first
-    assert_equal 'i4b9d03a2e409299ffd8bd30e90486656', item_node.attributes['identifier'].value
-    assert_equal 'Quiz', item_node.xpath('xmlns:content_type').text
-    assert_equal 'First Quiz', item_node.xpath('xmlns:title').text
-    assert_equal '4', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'i058d7533a77712b6e7757b34e66df7fc', item_node.xpath('xmlns:identifierref').text
-
-    item_node = module_node.xpath('xmlns:items/xmlns:item[6]').first
-    assert_equal 'id7e39b2cb7b744360f83c03b663729ed', item_node.attributes['identifier'].value
-    assert_equal 'WikiPage', item_node.xpath('xmlns:content_type').text
-    assert_equal 'My Wiki', item_node.xpath('xmlns:title').text
-    assert_equal '5', item_node.xpath('xmlns:position').text
-    assert_equal '', item_node.xpath('xmlns:new_tab').text
-    assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', item_node.xpath('xmlns:identifierref').text
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[7]').first
     refute item_node, 'item exists for invisible mod'

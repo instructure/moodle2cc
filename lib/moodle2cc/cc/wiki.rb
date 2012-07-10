@@ -1,12 +1,12 @@
 module Moodle2CC::CC
   class Wiki
     include CCHelper
+    include Resource
 
-    attr_accessor :id, :title, :pages
+    attr_accessor :pages
 
     def initialize(mod)
-      @id = mod.id
-      @title = mod.name
+      super
       page_versions = mod.pages.inject({}) do |result, page|
         version = result[page.page_name]
         result[page.page_name] = page.version if version.nil? || page.version > version
@@ -33,6 +33,12 @@ module Moodle2CC::CC
         href = File.join(WIKI_FOLDER, "#{slug}.html")
         @pages = [OpenStruct.new(:title => @title, :body => mod.summary, :href => href, :identifier => create_key(href))]
       end
+
+      @identifier = root_page.identifier
+    end
+
+    def self.create_resource_key(mod)
+      Wiki.new(mod).identifer
     end
 
     def root_page
@@ -66,6 +72,11 @@ module Moodle2CC::CC
           file.write(erb.result(page.instance_eval { binding }))
         end
       end
+    end
+
+    def create_module_meta_item_elements(item_node)
+      item_node.content_type 'WikiPage'
+      item_node.identifierref @identifier
     end
   end
 end

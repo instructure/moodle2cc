@@ -99,6 +99,20 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
     assert get_imscc_file('i05a5b1468af5e9257a2f6b0827a0bd96.xml') # topic meta xml
   end
 
+  def test_it_creates_item_in_module_meta
+    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(discussion_topic.create_module_meta_item_node(node, 5))
+
+    assert_equal 'item', xml.root.name
+    assert_equal 'ie8e11ad7a1b32660f6aeaf94948faa22', xml.root.attributes['identifier'].value
+    assert_equal "Announcements", xml.root.xpath('title').text
+    assert_equal '5', xml.root.xpath('position').text
+    assert_equal '', xml.root.xpath('new_tab').text
+    assert_equal '0', xml.root.xpath('indent').text
+    assert_equal 'DiscussionTopic', xml.root.xpath('content_type').text
+    assert_equal 'if7091ac80f57e45c757345555327b248', xml.root.xpath('identifierref').text
+  end
 
   def test_it_create_topic_xml
     @mod.name = "Announcements"

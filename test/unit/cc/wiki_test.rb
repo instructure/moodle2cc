@@ -101,6 +101,15 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     assert_equal page, wiki.root_page
   end
 
+  def test_it_has_a_identifier_for_root_page
+    @mod.page_name = 'My Wiki'
+    @mod.summary = 'This is the summary'
+    @mod.pages = []
+
+    wiki = Moodle2CC::CC::Wiki.new @mod
+    assert_equal 'ib87fd4bafae6f3e3ee7dadb65b0e45a3', wiki.identifier
+  end
+
   def test_it_creates_resource_in_imsmanifest
     wiki = Moodle2CC::CC::Wiki.new @mod
     node = Builder::XmlMarkup.new
@@ -126,6 +135,21 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
 
     file = resource.xpath('file[@href="wiki_content/my-wiki-my-wiki.html"]').first
     assert file
+  end
+
+  def test_it_creates_item_in_module_meta
+    wiki = Moodle2CC::CC::Wiki.new @mod
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(wiki.create_module_meta_item_node(node, 5))
+
+    assert_equal 'item', xml.root.name
+    assert_equal 'i7b382ae83ddb7cc9be1a12e517088bc4', xml.root.attributes['identifier'].value
+    assert_equal "My Wiki", xml.root.xpath('title').text
+    assert_equal '5', xml.root.xpath('position').text
+    assert_equal '', xml.root.xpath('new_tab').text
+    assert_equal '0', xml.root.xpath('indent').text
+    assert_equal 'WikiPage', xml.root.xpath('content_type').text
+    assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', xml.root.xpath('identifierref').text
   end
 
   def test_it_creates_wiki_html

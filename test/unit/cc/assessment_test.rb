@@ -123,6 +123,20 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert file
   end
 
+  def test_it_creates_item_in_module_meta
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(@assessment.create_module_meta_item_node(node, 5))
+
+    assert_equal 'item', xml.root.name
+    assert_equal 'if474f80fb2019d59f25ff2a96c9aa381', xml.root.attributes['identifier'].value
+    assert_equal "First Quiz", xml.root.xpath('title').text
+    assert_equal '5', xml.root.xpath('position').text
+    assert_equal '', xml.root.xpath('new_tab').text
+    assert_equal '0', xml.root.xpath('indent').text
+    assert_equal 'Quiz', xml.root.xpath('content_type').text
+    assert_equal 'i058d7533a77712b6e7757b34e66df7fc', xml.root.xpath('identifierref').text
+  end
+
   def test_it_creates_assessment_meta_xml
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
     @assessment.create_assessment_meta_xml(tmp_dir)

@@ -113,26 +113,26 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[1]').first
     assert item
-    assert_equal "ibc48cce1126bca1ffe34877330f33864", item.attributes['identifier'].value
-    assert_equal "i0f77b146a52ac0f709e1690512154726", item.attributes['identifierref'].value
+    assert_equal "i10241816e5909d8e76da003b2814c6a4", item.attributes['identifier'].value
+    assert_equal "i6b162484accdf6081cea43b39219d129", item.attributes['identifierref'].value
     assert_equal 'Create a Rails site', item.xpath('xmlns:title').text
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[2]').first
     assert item
-    assert_equal "i4415a1a262d5e1a5759802e73f207a01", item.attributes['identifier'].value
-    assert_equal "ibd69090f0854ccc9bc06276117c9fffd", item.attributes['identifierref'].value
+    assert_equal "i966437b815a49aad86a356bc8aa8f24a", item.attributes['identifier'].value
+    assert_equal "i15aaccec404aa2ad557108a689bbba8f", item.attributes['identifierref'].value
     assert_equal 'About Your Instructor', item.xpath('xmlns:title').text
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[1]').first
     assert item
-    assert_equal "i485c622e5b692e8989fee0472c218726", item.attributes['identifier'].value
-    assert_equal "i8a209c39591f6092d924695fca34d98c", item.attributes['identifierref'].value
+    assert_equal "ie8e11ad7a1b32660f6aeaf94948faa22", item.attributes['identifier'].value
+    assert_equal "if7091ac80f57e45c757345555327b248", item.attributes['identifierref'].value
     assert_equal 'Announcements', item.xpath('xmlns:title').text
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[2]').first
     assert item
-    assert_equal "ia854661225b2b463d5c61a219a8dbbc0", item.attributes['identifier'].value
-    assert_equal "iacf4799e4ceb10fa5907ef9b3005052c", item.attributes['identifierref'].value
+    assert_equal "ifcf0624ce811c812c749c53f3c914f20", item.attributes['identifier'].value
+    assert_equal "iddbfacadb16c78a584f81538cd53cc72", item.attributes['identifierref'].value
     assert_equal 'label123', item.xpath('xmlns:title').text
   end
 

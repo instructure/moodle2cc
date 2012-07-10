@@ -88,12 +88,11 @@ module Moodle2CC::CC
           org.item(:identifier => "LearningModules") do |root_item|
             @moodle_backup.course.sections.each do |section|
               next unless section.visible
-              root_item.item(:identifier => create_key(section.id, "section_")) do |item|
-                item.title "#{course.format} #{section.number}"
+              root_item.item(:identifier => create_key(section.id, "section_")) do |item_node|
+                item_node.title "#{course.format} #{section.number}"
                 section.mods.each do |mod|
-                  item.item(:identifier => create_key(mod.instance_id, "mod_"), :identifierref => create_key(mod.instance_id, "resource_")) do |sub_item|
-                    sub_item.title mod.instance.name
-                  end
+                  resource = Resource.get_from_mod(mod.instance)
+                  resource.create_organization_item_node(item_node)
                 end
               end
             end
