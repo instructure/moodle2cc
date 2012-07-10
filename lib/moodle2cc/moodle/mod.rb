@@ -20,6 +20,15 @@ module Moodle2CC::Moodle
       end
     end
 
+    class Page
+      include HappyMapper
+
+      tag 'ENTRIES/ENTRY/PAGES/PAGE'
+      element :page_name, String, :tag => 'PAGENAME'
+      element :version, Integer, :tag => 'VERSION'
+      element :content, String, :tag => 'CONTENT'
+    end
+
     tag 'MODULES/MOD'
     element :id, Integer, :tag => 'ID'
     element :var1, Integer, :tag => 'VAR1'
@@ -49,7 +58,9 @@ module Moodle2CC::Moodle
     element :password, String, :tag => 'PASSWORD'
     element :subnet, String, :tag => 'SUBNET'
     element :shuffle_answers, Boolean, :tag => 'SHUFFLEANSWERS'
+    element :page_name, String, :tag => 'PAGENAME'
     has_many :question_instances, QuestionInstance
+    has_many :pages, Page
 
     after_parse do |mod|
       mod.question_instances.each { |question_instance| question_instance.mod = mod }

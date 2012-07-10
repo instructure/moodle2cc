@@ -1,4 +1,6 @@
 require 'uri'
+require 'cgi'
+require 'ostruct'
 require 'fileutils'
 require 'erb'
 require 'happymapper'
@@ -20,6 +22,7 @@ module Moodle2CC
     autoload :Resource, 'moodle2cc/cc/resource'
     autoload :WebContent, 'moodle2cc/cc/web_content'
     autoload :WebLink, 'moodle2cc/cc/web_link'
+    autoload :Wiki, 'moodle2cc/cc/wiki'
   end
   module Moodle
     autoload :Backup, 'moodle2cc/moodle/backup'

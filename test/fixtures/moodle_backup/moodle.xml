@@ -147,6 +147,23 @@
             </ROLES_ASSIGNMENTS>
           </MOD>
           <MOD>
+            <ID>88888</ID>
+            <TYPE>wiki</TYPE>
+            <INSTANCE>210</INSTANCE>
+            <ADDED>1339452353</ADDED>
+            <SCORE>0</SCORE>
+            <INDENT>0</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER></IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
+          <MOD>
             <ID>12121</ID>
             <TYPE>assignment</TYPE>
             <INSTANCE>987</INSTANCE>
@@ -592,6 +609,91 @@
             <MAXGRADE>2</MAXGRADE>
           </FEEDBACK>
         </FEEDBACKS>
+      </MOD>
+      <MOD>
+        <ID>210</ID>
+        <MODTYPE>wiki</MODTYPE>
+        <NAME>My Wiki</NAME>
+        <SUMMARY>This is my wiki. There are many like it, but this one is mine.</SUMMARY>
+        <PAGENAME>My Wiki</PAGENAME>
+        <WTYPE>group</WTYPE>
+        <EWIKIPRINTTITLE>1</EWIKIPRINTTITLE>
+        <HTMLMODE>2</HTMLMODE>
+        <EWIKIACCEPTBINARY>0</EWIKIACCEPTBINARY>
+        <DISABLECAMELCASE>0</DISABLECAMELCASE>
+        <SETPAGEFLAGS>0</SETPAGEFLAGS>
+        <STRIPPAGES>0</STRIPPAGES>
+        <REMOVEPAGES>0</REMOVEPAGES>
+        <REVERTCHANGES>0</REVERTCHANGES>
+        <INITIALCONTENT></INITIALCONTENT>
+        <TIMEMODIFIED>1339452353</TIMEMODIFIED>
+        <ENTRIES>
+          <ENTRY>
+            <ID>1</ID>
+            <GROUPID>0</GROUPID>
+            <USERID>0</USERID>
+            <PAGENAME>My Wiki</PAGENAME>
+            <TIMEMODIFIED>1339452354</TIMEMODIFIED>
+            <PAGES>
+              <PAGE>
+                <ID>1</ID>
+                <PAGENAME>My Wiki</PAGENAME>
+                <VERSION>1</VERSION>
+                <FLAGS>1</FLAGS>
+                <CONTENT>This is the content for the first version of the first page</CONTENT>
+                <AUTHOR>Admin User (192.168.9.146:50625)</AUTHOR>
+                <USERID>2</USERID>
+                <CREATED>1341872321</CREATED>
+                <LASTMODIFIED>1341872321</LASTMODIFIED>
+                <REFS>$@LINEFEED@$$@LINEFEED@$$@LINEFEED@$$@LINEFEED@$</REFS>
+                <META></META>
+                <HITS>11</HITS>
+              </PAGE>
+              <PAGE>
+                <ID>2</ID>
+                <PAGENAME>My Wiki</PAGENAME>
+                <VERSION>2</VERSION>
+                <FLAGS>1</FLAGS>
+                <CONTENT>This is the content for the second version of the first page</CONTENT>
+                <AUTHOR>Admin User (192.168.9.146:50677)</AUTHOR>
+                <USERID>2</USERID>
+                <CREATED>1341872321</CREATED>
+                <LASTMODIFIED>1341872529</LASTMODIFIED>
+                <REFS>$@LINEFEED@$$@LINEFEED@$link$@LINEFEED@$$@LINEFEED@$</REFS>
+                <META></META>
+                <HITS>11</HITS>
+              </PAGE>
+              <PAGE>
+                <ID>3</ID>
+                <PAGENAME>link</PAGENAME>
+                <VERSION>1</VERSION>
+                <FLAGS>1</FLAGS>
+                <CONTENT>This is a linked page</CONTENT>
+                <AUTHOR>Admin User (192.168.9.146:50682)</AUTHOR>
+                <USERID>2</USERID>
+                <CREATED>1341872545</CREATED>
+                <LASTMODIFIED>1341872545</LASTMODIFIED>
+                <REFS>$@LINEFEED@$$@LINEFEED@$$@LINEFEED@$$@LINEFEED@$</REFS>
+                <META></META>
+                <HITS>3</HITS>
+              </PAGE>
+              <PAGE>
+                <ID>4</ID>
+                <PAGENAME>My Wiki</PAGENAME>
+                <VERSION>3</VERSION>
+                <FLAGS>1</FLAGS>
+                <CONTENT>Hello [link]</CONTENT>
+                <AUTHOR>Admin User (192.168.9.146:56986)</AUTHOR>
+                <USERID>2</USERID>
+                <CREATED>1341872321</CREATED>
+                <LASTMODIFIED>1341872558</LASTMODIFIED>
+                <REFS>$@LINEFEED@$$@LINEFEED@$link$@LINEFEED@$$@LINEFEED@$</REFS>
+                <META></META>
+                <HITS>11</HITS>
+              </PAGE>
+            </PAGES>
+          </ENTRY>
+        </ENTRIES>
       </MOD>
     </MODULES>
     <GRADEBOOK>

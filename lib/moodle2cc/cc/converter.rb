@@ -116,6 +116,8 @@ module Moodle2CC::CC
             create_forum_resource(resources_node, mod)
           when 'quiz'
             create_quiz_resource(resources_node, mod)
+          when 'wiki'
+            create_wiki_resource(resources_node, mod)
           end
         end
 
@@ -158,6 +160,12 @@ module Moodle2CC::CC
       discussion_topic = DiscussionTopic.new(mod)
       discussion_topic.create_resource_node(resources_node)
       discussion_topic.create_files(@export_dir)
+    end
+
+    def create_wiki_resource(resources_node, mod)
+      wiki = Wiki.new(mod)
+      wiki.create_resource_node(resources_node)
+      wiki.create_files(@export_dir)
     end
 
     def create_quiz_resource(resources_node, mod)

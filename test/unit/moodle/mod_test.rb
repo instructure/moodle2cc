@@ -11,6 +11,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @course = @backup.course
     @mods = @course.mods
     @quiz_mod = @mods.find { |mod| mod.mod_type == 'quiz' }
+    @wiki_mod = @mods.find { |mod| mod.mod_type == 'wiki' }
     @question_instance = @quiz_mod.question_instances.first
     @question = @course.question_categories.first.questions.first
   end
@@ -20,7 +21,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 7, @mods.length
+    assert_equal 8, @mods.length
   end
 
   def test_it_has_an_id
@@ -133,6 +134,29 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_it_has_shuffle_answers
     assert_equal true, @quiz_mod.shuffle_answers
+  end
+
+  def test_it_has_a_page_name
+    assert_equal 'My Wiki', @wiki_mod.page_name
+  end
+
+  def test_it_has_pages
+    assert @wiki_mod.pages.length > 0, 'wiki mod does not have pages'
+  end
+
+  def test_page_has_a_page_name
+    page = @wiki_mod.pages.first
+    assert 'My Wiki', page.page_name
+  end
+
+  def test_page_has_a_version
+    page = @wiki_mod.pages.first
+    assert 1, page.version
+  end
+
+  def test_page_has_content
+    page = @wiki_mod.pages.first
+    assert 'This is the content for the first version of the first page', page.content
   end
 
   def test_it_has_question_instances

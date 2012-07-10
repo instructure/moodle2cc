@@ -131,6 +131,9 @@ module Moodle2CC::CC
                     when 'quiz'
                       item_node.content_type 'Quiz'
                       item_node.identifierref create_key(mod.instance.id, 'resource_')
+                    when 'wiki'
+                      item_node.content_type 'WikiPage'
+                      item_node.identifierref create_key(mod.instance.id, 'resource_')
                     when 'label'
                       item_node.content_type 'ContextModuleSubHeader'
                     end
