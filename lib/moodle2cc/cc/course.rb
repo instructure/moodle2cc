@@ -134,8 +134,8 @@ module Moodle2CC::CC
                     when 'wiki'
                       item_node.content_type 'WikiPage'
                       wiki = Wiki.new(mod.instance)
-                      page = wiki.pages.find { |page| page.title == mod.instance.page_name }
-                      item_node.identifierref page.identifier
+                      root_page = wiki.root_page
+                      item_node.identifierref root_page.identifier if root_page
                     when 'label'
                       item_node.content_type 'ContextModuleSubHeader'
                     end

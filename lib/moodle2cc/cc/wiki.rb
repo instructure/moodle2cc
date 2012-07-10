@@ -28,6 +28,10 @@ module Moodle2CC::CC
       end.compact
     end
 
+    def root_page
+      @pages.find { |page| page.title == @title }
+    end
+
     def create_resource_node(resources_node)
       @pages.each do |page|
         href = page.href

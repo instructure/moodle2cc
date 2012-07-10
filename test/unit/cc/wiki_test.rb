@@ -34,23 +34,27 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     assert_equal 'My Wiki', wiki.title
   end
 
+  def pages!
+    @page1 = Moodle2CC::Moodle::Mod::Page.new
+    @page1.page_name = 'My Wiki'
+    @page1.version = 1
+    @page1.content = 'First version'
+
+    @page2 = Moodle2CC::Moodle::Mod::Page.new
+    @page2.page_name = 'My Wiki'
+    @page2.version = 2
+    @page2.content = 'Second version'
+
+    @page3 = Moodle2CC::Moodle::Mod::Page.new
+    @page3.page_name = 'New Page'
+    @page3.version = 1
+    @page3.content = 'This is a link to [My Wiki]'
+
+    @mod.pages = [@page1, @page2, @page3]
+  end
+
   def test_it_converts_pages
-    page1 = Moodle2CC::Moodle::Mod::Page.new
-    page1.page_name = 'My Wiki'
-    page1.version = 1
-    page1.content = 'First version'
-
-    page2 = Moodle2CC::Moodle::Mod::Page.new
-    page2.page_name = 'My Wiki'
-    page2.version = 2
-    page2.content = 'Second version'
-
-    page3 = Moodle2CC::Moodle::Mod::Page.new
-    page3.page_name = 'New Page'
-    page3.version = 1
-    page3.content = 'This is a link to [My Wiki]'
-
-    @mod.pages = [page1, page2, page3]
+    pages!
     wiki = Moodle2CC::CC::Wiki.new @mod
     assert_equal 2, wiki.pages.length
 
@@ -63,6 +67,14 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     assert_equal 'This is a link to <a href="%24WIKI_REFERENCE%24/wiki/my-wiki" title="My Wiki">My Wiki</a>', wiki.pages[1].body
     assert_equal 'wiki_content/my-wiki-new-page.html', wiki.pages[1].href
     assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', wiki.pages[0].identifier
+  end
+
+  def test_it_has_a_root_page
+    pages!
+    @mod.page_name = 'My Wiki'
+    wiki = Moodle2CC::CC::Wiki.new @mod
+    page = wiki.pages.find { |page| page.title == 'My Wiki' }
+    assert_equal page, wiki.root_page
   end
 
   def test_it_creates_resource_in_imsmanifest
