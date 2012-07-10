@@ -12,6 +12,7 @@ module Moodle2CC::CC
         result[page.page_name] = page.version if version.nil? || page.version > version
         result
       end
+
       @pages = mod.pages.map do |page|
         if page.version == page_versions[page.page_name]
           body = page.content
@@ -26,6 +27,12 @@ module Moodle2CC::CC
           OpenStruct.new(:title => page.page_name, :body => body, :href => href, :identifier => create_key(href))
         end
       end.compact
+
+      if @pages.empty?
+        slug = file_slug(@title)
+        href = File.join(WIKI_FOLDER, "#{slug}.html")
+        @pages = [OpenStruct.new(:title => @title, :body => mod.summary, :href => href, :identifier => create_key(href))]
+      end
     end
 
     def root_page

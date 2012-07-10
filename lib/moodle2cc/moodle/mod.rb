@@ -40,6 +40,7 @@ module Moodle2CC::Moodle
     element :type, String, :tag => 'TYPE'
     element :name, String, :tag => 'NAME'
     element :description, String, :tag => 'DESCRIPTION'
+    element :summary, String, :tag => 'SUMMARY'
     element :alltext, String, :tag => 'ALLTEXT'
     element :content, String, :tag => 'CONTENT'
     element :assignment_type, String, :tag => 'ASSIGNMENTTYPE'

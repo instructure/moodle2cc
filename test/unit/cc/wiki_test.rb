@@ -50,6 +50,7 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     @page3.version = 1
     @page3.content = 'This is a link to [My Wiki]'
 
+    @mod.page_name = 'My Wiki'
     @mod.pages = [@page1, @page2, @page3]
   end
 
@@ -69,11 +70,34 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', wiki.pages[0].identifier
   end
 
-  def test_it_has_a_root_page
-    pages!
+  def test_it_converts_summary_to_page_if_no_pages_exist
     @mod.page_name = 'My Wiki'
+    @mod.summary = 'This is the summary'
+    @mod.pages = []
+
+    wiki = Moodle2CC::CC::Wiki.new @mod
+    assert_equal 1, wiki.pages.length
+
+    assert_equal 'My Wiki', wiki.pages[0].title
+    assert_equal 'This is the summary', wiki.pages[0].body
+    assert_equal 'wiki_content/my-wiki.html', wiki.pages[0].href
+    assert_equal 'ib87fd4bafae6f3e3ee7dadb65b0e45a3', wiki.pages[0].identifier
+  end
+
+  def test_it_has_a_root_page_for_defined_pages
+    pages!
     wiki = Moodle2CC::CC::Wiki.new @mod
     page = wiki.pages.find { |page| page.title == 'My Wiki' }
+    assert_equal page, wiki.root_page
+  end
+
+  def test_it_has_a_root_page_for_summary
+    @mod.page_name = 'My Wiki'
+    @mod.summary = 'This is the summary'
+    @mod.pages = []
+
+    wiki = Moodle2CC::CC::Wiki.new @mod
+    page = wiki.pages.first
     assert_equal page, wiki.root_page
   end
 

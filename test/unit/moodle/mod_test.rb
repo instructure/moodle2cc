@@ -64,6 +64,10 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert_equal "<h1>Hello World</h1>", @mods[0].description
   end
 
+  def test_it_has_a_summary
+    assert_equal 'This is my wiki. There are many like it, but this one is mine.', @wiki_mod.summary
+  end
+
   def test_it_has_content
     assert_equal "Section 1", @mods[3].content
   end
