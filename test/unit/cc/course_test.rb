@@ -152,7 +152,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '0', item_node.xpath('xmlns:position').text
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'i0f77b146a52ac0f709e1690512154726', item_node.xpath('xmlns:identifierref').text
+    assert_equal 'i6b162484accdf6081cea43b39219d129', item_node.xpath('xmlns:identifierref').text
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[2]').first
     assert_equal 'i4415a1a262d5e1a5759802e73f207a01', item_node.attributes['identifier'].value
@@ -162,7 +162,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '1', item_node.xpath('xmlns:indent').text
     assert_equal 'http://en.wikipedia.org/wiki/Einstein', item_node.xpath('xmlns:url').text
-    assert_equal 'ibd69090f0854ccc9bc06276117c9fffd', item_node.xpath('xmlns:identifierref').text
+    assert_equal 'i15aaccec404aa2ad557108a689bbba8f', item_node.xpath('xmlns:identifierref').text
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[2]').first
     assert_equal 'Week 1', module_node.xpath('xmlns:title').text
@@ -177,7 +177,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '0', item_node.xpath('xmlns:position').text
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'i8a209c39591f6092d924695fca34d98c', item_node.xpath('xmlns:identifierref').text
+    assert_equal 'if7091ac80f57e45c757345555327b248', item_node.xpath('xmlns:identifierref').text
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[2]').first
     assert_equal 'ia854661225b2b463d5c61a219a8dbbc0', item_node.attributes['identifier'].value
@@ -194,7 +194,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '2', item_node.xpath('xmlns:position').text
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '1', item_node.xpath('xmlns:indent').text
-    assert_equal 'iba86a128db9938df9fcb00979b436e1f', item_node.xpath('xmlns:identifierref').text
+    assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', item_node.xpath('xmlns:identifierref').text
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[4]').first
     assert_equal 'i40c98474eaa3165ec89ba880ced59151', item_node.attributes['identifier'].value
@@ -212,7 +212,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '4', item_node.xpath('xmlns:position').text
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'ib7b544955ea75a8511109ec7af08a48b', item_node.xpath('xmlns:identifierref').text
+    assert_equal 'i058d7533a77712b6e7757b34e66df7fc', item_node.xpath('xmlns:identifierref').text
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[6]').first
     assert_equal 'id7e39b2cb7b744360f83c03b663729ed', item_node.attributes['identifier'].value
@@ -221,7 +221,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '5', item_node.xpath('xmlns:position').text
     assert_equal '', item_node.xpath('xmlns:new_tab').text
     assert_equal '0', item_node.xpath('xmlns:indent').text
-    assert_equal 'i352a3b257e27ccfa79c20969ceeea5ff', item_node.xpath('xmlns:identifierref').text
+    assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', item_node.xpath('xmlns:identifierref').text
 
     item_node = module_node.xpath('xmlns:items/xmlns:item[7]').first
     refute item_node, 'item exists for invisible mod'

@@ -109,31 +109,33 @@ module Moodle2CC::CC
                     case mod.instance.mod_type
                     when 'assignment'
                       item_node.content_type 'Assignment'
-                      item_node.identifierref create_key(mod.instance.id, 'resource_')
+                      item_node.identifierref Assignment.new(mod.instance).identifier
                     when 'resource'
                       if mod.instance.type == 'file'
                         uri = URI.parse(mod.instance.reference)
                         if uri.scheme
                           item_node.content_type 'ExternalUrl'
                           item_node.url mod.instance.reference
-                          item_node.identifierref create_key(mod.instance.id, 'resource_')
+                          item_node.identifierref WebLink.new(mod.instance).identifier
                         else
                           item_node.content_type 'Attachment'
                           item_node.identifierref create_key(File.join(WEB_RESOURCES_FOLDER, mod.instance.reference), 'resource_')
                         end
                       else
                         item_node.content_type 'WikiPage'
-                        item_node.identifierref create_key(mod.instance.id, 'resource_')
+                        item_node.identifierref WebContent.new(mod.instance).identifier
                       end
                     when 'forum'
                       item_node.content_type 'DiscussionTopic'
-                      item_node.identifierref create_key(mod.instance.id, 'resource_')
+                      item_node.identifierref DiscussionTopic.new(mod.instance).identifier
                     when 'quiz'
                       item_node.content_type 'Quiz'
-                      item_node.identifierref create_key(mod.instance.id, 'resource_')
+                      item_node.identifierref Assessment.new(mod.instance).identifier
                     when 'wiki'
                       item_node.content_type 'WikiPage'
-                      item_node.identifierref create_key(mod.instance.id, 'resource_')
+                      wiki = Wiki.new(mod.instance)
+                      page = wiki.pages.find { |page| page.title == mod.instance.page_name }
+                      item_node.identifierref page.identifier
                     when 'label'
                       item_node.content_type 'ContextModuleSubHeader'
                     end
