@@ -60,7 +60,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
 
   def test_imsmanifest_has_the_current_date
     xml = get_imsmanifest_xml
-    now = Time.now
+    now = Time.now.utc
     assert_equal now.strftime("%Y-%m-%d"), xml.xpath('//xmlns:manifest/xmlns:metadata/lomimscc:lom/lomimscc:lifeCycle/lomimscc:contribute/lomimscc:date/lomimscc:dateTime').text
   end
 
