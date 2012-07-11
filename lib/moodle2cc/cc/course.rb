@@ -101,7 +101,7 @@ module Moodle2CC::CC
                 section.mods.each_with_index do |mod, index|
                   next unless mod.visible
                   resource = Resource.get_from_mod(mod.instance)
-                  resource.create_module_meta_item_node(items_node, index)
+                  resource.create_module_meta_item_node(items_node, index) if resource
                 end
               end
             end

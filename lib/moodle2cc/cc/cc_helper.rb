@@ -123,7 +123,7 @@ module CCHelper
   end
 
   def self.file_slug(name)
-    name.downcase.gsub(/\s/, '-').gsub(/[^a-z0-9\.\-]/, '')
+    slug = name.downcase.gsub(/\s/, '-').gsub(/[^a-z0-9\.\-]/, '').gsub(/\.*$/, '')
   end
 
   def self.convert_file_path_tokens(content)

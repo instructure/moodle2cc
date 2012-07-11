@@ -13,7 +13,7 @@ module Moodle2CC::CC
       when 'resource'
         if mod.type == 'file'
           WebLink.new(mod)
-        else
+        elsif mod.type == 'html'
           WebContent.new(mod)
         end
       when 'forum'
@@ -23,7 +23,12 @@ module Moodle2CC::CC
       when 'wiki'
         Wiki.new(mod)
       when 'label'
-        Label.new(mod)
+        html = Nokogiri::HTML(mod.content)
+        if html.text == mod.content && mod.content.length < 50 # label doesn't contain HTML
+          Label.new(mod)
+        else
+          WebContent.new(mod)
+        end
       end
     end
 
@@ -33,6 +38,12 @@ module Moodle2CC::CC
       @title = mod.name
       @indent = mod.section_mod.nil? ? 0 : mod.section_mod.indent
       @identifier = create_resource_key(mod)
+    end
+
+    def create_files(export_dir)
+    end
+
+    def create_resource_node(resources_node)
     end
 
     def create_organization_item_node(item_node)

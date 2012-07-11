@@ -7,7 +7,9 @@ module Moodle2CC::CC
 
     def initialize(mod)
       super
-      @body = convert_file_path_tokens(mod.alltext)
+      body = mod.alltext
+      body = mod.content || '' if body.nil? || body.length == 0
+      @body = convert_file_path_tokens(body)
     end
 
     def create_resource_node(resources_node)

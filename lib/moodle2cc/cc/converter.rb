@@ -92,7 +92,7 @@ module Moodle2CC::CC
                 item_node.title "#{course.format} #{section.number}"
                 section.mods.each do |mod|
                   resource = Resource.get_from_mod(mod.instance)
-                  resource.create_organization_item_node(item_node)
+                  resource.create_organization_item_node(item_node) if resource
                 end
               end
             end
@@ -106,17 +106,10 @@ module Moodle2CC::CC
         create_course_content(resources_node)
 
         @moodle_backup.course.mods.each do |mod|
-          case mod.mod_type
-          when 'assignment'
-            create_assignment_resource(resources_node, mod)
-          when 'resource'
-            create_web_resource(resources_node, mod)
-          when 'forum'
-            create_forum_resource(resources_node, mod)
-          when 'quiz'
-            create_quiz_resource(resources_node, mod)
-          when 'wiki'
-            create_wiki_resource(resources_node, mod)
+          resource = Resource.get_from_mod(mod)
+          if resource
+            resource.create_resource_node(resources_node)
+            resource.create_files(@export_dir)
           end
         end
 
@@ -135,42 +128,6 @@ module Moodle2CC::CC
           end
         end
       end
-    end
-
-    def create_assignment_resource(resources_node, mod)
-      assignment = Assignment.new(mod)
-      assignment.create_resource_node(resources_node)
-      assignment.create_files(@export_dir)
-    end
-
-    def create_web_resource(resources_node, mod)
-      if mod.type == 'file'
-        web_link = WebLink.new(mod)
-        web_link.create_resource_node(resources_node)
-        web_link.create_files(@export_dir)
-      else
-        web_content = WebContent.new(mod)
-        web_content.create_resource_node(resources_node)
-        web_content.create_files(@export_dir)
-      end
-    end
-
-    def create_forum_resource(resources_node, mod)
-      discussion_topic = DiscussionTopic.new(mod)
-      discussion_topic.create_resource_node(resources_node)
-      discussion_topic.create_files(@export_dir)
-    end
-
-    def create_wiki_resource(resources_node, mod)
-      wiki = Wiki.new(mod)
-      wiki.create_resource_node(resources_node)
-      wiki.create_files(@export_dir)
-    end
-
-    def create_quiz_resource(resources_node, mod)
-      assessment = Assessment.new(mod)
-      assessment.create_resource_node(resources_node)
-      assessment.create_files(@export_dir)
     end
 
     def create_question_bank_resource(resources_node, question_category)
