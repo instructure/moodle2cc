@@ -74,7 +74,10 @@ module Moodle2CC::CC
         end
 
         create_organizations
-        create_resources
+
+        @manifest_node.resources do |resources_node|
+          create_resources(resources_node)
+        end
       end
     end
 
@@ -101,45 +104,25 @@ module Moodle2CC::CC
       end
     end
 
-    def create_resources
-      @manifest_node.resources do |resources_node|
-        create_course_content(resources_node)
-
-        @moodle_backup.course.mods.each do |mod|
-          resource = Resource.get_from_mod(mod)
-          if resource
-            resource.create_resource_node(resources_node)
-            resource.create_files(@export_dir)
-          end
-        end
-
-        @moodle_backup.course.question_categories.each do |question_category|
-          create_question_bank_resource(resources_node, question_category)
-        end
-
-        @moodle_backup.files.each do |file|
-          href = File.join(WEB_RESOURCES_FOLDER, file)
-          resources_node.resource(
-            :type => WEBCONTENT,
-            :identifier => create_key(href, 'resource_'),
-            :href => href
-          ) do |resource_node|
-            resource_node.file(:href => href)
-          end
+    def create_resources(resources_node)
+      @moodle_backup.course.mods.each do |mod|
+        resource = Resource.get_from_mod(mod)
+        if resource
+          resource.create_resource_node(resources_node)
+          resource.create_files(@export_dir)
         end
       end
-    end
 
-    def create_question_bank_resource(resources_node, question_category)
-      question_bank = QuestionBank.new(question_category)
-      question_bank.create_resource_node(resources_node)
-      question_bank.create_files(@export_dir)
-    end
-
-    def create_course_content(resources_node)
-      course = Course.new(@moodle_backup.course)
-      course.create_resource_node(resources_node)
-      course.create_files(@export_dir)
+      @moodle_backup.files.each do |file|
+        href = File.join(WEB_RESOURCES_FOLDER, file)
+        resources_node.resource(
+          :type => WEBCONTENT,
+          :identifier => create_key(href, 'resource_'),
+          :href => href
+        ) do |resource_node|
+          resource_node.file(:href => href)
+        end
+      end
     end
 
     def create_web_resources

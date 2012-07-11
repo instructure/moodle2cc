@@ -26,6 +26,21 @@ module Moodle2CC
     autoload :WebLink, 'moodle2cc/cc/web_link'
     autoload :Wiki, 'moodle2cc/cc/wiki'
   end
+  module Canvas
+    autoload :Assessment, 'moodle2cc/canvas/assessment'
+    autoload :Assignment, 'moodle2cc/canvas/assignment'
+    autoload :CCHelper, 'moodle2cc/canvas/cc_helper'
+    autoload :Converter, 'moodle2cc/canvas/converter'
+    autoload :Course, 'moodle2cc/canvas/course'
+    autoload :DiscussionTopic, 'moodle2cc/canvas/discussion_topic'
+    autoload :Label, 'moodle2cc/canvas/label'
+    autoload :Question, 'moodle2cc/canvas/question'
+    autoload :QuestionBank, 'moodle2cc/canvas/question_bank'
+    autoload :Resource, 'moodle2cc/canvas/resource'
+    autoload :WebContent, 'moodle2cc/canvas/web_content'
+    autoload :WebLink, 'moodle2cc/canvas/web_link'
+    autoload :Wiki, 'moodle2cc/canvas/wiki'
+  end
   module Moodle
     autoload :Backup, 'moodle2cc/moodle/backup'
     autoload :Course, 'moodle2cc/moodle/course'
