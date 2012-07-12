@@ -41,6 +41,14 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
   end
 
+  def test_it_converts_description_from_text
+    @mod.intro = nil
+    @mod.content = nil
+    @mod.text = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    assessment = Moodle2CC::CC::Assessment.new @mod
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
+  end
+
   def test_it_converts_lock_at
     @mod.time_close = Time.parse("2012/12/12 12:12:12 +0000").to_i
     assessment = Moodle2CC::CC::Assessment.new @mod

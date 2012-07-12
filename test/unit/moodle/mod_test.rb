@@ -12,6 +12,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @mods = @course.mods
     @quiz_mod = @mods.find { |mod| mod.mod_type == 'quiz' }
     @questionnaire_mod = @mods.find { |mod| mod.mod_type == 'questionnaire' }
+    @choice_mod = @mods.find { |mod| mod.mod_type == 'choice' }
     @wiki_mod = @mods.find { |mod| mod.mod_type == 'wiki' }
     @question_instance = @quiz_mod.question_instances.first
     @question = @course.question_categories.first.questions.first
@@ -22,7 +23,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 9, @mods.length
+    assert_equal 10, @mods.length
   end
 
   def test_it_has_an_id
@@ -109,6 +110,10 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert_equal "<p><strong> Instructor Resources </strong></p>", @mods[4].alltext
   end
 
+  def test_it_has_text
+    assert_equal "Which one will you choose?", @choice_mod.text
+  end
+
   def test_it_has_time_open
     assert_equal 1339440600, @quiz_mod.time_open
   end
@@ -175,6 +180,46 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_it_has_questionnaire_questions
     assert @questionnaire_mod.questions.length > 0, 'questionnaire mod does not have questions'
+  end
+
+  def test_it_has_options
+    assert @choice_mod.options.length > 0, 'mod does not have options'
+  end
+
+  def test_options_have_an_id
+    assert_equal 15, @choice_mod.options.first.id
+  end
+
+  def test_options_have_text
+    assert_equal 'choice1', @choice_mod.options.first.text
+  end
+
+  def test_it_has_a_choice_question
+    assert_equal 1, @choice_mod.questions.length
+  end
+
+  def test_choice_question_has_a_name
+    assert_equal "My Choice", @choice_mod.questions.first.name
+  end
+
+  def test_choice_question_has_text
+    assert_equal "Which one will you choose?", @choice_mod.questions.first.text
+  end
+
+  def test_choice_question_has_a_type
+    assert_equal 'choice', @choice_mod.questions.first.type
+  end
+
+  def test_choice_question_has_answers
+    assert @choice_mod.questions.first.answers.length > 0, 'choice question does not have answers'
+  end
+
+  def test_choice_question_answers_have_an_id
+    assert_equal 15, @choice_mod.questions.first.answers.first.id
+  end
+
+  def test_choice_question_answers_have_test
+    assert_equal 'choice1', @choice_mod.questions.first.answers.first.text
   end
 
   def test_question_instance_has_a_question_id

@@ -781,6 +781,42 @@
           </QUESTION>
         </SURVEY>
       </MOD>
+      <MOD>
+        <ID>110</ID>
+        <MODTYPE>choice</MODTYPE>
+        <NAME>My Choice</NAME>
+        <TEXT>Which one will you choose?</TEXT>
+        <FORMAT>1</FORMAT>
+        <PUBLISH>0</PUBLISH>
+        <SHOWRESULTS>0</SHOWRESULTS>
+        <DISPLAY>0</DISPLAY>
+        <ALLOWUPDATE>0</ALLOWUPDATE>
+        <SHOWUNANSWERED>0</SHOWUNANSWERED>
+        <LIMITANSWERS>1</LIMITANSWERS>
+        <TIMEOPEN>1342127700</TIMEOPEN>
+        <TIMECLOSE>1342386900</TIMECLOSE>
+        <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+        <OPTIONS>
+          <OPTION>
+            <ID>15</ID>
+            <TEXT>choice1</TEXT>
+            <MAXANSWERS>10</MAXANSWERS>
+            <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+          </OPTION>
+          <OPTION>
+            <ID>16</ID>
+            <TEXT>choice2</TEXT>
+            <MAXANSWERS>20</MAXANSWERS>
+            <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+          </OPTION>
+          <OPTION>
+            <ID>17</ID>
+            <TEXT>choice3</TEXT>
+            <MAXANSWERS>30</MAXANSWERS>
+            <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+          </OPTION>
+        </OPTIONS>
+      </MOD>
     </MODULES>
     <GRADEBOOK>
       <GRADE_ITEMS>

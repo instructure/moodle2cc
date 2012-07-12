@@ -454,6 +454,13 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert_equal 100, question.get_score(nil)
   end
 
+  def test_it_create_multple_question_from_choice_mod
+    @choice_mod = @backup.course.mods.find { |m| m.mod_type == 'choice' }
+    question = Moodle2CC::CC::Question.new @choice_mod.questions.first
+
+    assert_equal 'multiple_choice_question', question.question_type
+  end
+
   def test_it_creates_item_xml
     question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new

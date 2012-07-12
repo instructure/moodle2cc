@@ -10,8 +10,7 @@ module Moodle2CC::CC
 
     def initialize(mod, position=0)
       super
-      description = mod.intro
-      description = mod.content || '' if description.nil? || description.length == 0
+      description = [mod.intro, mod.content, mod.text].compact.reject { |d| d.length == 0 }.first || ''
       @description = convert_file_path_tokens(description)
       if mod.time_close.to_i > 0
         @lock_at = ims_datetime(Time.at(mod.time_close))

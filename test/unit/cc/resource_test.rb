@@ -69,4 +69,10 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
     resource = Moodle2CC::CC::Resource.get_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Assessment, resource
   end
+
+  def test_it_can_get_assessment_resource_from_choice_mod
+    mod = @backup.course.mods.find { |m| m.mod_type == "choice" }
+    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::Assessment, resource
+  end
 end

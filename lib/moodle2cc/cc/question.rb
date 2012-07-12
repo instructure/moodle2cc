@@ -13,6 +13,7 @@ module Moodle2CC::CC
       'shortanswer' => 'short_answer_question',
       'numerical' => 'numerical_question',
       'truefalse' => 'true_false_question',
+      'choice' => 'multiple_choice_question'
     }
     QUESTION_TYPE_ID_MAP = {
       1 =>  'true_false_question', # yes/no question
@@ -52,7 +53,7 @@ module Moodle2CC::CC
         end
       end
 
-      unless question.choices.empty?
+      unless question.choices.nil? || question.choices.empty?
         @answers = question.choices.map do |answer|
           Moodle2CC::OpenStruct.new(
             :id => answer.id,
@@ -61,7 +62,7 @@ module Moodle2CC::CC
         end
       end
 
-      calculation = question.calculations.first
+      calculation = question.calculations.first unless question.calculations.nil?
       if calculation
         @answer_tolerance = calculation.tolerance
         @formula_decimal_places = calculation.correct_answer_format == 1 ? calculation.correct_answer_length : 0
@@ -90,14 +91,16 @@ module Moodle2CC::CC
         end
       end
 
-      @numericals = question.numericals.map do |n|
-        Moodle2CC::OpenStruct.new(
-          :answer => @answers.find { |a| a.id == n.answer_id },
-          :tolerance => n.tolerance
-        )
+      unless question.numericals.nil?
+        @numericals = question.numericals.map do |n|
+          Moodle2CC::OpenStruct.new(
+            :answer => @answers.find { |a| a.id == n.answer_id },
+            :tolerance => n.tolerance
+          )
+        end
       end
 
-      if question.matches.length > 0
+      if !question.matches.nil? && question.matches.length > 0
         answers = question.matches.inject({}) do |result, match|
           result[match.code] = match.answer_text
           result
@@ -131,8 +134,8 @@ module Moodle2CC::CC
         item_node.itemmetadata do |meta_node|
           meta_node.qtimetadata do |qtime_node|
             META_ATTRIBUTES.each do |attr|
-              value = send(attr)
-              if value
+              value = send(attr).to_s
+              if value && value.length > 0
                 qtime_node.qtimetadatafield do |field_node|
                   field_node.fieldlabel attr.to_s
                   field_node.fieldentry value
