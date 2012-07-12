@@ -712,6 +712,8 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="21"]/material/mattext[@texttype="text/plain"]').text
     assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="22"]/material/mattext[@texttype="text/plain"]').text
     assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="23"]/material/mattext[@texttype="text/plain"]').text
+    refute response.xpath('render_choice/response_label[4]').first, 'there should not be a response for answer text'
+    refute response.xpath('render_choice/response_label[5]').first, 'there should not be a response for answer text'
 
     # Conditions
     condition = xml.root.xpath('resprocessing/respcondition/conditionvar/varequal[@respident="response_response1" and text()="11"]/../..').first
