@@ -11,6 +11,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @course = @backup.course
     @mods = @course.mods
     @quiz_mod = @mods.find { |mod| mod.mod_type == 'quiz' }
+    @questionnaire_mod = @mods.find { |mod| mod.mod_type == 'questionnaire' }
     @wiki_mod = @mods.find { |mod| mod.mod_type == 'wiki' }
     @question_instance = @quiz_mod.question_instances.first
     @question = @course.question_categories.first.questions.first
@@ -21,7 +22,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 8, @mods.length
+    assert_equal 9, @mods.length
   end
 
   def test_it_has_an_id
@@ -165,6 +166,15 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_it_has_question_instances
     assert @quiz_mod.question_instances.length > 0, 'quiz mod does not have question_instances'
+  end
+
+  def test_it_has_quiz_questions_from_question_instances
+    assert @quiz_mod.questions.length == @quiz_mod.question_instances.length, 'quiz mod does not have questions for each question instance'
+    assert_equal @quiz_mod.questions.first.grade, @quiz_mod.question_instances.first.grade
+  end
+
+  def test_it_has_questionnaire_questions
+    assert @questionnaire_mod.questions.length > 0, 'questionnaire mod does not have questions'
   end
 
   def test_question_instance_has_a_question_id

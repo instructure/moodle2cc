@@ -28,8 +28,15 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert_equal "First Quiz", assessment.title
   end
 
-  def test_it_converts_description
+  def test_it_converts_description_from_intro
     @mod.intro = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    assessment = Moodle2CC::CC::Assessment.new @mod
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
+  end
+
+  def test_it_converts_description_from_content
+    @mod.intro = nil
+    @mod.content = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
     assessment = Moodle2CC::CC::Assessment.new @mod
     assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
   end
@@ -92,6 +99,15 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     @mod.shuffle_answers = true
     assessment = Moodle2CC::CC::Assessment.new @mod
     assert_equal true, assessment.shuffle_answers
+  end
+
+  def test_it_converts_quiz_type
+    assessment = Moodle2CC::CC::Assessment.new @mod
+    assert_equal 'practice_quiz', assessment.quiz_type
+
+    questionnaire_mod = @backup.course.mods.find { |mod| mod.mod_type == 'questionnaire' }
+    assessment = Moodle2CC::CC::Assessment.new questionnaire_mod
+    assert_equal 'survey', assessment.quiz_type
   end
 
   def test_it_has_an_identifier

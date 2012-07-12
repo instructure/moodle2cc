@@ -45,7 +45,7 @@ module Moodle2CC::CC
               end
             end
             @question_category.questions.each do |question|
-              Question.new(question.instance).create_item_xml(objectbank_node) if question.instance
+              Question.new(question).create_item_xml(objectbank_node) if question
             end
           end
         end

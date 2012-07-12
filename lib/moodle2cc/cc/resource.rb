@@ -18,7 +18,7 @@ module Moodle2CC::CC
         end
       when 'forum'
         DiscussionTopic.new(mod)
-      when 'quiz'
+      when 'quiz', 'questionnaire'
         Assessment.new(mod)
       when 'wiki'
         Wiki.new(mod)

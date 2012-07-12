@@ -164,6 +164,23 @@
             </ROLES_ASSIGNMENTS>
           </MOD>
           <MOD>
+            <ID>99999</ID>
+            <TYPE>questionnaire</TYPE>
+            <INSTANCE>109</INSTANCE>
+            <ADDED>1339452353</ADDED>
+            <SCORE>0</SCORE>
+            <INDENT>0</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER></IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
+          <MOD>
             <ID>12121</ID>
             <TYPE>assignment</TYPE>
             <INSTANCE>987</INSTANCE>
@@ -694,6 +711,75 @@
             </PAGES>
           </ENTRY>
         </ENTRIES>
+      </MOD>
+      <MOD>
+        <ID>109</ID>
+        <MODTYPE>questionnaire</MODTYPE>
+        <NAME>My Questionnaire</NAME>
+        <SUMMARY>&lt;div&gt;Summary of the Questionnaire&lt;/div&gt;</SUMMARY>
+        <QTYPE>0</QTYPE>
+        <RESPONDENTTYPE>fullname</RESPONDENTTYPE>
+        <RESP_ELIGIBLE>all</RESP_ELIGIBLE>
+        <RESP_VIEW>0</RESP_VIEW>
+        <RESUME>0</RESUME>
+        <OPENDATE>0</OPENDATE>
+        <CLOSEDATE>0</CLOSEDATE>
+        <TIMEMODIFIED>1342031095</TIMEMODIFIED>
+        <SID>1</SID>
+        <GRADE>100</GRADE>
+        <SURVEY>
+          <ID>1</ID>
+          <NAME>My Questionnaire</NAME>
+          <OWNER>2</OWNER>
+          <REALM>private</REALM>
+          <STATUS>0</STATUS>
+          <TITLE>My Questionnaire</TITLE>
+          <EMAIL></EMAIL>
+          <SUBTITLE></SUBTITLE>
+          <INFO></INFO>
+          <THEME>default.css</THEME>
+          <THANKS_PAGE></THANKS_PAGE>
+          <THANK_HEAD></THANK_HEAD>
+          <THANK_BODY></THANK_BODY>
+          <QUESTION>
+            <ID>1</ID>
+            <SURVEY_ID>1</SURVEY_ID>
+            <NAME>Are you experienced?</NAME>
+            <TYPE_ID>5</TYPE_ID>
+            <RESULT_ID>$@NULL@$</RESULT_ID>
+            <LENGTH>0</LENGTH>
+            <PRECISE>0</PRECISE>
+            <POSITION>1</POSITION>
+            <CONTENT>Are you experienced?</CONTENT>
+            <REQUIRED>y</REQUIRED>
+            <DELETED>n</DELETED>
+            <QUESTION_CHOICE>
+              <ID>1</ID>
+              <QUESTION_ID>1</QUESTION_ID>
+              <CONTENT>Yes</CONTENT>
+              <VALUE>$@NULL@$</VALUE>
+            </QUESTION_CHOICE>
+            <QUESTION_CHOICE>
+              <ID>2</ID>
+              <QUESTION_ID>1</QUESTION_ID>
+              <CONTENT>No</CONTENT>
+              <VALUE>$@NULL@$</VALUE>
+            </QUESTION_CHOICE>
+          </QUESTION>
+          <QUESTION>
+            <ID>2</ID>
+            <SURVEY_ID>1</SURVEY_ID>
+            <NAME>Have you ever been experienced</NAME>
+            <TYPE_ID>1</TYPE_ID>
+            <RESULT_ID>$@NULL@$</RESULT_ID>
+            <LENGTH>0</LENGTH>
+            <PRECISE>0</PRECISE>
+            <POSITION>2</POSITION>
+            <CONTENT>Have you ever been experienced?</CONTENT>
+            <REQUIRED>y</REQUIRED>
+            <DELETED>n</DELETED>
+          </QUESTION>
+        </SURVEY>
       </MOD>
     </MODULES>
     <GRADEBOOK>

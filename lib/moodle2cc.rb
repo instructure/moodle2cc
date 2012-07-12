@@ -6,11 +6,17 @@ require 'erb'
 require 'happymapper'
 require 'builder'
 require 'nokogiri'
-require 'moodle2cc/version'
+
 require 'moodle2cc/error'
 require 'moodle2cc/migrator'
 
 module Moodle2CC
+  class OpenStruct < ::OpenStruct
+    if defined? id
+      undef id
+    end
+  end
+
   module CC
     autoload :Assessment, 'moodle2cc/cc/assessment'
     autoload :Assignment, 'moodle2cc/cc/assignment'

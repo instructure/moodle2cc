@@ -9,8 +9,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
   def setup
     convert_moodle_backup
     @mod = @backup.course.mods.find { |mod| mod.mod_type == 'quiz' }
-    @question_instance = @mod.question_instances.first
-    @question = @question_instance.question
+    @question = @mod.questions.first
   end
 
   def teardown
@@ -68,92 +67,187 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     @question.answers = [answer1, answer2, answer3, answer4]
   end
 
+  def multiple_dropdowns_question!
+    @question.type = nil
+    @question.type_id = 8 # rate 1..5 question
+    @question.length = 3
+    @question.text = nil
+    @question.content = "This is a rating question"
+    choice1 = Moodle2CC::Moodle::Question::Choice.new
+    choice1.id = 1
+    choice1.content = '1=Almost Never'
+    choice2 = Moodle2CC::Moodle::Question::Choice.new
+    choice2.id = 2
+    choice2.content = '2=Sometimes'
+    choice3 = Moodle2CC::Moodle::Question::Choice.new
+    choice3.id = 3
+    choice3.content = '3=Always'
+    choice4 = Moodle2CC::Moodle::Question::Choice.new
+    choice4.id = 4
+    choice4.content = 'I test my code'
+    choice5 = Moodle2CC::Moodle::Question::Choice.new
+    choice5.id = 5
+    choice5.content = 'I am happy'
+    @question.choices = [choice1, choice2, choice3, choice4, choice5]
+  end
+
+  def multiple_answer_question!
+    @question.type = nil
+    @question.type_id = 5 # check boxes question
+    @question.length = 3
+    @question.text = nil
+    @question.content = "What are your favorite languages?"
+    choice1 = Moodle2CC::Moodle::Question::Choice.new
+    choice1.id = 1
+    choice1.content = 'Ruby'
+    choice2 = Moodle2CC::Moodle::Question::Choice.new
+    choice2.id = 2
+    choice2.content = 'Javascript'
+    choice3 = Moodle2CC::Moodle::Question::Choice.new
+    choice3.id = 3
+    choice3.content = 'Python'
+    choice4 = Moodle2CC::Moodle::Question::Choice.new
+    @question.choices = [choice1, choice2, choice3]
+  end
+
   def numerical_question!
-    @question_instance = @mod.question_instances.map { |qi| qi if qi.question.type == 'numerical' }.compact.first
-    @question = @question_instance.question
+    @question = @mod.questions.find { |q| q.type == 'numerical' }
   end
 
   def short_answer_question!
-    @question_instance = @mod.question_instances.map { |qi| qi if qi.question.type == 'shortanswer' }.compact.first
-    @question = @question_instance.question
+    @question = @mod.questions.find { |q| q.type == 'shortanswer' }
   end
 
   def true_false_question!
-    @question_instance = @mod.question_instances.map { |qi| qi if qi.question.type == 'truefalse' }.compact.first
-    @question = @question_instance.question
+    @question = @mod.questions.find { |q| q.type == 'truefalse' }
   end
 
   def test_it_converts_id
     @question.id = 989
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 989, question.id
   end
 
   def test_it_converts_title
     @question.name = "Basic Arithmetic"
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal "Basic Arithmetic", question.title
+  end
+
+  def test_it_converts_length
+    @question.length = 5
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 5, question.length
   end
 
   def test_it_converts_question_type
     @question.type = 'calculated'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'calculated_question', question.question_type
 
     @question.type = 'description'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'text_only_question', question.question_type
 
     @question.type = 'essay'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'essay_question', question.question_type
 
     @question.type = 'match'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'matching_question', question.question_type
 
     @question.type = 'multianswer'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'embedded_answers_question', question.question_type
 
     @question.type = 'multichoice'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'multiple_choice_question', question.question_type
 
     @question.type = 'shortanswer'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'short_answer_question', question.question_type
 
     @question.type = 'numerical'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'numerical_question', question.question_type
 
     @question.type = 'truefalse'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'true_false_question', question.question_type
+
+    @question.type = nil
+
+    @question.type_id = 1
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'true_false_question', question.question_type
+
+    @question.type_id = 2
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'essay_question', question.question_type
+
+    @question.type_id = 3
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'essay_question', question.question_type
+
+    @question.type_id = 4
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'multiple_choice_question', question.question_type
+
+    @question.type_id = 5
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'multiple_answer_question', question.question_type
+
+    @question.type_id = 6
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'multiple_choice_question', question.question_type
+
+    @question.type_id = 8
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'multiple_dropdowns_question', question.question_type
+
+    @question.type_id = 9
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'essay_question', question.question_type
+
+    @question.type_id = 10
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'numerical_question', question.question_type
+
+    @question.type_id = 100
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'text_only_question', question.question_type
   end
 
   def test_it_converts_points_possible
-    @question_instance.grade = 5
-    question = Moodle2CC::CC::Question.new @question_instance
+    @question.grade = 5
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 5, question.points_possible
   end
 
   def test_it_converts_material
     @question.text = "How much is {a} + {b} ?"
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal "How much is [a] + [b] ?", question.material
+  end
+
+  def test_it_converts_material_for_multiple_dropdowns_question
+    multiple_dropdowns_question!
+    @question.content = "This is a rating question"
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal "This is a rating question\nI test my code [response1]\nI am happy [response2]", question.material
   end
 
   def test_it_converts_general_feedback
     @question.general_feedback = "This should be easy"
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal "This should be easy", question.general_feedback
   end
 
   def test_it_converts_answer_tolerance
     @question.calculations.first.tolerance = 0.01
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 0.01, question.answer_tolerance
   end
 
@@ -162,12 +256,12 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     calculation.correct_answer_format = 1 # decimal
     calculation.correct_answer_length = 2
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 2, question.formula_decimal_places
 
     calculation.correct_answer_format = 2 # significant figures
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 0, question.formula_decimal_places
   end
 
@@ -179,7 +273,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     answer1.text = '{a} + {b}'
     answer2.text = '{a} * {b}'
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 2, question.formulas.length
     assert_equal 'a+b', question.formulas.first
     assert_equal 'a*b', question.formulas.last
@@ -196,7 +290,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     ds_def2.name = 'b'
     ds_def2.options = 'uniform:1.0:10.0:1'
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 2, question.vars.length
     assert_equal({:name => 'a', :scale => '3', :min => '3.0', :max => '9.0'}, question.vars.first)
     assert_equal({:name => 'b', :scale => '1', :min => '1.0', :max => '10.0'}, question.vars.last)
@@ -227,7 +321,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     ds_item2.number = 2
     ds_item2.value = 1.0
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 2, question.var_sets.length
     assert_equal({:vars => {'a' => 3.0, 'b' => 6.0}, :answer => 9.0}, question.var_sets.first)
     assert_equal({:vars => {'a' => 5.5, 'b' => 1.0}, :answer => 6.5}, question.var_sets.last)
@@ -236,18 +330,18 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
   def test_it_converts_matches
     match_question!
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 2, question.matches.length
-    assert_equal({
+    assert_equal(Moodle2CC::OpenStruct.new(
       :question => 'Ruby on Rails is written in this language',
       :answers => {123 => 'Ruby', 234 => 'Python', 345 => 'CoffeeScript'},
       :answer => 123
-    }, question.matches.first)
-    assert_equal({
+    ), question.matches.first)
+    assert_equal(Moodle2CC::OpenStruct.new(
       :question => 'Files with .coffee extension use which language?',
       :answers => {123 => 'Ruby', 234 => 'Python', 345 => 'CoffeeScript'},
       :answer => 345
-    }, question.matches.last)
+    ), question.matches.last)
   end
 
   def test_it_converts_numericals
@@ -259,57 +353,109 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     numerical.tolerance = 3
     @question.numericals = [numerical]
     @question.answers = [answer]
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
 
     assert_equal 1, question.numericals.length
 
-    assert_equal({
+    assert_equal(Moodle2CC::OpenStruct.new(
       :answer => question.answers.first,
-      :tolerance => 3,
-    }, question.numericals.first)
+      :tolerance => 3
+    ), question.numericals.first)
   end
 
   def test_it_converts_answers
     multiple_choice_question!
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 4, question.answers.length
 
-    assert_equal({
+    assert_equal(Moodle2CC::OpenStruct.new(
       :id => 123,
       :text => 'Ruby',
       :fraction => 1,
       :feedback => 'Yippee!'
-    }, question.answers[0])
-    assert_equal({
+    ), question.answers[0])
+    assert_equal(Moodle2CC::OpenStruct.new(
       :id => 234,
       :text => 'CoffeeScript',
       :fraction => 0.75,
       :feedback => 'Nope'
-    }, question.answers[1])
-    assert_equal({
+    ), question.answers[1])
+    assert_equal(Moodle2CC::OpenStruct.new(
       :id => 345,
       :text => 'Java',
       :fraction => 0.25,
       :feedback => 'No way'
-    }, question.answers[2])
-    assert_equal({
+    ), question.answers[2])
+    assert_equal(Moodle2CC::OpenStruct.new(
       :id => 456,
       :text => 'Clojure',
       :fraction => 0,
       :feedback => 'Not even close'
-    }, question.answers[3])
+    ), question.answers[3])
+  end
+
+  def test_it_converts_answers_from_questionnaire_choices
+    @question.type = nil
+    @question.type_id = 4
+
+    choice1 = Moodle2CC::Moodle::Question::Choice.new
+    choice1.id = 123
+    choice1.content = 'Ruby'
+
+    choice2 = Moodle2CC::Moodle::Question::Choice.new
+    choice2.id = 234
+    choice2.content = 'CoffeeScript'
+
+    choice3 = Moodle2CC::Moodle::Question::Choice.new
+    choice3.id = 345
+    choice3.content = 'Java'
+
+    choice4 = Moodle2CC::Moodle::Question::Choice.new
+    choice4.id = 456
+    choice4.content = 'Clojure'
+
+    @question.choices = [choice1, choice2, choice3, choice4]
+    @question.answers = []
+
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 4, question.answers.length
+
+    assert_equal(Moodle2CC::OpenStruct.new(
+      :id => 123,
+      :text => 'Ruby'
+    ), question.answers[0])
+    assert_equal(Moodle2CC::OpenStruct.new(
+      :id => 234,
+      :text => 'CoffeeScript'
+    ), question.answers[1])
+    assert_equal(Moodle2CC::OpenStruct.new(
+      :id => 345,
+      :text => 'Java'
+    ), question.answers[2])
+    assert_equal(Moodle2CC::OpenStruct.new(
+      :id => 456,
+      :text => 'Clojure'
+    ), question.answers[3])
   end
 
   def test_it_has_an_identifier
     @question.id = 989
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     assert_equal 'i04823ed56ffd4fd5f9c21db0cf25be6c', question.identifier
     # question_989
   end
 
+  def test_it_creates_fractions
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 100, question.get_score(1)
+    assert_equal 50, question.get_score(0.5)
+    assert_equal 0, question.get_score(0)
+    assert_equal 100, question.get_score(nil)
+  end
+
   def test_it_creates_item_xml
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -347,7 +493,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
 
   def test_it_creates_item_xml_for_calculated_question
     @question.type = 'calculated'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -414,7 +560,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
 
   def test_it_creates_item_xml_for_essay_question
     @question.type = 'essay'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -433,7 +579,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
   def test_it_creates_item_xml_for_matching_question
     match_question!
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -471,7 +617,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
   def test_it_creates_item_xml_for_multiple_choice_question
     multiple_choice_question!
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -543,10 +689,73 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert var, 'score does not exist for fourth answer'
   end
 
+  def test_it_creates_item_xml_for_multiple_dropdowns_question
+    multiple_dropdowns_question!
+
+    question = Moodle2CC::CC::Question.new @question
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    # Responses
+    response = xml.root.xpath('presentation/response_lid[@ident="response_response1"]').first
+    assert response, 'first response for multiple dropdowns question does not exist'
+    assert response.xpath('material/mattext["response1"]').first, 'material text does not exist for multiple dropdowns question first response'
+    assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="11"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="12"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="13"]/material/mattext[@texttype="text/plain"]').text
+    refute response.xpath('render_choice/response_label[4]').first, 'there should not be a response for answer text'
+    refute response.xpath('render_choice/response_label[5]').first, 'there should not be a response for answer text'
+
+    response = xml.root.xpath('presentation/response_lid[@ident="response_response2"]').first
+    assert response, 'second response for multiple dropdowns question does not exist'
+    assert response.xpath('material/mattext["response2"]').first, 'material text does not exist for multiple dropdowns question second response'
+    assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="21"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="22"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="23"]/material/mattext[@texttype="text/plain"]').text
+
+    # Conditions
+    condition = xml.root.xpath('resprocessing/respcondition/conditionvar/varequal[@respident="response_response1" and text()="11"]/../..').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Add" and text()="50.00"]').first
+    assert var, 'score does not exist for first answer'
+
+    condition = xml.root.xpath('resprocessing/respcondition/conditionvar/varequal[@respident="response_response2" and text()="21"]/../..').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Add" and text()="50.00"]').first
+    assert var, 'score does not exist for second answer'
+  end
+
+  def test_it_create_item_xml_for_multiple_answer_question
+    multiple_answer_question!
+
+    question = Moodle2CC::CC::Question.new @question
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    # Responses
+    response = xml.root.xpath('presentation/response_lid[@ident="response1" and @rcardinality="Multiple"]').first
+    assert response, 'response for multiple answers question does not exist'
+    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="1"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Javascript', response.xpath('render_choice/response_label[@ident="2"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Python', response.xpath('render_choice/response_label[@ident="3"]/material/mattext[@texttype="text/plain"]').text
+
+    # Conditions
+    condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]').first
+    assert condition, 'condition does not exist for multiple answer question'
+    var = condition.xpath('conditionvar/and/varequal[@respident="response1" and text()="1"]').first
+    assert var, 'varequal does not exist for first answer'
+    var = condition.xpath('conditionvar/and/not/varequal[@respident="response1" and text()="2"]').first
+    assert var, 'varequal does not exist for second answer'
+    var = condition.xpath('conditionvar/and/not/varequal[@respident="response1" and text()="3"]').first
+    assert var, 'varequal does not exist for third answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="100"]').first
+    assert var, 'score does not exist for first answer'
+  end
+
   def test_it_creates_item_xml_for_numerical_question
     numerical_question!
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -578,7 +787,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
   def test_it_creates_item_xml_for_short_answer_question
     short_answer_question!
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -634,7 +843,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
   def test_it_creates_item_xml_for_true_false_question
     true_false_question!
 
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 
@@ -668,7 +877,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
 
   def test_it_creates_item_xml_for_embedded_answers_question
     @question.type = 'multianswer'
-    question = Moodle2CC::CC::Question.new @question_instance
+    question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
 

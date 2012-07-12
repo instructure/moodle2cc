@@ -24,14 +24,14 @@ module Moodle2CC::CC
           title_slug = file_slug(@title)
           slug = [title_slug, file_slug(page.page_name)].join('-')
           href = "#{WIKI_FOLDER}/#{slug}.html"
-          OpenStruct.new(:title => page.page_name, :body => body, :href => href, :identifier => create_key(href))
+          Moodle2CC::OpenStruct.new(:title => page.page_name, :body => body, :href => href, :identifier => create_key(href))
         end
       end.compact
 
       if @pages.empty?
         slug = file_slug(@title)
         href = File.join(WIKI_FOLDER, "#{slug}.html")
-        @pages = [OpenStruct.new(:title => @title, :body => mod.summary, :href => href, :identifier => create_key(href))]
+        @pages = [Moodle2CC::OpenStruct.new(:title => @title, :body => mod.summary, :href => href, :identifier => create_key(href))]
       end
 
       @identifier = root_page.identifier

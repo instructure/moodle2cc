@@ -61,6 +61,7 @@ module Moodle2CC::Moodle
     element :shuffle_answers, Boolean, :tag => 'SHUFFLEANSWERS'
     element :page_name, String, :tag => 'PAGENAME'
     has_many :question_instances, QuestionInstance
+    has_many :questions, Question
     has_many :pages, Page
 
     after_parse do |mod|
@@ -73,6 +74,15 @@ module Moodle2CC::Moodle
 
     def grade_item
       course.grade_items.find { |grade_item| grade_item.item_instance == id }
+    end
+
+    def questions
+      return @questions if mod_type == 'questionnaire'
+      @questions = question_instances.map do |qi|
+        question = qi.question
+        question.grade = qi.grade
+        question
+      end
     end
   end
 end

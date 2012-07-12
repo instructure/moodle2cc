@@ -4,13 +4,15 @@ module Moodle2CC::CC
     include Resource
 
     META_ATTRIBUTES = [:title, :description, :lock_at, :unlock_at, :allowed_attempts,
-      :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit]
+      :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit, :quiz_type]
 
     attr_accessor :non_cc_assessments_identifier, *META_ATTRIBUTES
 
     def initialize(mod, position=0)
       super
-      @description = convert_file_path_tokens(mod.intro)
+      description = mod.intro
+      description = mod.content || '' if description.nil? || description.length == 0
+      @description = convert_file_path_tokens(description)
       if mod.time_close.to_i > 0
         @lock_at = ims_datetime(Time.at(mod.time_close))
       end
@@ -23,6 +25,7 @@ module Moodle2CC::CC
       @access_code = mod.password
       @ip_filter = mod.subnet
       @shuffle_answers = mod.shuffle_answers
+      @quiz_type = mod.mod_type == 'questionnaire' ? 'survey' : 'practice_quiz'
       @non_cc_assessments_identifier = create_key(@id, 'non_cc_assessments_')
     end
 
@@ -85,8 +88,8 @@ module Moodle2CC::CC
               end
             end
             assessment_node.section(:ident => 'root_section') do |section_node|
-              @mod.question_instances.each do |question_instance|
-                question = Question.new question_instance
+              @mod.questions.each do |question|
+                question = Question.new question
                 question.create_item_xml(section_node)
               end
             end
