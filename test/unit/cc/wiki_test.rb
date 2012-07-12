@@ -65,7 +65,7 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', wiki.pages[0].identifier
 
     assert_equal 'New Page', wiki.pages[1].title
-    assert_equal 'This is a link to <a href="%24WIKI_REFERENCE%24/wiki/my-wiki" title="My Wiki">My Wiki</a>', wiki.pages[1].body
+    assert_equal 'This is a link to <a href="%24WIKI_REFERENCE%24/wiki/my-wiki-my-wiki" title="My Wiki">My Wiki</a>', wiki.pages[1].body
     assert_equal 'wiki_content/my-wiki-new-page.html', wiki.pages[1].href
     assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', wiki.pages[0].identifier
   end
@@ -161,7 +161,7 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     assert html
     assert_equal 'i56eb35e2b44710c48f7aa6b6297e9c98', html.search('meta[name="identifier"]').first.attributes['content'].value
     assert_equal 'My Wiki', html.search('title').text
-    assert_equal 'Hello <a href="%24WIKI_REFERENCE%24/wiki/link" title="link">link</a>', html.search('body').inner_html.strip
+    assert_equal 'Hello <a href="%24WIKI_REFERENCE%24/wiki/my-wiki-link" title="link">link</a>', html.search('body').inner_html.strip
 
     html = Nokogiri::HTML(File.read(File.join(tmp_dir, 'wiki_content/my-wiki-link.html')))
     assert html

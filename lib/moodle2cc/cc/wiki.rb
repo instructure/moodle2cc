@@ -15,13 +15,13 @@ module Moodle2CC::CC
 
       @pages = mod.pages.map do |page|
         if page.version == page_versions[page.page_name]
+          title_slug = file_slug(@title)
           body = page.content
           body.gsub!(/\[(.*?)\]/) do |match|
-            slug = file_slug(match)
+            slug = [title_slug, file_slug(match)].join('-')
             href = File.join(CGI.escape(WIKI_TOKEN), 'wiki', slug)
             %(<a href="#{href}" title="#{$1}">#{$1}</a>)
           end
-          title_slug = file_slug(@title)
           slug = [title_slug, file_slug(page.page_name)].join('-')
           href = "#{WIKI_FOLDER}/#{slug}.html"
           Moodle2CC::OpenStruct.new(:title => page.page_name, :body => body, :href => href, :identifier => create_key(href))
