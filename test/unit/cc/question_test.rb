@@ -439,10 +439,34 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     ), question.answers[3])
   end
 
-  def test_it_has_an_identifier
+  def test_it_has_an_identifier_based_on_id
     @question.id = 989
+    @question.instance_id = nil
     question = Moodle2CC::CC::Question.new @question
     assert_equal 'i04823ed56ffd4fd5f9c21db0cf25be6c', question.identifier
+    # question_989
+  end
+
+  def test_it_has_an_identifier_based_on_instance_id
+    @question.instance_id = 787
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'i2edcb021d100c968ba3f570253a6aa1c', question.identifier
+    # question_instance_787
+  end
+
+  def test_it_has_an_assessment_question_identifierref_if_instance_id_exists
+    @question.id = 989
+    @question.instance_id = 787
+    question = Moodle2CC::CC::Question.new @question
+    assert_equal 'i04823ed56ffd4fd5f9c21db0cf25be6c', question.assessment_question_identifierref
+    # question_989
+  end
+
+  def test_it_does_not_have_an_assessment_question_identifierref_if_instance_id_does_not_exist
+    @question.id = 989
+    @question.instance_id = nil
+    question = Moodle2CC::CC::Question.new @question
+    refute question.assessment_question_identifierref
     # question_989
   end
 
@@ -469,11 +493,11 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert xml.root
     assert_equal 'item', xml.root.name
     assert_equal 'Basic Arithmetic', xml.root.attributes['title'].value
-    assert_equal 'i04823ed56ffd4fd5f9c21db0cf25be6c', xml.root.attributes['ident'].value
+    assert_equal 'i7cf4483ef2da120de20ff6cfc9dd3e58', xml.root.attributes['ident'].value
 
     assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="question_type" and fieldentry="calculated_question"]').first, 'does not have meta data for question type'
     assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="points_possible" and fieldentry="1"]').first, 'does not have meta data for points possible'
-    # assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="assessment_question_identifierref" and fieldentry="1"]').first, 'does not have meta data for assessment_question_identifierref'
+    assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="assessment_question_identifierref" and fieldentry="i04823ed56ffd4fd5f9c21db0cf25be6c"]').first, 'does not have meta data for assessment_question_identifierref'
 
     assert_equal 'How much is [a] + [b] ?', xml.root.xpath('presentation/material/mattext[@texttype="text/html"]').text
 

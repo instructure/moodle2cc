@@ -2,7 +2,7 @@ module Moodle2CC::Moodle
   class Question
     include HappyMapper
 
-    attr_accessor :question_category, :grade
+    attr_accessor :question_category, :grade, :instance_id
 
     class Answer
       include HappyMapper

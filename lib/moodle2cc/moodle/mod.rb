@@ -10,6 +10,7 @@ module Moodle2CC::Moodle
       attr_accessor :mod
 
       tag 'QUESTION_INSTANCES/QUESTION_INSTANCE'
+      element :id, Integer, :tag => 'ID'
       element :question_id, Integer, :tag => 'QUESTION'
       element :grade, Integer, :tag => 'GRADE'
 
@@ -105,6 +106,7 @@ module Moodle2CC::Moodle
         @questions = question_instances.map do |qi|
           question = qi.question
           question.grade = qi.grade
+          question.instance_id = qi.id
           question
         end
       end

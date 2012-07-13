@@ -169,15 +169,6 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert 'This is the content for the first version of the first page', page.content
   end
 
-  def test_it_has_question_instances
-    assert @quiz_mod.question_instances.length > 0, 'quiz mod does not have question_instances'
-  end
-
-  def test_it_has_quiz_questions_from_question_instances
-    assert @quiz_mod.questions.length == @quiz_mod.question_instances.length, 'quiz mod does not have questions for each question instance'
-    assert_equal @quiz_mod.questions.first.grade, @quiz_mod.question_instances.first.grade
-  end
-
   def test_it_has_questionnaire_questions
     assert @questionnaire_mod.questions.length > 0, 'questionnaire mod does not have questions'
   end
@@ -220,6 +211,20 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_choice_question_answers_have_test
     assert_equal 'choice1', @choice_mod.questions.first.answers.first.text
+  end
+
+  def test_it_has_question_instances
+    assert @quiz_mod.question_instances.length > 0, 'quiz mod does not have question_instances'
+  end
+
+  def test_it_has_quiz_questions_from_question_instances
+    assert @quiz_mod.questions.length == @quiz_mod.question_instances.length, 'quiz mod does not have questions for each question instance'
+    assert_equal @quiz_mod.questions.first.grade, @quiz_mod.question_instances.first.grade
+    assert_equal @quiz_mod.questions.first.instance_id, @quiz_mod.question_instances.first.id
+  end
+
+  def test_question_instance_has_an_id
+    assert_equal 697, @question_instance.id
   end
 
   def test_question_instance_has_a_question_id

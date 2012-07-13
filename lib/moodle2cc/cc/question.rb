@@ -2,7 +2,7 @@ module Moodle2CC::CC
   class Question
     include CCHelper
 
-    META_ATTRIBUTES = [:question_type, :points_possible]
+    META_ATTRIBUTES = [:question_type, :points_possible, :assessment_question_identifierref]
     QUESTION_TYPE_MAP = {
       'calculated' =>  'calculated_question',
       'description' => 'text_only_question',
@@ -126,7 +126,12 @@ module Moodle2CC::CC
         end
       end
 
-      @identifier = create_key(@id, 'question_')
+      if question.instance_id
+        @identifier = create_key(question.instance_id, 'question_instance_')
+        @assessment_question_identifierref = create_key(question.id, 'question_')
+      else
+        @identifier = create_key(question.id, 'question_')
+      end
     end
 
     def create_item_xml(section_node)
