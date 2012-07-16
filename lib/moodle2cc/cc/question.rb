@@ -34,7 +34,7 @@ module Moodle2CC::CC
 
     def initialize(question)
       @id = question.id
-      @title = question.name
+      @title = (question.name || '').gsub('$@NULL@$', '')
       @question_type = question.type ? QUESTION_TYPE_MAP[question.type] : QUESTION_TYPE_ID_MAP[question.type_id]
       @points_possible = question.grade
       @general_feedback = question.general_feedback
