@@ -189,12 +189,20 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert_equal 1, @choice_mod.questions.length
   end
 
+  def test_choice_question_has_an_id
+    assert_equal "choice_question_110", @choice_mod.questions.first.id
+  end
+
   def test_choice_question_has_a_name
     assert_equal "My Choice", @choice_mod.questions.first.name
   end
 
   def test_choice_question_has_text
     assert_equal "Which one will you choose?", @choice_mod.questions.first.text
+  end
+
+  def test_choice_question_has_a_grade
+    assert_equal 1, @choice_mod.questions.first.grade
   end
 
   def test_choice_question_has_a_type

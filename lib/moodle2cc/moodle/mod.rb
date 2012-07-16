@@ -91,9 +91,11 @@ module Moodle2CC::Moodle
       return @questions if mod_type == 'questionnaire'
       if mod_type == 'choice'
         question = Question.new
+        question.id = "choice_question_#{@id}"
         question.name = @name
         question.text = @text
         question.type = @mod_type
+        question.grade = 1
         question.answers = []
         @options.each do |option|
           answer = Question::Answer.new
