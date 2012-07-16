@@ -88,7 +88,10 @@ module Moodle2CC::Moodle
     end
 
     def questions
-      return @questions if mod_type == 'questionnaire'
+      if mod_type == 'questionnaire'
+        @questions.sort! { |a,b| a.position <=> b.position }
+        return @questions
+      end
       if mod_type == 'choice'
         question = Question.new
         question.id = "choice_question_#{@id}"

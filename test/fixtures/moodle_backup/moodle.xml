@@ -749,7 +749,7 @@
             <RESULT_ID>$@NULL@$</RESULT_ID>
             <LENGTH>0</LENGTH>
             <PRECISE>0</PRECISE>
-            <POSITION>1</POSITION>
+            <POSITION>2</POSITION>
             <CONTENT>Are you experienced?</CONTENT>
             <REQUIRED>y</REQUIRED>
             <DELETED>n</DELETED>
@@ -774,7 +774,7 @@
             <RESULT_ID>$@NULL@$</RESULT_ID>
             <LENGTH>0</LENGTH>
             <PRECISE>0</PRECISE>
-            <POSITION>2</POSITION>
+            <POSITION>1</POSITION>
             <CONTENT>Have you ever been experienced?</CONTENT>
             <REQUIRED>y</REQUIRED>
             <DELETED>n</DELETED>

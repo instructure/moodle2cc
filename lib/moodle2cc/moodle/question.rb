@@ -76,6 +76,7 @@ module Moodle2CC::Moodle
     element :length, Integer, :tag => 'LENGTH'
     element :general_feedback, String, :tag => 'GENERALFEEDBACK'
     element :default_grade, Integer, :tag => 'DEFAULTGRADE'
+    element :position, Integer, :tag => 'POSITION'
     element :type, String, :tag => 'QTYPE'
     element :type_id, Integer, :tag => 'TYPE_ID'
     has_many :numericals, Numerical

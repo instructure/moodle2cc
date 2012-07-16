@@ -15,7 +15,7 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
     @calculated_question = @question_category.questions.find { |q| q.type == 'calculated' }
     @match_question = @question_category.questions.find { |q| q.type == 'match' }
     @numerical_question = @question_category.questions.find { |q| q.type == 'numerical' }
-    @questionnaire_question = @questionnaire_mod.questions.first
+    @questionnaire_question = @questionnaire_mod.questions.last
 
     @answer = @calculated_question.answers.first
     @calculation = @calculated_question.calculations.first
@@ -51,6 +51,10 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
 
   def test_it_has_a_type
     assert_equal 'calculated', @calculated_question.type
+  end
+
+  def test_it_has_a_position
+    assert_equal 2, @questionnaire_question.position
   end
 
   def test_it_has_length

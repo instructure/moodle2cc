@@ -173,6 +173,15 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert @questionnaire_mod.questions.length > 0, 'questionnaire mod does not have questions'
   end
 
+  def test_questionnaire_questions_are_in_order
+    question1 = @questionnaire_mod.questions.first
+    assert_equal 'Have you ever been experienced?', question1.content
+    assert_equal 1, question1.position
+    question2 = @questionnaire_mod.questions.last
+    assert_equal 'Are you experienced?', question2.content
+    assert_equal 2, question2.position
+  end
+
   def test_it_has_options
     assert @choice_mod.options.length > 0, 'mod does not have options'
   end
