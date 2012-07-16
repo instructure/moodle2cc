@@ -14,6 +14,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @questionnaire_mod = @mods.find { |mod| mod.mod_type == 'questionnaire' }
     @choice_mod = @mods.find { |mod| mod.mod_type == 'choice' }
     @wiki_mod = @mods.find { |mod| mod.mod_type == 'wiki' }
+    @workshop_mod = @mods.find { |mod| mod.mod_type == 'workshop' }
     @question_instance = @quiz_mod.question_instances.first
     @question = @course.question_categories.first.questions.first
   end
@@ -23,7 +24,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 10, @mods.length
+    assert_equal 11, @mods.length
   end
 
   def test_it_has_an_id
@@ -88,6 +89,34 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_it_has_a_grade
     assert_equal 5, @mods[0].grade
+  end
+
+  def test_it_has_number_of_attachments
+    assert_equal 0, @workshop_mod.number_of_attachments
+  end
+
+  def test_it_has_number_of_student_assessments
+    assert_equal 5, @workshop_mod.number_of_student_assessments
+  end
+
+  def test_it_has_anonymous
+    assert_equal false, @workshop_mod.anonymous
+  end
+
+  def test_it_has_submission_start
+    assert_equal 1342117800, @workshop_mod.submission_start
+  end
+
+  def test_it_has_submission_end
+    assert_equal 1342722600, @workshop_mod.submission_end
+  end
+
+  def test_it_has_assessment_start
+    assert_equal 1342119000, @workshop_mod.assessment_start
+  end
+
+  def test_it_has_assessment_end
+    assert_equal 1342724000, @workshop_mod.assessment_end
   end
 
   def test_it_has_a_time_due

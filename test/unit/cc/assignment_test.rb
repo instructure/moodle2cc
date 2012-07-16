@@ -9,6 +9,7 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
   def setup
     convert_moodle_backup
     @mod = @backup.course.mods.find { |m| m.mod_type == "assignment" }
+    @workshop_mod = @backup.course.mods.find { |m| m.mod_type == "workshop" }
     @assignment = Moodle2CC::CC::Assignment.new @mod
   end
 
@@ -55,6 +56,12 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
     @mod.time_due = Time.parse("2012/12/12 12:12:12 +0000").to_i
     assignment = Moodle2CC::CC::Assignment.new @mod
     assert_equal '2012-12-12T12:12:12', assignment.due_at
+  end
+
+  def test_it_converts_due_at_from_submission_end_time
+    @workshop_mod.submission_end = Time.parse("2009/09/09 09:09:09 +0000").to_i
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal '2009-09-09T09:09:09', assignment.due_at
   end
 
   def test_it_converts_unlock_at
@@ -117,6 +124,46 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
     @mod.assignment_type = 'uploadsingle'
     assignment = Moodle2CC::CC::Assignment.new @mod
     assert_equal 'online_upload', assignment.submission_types
+
+    @workshop_mod.number_of_attachments = 0
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal 'online_text_entry', assignment.submission_types
+
+    @workshop_mod.number_of_attachments = 1
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal 'online_upload,online_text_entry', assignment.submission_types
+  end
+
+  def test_it_converts_peer_reviews
+    assignment = Moodle2CC::CC::Assignment.new @mod
+    assert_equal false, assignment.peer_reviews
+
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal true, assignment.peer_reviews
+  end
+
+  def test_it_converts_automatic_peer_reviews
+    assignment = Moodle2CC::CC::Assignment.new @mod
+    assert_equal false, assignment.automatic_peer_reviews
+
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal true, assignment.automatic_peer_reviews
+  end
+
+  def test_it_converts_peer_review_count
+    @workshop_mod.number_of_student_assessments = 5
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal 5, assignment.peer_review_count
+  end
+
+  def test_it_converts_anonymous_peer_review
+    @workshop_mod.anonymous = true
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal true, assignment.anonymous_peer_reviews
+
+    @workshop_mod.anonymous = false
+    assignment = Moodle2CC::CC::Assignment.new @workshop_mod
+    assert_equal false, assignment.anonymous_peer_reviews
   end
 
   def test_it_has_an_identifier

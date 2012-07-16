@@ -75,4 +75,10 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
     resource = Moodle2CC::CC::Resource.get_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Assessment, resource
   end
+
+  def test_it_can_get_assignment_resource_from_workshop_mod
+    mod = @backup.course.mods.find { |m| m.mod_type == "workshop" }
+    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::Assignment, resource
+  end
 end

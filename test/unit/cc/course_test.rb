@@ -149,9 +149,9 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal 'Week 1', module_node.xpath('xmlns:title').text
     assert_equal '1', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
-    assert_equal 7, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+    assert_equal 8, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
-    item_node = module_node.xpath('xmlns:items/xmlns:item[8]').first
+    item_node = module_node.xpath('xmlns:items/xmlns:item[9]').first
     refute item_node, 'item exists for invisible mod'
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[3]').first

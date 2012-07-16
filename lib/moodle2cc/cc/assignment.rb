@@ -5,14 +5,15 @@ module Moodle2CC::CC
 
     SETTINGS_ATTRIBUTES = [:title, :points_possible, :grading_type, :due_at,
       :lock_at, :unlock_at, :all_day, :all_day_date, :submission_types,
-      :position, :assignment_group_identifierref]
+      :position, :peer_reviews, :automatic_peer_reviews, :peer_review_count,
+      :anonymous_peer_reviews, :assignment_group_identifierref]
 
     attr_accessor :body, *SETTINGS_ATTRIBUTES
 
     def initialize(mod, position=0)
       super
       @body = convert_file_path_tokens(mod.description)
-      @points_possible = mod.grade_item.grade_max
+      @points_possible = mod.grade_item ? mod.grade_item.grade_max : mod.grade
       @grading_type = 'points'
       if mod.time_due.to_i > 0
         @due_at = ims_datetime(Time.at(mod.time_due))
@@ -27,22 +28,38 @@ module Moodle2CC::CC
       if mod.time_available.to_i > 0
         @unlock_at = ims_datetime(Time.at(mod.time_available))
       end
-      @submission_types = case mod.assignment_type
-                          when 'online'
-                            'online_text_entry'
-                          when 'upload'
-                            if mod.var2 == 1
-                              'online_upload,online_text_entry'
-                            else
-                              'online_upload'
-                            end
-                          when 'uploadsingle'
-                            'online_upload'
-                          else
-                            'none'
-                          end
+      if mod.submission_end.to_i > 0
+        @due_at = ims_datetime(Time.at(mod.submission_end))
+      end
+      @submission_types = get_submission_types(mod)
       @position = position
+      @peer_reviews = @automatic_peer_reviews = mod.mod_type == 'workshop'
+      @peer_review_count = mod.number_of_student_assessments
+      @anonymous_peer_reviews = mod.anonymous
       @assignment_group_identifierref = create_key(mod.section_mod.section.id, 'assignment_group_')
+    end
+
+    def get_submission_types(mod)
+      if mod.mod_type == 'assignment'
+        case mod.assignment_type
+        when 'online'
+          'online_text_entry'
+        when 'upload'
+          if mod.var2 == 1
+            'online_upload,online_text_entry'
+          else
+            'online_upload'
+          end
+        when 'uploadsingle'
+          'online_upload'
+        else
+          'none'
+        end
+      elsif mod.mod_type == 'workshop'
+        submission_types = ['online_text_entry']
+        submission_types.unshift('online_upload') if mod.number_of_attachments > 0
+        submission_types.join(',')
+      end
     end
 
     def create_resource_node(resources_node)

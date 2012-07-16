@@ -8,7 +8,7 @@ module Moodle2CC::CC
 
     def self.get_from_mod(mod)
       case mod.mod_type
-      when 'assignment'
+      when 'assignment', 'workshop'
         Assignment.new(mod)
       when 'resource'
         if mod.type == 'file'
