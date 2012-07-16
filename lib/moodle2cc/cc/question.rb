@@ -20,11 +20,11 @@ module Moodle2CC::CC
       2 =>  'essay_question', # text box question
       3 =>  'essay_question', # essay box question
       4 =>  'multiple_choice_question', # radio buttons question
-      5 =>  'multiple_answer_question', # check boxes question
+      5 =>  'multiple_answers_question', # check boxes question
       6 =>  'multiple_choice_question', # dropdown box question
       8 =>  'multiple_dropdowns_question', # rate 1..5 question
       9 =>  'essay_question', # date question
-      10 =>  'numerical_question', # date question
+      10 =>  'numerical_question', # numeric question
       100 =>  'text_only_question', # label question
     }
 
@@ -220,7 +220,7 @@ module Moodle2CC::CC
             end
           end
         end
-      when 'multiple_answer_question'
+      when 'multiple_answers_question'
         presentation_node.response_lid(:ident => 'response1', :rcardinality => 'Multiple') do |response_node|
           response_node.render_choice do |choice_node|
             @answers.each do |answer|
@@ -325,7 +325,7 @@ module Moodle2CC::CC
             condition_node.setvar(get_score(answer.fraction), :varname => 'SCORE', :action => 'Set')
           end
         end
-      when 'multiple_answer_question'
+      when 'multiple_answers_question'
         processing_node.respcondition(:continue => 'No') do |condition_node|
           first = @answers.first
           rest = @answers[1..-1]

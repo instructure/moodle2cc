@@ -91,7 +91,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     @question.choices = [choice1, choice2, choice3, choice4, choice5]
   end
 
-  def multiple_answer_question!
+  def multiple_answers_question!
     @question.type = nil
     @question.type_id = 5 # check boxes question
     @question.length = 3
@@ -197,7 +197,7 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
 
     @question.type_id = 5
     question = Moodle2CC::CC::Question.new @question
-    assert_equal 'multiple_answer_question', question.question_type
+    assert_equal 'multiple_answers_question', question.question_type
 
     @question.type_id = 6
     question = Moodle2CC::CC::Question.new @question
@@ -758,8 +758,8 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     assert var, 'score does not exist for second answer'
   end
 
-  def test_it_create_item_xml_for_multiple_answer_question
-    multiple_answer_question!
+  def test_it_create_item_xml_for_multiple_answers_question
+    multiple_answers_question!
 
     question = Moodle2CC::CC::Question.new @question
     node = Builder::XmlMarkup.new
