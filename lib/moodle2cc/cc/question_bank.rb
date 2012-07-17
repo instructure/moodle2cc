@@ -37,7 +37,7 @@ module Moodle2CC::CC
           'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
           'xmlns' => "http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
         ) do |root_node|
-          root_node.objectbank(:identifier => identifier) do |objectbank_node|
+          root_node.objectbank(:ident => identifier) do |objectbank_node|
             objectbank_node.qtimetadata do |qtimetadata_node|
               qtimetadata_node.qtimetadatafield do |qtimetadatafield_node|
                 qtimetadatafield_node.fieldlabel "bank_title"

@@ -49,6 +49,15 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
   end
 
+  def test_it_converts_description_from_summary
+    @mod.intro = nil
+    @mod.content = nil
+    @mod.text = nil
+    @mod.summary = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    assessment = Moodle2CC::CC::Assessment.new @mod
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
+  end
+
   def test_it_converts_lock_at
     @mod.time_close = Time.parse("2012/12/12 12:12:12 +0000").to_i
     assessment = Moodle2CC::CC::Assessment.new @mod
@@ -116,6 +125,10 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     questionnaire_mod = @backup.course.mods.find { |mod| mod.mod_type == 'questionnaire' }
     assessment = Moodle2CC::CC::Assessment.new questionnaire_mod
     assert_equal 'survey', assessment.quiz_type
+
+    choice_mod = @backup.course.mods.find { |mod| mod.mod_type == 'choice' }
+    assessment = Moodle2CC::CC::Assessment.new choice_mod
+    assert_equal 'survey', assessment.quiz_type
   end
 
   def test_it_has_an_identifier
@@ -132,11 +145,20 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
 
   def test_it_creates_resource_in_imsmanifest
     node = Builder::XmlMarkup.new
-    xml = Nokogiri::XML(@assessment.create_resource_node(node))
+    xml = node.root do |root_node|
+      @assessment.create_resource_node(node)
+    end
+    xml = Nokogiri::XML(xml)
 
-    resource = xml.xpath('resource').first
-    assert resource
-    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
+    resource = xml.root.xpath('resource[@type="imsqti_xmlv1p2/imscc_xmlv1p1/assessment"]').first
+    assert resource, 'assessment resource does not exist for assessment'
+    assert_equal 'i058d7533a77712b6e7757b34e66df7fc', resource.attributes['identifier'].value
+
+    dependency = resource.xpath('dependency[@identifierref="ibe158496fef4c2255274cdf9113e1daf"]').first
+    assert dependency, 'assessment resource does not have dependency on learning-application-resource'
+
+    resource = xml.root.xpath('resource[@type="associatedcontent/imscc_xmlv1p1/learning-application-resource"]').first
+    assert resource, 'learning-application-resource does not exist for assessment'
     assert_equal 'i058d7533a77712b6e7757b34e66df7fc/assessment_meta.xml', resource.attributes['href'].value
     assert_equal 'ibe158496fef4c2255274cdf9113e1daf', resource.attributes['identifier'].value
 
@@ -194,9 +216,7 @@ class TestUnitCCAssessment < MiniTest::Unit::TestCase
     assert_equal "http://www.w3.org/2001/XMLSchema-instance", xml.namespaces['xmlns:xsi']
     assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2", xml.namespaces['xmlns']
     assert_equal 'questestinterop', xml.root.name
-
-    assert_equal "First Quiz", xml.root.xpath('xmlns:assessment').first.attributes['title'].value
-    assert_equal @assessment.identifier, xml.root.xpath('xmlns:assessment').first.attributes['identifier'].value
+    assert_equal @assessment.identifier, xml.root.xpath('xmlns:assessment').first.attributes['ident'].value
 
     time_data = xml.root.xpath('xmlns:assessment/xmlns:qtimetadata/xmlns:qtimetadatafield[xmlns:fieldlabel="qmd_timelimit" and xmlns:fieldentry="45"]').first
     assert time_data, 'qtimetadata does not exist for time limit'
