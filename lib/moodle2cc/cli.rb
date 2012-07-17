@@ -1,5 +1,4 @@
 require 'thor'
-require File.expand_path('../../moodle2cc', __FILE__)
 
 module Moodle2CC
   class CLI < Thor

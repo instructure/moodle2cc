@@ -11,7 +11,10 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     @course = @backup.course
     @mods = @course.mods
     @quiz_mod = @mods.find { |mod| mod.mod_type == 'quiz' }
+    @questionnaire_mod = @mods.find { |mod| mod.mod_type == 'questionnaire' }
+    @choice_mod = @mods.find { |mod| mod.mod_type == 'choice' }
     @wiki_mod = @mods.find { |mod| mod.mod_type == 'wiki' }
+    @workshop_mod = @mods.find { |mod| mod.mod_type == 'workshop' }
     @question_instance = @quiz_mod.question_instances.first
     @question = @course.question_categories.first.questions.first
   end
@@ -21,7 +24,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 8, @mods.length
+    assert_equal 11, @mods.length
   end
 
   def test_it_has_an_id
@@ -88,6 +91,34 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert_equal 5, @mods[0].grade
   end
 
+  def test_it_has_number_of_attachments
+    assert_equal 0, @workshop_mod.number_of_attachments
+  end
+
+  def test_it_has_number_of_student_assessments
+    assert_equal 5, @workshop_mod.number_of_student_assessments
+  end
+
+  def test_it_has_anonymous
+    assert_equal false, @workshop_mod.anonymous
+  end
+
+  def test_it_has_submission_start
+    assert_equal 1342117800, @workshop_mod.submission_start
+  end
+
+  def test_it_has_submission_end
+    assert_equal 1342722600, @workshop_mod.submission_end
+  end
+
+  def test_it_has_assessment_start
+    assert_equal 1342119000, @workshop_mod.assessment_start
+  end
+
+  def test_it_has_assessment_end
+    assert_equal 1342724000, @workshop_mod.assessment_end
+  end
+
   def test_it_has_a_time_due
     assert_equal 1355356740, @mods[0].time_due
   end
@@ -106,6 +137,10 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
 
   def test_it_has_alltext
     assert_equal "<p><strong> Instructor Resources </strong></p>", @mods[4].alltext
+  end
+
+  def test_it_has_text
+    assert_equal "Which one will you choose?", @choice_mod.text
   end
 
   def test_it_has_time_open
@@ -163,8 +198,79 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
     assert 'This is the content for the first version of the first page', page.content
   end
 
+  def test_it_has_questionnaire_questions
+    assert @questionnaire_mod.questions.length > 0, 'questionnaire mod does not have questions'
+  end
+
+  def test_questionnaire_questions_are_in_order
+    question1 = @questionnaire_mod.questions.first
+    assert_equal 'Have you ever been experienced?', question1.content
+    assert_equal 1, question1.position
+    question2 = @questionnaire_mod.questions.last
+    assert_equal 'Are you experienced?', question2.content
+    assert_equal 2, question2.position
+  end
+
+  def test_it_has_options
+    assert @choice_mod.options.length > 0, 'mod does not have options'
+  end
+
+  def test_options_have_an_id
+    assert_equal 15, @choice_mod.options.first.id
+  end
+
+  def test_options_have_text
+    assert_equal 'choice1', @choice_mod.options.first.text
+  end
+
+  def test_it_has_a_choice_question
+    assert_equal 1, @choice_mod.questions.length
+  end
+
+  def test_choice_question_has_an_id
+    assert_equal "choice_question_110", @choice_mod.questions.first.id
+  end
+
+  def test_choice_question_has_a_name
+    assert_equal "My Choice", @choice_mod.questions.first.name
+  end
+
+  def test_choice_question_has_text
+    assert_equal "Which one will you choose?", @choice_mod.questions.first.text
+  end
+
+  def test_choice_question_has_a_grade
+    assert_equal 1, @choice_mod.questions.first.grade
+  end
+
+  def test_choice_question_has_a_type
+    assert_equal 'choice', @choice_mod.questions.first.type
+  end
+
+  def test_choice_question_has_answers
+    assert @choice_mod.questions.first.answers.length > 0, 'choice question does not have answers'
+  end
+
+  def test_choice_question_answers_have_an_id
+    assert_equal 15, @choice_mod.questions.first.answers.first.id
+  end
+
+  def test_choice_question_answers_have_test
+    assert_equal 'choice1', @choice_mod.questions.first.answers.first.text
+  end
+
   def test_it_has_question_instances
     assert @quiz_mod.question_instances.length > 0, 'quiz mod does not have question_instances'
+  end
+
+  def test_it_has_quiz_questions_from_question_instances
+    assert @quiz_mod.questions.length == @quiz_mod.question_instances.length, 'quiz mod does not have questions for each question instance'
+    assert_equal @quiz_mod.questions.first.grade, @quiz_mod.question_instances.first.grade
+    assert_equal @quiz_mod.questions.first.instance_id, @quiz_mod.question_instances.first.id
+  end
+
+  def test_question_instance_has_an_id
+    assert_equal 697, @question_instance.id
   end
 
   def test_question_instance_has_a_question_id

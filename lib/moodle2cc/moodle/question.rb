@@ -2,7 +2,7 @@ module Moodle2CC::Moodle
   class Question
     include HappyMapper
 
-    attr_accessor :question_category
+    attr_accessor :question_category, :grade, :instance_id
 
     class Answer
       include HappyMapper
@@ -60,17 +60,30 @@ module Moodle2CC::Moodle
       element :tolerance, Integer, :tag => 'TOLERANCE'
     end
 
-    tag 'QUESTIONS/QUESTION'
+    class Choice
+      include HappyMapper
+
+      tag 'QUESTION_CHOICE'
+      element :id, Integer, :tag => 'ID'
+      element :content, String, :tag => 'CONTENT'
+    end
+
+    tag 'QUESTION'
     element :id, Integer, :tag => 'ID'
     element :name, String, :tag => 'NAME'
     element :text, String, :tag => 'QUESTIONTEXT'
+    element :content, String, :tag => 'CONTENT'
+    element :length, Integer, :tag => 'LENGTH'
     element :general_feedback, String, :tag => 'GENERALFEEDBACK'
     element :default_grade, Integer, :tag => 'DEFAULTGRADE'
+    element :position, Integer, :tag => 'POSITION'
     element :type, String, :tag => 'QTYPE'
+    element :type_id, Integer, :tag => 'TYPE_ID'
     has_many :numericals, Numerical
     has_many :answers, Answer
     has_many :calculations, Calculation
     has_many :matches, Match
+    has_many :choices, Choice
 
     def instance
       question_category.course.mods.select do |mod|

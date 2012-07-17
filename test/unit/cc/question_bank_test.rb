@@ -62,7 +62,7 @@ class TestUnitCCQuestionBank < MiniTest::Unit::TestCase
     assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2", xml.namespaces['xmlns']
     assert_equal 'questestinterop', xml.root.name
 
-    assert_equal 'i02849cd800255cc6c762cdafd8d8db67', xml.root.xpath('xmlns:objectbank').first.attributes['identifier'].value
+    assert_equal 'i02849cd800255cc6c762cdafd8d8db67', xml.root.xpath('xmlns:objectbank').first.attributes['ident'].value
 
     time_data = xml.root.xpath('xmlns:objectbank/xmlns:qtimetadata/xmlns:qtimetadatafield[xmlns:fieldlabel="bank_title" and xmlns:fieldentry="Default for Beginning Ruby on Rails"]').first
     assert time_data, 'qtimetadata does not exist for time limit'

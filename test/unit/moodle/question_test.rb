@@ -9,11 +9,13 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
     @moodle_backup_path = create_moodle_backup_zip
     @backup = Moodle2CC::Moodle::Backup.read @moodle_backup_path
     @course = @backup.course
+    @questionnaire_mod = @course.mods.find { |mod| mod.mod_type == 'questionnaire' }
     @question_category = @course.question_categories.first
 
     @calculated_question = @question_category.questions.find { |q| q.type == 'calculated' }
     @match_question = @question_category.questions.find { |q| q.type == 'match' }
     @numerical_question = @question_category.questions.find { |q| q.type == 'numerical' }
+    @questionnaire_question = @questionnaire_mod.questions.last
 
     @answer = @calculated_question.answers.first
     @calculation = @calculated_question.calculations.first
@@ -49,6 +51,34 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
 
   def test_it_has_a_type
     assert_equal 'calculated', @calculated_question.type
+  end
+
+  def test_it_has_a_position
+    assert_equal 2, @questionnaire_question.position
+  end
+
+  def test_it_has_length
+    assert_equal 1, @calculated_question.length
+  end
+
+  def test_it_has_a_type_id
+    assert_equal 5, @questionnaire_question.type_id
+  end
+
+  def test_it_has_content
+    assert_equal 'Are you experienced?', @questionnaire_question.content
+  end
+
+  def test_it_has_question_choices
+    assert @questionnaire_question.choices.length > 0, 'questionnaire question has no choices'
+  end
+
+  def test_choice_has_an_id
+    assert_equal 1, @questionnaire_question.choices.first.id
+  end
+
+  def test_choice_has_content
+    assert_equal 'Yes', @questionnaire_question.choices.first.content
   end
 
   def test_it_has_calculations

@@ -164,6 +164,40 @@
             </ROLES_ASSIGNMENTS>
           </MOD>
           <MOD>
+            <ID>99999</ID>
+            <TYPE>questionnaire</TYPE>
+            <INSTANCE>109</INSTANCE>
+            <ADDED>1339452353</ADDED>
+            <SCORE>0</SCORE>
+            <INDENT>0</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER></IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
+          <MOD>
+            <ID>34343</ID>
+            <TYPE>workshop</TYPE>
+            <INSTANCE>191</INSTANCE>
+            <ADDED>1338410699</ADDED>
+            <SCORE>0</SCORE>
+            <INDENT>0</INDENT>
+            <VISIBLE>1</VISIBLE>
+            <GROUPMODE>0</GROUPMODE>
+            <GROUPINGID>0</GROUPINGID>
+            <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
+            <IDNUMBER>$@NULL@$</IDNUMBER>
+            <ROLES_OVERRIDES>
+            </ROLES_OVERRIDES>
+            <ROLES_ASSIGNMENTS>
+            </ROLES_ASSIGNMENTS>
+          </MOD>
+          <MOD>
             <ID>12121</ID>
             <TYPE>assignment</TYPE>
             <INSTANCE>987</INSTANCE>
@@ -694,6 +728,155 @@
             </PAGES>
           </ENTRY>
         </ENTRIES>
+      </MOD>
+      <MOD>
+        <ID>109</ID>
+        <MODTYPE>questionnaire</MODTYPE>
+        <NAME>My Questionnaire</NAME>
+        <SUMMARY>&lt;div&gt;Summary of the Questionnaire&lt;/div&gt;</SUMMARY>
+        <QTYPE>0</QTYPE>
+        <RESPONDENTTYPE>fullname</RESPONDENTTYPE>
+        <RESP_ELIGIBLE>all</RESP_ELIGIBLE>
+        <RESP_VIEW>0</RESP_VIEW>
+        <RESUME>0</RESUME>
+        <OPENDATE>0</OPENDATE>
+        <CLOSEDATE>0</CLOSEDATE>
+        <TIMEMODIFIED>1342031095</TIMEMODIFIED>
+        <SID>1</SID>
+        <GRADE>100</GRADE>
+        <SURVEY>
+          <ID>1</ID>
+          <NAME>My Questionnaire</NAME>
+          <OWNER>2</OWNER>
+          <REALM>private</REALM>
+          <STATUS>0</STATUS>
+          <TITLE>My Questionnaire</TITLE>
+          <EMAIL></EMAIL>
+          <SUBTITLE></SUBTITLE>
+          <INFO></INFO>
+          <THEME>default.css</THEME>
+          <THANKS_PAGE></THANKS_PAGE>
+          <THANK_HEAD></THANK_HEAD>
+          <THANK_BODY></THANK_BODY>
+          <QUESTION>
+            <ID>1</ID>
+            <SURVEY_ID>1</SURVEY_ID>
+            <NAME>Are you experienced?</NAME>
+            <TYPE_ID>5</TYPE_ID>
+            <RESULT_ID>$@NULL@$</RESULT_ID>
+            <LENGTH>0</LENGTH>
+            <PRECISE>0</PRECISE>
+            <POSITION>2</POSITION>
+            <CONTENT>Are you experienced?</CONTENT>
+            <REQUIRED>y</REQUIRED>
+            <DELETED>n</DELETED>
+            <QUESTION_CHOICE>
+              <ID>1</ID>
+              <QUESTION_ID>1</QUESTION_ID>
+              <CONTENT>Yes</CONTENT>
+              <VALUE>$@NULL@$</VALUE>
+            </QUESTION_CHOICE>
+            <QUESTION_CHOICE>
+              <ID>2</ID>
+              <QUESTION_ID>1</QUESTION_ID>
+              <CONTENT>No</CONTENT>
+              <VALUE>$@NULL@$</VALUE>
+            </QUESTION_CHOICE>
+          </QUESTION>
+          <QUESTION>
+            <ID>2</ID>
+            <SURVEY_ID>1</SURVEY_ID>
+            <NAME>Have you ever been experienced</NAME>
+            <TYPE_ID>1</TYPE_ID>
+            <RESULT_ID>$@NULL@$</RESULT_ID>
+            <LENGTH>0</LENGTH>
+            <PRECISE>0</PRECISE>
+            <POSITION>1</POSITION>
+            <CONTENT>Have you ever been experienced?</CONTENT>
+            <REQUIRED>y</REQUIRED>
+            <DELETED>n</DELETED>
+          </QUESTION>
+        </SURVEY>
+      </MOD>
+      <MOD>
+        <ID>110</ID>
+        <MODTYPE>choice</MODTYPE>
+        <NAME>My Choice</NAME>
+        <TEXT>Which one will you choose?</TEXT>
+        <FORMAT>1</FORMAT>
+        <PUBLISH>0</PUBLISH>
+        <SHOWRESULTS>0</SHOWRESULTS>
+        <DISPLAY>0</DISPLAY>
+        <ALLOWUPDATE>0</ALLOWUPDATE>
+        <SHOWUNANSWERED>0</SHOWUNANSWERED>
+        <LIMITANSWERS>1</LIMITANSWERS>
+        <TIMEOPEN>1342127700</TIMEOPEN>
+        <TIMECLOSE>1342386900</TIMECLOSE>
+        <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+        <OPTIONS>
+          <OPTION>
+            <ID>15</ID>
+            <TEXT>choice1</TEXT>
+            <MAXANSWERS>10</MAXANSWERS>
+            <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+          </OPTION>
+          <OPTION>
+            <ID>16</ID>
+            <TEXT>choice2</TEXT>
+            <MAXANSWERS>20</MAXANSWERS>
+            <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+          </OPTION>
+          <OPTION>
+            <ID>17</ID>
+            <TEXT>choice3</TEXT>
+            <MAXANSWERS>30</MAXANSWERS>
+            <TIMEMODIFIED>1342127980</TIMEMODIFIED>
+          </OPTION>
+        </OPTIONS>
+      </MOD>
+      <MOD>
+        <ID>191</ID>
+        <MODTYPE>workshop</MODTYPE>
+        <NAME>My Workshop</NAME>
+        <DESCRIPTION>My Workshop Description</DESCRIPTION>
+        <WTYPE>0</WTYPE>
+        <NELEMENTS>1</NELEMENTS>
+        <NATTACHMENTS>0</NATTACHMENTS>
+        <FORMAT>1</FORMAT>
+        <GRADINGSTRATEGY>1</GRADINGSTRATEGY>
+        <RESUBMIT>0</RESUBMIT>
+        <AGREEASSESSMENTS>0</AGREEASSESSMENTS>
+        <HIDEGRADES>0</HIDEGRADES>
+        <ANONYMOUS>0</ANONYMOUS>
+        <INCLUDESELF>0</INCLUDESELF>
+        <MAXBYTES>1</MAXBYTES>
+        <SUBMISSIONSTART>1342117800</SUBMISSIONSTART>
+        <ASSESSMENTSTART>1342119000</ASSESSMENTSTART>
+        <SUBMISSIONEND>1342722600</SUBMISSIONEND>
+        <ASSESSMENTEND>1342724000</ASSESSMENTEND>
+        <RELEASEGRADES>1343327400</RELEASEGRADES>
+        <GRADE>100</GRADE>
+        <GRADINGGRADE>100</GRADINGGRADE>
+        <NTASSESSMENTS>0</NTASSESSMENTS>
+        <ASSESSMENTCOMPS>2</ASSESSMENTCOMPS>
+        <NSASSESSMENTS>5</NSASSESSMENTS>
+        <OVERALLOCATION>0</OVERALLOCATION>
+        <TIMEMODIFIED>1342031235</TIMEMODIFIED>
+        <TEACHERWEIGHT>1</TEACHERWEIGHT>
+        <SHOWLEAGUETABLE>0</SHOWLEAGUETABLE>
+        <USEPASSWORD>0</USEPASSWORD>
+        <PASSWORD></PASSWORD>
+        <ELEMENTS>
+          <ELEMENT>
+            <ELEMENTNO>0</ELEMENTNO>
+            <DESCRIPTION>Element Description</DESCRIPTION>
+            <SCALE>0</SCALE>
+            <MAXSCORE>1</MAXSCORE>
+            <WEIGHT>11</WEIGHT>
+            <STDDEV>0</STDDEV>
+            <TOTALASSESSMENTS>0</TOTALASSESSMENTS>
+          </ELEMENT>
+        </ELEMENTS>
       </MOD>
     </MODULES>
     <GRADEBOOK>
