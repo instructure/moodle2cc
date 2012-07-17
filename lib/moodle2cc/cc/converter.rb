@@ -105,8 +105,8 @@ module Moodle2CC::CC
       @manifest_node.resources do |resources_node|
         create_course_content(resources_node)
 
-        @moodle_backup.course.mods.each do |mod|
-          resource = Resource.get_from_mod(mod)
+        @moodle_backup.course.mods.each_with_index do |mod, index|
+          resource = Resource.get_from_mod(mod, index)
           if resource
             resource.create_resource_node(resources_node)
             resource.create_files(@export_dir)

@@ -6,10 +6,10 @@ module Moodle2CC::CC
       end
     end
 
-    def self.get_from_mod(mod)
+    def self.get_from_mod(mod, position=0)
       case mod.mod_type
       when 'assignment', 'workshop'
-        Assignment.new(mod)
+        Assignment.new(mod, position)
       when 'resource'
         if mod.type == 'file'
           WebLink.new(mod)
@@ -17,9 +17,9 @@ module Moodle2CC::CC
           WebContent.new(mod)
         end
       when 'forum'
-        DiscussionTopic.new(mod)
+        DiscussionTopic.new(mod, position)
       when 'quiz', 'questionnaire', 'choice'
-        Assessment.new(mod)
+        Assessment.new(mod, position)
       when 'wiki'
         Wiki.new(mod)
       when 'label'
