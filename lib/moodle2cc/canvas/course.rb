@@ -1,22 +1,20 @@
 module Moodle2CC::Canvas
   class Course < Moodle2CC::CC::Course
+
     attr_accessor :id, :title, :course_code, :start_at, :format, :is_public, :syllabus_body
 
     def initialize(course)
+      super
+
       @course = course
 
       @id = course.id
       @title = course.fullname
       @course_code = course.shortname
       @start_at = ims_datetime(Time.at(course.startdate))
-      @format = case course.format
-                when 'weeks', 'weekscss'
-                  'Week'
-                else
-                  'Topic'
-                end
       @is_public = course.visible
       @syllabus_body = convert_file_path_tokens(course.sections.first.summary)
+      @resource_factory = Moodle2CC::ResourceFactory.new Moodle2CC::Canvas
     end
 
     def identifier
@@ -98,7 +96,7 @@ module Moodle2CC::Canvas
               module_node.items do |items_node|
                 section.mods.each_with_index do |mod, index|
                   next unless mod.visible
-                  resource = Resource.get_from_mod(mod.instance)
+                  resource = @resource_factory.get_resource_from_mod(mod.instance)
                   resource.create_module_meta_item_node(items_node, index) if resource
                 end
               end

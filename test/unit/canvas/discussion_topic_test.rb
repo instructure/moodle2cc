@@ -3,72 +3,44 @@ require 'minitest/autorun'
 require 'test/test_helper'
 require 'moodle2cc'
 
-class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
+class TestUnitCanvasDiscussionTopic < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    convert_moodle_backup
-    @mod = @backup.course.mods[2] # discussion topic module
+    convert_moodle_backup('canvas')
+    @mod = @backup.course.mods.find { |mod| mod.mod_type == 'forum' }
   end
 
   def teardown
     clean_tmp_folder
   end
 
-  def test_it_converts_id
-    @mod.id = 567
-
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
-    assert_equal 567, discussion_topic.id
-  end
-
-  def test_it_converts_title
-    @mod.name = "Announcements"
-
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
-    assert_equal "Announcements", discussion_topic.title
-  end
-
-  def test_it_converts_text
-    @mod.intro = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
-
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
-    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), discussion_topic.text
-  end
-
   def test_it_converts_posted_at
     @mod.section_mod.added = 1340731824
 
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod
     assert_equal '2012-06-26T17:30:24', discussion_topic.posted_at
   end
 
   def test_it_converts_position
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod, 5
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod, 5
     assert_equal 5, discussion_topic.position
   end
 
   def test_it_converts_type
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod
     assert_equal 'topic', discussion_topic.type
-  end
-
-  def test_it_has_an_identifier
-    @mod.id = 123
-
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
-    assert_equal 'ifb967ca1271d3e119ae5e22d32eeae1b', discussion_topic.identifier
   end
 
   def test_it_has_an_identifierref
     @mod.id = 123
 
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod
     assert_equal 'ic2f863a4aeaa551a04dfbea65d6e72bb', discussion_topic.identifierref
   end
 
   def test_it_creates_resource_in_imsmanifest
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod
     node = Builder::XmlMarkup.new
     xml = node.root do |root_node|
       discussion_topic.create_resource_node(node)
@@ -100,7 +72,7 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
   end
 
   def test_it_creates_item_in_module_meta
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(discussion_topic.create_module_meta_item_node(node, 5))
 
@@ -119,7 +91,7 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
     @mod.intro = "<h1>Hello World</h1>"
 
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod
     discussion_topic.create_topic_xml(tmp_dir)
     xml = Nokogiri::XML(File.read(File.join(tmp_dir, "#{discussion_topic.identifier}.xml")))
 
@@ -138,7 +110,7 @@ class TestUnitCCDiscussionTopic < MiniTest::Unit::TestCase
     @mod.section_mod.added = 1340731824
 
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
-    discussion_topic = Moodle2CC::CC::DiscussionTopic.new @mod
+    discussion_topic = Moodle2CC::Canvas::DiscussionTopic.new @mod
     discussion_topic.create_topic_meta_xml(tmp_dir)
     xml = Nokogiri::XML(File.read(File.join(tmp_dir, "#{discussion_topic.identifierref}.xml")))
 

@@ -1,40 +1,65 @@
 module Moodle2CC::Canvas
   class Question < Moodle2CC::CC::Question
-    META_ATTRIBUTES = [:question_type, :points_possible]
+    META_ATTRIBUTES = [:question_type, :points_possible, :assessment_question_identifierref]
     QUESTION_TYPE_MAP = {
-        'calculated' =>  'calculated_question',
-        'description' => 'text_only_question',
-        'essay' => 'essay_question',
-        'match' => 'matching_question',
-        'multianswer' => 'embedded_answers_question',
-        'multichoice' => 'multiple_choice_question',
-        'shortanswer' => 'short_answer_question',
-        'numerical' => 'numerical_question',
-        'truefalse' => 'true_false_question',
-      }
+      'calculated' =>  'calculated_question',
+      'description' => 'text_only_question',
+      'essay' => 'essay_question',
+      'match' => 'matching_question',
+      'multianswer' => 'embedded_answers_question',
+      'multichoice' => 'multiple_choice_question',
+      'shortanswer' => 'short_answer_question',
+      'numerical' => 'numerical_question',
+      'truefalse' => 'true_false_question',
+      'choice' => 'multiple_choice_question'
+    }
+    QUESTION_TYPE_ID_MAP = {
+      1 =>  'true_false_question', # yes/no question
+      2 =>  'essay_question', # text box question
+      3 =>  'essay_question', # essay box question
+      4 =>  'multiple_choice_question', # radio buttons question
+      5 =>  'multiple_answers_question', # check boxes question
+      6 =>  'multiple_choice_question', # dropdown box question
+      8 =>  'multiple_dropdowns_question', # rate 1..5 question
+      9 =>  'essay_question', # date question
+      10 =>  'numerical_question', # numeric question
+      100 =>  'text_only_question', # label question
+    }
 
-    attr_accessor :id, :title, :material, :general_feedback, :answer_tolerance,
+    attr_accessor :material, :general_feedback, :answer_tolerance,
       :formulas, :formula_decimal_places, :vars, :var_sets, :matches, :answers,
-      :identifier, :numericals, *META_ATTRIBUTES
+      :numericals, :length, *META_ATTRIBUTES
 
-    def initialize(question_instance)
-      question = question_instance.question
-      @id = question.id
-      @title = question.name
-      @question_type = QUESTION_TYPE_MAP[question.type]
-      @points_possible = question_instance.grade
-      @material = question.text.gsub(/\{(.*?)\}/, '[\1]')
+    def initialize(question, assessment=nil)
+      super
+      @question_type = question.type ? QUESTION_TYPE_MAP[question.type] : QUESTION_TYPE_ID_MAP[question.type_id]
+      @points_possible = question.grade
       @general_feedback = question.general_feedback
-      @answers = question.answers.map do |answer|
-        {
-          :id => answer.id,
-          :text => answer.text,
-          :fraction => answer.fraction,
-          :feedback => answer.feedback
-        }
+      @length = question.length
+
+      @answers = []
+
+      unless question.answers.empty?
+        @answers = question.answers.map do |answer|
+          Moodle2CC::OpenStruct.new(
+            :id => answer.id,
+            :text => answer.text,
+            :fraction => answer.fraction,
+            :feedback => answer.feedback
+          )
+        end
       end
 
-      calculation = question.calculations.first
+      unless question.choices.nil? || question.choices.empty?
+        @answers = question.choices.map do |answer|
+          Moodle2CC::OpenStruct.new(
+            :id => answer.id,
+            :text => answer.content
+          )
+        end
+      end
+
+      calculation = question.calculations.first unless question.calculations.nil?
       if calculation
         @answer_tolerance = calculation.tolerance
         @formula_decimal_places = calculation.correct_answer_format == 1 ? calculation.correct_answer_length : 0
@@ -63,14 +88,16 @@ module Moodle2CC::Canvas
         end
       end
 
-      @numericals = question.numericals.map do |n|
-        {
-          :answer => @answers.find { |a| a[:id] == n.answer_id },
-          :tolerance => n.tolerance,
-        }
+      unless question.numericals.nil?
+        @numericals = question.numericals.map do |n|
+          Moodle2CC::OpenStruct.new(
+            :answer => @answers.find { |a| a.id == n.answer_id },
+            :tolerance => n.tolerance
+          )
+        end
       end
 
-      if question.matches.length > 0
+      if !question.matches.nil? && question.matches.length > 0
         answers = question.matches.inject({}) do |result, match|
           result[match.code] = match.answer_text
           result
@@ -78,11 +105,27 @@ module Moodle2CC::Canvas
         @matches = question.matches.select do |match|
           match.question_text && match.question_text.strip.length > 0
         end.map do |match|
-          {:question => match.question_text, :answers => answers, :answer => match.code}
+          Moodle2CC::OpenStruct.new(
+            :question => match.question_text,
+            :answers => answers,
+            :answer => match.code
+          )
         end
       end
 
-      @identifier = create_key(@id, 'question_')
+      material = question.text
+      material = question.content || '' if material.nil?
+      @material = material.gsub(/\{(.*?)\}/, '[\1]')
+      if @question_type == 'multiple_dropdowns_question' && !@answers.empty?
+        responses = @answers[@length..-1]
+        responses.each_with_index do |response, index|
+          @material << "\n#{response.text} [response#{index + 1}]"
+        end
+      end
+
+      if question.instance_id
+        @assessment_question_identifierref = create_key(question.id, "#{@identifier_prefix}question_")
+      end
     end
 
     def create_item_xml(section_node)
@@ -90,8 +133,8 @@ module Moodle2CC::Canvas
         item_node.itemmetadata do |meta_node|
           meta_node.qtimetadata do |qtime_node|
             META_ATTRIBUTES.each do |attr|
-              value = send(attr)
-              if value
+              value = send(attr).to_s
+              if value && value.length > 0
                 qtime_node.qtimetadatafield do |field_node|
                   field_node.fieldlabel attr.to_s
                   field_node.fieldentry value
@@ -144,12 +187,12 @@ module Moodle2CC::Canvas
         end
       when 'matching_question'
         @matches.each do |match|
-          presentation_node.response_lid(:ident => "response_#{match[:answer]}") do |response_node|
+          presentation_node.response_lid(:ident => "response_#{match.answer}") do |response_node|
             response_node.material do |material_node|
-              material_node.mattext(match[:question], :texttype => 'text/plain')
+              material_node.mattext(match.question, :texttype => 'text/plain')
             end
             response_node.render_choice do |choice_node|
-              match[:answers].each do |ident, text|
+              match.answers.each do |ident, text|
                 choice_node.response_label(:ident => ident) do |label_node|
                   label_node.material do |material_node|
                     material_node.mattext text
@@ -163,9 +206,41 @@ module Moodle2CC::Canvas
         presentation_node.response_lid(:ident => 'response1', :rcardinality => 'Single') do |response_node|
           response_node.render_choice do |choice_node|
             @answers.each do |answer|
-              choice_node.response_label(:ident => answer[:id]) do |label_node|
+              choice_node.response_label(:ident => answer.id) do |label_node|
                 label_node.material do |material_node|
-                  material_node.mattext answer[:text], :texttype => 'text/plain'
+                  material_node.mattext answer.text, :texttype => 'text/plain'
+                end
+              end
+            end
+          end
+        end
+      when 'multiple_answers_question'
+        presentation_node.response_lid(:ident => 'response1', :rcardinality => 'Multiple') do |response_node|
+          response_node.render_choice do |choice_node|
+            @answers.each do |answer|
+              choice_node.response_label(:ident => answer.id) do |label_node|
+                label_node.material do |material_node|
+                  material_node.mattext answer.text, :texttype => 'text/plain'
+                end
+              end
+            end
+          end
+        end
+      when 'multiple_dropdowns_question'
+        answers = @answers[0...@length]
+        responses = @answers[@length..-1]
+        responses.each_with_index do |response, index|
+          response_id = index + 1
+          presentation_node.response_lid(:ident => "response_response#{response_id}") do |response_node|
+            response_node.material do |material_node|
+              material_node.mattext "response#{response_id}"
+            end
+            response_node.render_choice do |choice_node|
+              answers.each do |answer|
+                choice_node.response_label(:ident => "#{response_id}#{answer.id}") do |label_node|
+                  label_node.material do |material_node|
+                    material_node.mattext answer.text, :texttype => 'text/plain'
+                  end
                 end
               end
             end
@@ -181,9 +256,9 @@ module Moodle2CC::Canvas
         presentation_node.response_lid(:rcardinality => 'Single', :ident => 'response1') do |response_node|
           response_node.render_choice do |render_choice_node|
             @answers.each do |answer|
-              render_choice_node.response_label(:ident => answer[:id]) do |response_label_node|
+              render_choice_node.response_label(:ident => answer.id) do |response_label_node|
                 response_label_node.material do |material_node|
-                  material_node.mattext(answer[:text], :texttype => 'text/plain')
+                  material_node.mattext(answer.text, :texttype => 'text/plain')
                 end
               end
             end
@@ -218,7 +293,7 @@ module Moodle2CC::Canvas
         @matches.each do |match|
           processing_node.respcondition do |condition_node|
             condition_node.conditionvar do |var_node|
-              var_node.varequal match[:answer], :respident => "response_#{match[:answer]}"
+              var_node.varequal match.answer, :respident => "response_#{match.answer}"
             end
             condition_node.setvar "%.2f" % score, :varname => 'SCORE', :action => 'Add'
           end
@@ -226,12 +301,12 @@ module Moodle2CC::Canvas
       when 'multiple_choice_question'
         # Feeback
         @answers.each do |answer|
-          next unless answer[:feedback] && answer[:feedback].strip.length > 0
+          next unless answer.feedback && answer.feedback.strip.length > 0
           processing_node.respcondition(:continue => 'Yes') do |condition_node|
             condition_node.conditionvar do |var_node|
-              var_node.varequal answer[:id], :respident => 'response1'
+              var_node.varequal answer.id, :respident => 'response1'
             end
-            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb")
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer.id}_fb")
           end
         end
 
@@ -239,9 +314,38 @@ module Moodle2CC::Canvas
         @answers.each do |answer|
           processing_node.respcondition(:continue => 'No') do |condition_node|
             condition_node.conditionvar do |var_node|
-              var_node.varequal answer[:id], :respident => 'response1'
+              var_node.varequal answer.id, :respident => 'response1'
             end
-            condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => 'Set')
+            condition_node.setvar(get_score(answer.fraction), :varname => 'SCORE', :action => 'Set')
+          end
+        end
+      when 'multiple_answers_question'
+        processing_node.respcondition(:continue => 'No') do |condition_node|
+          first = @answers.first
+          rest = @answers[1..-1]
+          condition_node.conditionvar do |var_node|
+            var_node.and do |and_node|
+              and_node.varequal first.id, :respident => 'response1'
+              rest.each do |answer|
+                and_node.not do |not_node|
+                  not_node.varequal answer.id, :respident => 'response1'
+                end
+              end
+            end
+          end
+          condition_node.setvar('100', :varname => 'SCORE', :action => 'Set')
+        end
+      when 'multiple_dropdowns_question'
+        answers = @answers[0...@length]
+        responses = @answers[@length..-1]
+        score = 100.0 / responses.length.to_f
+        responses.each_with_index do |response, index|
+          response_id = index + 1
+          processing_node.respcondition do |condition_node|
+            condition_node.conditionvar do |var_node|
+              var_node.varequal "#{response_id}#{answers.first.id}", :respident => "response_response#{response_id}"
+            end
+            condition_node.setvar "%.2f" % score, :varname => 'SCORE', :action => 'Add'
           end
         end
       when 'numerical_question'
@@ -249,26 +353,26 @@ module Moodle2CC::Canvas
           processing_node.respcondition(:continue => 'No') do |condition_node|
             condition_node.conditionvar do |var_node|
               var_node.or do |or_node|
-                or_node.varequal numerical[:answer][:text], :respident => 'response1'
+                or_node.varequal numerical.answer.text, :respident => 'response1'
                 or_node.and do |and_node|
-                  and_node.vargte numerical[:answer][:text].to_f - numerical[:tolerance].to_f, :respident => 'response1'
-                  and_node.varlte numerical[:answer][:text].to_f + numerical[:tolerance].to_f, :respident => 'response1'
+                  and_node.vargte numerical.answer.text.to_f - numerical.tolerance.to_f, :respident => 'response1'
+                  and_node.varlte numerical.answer.text.to_f + numerical.tolerance.to_f, :respident => 'response1'
                 end
               end
             end
-            condition_node.setvar((100 * numerical[:answer][:fraction]).to_i, :varname => "SCORE", :action => 'Set')
-            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{numerical[:answer][:id]}_fb") if numerical[:answer][:feedback] && numerical[:answer][:feedback].strip.length > 0
+            condition_node.setvar(get_score(numerical.answer.fraction), :varname => "SCORE", :action => 'Set')
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{numerical.answer.id}_fb") if numerical.answer.feedback && numerical.answer.feedback.strip.length > 0
           end
         end
       when 'short_answer_question'
         # Feeback
         @answers.each do |answer|
-          next unless answer[:feedback] && answer[:feedback].strip.length > 0
+          next unless answer.feedback && answer.feedback.strip.length > 0
           processing_node.respcondition(:continue => 'Yes') do |condition_node|
             condition_node.conditionvar do |var_node|
-              var_node.varequal answer[:text], :respident => 'response1'
+              var_node.varequal answer.text, :respident => 'response1'
             end
-            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb")
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer.id}_fb")
           end
         end
 
@@ -276,19 +380,19 @@ module Moodle2CC::Canvas
         @answers.each do |answer|
           processing_node.respcondition(:continue => 'No') do |condition_node|
             condition_node.conditionvar do |var_node|
-              var_node.varequal answer[:text], :respident => 'response1'
+              var_node.varequal answer.text, :respident => 'response1'
             end
-            condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => "Set")
+            condition_node.setvar(get_score(answer.fraction), :varname => 'SCORE', :action => "Set")
           end
         end
       when 'true_false_question'
         @answers.each do |answer|
           processing_node.respcondition(:continue => 'No') do |condition_node|
             condition_node.conditionvar do |var_node|
-              var_node.varequal answer[:id], :respident => 'response1'
+              var_node.varequal answer.id, :respident => 'response1'
             end
-            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer[:id]}_fb") if answer[:feedback] && answer[:feedback].strip.length > 0
-            condition_node.setvar((100 * answer[:fraction]).to_i, :varname => 'SCORE', :action => "Set")
+            condition_node.displayfeedback(:feedbacktype => 'Response', :linkrefid => "#{answer.id}_fb") if answer.feedback && answer.feedback.strip.length > 0
+            condition_node.setvar(get_score(answer.fraction), :varname => 'SCORE', :action => "Set")
           end
         end
       end
@@ -309,11 +413,11 @@ module Moodle2CC::Canvas
       case @question_type
       when 'multiple_choice_question', 'numerical_question', 'short_answer_question', 'true_false_question'
         @answers.each do |answer|
-          next unless answer[:feedback] && answer[:feedback].strip.length > 0
-          item_node.itemfeedback(:ident => "#{answer[:id]}_fb") do |feedback_node|
+          next unless answer.feedback && answer.feedback.strip.length > 0
+          item_node.itemfeedback(:ident => "#{answer.id}_fb") do |feedback_node|
             feedback_node.flow_mat do |flow_node|
               flow_node.material do |material_node|
-                material_node.mattext answer[:feedback], :texttype => 'text/plain'
+                material_node.mattext answer.feedback, :texttype => 'text/plain'
               end
             end
           end
@@ -354,6 +458,11 @@ module Moodle2CC::Canvas
           end
         end
       end
+    end
+
+    def get_score(fraction)
+      return 100 if fraction.nil?
+      (100 * fraction).to_i
     end
   end
 end

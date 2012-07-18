@@ -6,6 +6,8 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
+    @cc_factory = Moodle2CC::ResourceFactory.new Moodle2CC::CC
+    @canvas_factory = Moodle2CC::ResourceFactory.new Moodle2CC::Canvas
     convert_moodle_backup
   end
 
@@ -15,70 +17,103 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
 
   def test_it_can_get_assessment_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "quiz" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Assessment, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Assessment, resource
   end
 
   def test_it_can_get_assignment_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "assignment" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Assignment, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Assignment, resource
   end
 
   def test_it_can_get_discussion_topic_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "forum" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::DiscussionTopic, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::DiscussionTopic, resource
   end
 
   def test_it_can_get_web_content_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "resource" }
     mod.type = 'html'
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::WebContent, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebContent, resource
   end
 
   def test_it_can_get_web_link_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "resource" }
     mod.type = 'file'
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::WebLink, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebLink, resource
   end
 
   def test_it_can_get_wiki_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "wiki" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Wiki, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Wiki, resource
   end
 
   def test_it_can_get_label_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "label" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Label, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Label, resource
   end
 
   def test_it_can_get_web_content_resource_from_label_mod
     mod = @backup.course.mods.find { |m| m.mod_type == "label" }
     mod.content = %(<img src="http://image.com/image.jpg" />")
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::WebContent, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebContent, resource
   end
 
   def test_it_can_get_assessment_resource_from_questionnaire_mod
     mod = @backup.course.mods.find { |m| m.mod_type == "questionnaire" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Assessment, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Assessment, resource
   end
 
   def test_it_can_get_assessment_resource_from_choice_mod
     mod = @backup.course.mods.find { |m| m.mod_type == "choice" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Assessment, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Assessment, resource
   end
 
   def test_it_can_get_assignment_resource_from_workshop_mod
     mod = @backup.course.mods.find { |m| m.mod_type == "workshop" }
-    resource = Moodle2CC::CC::Resource.get_from_mod(mod)
+    resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::Assignment, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Assignment, resource
   end
 end

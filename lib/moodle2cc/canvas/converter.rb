@@ -1,5 +1,10 @@
 module Moodle2CC::Canvas
   class Converter < Moodle2CC::CC::Converter
+    def initialize(moodle_backup, destination_dir)
+      super
+      @resource_factory = Moodle2CC::ResourceFactory.new Moodle2CC::Canvas
+    end
+
     def create_resources(resources_node)
       create_course_content(resources_node)
       @moodle_backup.course.question_categories.each do |question_category|

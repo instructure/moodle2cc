@@ -1,13 +1,34 @@
 module Moodle2CC::Canvas
   class Assessment < Moodle2CC::CC::Assessment
-    attr_accessor :non_cc_assessments_identifier
+    include Resource
+    META_ATTRIBUTES = [:title, :description, :lock_at, :unlock_at, :allowed_attempts,
+      :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit, :quiz_type]
+
+    attr_accessor :non_cc_assessments_identifier, *META_ATTRIBUTES
 
     def initialize(mod, position=0)
       super
+      description = [mod.intro, mod.content, mod.text, mod.summary].compact.reject { |d| d.length == 0 }.first || ''
+      @description = convert_file_path_tokens(description)
+      if mod.time_close.to_i > 0
+        @lock_at = ims_datetime(Time.at(mod.time_close))
+      end
+      if mod.time_open.to_i > 0
+        @unlock_at = ims_datetime(Time.at(mod.time_open))
+      end
+      @time_limit = mod.time_limit
+      @allowed_attempts = mod.attempts_number
+      @scoring_policy = mod.grade_method == 4 ? 'keep_latest' : 'keep_highest'
+      @access_code = mod.password
+      @ip_filter = mod.subnet
+      @shuffle_answers = mod.shuffle_answers
+      @quiz_type = mod.mod_type == 'quiz' ? 'practice_quiz' : 'survey'
       @non_cc_assessments_identifier = create_key(@id, 'non_cc_assessments_')
     end
 
     def create_resource_node(resources_node)
+      super
+
       href = File.join(identifier, ASSESSMENT_META)
       resources_node.resource(
         :href => href,
@@ -17,6 +38,10 @@ module Moodle2CC::Canvas
         resource_node.file(:href => href)
         resource_node.file(:href => File.join(ASSESSMENT_NON_CC_FOLDER, "#{identifier}.xml.qti"))
       end
+    end
+
+    def create_resource_sub_nodes(resource_node)
+      resource_node.dependency :identifierref => non_cc_assessments_identifier
     end
 
     def create_files(export_dir)
@@ -54,7 +79,7 @@ module Moodle2CC::Canvas
           'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
           'xmlns' => "http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
         ) do |root_node|
-          root_node.assessment(:title => title, :identifier => identifier) do |assessment_node|
+          root_node.assessment(:title => title, :ident => identifier) do |assessment_node|
             assessment_node.qtimetadata do |qtimetadata_node|
               qtimetadata_node.qtimetadatafield do |qtimetadatafield_node|
                 qtimetadatafield_node.fieldlabel "qmd_timelimit"
@@ -66,8 +91,8 @@ module Moodle2CC::Canvas
               end
             end
             assessment_node.section(:ident => 'root_section') do |section_node|
-              @mod.question_instances.each do |question_instance|
-                question = Question.new question_instance
+              @mod.questions.each do |question|
+                question = Question.new question, self
                 question.create_item_xml(section_node)
               end
             end

@@ -3,17 +3,21 @@ require 'minitest/autorun'
 require 'test/test_helper'
 require 'moodle2cc'
 
-class TestUnitCCCourse < MiniTest::Unit::TestCase
+class TestUnitCanvasCourse < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    convert_moodle_backup
+    convert_moodle_backup('canvas')
     @course = @backup.course
-    @cc_course = Moodle2CC::CC::Course.new @course
+    @cc_course = Moodle2CC::Canvas::Course.new @course
   end
 
   def teardown
     clean_tmp_folder
+  end
+
+  def test_it_inherits_from_cc
+    assert Moodle2CC::Canvas::Course.ancestors.include?(Moodle2CC::CC::Course), 'does not inherit from base CC class'
   end
 
   def test_it_converts_id
@@ -32,24 +36,6 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal '2012-06-11T05:00:00', @cc_course.start_at
   end
 
-  def test_it_converts_format
-    @course.format = 'weeks'
-    cc_course = Moodle2CC::CC::Course.new @course
-    assert_equal 'Week', cc_course.format
-
-    @course.format = 'weekscss'
-    cc_course = Moodle2CC::CC::Course.new @course
-    assert_equal 'Week', cc_course.format
-
-    @course.format = 'social'
-    cc_course = Moodle2CC::CC::Course.new @course
-    assert_equal 'Topic', cc_course.format
-
-    @course.format = 'topics'
-    cc_course = Moodle2CC::CC::Course.new @course
-    assert_equal 'Topic', cc_course.format
-  end
-
   def test_it_converts_is_public
     assert_equal true, @cc_course.is_public
   end
@@ -58,7 +44,7 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     section = Moodle2CC::Moodle::Section.new
     section.summary = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
     @course.sections = [section]
-    cc_course = Moodle2CC::CC::Course.new @course
+    cc_course = Moodle2CC::Canvas::Course.new @course
     assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), cc_course.syllabus_body
   end
 
@@ -149,9 +135,9 @@ class TestUnitCCCourse < MiniTest::Unit::TestCase
     assert_equal 'Week 1', module_node.xpath('xmlns:title').text
     assert_equal '1', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
-    assert_equal 6, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+    assert_equal 8, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
-    item_node = module_node.xpath('xmlns:items/xmlns:item[7]').first
+    item_node = module_node.xpath('xmlns:items/xmlns:item[9]').first
     refute item_node, 'item exists for invisible mod'
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[3]').first

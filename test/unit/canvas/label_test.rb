@@ -3,33 +3,20 @@ require 'minitest/autorun'
 require 'test/test_helper'
 require 'moodle2cc'
 
-class TestUnitCCWiki < MiniTest::Unit::TestCase
+class TestUnitCanvasLabel < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    convert_moodle_backup
+    convert_moodle_backup 'canvas'
     @mod = @backup.course.mods.find { |m| m.mod_type == "label" }
-    @wiki = Moodle2CC::CC::Wiki.new @mod
   end
 
   def teardown
     clean_tmp_folder
   end
 
-  def test_it_converts_id
-    @mod.id = 654
-    label = Moodle2CC::CC::Label.new @mod
-    assert_equal 654, label.id
-  end
-
-  def test_it_converts_title
-    @mod.name = 'label123'
-    label = Moodle2CC::CC::Label.new @mod
-    assert_equal 'label123', label.title
-  end
-
   def test_it_creates_item_in_module_meta
-    label = Moodle2CC::CC::Label.new @mod
+    label = Moodle2CC::Canvas::Label.new @mod
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(label.create_module_meta_item_node(node, 5))
 

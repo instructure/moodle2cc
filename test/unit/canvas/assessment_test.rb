@@ -19,6 +19,109 @@ class TestUnitCanvasAssessment < MiniTest::Unit::TestCase
     assert Moodle2CC::Canvas::Assessment.ancestors.include?(Moodle2CC::CC::Assessment), 'does not inherit from base CC class'
   end
 
+  def test_it_converts_description_from_intro
+    @mod.intro = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
+  end
+
+  def test_it_converts_description_from_content
+    @mod.intro = nil
+    @mod.content = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
+  end
+
+  def test_it_converts_description_from_text
+    @mod.intro = nil
+    @mod.content = nil
+    @mod.text = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
+  end
+
+  def test_it_converts_description_from_summary
+    @mod.intro = nil
+    @mod.content = nil
+    @mod.text = nil
+    @mod.summary = %(<h1>Hello World</h1><img src="$@FILEPHP@$$@SLASH@$folder$@SLASH@$stuff.jpg" />)
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal %(<h1>Hello World</h1><img src="$IMS_CC_FILEBASE$/folder/stuff.jpg" />), assessment.description
+  end
+
+  def test_it_converts_lock_at
+    @mod.time_close = Time.parse("2012/12/12 12:12:12 +0000").to_i
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal '2012-12-12T12:12:12', assessment.lock_at
+  end
+
+  def test_it_converts_unlock_at
+    @mod.time_open = Time.parse("2012/12/12 12:12:12 +0000").to_i
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal '2012-12-12T12:12:12', assessment.unlock_at
+  end
+
+  def test_it_converts_time_limit
+    @mod.time_limit = 45
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 45, assessment.time_limit
+  end
+
+  def test_it_converts_allowed_attempts
+    @mod.attempts_number = 2
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 2, assessment.allowed_attempts
+  end
+
+  def test_it_converts_scoring_policy
+    @mod.grade_method = 1
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 'keep_highest', assessment.scoring_policy
+
+    @mod.grade_method = 2
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 'keep_highest', assessment.scoring_policy
+
+    @mod.grade_method = 3
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 'keep_highest', assessment.scoring_policy
+
+    @mod.grade_method = 4
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 'keep_latest', assessment.scoring_policy
+  end
+
+  def test_it_converts_access_code
+    @mod.password = 'password'
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 'password', assessment.access_code
+  end
+
+  def test_it_converts_ip_filter
+    @mod.subnet = '127.0.0.1'
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal '127.0.0.1', assessment.ip_filter
+  end
+
+  def test_it_converts_shuffle_answers
+    @mod.shuffle_answers = true
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal true, assessment.shuffle_answers
+  end
+
+  def test_it_converts_quiz_type
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 'practice_quiz', assessment.quiz_type
+
+    questionnaire_mod = @backup.course.mods.find { |mod| mod.mod_type == 'questionnaire' }
+    assessment = Moodle2CC::Canvas::Assessment.new questionnaire_mod
+    assert_equal 'survey', assessment.quiz_type
+
+    choice_mod = @backup.course.mods.find { |mod| mod.mod_type == 'choice' }
+    assessment = Moodle2CC::Canvas::Assessment.new choice_mod
+    assert_equal 'survey', assessment.quiz_type
+  end
+
   def test_it_has_a_non_cc_assessments_identifier
     @mod.id = 321
     assessment = Moodle2CC::Canvas::Assessment.new @mod
@@ -27,11 +130,20 @@ class TestUnitCanvasAssessment < MiniTest::Unit::TestCase
 
   def test_it_creates_resource_in_imsmanifest
     node = Builder::XmlMarkup.new
-    xml = Nokogiri::XML(@assessment.create_resource_node(node))
+    xml = node.root do |root_node|
+      @assessment.create_resource_node(node)
+    end
+    xml = Nokogiri::XML(xml)
 
-    resource = xml.xpath('resource').first
-    assert resource
-    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
+    resource = xml.root.xpath('resource[@type="imsqti_xmlv1p2/imscc_xmlv1p1/assessment"]').first
+    assert resource, 'assessment resource does not exist for assessment'
+    assert_equal 'i058d7533a77712b6e7757b34e66df7fc', resource.attributes['identifier'].value
+
+    dependency = resource.xpath('dependency[@identifierref="ibe158496fef4c2255274cdf9113e1daf"]').first
+    assert dependency, 'assessment resource does not have dependency on learning-application-resource'
+
+    resource = xml.root.xpath('resource[@type="associatedcontent/imscc_xmlv1p1/learning-application-resource"]').first
+    assert resource, 'learning-application-resource does not exist for assessment'
     assert_equal 'i058d7533a77712b6e7757b34e66df7fc/assessment_meta.xml', resource.attributes['href'].value
     assert_equal 'ibe158496fef4c2255274cdf9113e1daf', resource.attributes['identifier'].value
 
@@ -79,9 +191,9 @@ class TestUnitCanvasAssessment < MiniTest::Unit::TestCase
     assert_equal 'true', xml.xpath('xmlns:quiz/xmlns:shuffle_answers').text
   end
 
-  def test_it_creates_qti_xml
+  def test_it_creates_non_cc_qti_xml
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
-    @assessment.create_qti_xml(tmp_dir)
+    @assessment.create_non_cc_qti_xml(tmp_dir)
     xml = Nokogiri::XML(File.read(File.join(tmp_dir, 'non_cc_assessments', "#{@assessment.identifier}.xml.qti")))
 
     assert xml
@@ -89,9 +201,7 @@ class TestUnitCanvasAssessment < MiniTest::Unit::TestCase
     assert_equal "http://www.w3.org/2001/XMLSchema-instance", xml.namespaces['xmlns:xsi']
     assert_equal "http://www.imsglobal.org/xsd/ims_qtiasiv1p2", xml.namespaces['xmlns']
     assert_equal 'questestinterop', xml.root.name
-
-    assert_equal "First Quiz", xml.root.xpath('xmlns:assessment').first.attributes['title'].value
-    assert_equal @assessment.identifier, xml.root.xpath('xmlns:assessment').first.attributes['identifier'].value
+    assert_equal @assessment.identifier, xml.root.xpath('xmlns:assessment').first.attributes['ident'].value
 
     time_data = xml.root.xpath('xmlns:assessment/xmlns:qtimetadata/xmlns:qtimetadatafield[xmlns:fieldlabel="qmd_timelimit" and xmlns:fieldentry="45"]').first
     assert time_data, 'qtimetadata does not exist for time limit'

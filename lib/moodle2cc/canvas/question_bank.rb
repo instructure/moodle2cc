@@ -1,5 +1,6 @@
 module Moodle2CC::Canvas
-  class QuestionBank < Moodle2CC::CC::QuestionBank
+  class QuestionBank
+    include Moodle2CC::CC::CCHelper
     attr_accessor :id, :title, :identifier
 
     def initialize(question_category)
@@ -35,7 +36,7 @@ module Moodle2CC::Canvas
           'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
           'xmlns' => "http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
         ) do |root_node|
-          root_node.objectbank(:identifier => identifier) do |objectbank_node|
+          root_node.objectbank(:ident => identifier) do |objectbank_node|
             objectbank_node.qtimetadata do |qtimetadata_node|
               qtimetadata_node.qtimetadatafield do |qtimetadatafield_node|
                 qtimetadatafield_node.fieldlabel "bank_title"
@@ -43,7 +44,7 @@ module Moodle2CC::Canvas
               end
             end
             @question_category.questions.each do |question|
-              Question.new(question.instance).create_item_xml(objectbank_node) if question.instance
+              Question.new(question).create_item_xml(objectbank_node) if question
             end
           end
         end

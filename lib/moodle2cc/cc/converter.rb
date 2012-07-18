@@ -3,6 +3,7 @@ module Moodle2CC::CC
     include CCHelper
 
     def initialize(moodle_backup, destination_dir)
+      @resource_factory = Moodle2CC::ResourceFactory.new Moodle2CC::CC
       @moodle_backup = moodle_backup
       @export_dir = Dir.mktmpdir
       @destination_dir = destination_dir
@@ -94,7 +95,7 @@ module Moodle2CC::CC
               root_item.item(:identifier => create_key(section.id, "section_")) do |item_node|
                 item_node.title "#{course.format} #{section.number}"
                 section.mods.each do |mod|
-                  resource = Resource.get_from_mod(mod.instance)
+                  resource = @resource_factory.get_resource_from_mod(mod.instance)
                   resource.create_organization_item_node(item_node) if resource
                 end
               end
@@ -105,8 +106,8 @@ module Moodle2CC::CC
     end
 
     def create_resources(resources_node)
-      @moodle_backup.course.mods.each do |mod|
-        resource = Resource.get_from_mod(mod)
+      @moodle_backup.course.mods.each_with_index do |mod, index|
+        resource = @resource_factory.get_resource_from_mod(mod, index)
         if resource
           resource.create_resource_node(resources_node)
           resource.create_files(@export_dir)
