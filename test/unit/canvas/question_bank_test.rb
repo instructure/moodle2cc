@@ -3,11 +3,11 @@ require 'minitest/autorun'
 require 'test/test_helper'
 require 'moodle2cc'
 
-class TestUnitCCQuestionBank < MiniTest::Unit::TestCase
+class TestUnitCanvasQuestionBank < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    convert_moodle_backup
+    convert_moodle_backup 'canvas'
     @course = @backup.course
     @question_category = @course.question_categories.first
   end
@@ -18,25 +18,25 @@ class TestUnitCCQuestionBank < MiniTest::Unit::TestCase
 
   def test_it_converts_id
     @question_category.id = 121
-    question_bank = Moodle2CC::CC::QuestionBank.new @question_category
+    question_bank = Moodle2CC::Canvas::QuestionBank.new @question_category
     assert_equal 121, question_bank.id
   end
 
   def test_it_converts_title
     @question_category.name = 'Default for Beginning Ruby on Rails'
-    question_bank = Moodle2CC::CC::QuestionBank.new @question_category
+    question_bank = Moodle2CC::Canvas::QuestionBank.new @question_category
     assert_equal 'Default for Beginning Ruby on Rails', question_bank.title
   end
 
   def test_it_has_an_identifier
     @question_category.id = 121
-    question_bank = Moodle2CC::CC::QuestionBank.new @question_category
+    question_bank = Moodle2CC::Canvas::QuestionBank.new @question_category
     # objectbank_{id}
     assert_equal 'i02849cd800255cc6c762cdafd8d8db67', question_bank.identifier
   end
 
   def test_it_creates_resource_in_imsmanifest
-    question_bank = Moodle2CC::CC::QuestionBank.new @question_category
+    question_bank = Moodle2CC::Canvas::QuestionBank.new @question_category
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question_bank.create_resource_node(node))
 
@@ -51,7 +51,7 @@ class TestUnitCCQuestionBank < MiniTest::Unit::TestCase
   end
 
   def test_it_creates_qti_xml
-    question_bank = Moodle2CC::CC::QuestionBank.new @question_category
+    question_bank = Moodle2CC::Canvas::QuestionBank.new @question_category
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
     question_bank.create_qti_xml(tmp_dir)
     xml = Nokogiri::XML(File.read(File.join(tmp_dir, 'non_cc_assessments', "i02849cd800255cc6c762cdafd8d8db67.xml.qti")))

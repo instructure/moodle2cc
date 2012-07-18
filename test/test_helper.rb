@@ -13,11 +13,13 @@ module TestHelper
     moodle_backup_path
   end
 
-  def convert_moodle_backup
+  def convert_moodle_backup(format='cc')
+    raise "must be 'cc' or 'canvas'" unless ['cc', 'canvas'].include?(format)
+    converter_class = format == 'cc' ? Moodle2CC::CC::Converter : Moodle2CC::Canvas::Converter
     @backup_path = create_moodle_backup_zip
     @backup = Moodle2CC::Moodle::Backup.read @backup_path
     @export_dir = File.expand_path("../tmp", __FILE__)
-    @converter = Moodle2CC::CC::Converter.new @backup, @export_dir
+    @converter = converter_class.new @backup, @export_dir
     @converter.convert
   end
 

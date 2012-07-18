@@ -31,6 +31,22 @@ class TestUnitMigrator < MiniTest::Unit::TestCase
     end
   end
 
+  def test_it_allows_cc_format
+    migrator = Moodle2CC::Migrator.new @valid_source, @valid_destination, 'format' => 'cc'
+    assert_equal Moodle2CC::CC::Converter, migrator.instance_variable_get(:@converter_class)
+  end
+
+  def test_it_allows_canvas_format
+    migrator = Moodle2CC::Migrator.new @valid_source, @valid_destination, 'format' => 'canvas'
+    assert_equal Moodle2CC::Canvas::Converter, migrator.instance_variable_get(:@converter_class)
+  end
+
+  def test_it_does_not_allow_any_other_format
+    assert_raises Moodle2CC::Error, "'angel' is not a valid format. Please use 'cc' or 'canvas'." do
+      Moodle2CC::Migrator.new @valid_source, @valid_destination, 'format' => 'angel'
+    end
+  end
+
   def test_it_converts_moodle_backup
     migrator = Moodle2CC::Migrator.new @valid_source, @valid_destination
     migrator.migrate

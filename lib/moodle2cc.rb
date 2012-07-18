@@ -17,6 +17,8 @@ module Moodle2CC
     end
   end
 
+  autoload :ResourceFactory, 'moodle2cc/resource_factory'
+
   module CC
     autoload :Assessment, 'moodle2cc/cc/assessment'
     autoload :Assignment, 'moodle2cc/cc/assignment'
@@ -26,11 +28,24 @@ module Moodle2CC
     autoload :DiscussionTopic, 'moodle2cc/cc/discussion_topic'
     autoload :Label, 'moodle2cc/cc/label'
     autoload :Question, 'moodle2cc/cc/question'
-    autoload :QuestionBank, 'moodle2cc/cc/question_bank'
     autoload :Resource, 'moodle2cc/cc/resource'
     autoload :WebContent, 'moodle2cc/cc/web_content'
     autoload :WebLink, 'moodle2cc/cc/web_link'
     autoload :Wiki, 'moodle2cc/cc/wiki'
+  end
+  module Canvas
+    autoload :Assessment, 'moodle2cc/canvas/assessment'
+    autoload :Assignment, 'moodle2cc/canvas/assignment'
+    autoload :Converter, 'moodle2cc/canvas/converter'
+    autoload :Course, 'moodle2cc/canvas/course'
+    autoload :DiscussionTopic, 'moodle2cc/canvas/discussion_topic'
+    autoload :Label, 'moodle2cc/canvas/label'
+    autoload :Question, 'moodle2cc/canvas/question'
+    autoload :QuestionBank, 'moodle2cc/canvas/question_bank'
+    autoload :Resource, 'moodle2cc/canvas/resource'
+    autoload :WebContent, 'moodle2cc/canvas/web_content'
+    autoload :WebLink, 'moodle2cc/canvas/web_link'
+    autoload :Wiki, 'moodle2cc/canvas/wiki'
   end
   module Moodle
     autoload :Backup, 'moodle2cc/moodle/backup'

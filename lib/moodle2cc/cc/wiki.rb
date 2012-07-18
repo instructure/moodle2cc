@@ -17,11 +17,6 @@ module Moodle2CC::CC
         if page.version == page_versions[page.page_name]
           title_slug = file_slug(@title)
           body = page.content
-          body.gsub!(/\[(.*?)\]/) do |match|
-            slug = [title_slug, file_slug(match)].join('-')
-            href = File.join(CGI.escape(WIKI_TOKEN), 'wiki', slug)
-            %(<a href="#{href}" title="#{$1}">#{$1}</a>)
-          end
           slug = [title_slug, file_slug(page.page_name)].join('-')
           href = "#{WIKI_FOLDER}/#{slug}.html"
           Moodle2CC::OpenStruct.new(:title => page.page_name, :body => body, :href => href, :identifier => create_key(href))
@@ -72,11 +67,6 @@ module Moodle2CC::CC
           file.write(erb.result(page.instance_eval { binding }))
         end
       end
-    end
-
-    def create_module_meta_item_elements(item_node)
-      item_node.content_type 'WikiPage'
-      item_node.identifierref @identifier
     end
   end
 end

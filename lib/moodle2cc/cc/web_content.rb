@@ -36,10 +36,5 @@ module Moodle2CC::CC
         file.write(erb.result(binding))
       end
     end
-
-    def create_module_meta_item_elements(item_node)
-      item_node.content_type 'WikiPage'
-      item_node.identifierref @identifier
-    end
   end
 end

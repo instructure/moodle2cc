@@ -1,7 +1,6 @@
-module Moodle2CC::CC
+module Moodle2CC::Canvas
   class QuestionBank
-    include CCHelper
-
+    include Moodle2CC::CC::CCHelper
     attr_accessor :id, :title, :identifier
 
     def initialize(question_category)

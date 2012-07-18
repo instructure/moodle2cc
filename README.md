@@ -19,7 +19,11 @@ Or install it yourself as:
 
 ## Usage
 
+    For Common Cartridge format
     $ moodle2cc migrate <path-to-moodle-backup> <path-to-cc-export-directory>
+
+    For Canvas Common Cartridge format
+    $ moodle2cc migrate --format=canvas <path-to-moodle-backup> <path-to-cc-export-directory>
 
 ## Contributing
 
