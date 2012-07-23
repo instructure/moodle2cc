@@ -22,10 +22,13 @@ class Moodle2CC::ResourceFactory
       @namespace.const_get(:Wiki).new(mod)
     when 'label'
       html = Nokogiri::HTML(mod.content)
-      if html.text == mod.content && mod.content.length < 50 # label doesn't contain HTML
-        @namespace.const_get(:Label).new(mod)
-      else
+      if html.search('img[src]').length > 0 ||
+        html.search('a[href]').length > 0 ||
+        html.search('iframe[src]').length > 0 ||
+        html.text.strip.length > 50
         @namespace.const_get(:WebContent).new(mod)
+      else
+        @namespace.const_get(:Label).new(mod)
       end
     end
   end

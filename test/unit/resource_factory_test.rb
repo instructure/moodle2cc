@@ -80,7 +80,7 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
     assert_kind_of Moodle2CC::Canvas::Label, resource
   end
 
-  def test_it_can_get_web_content_resource_from_label_mod
+  def test_it_can_get_web_content_resource_from_label_mod_with_img_tag
     mod = @backup.course.mods.find { |m| m.mod_type == "label" }
     mod.content = %(<img src="http://image.com/image.jpg" />")
     resource = @cc_factory.get_resource_from_mod(mod)
@@ -88,6 +88,67 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
 
     resource = @canvas_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::Canvas::WebContent, resource
+  end
+
+  def test_it_can_get_web_content_resource_from_label_mod_with_an_a_tag
+    mod = @backup.course.mods.find { |m| m.mod_type == "label" }
+    mod.content = %(<a href="http://www.google.com">Google</a>")
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::WebContent, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebContent, resource
+  end
+
+  def test_it_can_get_label_resource_from_label_mod_with_an_a_tag_with_no_href
+    mod = @backup.course.mods.find { |m| m.mod_type == "label" }
+    mod.content = %(<a name="Google">Google</a>")
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::Label, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Label, resource
+  end
+
+  def test_it_can_get_web_content_resource_from_label_mod_with_an_iframe
+    mod = @backup.course.mods.find { |m| m.mod_type == "label" }
+    mod.content = %(<iframe src="http://www.google.com"></iframe>)
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::WebContent, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebContent, resource
+  end
+
+  def test_it_can_get_web_content_resource_from_label_mod_with_a_lot_of_text
+    mod = @backup.course.mods.find { |m| m.mod_type == "label" }
+    mod.content = %(
+      <p>
+        I will always test my code,
+        I will always test my code,
+        I will always test my code
+      </p>)
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::WebContent, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebContent, resource
+  end
+
+  def test_it_can_get_label_resource_from_label_mod_with_minimal_html
+    mod = @backup.course.mods.find { |m| m.mod_type == "label" }
+    mod.name = "Forum"
+    mod.content = %(
+      <h4 style="color: rgb(0, 0, 153); margin-left: 40px; font-weight: normal; ">
+        <font size="3">
+          <a name="Anker1"> Forum</a>
+        </font>
+      </h4>)
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::Label, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Label, resource
   end
 
   def test_it_can_get_assessment_resource_from_questionnaire_mod
