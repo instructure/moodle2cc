@@ -7,7 +7,7 @@ module Moodle2CC::CC
 
     def initialize(mod)
       super
-      @url = mod.reference
+      @url = mod.reference.to_s.strip
     end
 
     def self.create_resource_key(mod)

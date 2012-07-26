@@ -36,6 +36,13 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
     assert_equal "http://en.wikipedia.org/wiki/Einstein", web_link.url
   end
 
+  def test_it_strips_whitespace_from_url
+    @mod.reference = " http://en.wikipedia.org/wiki/Einstein "
+
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal "http://en.wikipedia.org/wiki/Einstein", web_link.url
+  end
+
   def test_it_has_an_identifier
     @mod.id = 123
 
