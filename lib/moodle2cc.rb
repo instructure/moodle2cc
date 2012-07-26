@@ -1,13 +1,15 @@
-require 'uri'
-require 'cgi'
-require 'ostruct'
-require 'fileutils'
-require 'erb'
-require 'happymapper'
 require 'builder'
+require 'cgi'
+require 'erb'
+require 'fileutils'
+require 'happymapper'
+require 'logger'
 require 'nokogiri'
+require 'ostruct'
+require 'uri'
 
 require 'moodle2cc/error'
+require 'moodle2cc/logger'
 require 'moodle2cc/migrator'
 
 module Moodle2CC
