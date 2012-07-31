@@ -6,7 +6,7 @@ module Moodle2CC::CC
 
     def initialize(question, assessment=nil)
       @id = question.id
-      @title = (question.name || '').gsub('$@NULL@$', '')
+      @title = CGI.unescapeHTML((question.name || '').gsub('$@NULL@$', ''))
       @identifier_prefix = "#{assessment.mod.mod_type}_" if assessment
 
       if question.instance_id

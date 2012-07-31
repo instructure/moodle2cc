@@ -18,7 +18,6 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     clean_tmp_folder
   end
 
-
   def test_it_converts_id
     @question.id = 989
     question = Moodle2CC::CC::Question.new @question
@@ -29,6 +28,12 @@ class TestUnitCCQuestion < MiniTest::Unit::TestCase
     @question.name = "Basic Arithmetic"
     question = Moodle2CC::CC::Question.new @question
     assert_equal "Basic Arithmetic", question.title
+  end
+
+  def test_it_converts_title_with_escaped_html
+    @question.name = "the &lt;div&gt; tag"
+    question = Moodle2CC::Canvas::Question.new @question
+    assert_equal "the <div> tag", question.title
   end
 
   def test_it_has_an_identifier_based_on_id

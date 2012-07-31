@@ -192,7 +192,7 @@ module Moodle2CC::Canvas
         @matches.each do |match|
           presentation_node.response_lid(:ident => "response_#{match.answer}") do |response_node|
             response_node.material do |material_node|
-              material_node.mattext(match.question, :texttype => 'text/plain')
+              material_node.mattext(match.question, :texttype => 'text/html')
             end
             response_node.render_choice do |choice_node|
               match.answers.each do |ident, text|
@@ -211,7 +211,7 @@ module Moodle2CC::Canvas
             @answers.each do |answer|
               choice_node.response_label(:ident => answer.id) do |label_node|
                 label_node.material do |material_node|
-                  material_node.mattext answer.text, :texttype => 'text/plain'
+                  material_node.mattext answer.text, :texttype => 'text/html'
                 end
               end
             end
@@ -223,7 +223,7 @@ module Moodle2CC::Canvas
             @answers.each do |answer|
               choice_node.response_label(:ident => answer.id) do |label_node|
                 label_node.material do |material_node|
-                  material_node.mattext answer.text, :texttype => 'text/plain'
+                  material_node.mattext answer.text, :texttype => 'text/html'
                 end
               end
             end
@@ -242,7 +242,7 @@ module Moodle2CC::Canvas
               answers.each do |answer|
                 choice_node.response_label(:ident => "#{response_id}#{answer.id}") do |label_node|
                   label_node.material do |material_node|
-                    material_node.mattext answer.text, :texttype => 'text/plain'
+                    material_node.mattext answer.text, :texttype => 'text/html'
                   end
                 end
               end
@@ -261,7 +261,7 @@ module Moodle2CC::Canvas
             @answers.each do |answer|
               render_choice_node.response_label(:ident => answer.id) do |response_label_node|
                 response_label_node.material do |material_node|
-                  material_node.mattext(answer.text, :texttype => 'text/plain')
+                  material_node.mattext(answer.text, :texttype => 'text/html')
                 end
               end
             end
@@ -407,7 +407,7 @@ module Moodle2CC::Canvas
         item_node.itemfeedback(:ident => 'general_fb') do |fb_node|
           fb_node.flow_mat do |flow_node|
             flow_node.material do |material_node|
-              material_node.mattext(@general_feedback, :texttype => 'text/plain')
+              material_node.mattext(@general_feedback, :texttype => 'text/html')
             end
           end
         end
@@ -420,7 +420,7 @@ module Moodle2CC::Canvas
           item_node.itemfeedback(:ident => "#{answer.id}_fb") do |feedback_node|
             feedback_node.flow_mat do |flow_node|
               flow_node.material do |material_node|
-                material_node.mattext answer.feedback, :texttype => 'text/plain'
+                material_node.mattext answer.feedback, :texttype => 'text/html'
               end
             end
           end

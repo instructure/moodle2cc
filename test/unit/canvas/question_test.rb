@@ -18,16 +18,8 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     clean_tmp_folder
   end
 
-  def test_it_converts_id
-    @question.id = 989
-    question = Moodle2CC::Canvas::Question.new @question
-    assert_equal 989, question.id
-  end
-
-  def test_it_converts_title
-    @question.name = "Basic Arithmetic"
-    question = Moodle2CC::Canvas::Question.new @question
-    assert_equal "Basic Arithmetic", question.title
+  def test_it_inherits_from_cc
+    assert Moodle2CC::Canvas::Question.ancestors.include?(Moodle2CC::CC::Question), 'does not inherit from base CC class'
   end
 
   def test_it_converts_length
@@ -420,7 +412,7 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
 
     general_feedback = xml.root.xpath('itemfeedback[@ident="general_fb"]').first
     assert general_feedback, 'no feeback node'
-    material = general_feedback.xpath('flow_mat/material/mattext[@texttype="text/plain"]').first
+    material = general_feedback.xpath('flow_mat/material/mattext[@texttype="text/html"]').first
     assert material, 'no feedback text'
     assert_equal 'This should be easy', material.text
   end
@@ -519,14 +511,14 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
 
     response = xml.root.xpath('presentation/response_lid[@ident="response_123"]').first
     assert response, 'response for first matching question does not exist'
-    assert_equal 'Ruby on Rails is written in this language', response.xpath('material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Ruby on Rails is written in this language', response.xpath('material/mattext[@texttype="text/html"]').text
     assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="123"]/material/mattext').text
     assert_equal 'Python', response.xpath('render_choice/response_label[@ident="234"]/material/mattext').text
     assert_equal 'CoffeeScript', response.xpath('render_choice/response_label[@ident="345"]/material/mattext').text
 
     response = xml.root.xpath('presentation/response_lid[@ident="response_345"]').first
     assert response, 'response for second matching question does not exist'
-    assert_equal 'Files with .coffee extension use which language?', response.xpath('material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Files with .coffee extension use which language?', response.xpath('material/mattext[@texttype="text/html"]').text
     assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="123"]/material/mattext').text
     assert_equal 'Python', response.xpath('render_choice/response_label[@ident="234"]/material/mattext').text
     assert_equal 'CoffeeScript', response.xpath('render_choice/response_label[@ident="345"]/material/mattext').text
@@ -559,10 +551,10 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     response = xml.root.xpath('presentation/response_lid[@ident="response1"]').first
     assert response, 'response for multiple choice question does not exist'
     assert_equal 'Single', response.attributes['rcardinality'].value
-    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="123"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal 'CoffeeScript', response.xpath('render_choice/response_label[@ident="234"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal 'Java', response.xpath('render_choice/response_label[@ident="345"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal 'Clojure', response.xpath('render_choice/response_label[@ident="456"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="123"]/material/mattext[@texttype="text/html"]').text
+    assert_equal 'CoffeeScript', response.xpath('render_choice/response_label[@ident="234"]/material/mattext[@texttype="text/html"]').text
+    assert_equal 'Java', response.xpath('render_choice/response_label[@ident="345"]/material/mattext[@texttype="text/html"]').text
+    assert_equal 'Clojure', response.xpath('render_choice/response_label[@ident="456"]/material/mattext[@texttype="text/html"]').text
 
     # Feedback
     feedback = xml.root.xpath('resprocessing/respcondition[@continue="Yes"]/conditionvar/varequal[@respident="response1" and text()="123"]/../..').first
@@ -585,19 +577,19 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     display = feedback.xpath('displayfeedback[@feedbacktype="Response"][@linkrefid="456_fb"]').first
     assert display, 'display feedback does not exist for fourth answer'
 
-    feedback = xml.root.xpath('itemfeedback[@ident="123_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="123_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for first answer'
     assert_equal 'Yippee!', feedback.text
 
-    feedback = xml.root.xpath('itemfeedback[@ident="234_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="234_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for second answer'
     assert_equal 'Nope', feedback.text
 
-    feedback = xml.root.xpath('itemfeedback[@ident="345_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="345_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for third answer'
     assert_equal 'No way', feedback.text
 
-    feedback = xml.root.xpath('itemfeedback[@ident="456_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="456_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for fourth answer'
     assert_equal 'Not even close', feedback.text
 
@@ -634,18 +626,18 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     response = xml.root.xpath('presentation/response_lid[@ident="response_response1"]').first
     assert response, 'first response for multiple dropdowns question does not exist'
     assert response.xpath('material/mattext["response1"]').first, 'material text does not exist for multiple dropdowns question first response'
-    assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="11"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="12"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="13"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="11"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="12"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="13"]/material/mattext[@texttype="text/html"]').text
     refute response.xpath('render_choice/response_label[4]').first, 'there should not be a response for answer text'
     refute response.xpath('render_choice/response_label[5]').first, 'there should not be a response for answer text'
 
     response = xml.root.xpath('presentation/response_lid[@ident="response_response2"]').first
     assert response, 'second response for multiple dropdowns question does not exist'
     assert response.xpath('material/mattext["response2"]').first, 'material text does not exist for multiple dropdowns question second response'
-    assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="21"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="22"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="23"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="21"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="22"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="23"]/material/mattext[@texttype="text/html"]').text
     refute response.xpath('render_choice/response_label[4]').first, 'there should not be a response for answer text'
     refute response.xpath('render_choice/response_label[5]').first, 'there should not be a response for answer text'
 
@@ -671,9 +663,9 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     # Responses
     response = xml.root.xpath('presentation/response_lid[@ident="response1" and @rcardinality="Multiple"]').first
     assert response, 'response for multiple answers question does not exist'
-    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="1"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal 'Javascript', response.xpath('render_choice/response_label[@ident="2"]/material/mattext[@texttype="text/plain"]').text
-    assert_equal 'Python', response.xpath('render_choice/response_label[@ident="3"]/material/mattext[@texttype="text/plain"]').text
+    assert_equal 'Ruby', response.xpath('render_choice/response_label[@ident="1"]/material/mattext[@texttype="text/html"]').text
+    assert_equal 'Javascript', response.xpath('render_choice/response_label[@ident="2"]/material/mattext[@texttype="text/html"]').text
+    assert_equal 'Python', response.xpath('render_choice/response_label[@ident="3"]/material/mattext[@texttype="text/html"]').text
 
     # Conditions
     condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]').first
@@ -714,7 +706,7 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="43_fb"]').first
     assert feedback, 'displayfeedback does not exist for first answer'
 
-    feedback = xml.root.xpath('itemfeedback[@ident="43_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="43_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for first answer'
     assert_equal 'Great age!', feedback.text
   end
@@ -765,13 +757,13 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     feedback = condition.xpath('displayfeedback[@feedbacktype="Response" and @linkrefid="42_fb"]').first
     assert feedback, 'displayfeedback does not exist for third answer'
 
-    feedback = xml.root.xpath('itemfeedback[@ident="40_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="40_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for first answer'
     assert_equal 'Good choice!', feedback.text
-    feedback = xml.root.xpath('itemfeedback[@ident="41_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="41_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for second answer'
     assert_equal 'Not what I would have chosen...', feedback.text
-    feedback = xml.root.xpath('itemfeedback[@ident="42_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="42_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for third answer'
     assert_equal "You're kidding, right?", feedback.text
   end
@@ -786,8 +778,8 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     response = xml.root.xpath('presentation/response_lid').first
     assert_equal 'Single', response.attributes['rcardinality'].value
     assert_equal 'response1', response.attributes['ident'].value
-    assert response.xpath('render_choice/response_label[@ident="44"]/material/mattext[@texttype="text/plain" and text()="True"]').first, 'true response choice does not exist'
-    assert response.xpath('render_choice/response_label[@ident="45"]/material/mattext[@texttype="text/plain" and text()="False"]').first, 'false response choice does not exist'
+    assert response.xpath('render_choice/response_label[@ident="44"]/material/mattext[@texttype="text/html" and text()="True"]').first, 'true response choice does not exist'
+    assert response.xpath('render_choice/response_label[@ident="45"]/material/mattext[@texttype="text/html" and text()="False"]').first, 'false response choice does not exist'
 
     condition = xml.root.xpath('resprocessing/respcondition[@continue="No"]/conditionvar/varequal[@respident="response1" and text()="44"]/../..').first
     assert condition, 'condition does not exist for first answer'
@@ -803,10 +795,10 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     setvar = condition.xpath('setvar[@varname="SCORE" and @action="Set" and text()="0"]').first
     assert setvar, 'setvar does not exist for second answer'
 
-    feedback = xml.root.xpath('itemfeedback[@ident="44_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="44_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for first answer'
     assert_equal 'Smarty pants!', feedback.text
-    feedback = xml.root.xpath('itemfeedback[@ident="45_fb"]/flow_mat/material/mattext[@texttype="text/plain"]').first
+    feedback = xml.root.xpath('itemfeedback[@ident="45_fb"]/flow_mat/material/mattext[@texttype="text/html"]').first
     assert feedback, 'feedback text does not exist for second answer'
     assert_equal 'What exactly are you doing?', feedback.text
   end
