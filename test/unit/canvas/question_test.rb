@@ -128,6 +128,13 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     assert_equal "How much is [a] + [b] ?", question.material
   end
 
+  def test_it_converts_markdown_text_to_html_material
+    @question.text = "This is **bold** and this is _italic_"
+    @question.format = 4 # markdown
+    question = Moodle2CC::Canvas::Question.new @question
+    assert_equal "<p>This is <strong>bold</strong> and this is <em>italic</em></p>\n", question.material
+  end
+
   def test_it_converts_material_for_multiple_dropdowns_question
     multiple_dropdowns_question!
     @question.content = "This is a rating question"

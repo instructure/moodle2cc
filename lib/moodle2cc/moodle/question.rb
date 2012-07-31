@@ -72,6 +72,7 @@ module Moodle2CC::Moodle
     element :id, Integer, :tag => 'ID'
     element :name, String, :tag => 'NAME'
     element :text, String, :tag => 'QUESTIONTEXT'
+    element :format, Integer, :tag => 'QUESTIONTEXTFORMAT'
     element :content, String, :tag => 'CONTENT'
     element :length, Integer, :tag => 'LENGTH'
     element :general_feedback, String, :tag => 'GENERALFEEDBACK'
