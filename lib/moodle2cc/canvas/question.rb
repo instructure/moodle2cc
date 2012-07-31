@@ -115,7 +115,10 @@ module Moodle2CC::Canvas
 
       material = question.text
       material = question.content || '' if material.nil?
-      @material = material.gsub(/\{(.*?)\}/, '[\1]')
+      material.gsub!(/\{(.*?)\}/, '[\1]')
+      material = RDiscount.new(material).to_html if question.format == 4 # markdown
+      @material = material
+
       if @question_type == 'multiple_dropdowns_question' && !@answers.empty?
         responses = @answers[@length..-1]
         responses.each_with_index do |response, index|

@@ -41,6 +41,10 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
     assert_equal 'How much is {a} + {b} ?', @calculated_question.text
   end
 
+  def test_it_has_a_format
+    assert_equal 1, @calculated_question.format
+  end
+
   def test_it_has_general_feedback
     assert_equal 'This should be easy', @calculated_question.general_feedback
   end

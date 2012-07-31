@@ -6,6 +6,7 @@ require 'happymapper'
 require 'logger'
 require 'nokogiri'
 require 'ostruct'
+require 'rdiscount'
 require 'uri'
 
 require 'moodle2cc/error'
