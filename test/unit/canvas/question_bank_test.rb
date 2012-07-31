@@ -28,6 +28,25 @@ class TestUnitCanvasQuestionBank < MiniTest::Unit::TestCase
     assert_equal 'Default for Beginning Ruby on Rails', question_bank.title
   end
 
+  def test_it_converts_questions
+    question_bank = Moodle2CC::Canvas::QuestionBank.new @question_category
+    assert_equal 5, question_bank.questions.length
+    assert_kind_of Moodle2CC::Canvas::Question, question_bank.questions[0]
+    assert_kind_of Moodle2CC::Canvas::Question, question_bank.questions[1]
+    assert_kind_of Moodle2CC::Canvas::Question, question_bank.questions[2]
+    assert_kind_of Moodle2CC::Canvas::Question, question_bank.questions[3]
+    assert_kind_of Moodle2CC::Canvas::Question, question_bank.questions[4]
+  end
+
+  def test_it_does_not_convert_random_questions
+    convert_moodle_backup('canvas', 'moodle_backup_random_questions')
+    mod = @backup.course.mods.find { |m| m.mod_type == "quiz" }
+    question_category = @backup.course.question_categories.first
+    question_bank = Moodle2CC::Canvas::QuestionBank.new question_category
+
+    assert_equal 2, question_bank.questions.length
+  end
+
   def test_it_has_an_identifier
     @question_category.id = 121
     question_bank = Moodle2CC::Canvas::QuestionBank.new @question_category

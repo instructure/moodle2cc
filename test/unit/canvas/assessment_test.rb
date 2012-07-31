@@ -122,6 +122,49 @@ class TestUnitCanvasAssessment < MiniTest::Unit::TestCase
     assert_equal 'survey', assessment.quiz_type
   end
 
+  def test_it_converts_questions
+    assessment = Moodle2CC::Canvas::Assessment.new @mod
+    assert_equal 5, assessment.questions.length
+    assert_kind_of Moodle2CC::Canvas::Question, assessment.questions[0]
+    assert_kind_of Moodle2CC::Canvas::Question, assessment.questions[1]
+    assert_kind_of Moodle2CC::Canvas::Question, assessment.questions[2]
+    assert_kind_of Moodle2CC::Canvas::Question, assessment.questions[3]
+    assert_kind_of Moodle2CC::Canvas::Question, assessment.questions[4]
+  end
+
+  def test_it_converts_question_groups
+    convert_moodle_backup('canvas', 'moodle_backup_random_questions')
+    mod = @backup.course.mods.find { |m| m.mod_type == "quiz" }
+    assessment = Moodle2CC::Canvas::Assessment.new mod
+
+    assert_equal 5, assessment.questions.length
+    assert_kind_of Moodle2CC::Canvas::QuestionGroup, assessment.questions[0]
+    assert_kind_of Moodle2CC::Canvas::QuestionGroup, assessment.questions[1]
+    assert_kind_of Moodle2CC::Canvas::Question, assessment.questions[2]
+    assert_kind_of Moodle2CC::Canvas::QuestionGroup, assessment.questions[3]
+    assert_kind_of Moodle2CC::Canvas::QuestionGroup, assessment.questions[4]
+
+    assert_equal 1, assessment.questions[0].id
+    assert_equal 'Group 1', assessment.questions[0].title
+    assert_equal 2, assessment.questions[0].selection_number
+    assert_equal 1, assessment.questions[0].points_per_item
+
+    assert_equal 2, assessment.questions[1].id
+    assert_equal 'Group 2', assessment.questions[1].title
+    assert_equal 1, assessment.questions[1].selection_number
+    assert_equal 2, assessment.questions[1].points_per_item
+
+    assert_equal 3, assessment.questions[3].id
+    assert_equal 'Group 3', assessment.questions[3].title
+    assert_equal 1, assessment.questions[3].selection_number
+    assert_equal 1, assessment.questions[3].points_per_item
+
+    assert_equal 4, assessment.questions[4].id
+    assert_equal 'Group 4', assessment.questions[4].title
+    assert_equal 1, assessment.questions[4].selection_number
+    assert_equal 1, assessment.questions[4].points_per_item
+  end
+
   def test_it_has_a_non_cc_assessments_identifier
     @mod.id = 321
     assessment = Moodle2CC::Canvas::Assessment.new @mod

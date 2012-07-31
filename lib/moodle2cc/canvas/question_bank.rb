@@ -1,13 +1,16 @@
 module Moodle2CC::Canvas
   class QuestionBank
     include Moodle2CC::CC::CCHelper
-    attr_accessor :id, :title, :identifier
+    attr_accessor :id, :title, :questions, :identifier
 
     def initialize(question_category)
       @id = question_category.id
       @title = question_category.name
       @identifier = create_key(@id, 'objectbank_')
       @question_category = question_category
+      @questions = @question_category.questions.reject { |q| q.type == 'random' }.map do |question|
+        Question.new question
+      end
     end
 
     def create_resource_node(resources_node)
@@ -43,8 +46,8 @@ module Moodle2CC::Canvas
                 qtimetadatafield_node.fieldentry @title
               end
             end
-            @question_category.questions.each do |question|
-              Question.new(question).create_item_xml(objectbank_node) if question
+            @questions.each do |question|
+              question.create_item_xml(objectbank_node) if question
             end
           end
         end

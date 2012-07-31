@@ -4,7 +4,7 @@ module Moodle2CC::Canvas
     META_ATTRIBUTES = [:title, :description, :lock_at, :unlock_at, :allowed_attempts,
       :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit, :quiz_type]
 
-    attr_accessor :non_cc_assessments_identifier, *META_ATTRIBUTES
+    attr_accessor :questions, :non_cc_assessments_identifier, *META_ATTRIBUTES
 
     def initialize(mod, position=0)
       super
@@ -24,6 +24,22 @@ module Moodle2CC::Canvas
       @shuffle_answers = mod.shuffle_answers
       @quiz_type = mod.mod_type == 'quiz' ? 'practice_quiz' : 'survey'
       @non_cc_assessments_identifier = create_key(@id, 'non_cc_assessments_')
+      @questions = []
+      mod.questions.each do |question|
+        if question.type == 'random'
+          question_bank = QuestionBank.new question.question_category
+          last = @questions.last
+          if last && last.is_a?(QuestionGroup) && last.points_per_item == question.grade && last.sourcebank_ref == question_bank.identifier
+            last.increment_selection_number
+          else
+            group = @questions.select { |q| q.is_a?(QuestionGroup) }.last
+            id = group ? group.id + 1 : 1
+            @questions << QuestionGroup.new(:id => id, :question_bank => question_bank, :points_per_item => question.grade)
+          end
+        else
+          @questions << Question.new(question, self)
+        end
+      end
     end
 
     def create_resource_node(resources_node)
@@ -91,8 +107,7 @@ module Moodle2CC::Canvas
               end
             end
             assessment_node.section(:ident => 'root_section') do |section_node|
-              @mod.questions.each do |question|
-                question = Question.new question, self
+              @questions.each do |question|
                 question.create_item_xml(section_node)
               end
             end

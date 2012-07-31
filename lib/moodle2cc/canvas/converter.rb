@@ -15,8 +15,10 @@ module Moodle2CC::Canvas
 
     def create_question_bank_resource(resources_node, question_category)
       question_bank = QuestionBank.new(question_category)
-      question_bank.create_resource_node(resources_node)
-      question_bank.create_files(@export_dir)
+      if question_bank.questions.length > 0
+        question_bank.create_resource_node(resources_node)
+        question_bank.create_files(@export_dir)
+      end
     end
 
     def create_course_content(resources_node)

@@ -44,6 +44,7 @@ module Moodle2CC
     autoload :Label, 'moodle2cc/canvas/label'
     autoload :Question, 'moodle2cc/canvas/question'
     autoload :QuestionBank, 'moodle2cc/canvas/question_bank'
+    autoload :QuestionGroup, 'moodle2cc/canvas/question_group'
     autoload :Resource, 'moodle2cc/canvas/resource'
     autoload :WebContent, 'moodle2cc/canvas/web_content'
     autoload :WebLink, 'moodle2cc/canvas/web_link'
