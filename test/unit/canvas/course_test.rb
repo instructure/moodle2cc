@@ -123,7 +123,7 @@ class TestUnitCanvasCourse < MiniTest::Unit::TestCase
 
     assert_equal 'iebbd12be3d1d1ba16e241599099c4795', xml.xpath('//xmlns:modules/xmlns:module').first.attributes['identifier'].value
 
-    assert xml.xpath('//xmlns:modules/xmlns:module').count == 2
+    assert_equal 3, xml.xpath('//xmlns:modules/xmlns:module').count
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[1]').first
     assert_equal 'Week 0', module_node.xpath('xmlns:title').text
@@ -137,11 +137,11 @@ class TestUnitCanvasCourse < MiniTest::Unit::TestCase
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
     assert_equal 8, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
-    item_node = module_node.xpath('xmlns:items/xmlns:item[9]').first
-    refute item_node, 'item exists for invisible mod'
-
     module_node = xml.xpath('//xmlns:modules/xmlns:module[3]').first
-    refute module_node, 'module exists for invisible section'
+    assert_equal 'Week 3', module_node.xpath('xmlns:title').text
+    assert_equal '3', module_node.xpath('xmlns:position').text
+    assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
+    assert_equal 1, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
   end
 
   def test_it_creates_assignment_groups_xml

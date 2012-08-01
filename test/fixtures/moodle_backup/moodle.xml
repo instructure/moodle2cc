@@ -197,14 +197,28 @@
             <ROLES_ASSIGNMENTS>
             </ROLES_ASSIGNMENTS>
           </MOD>
+        </MODS>
+      </SECTION>
+      <SECTION>
+        <ID>34567</ID>
+        <NUMBER>2</NUMBER>
+        <SUMMARY>&lt;h1&gt;Week 2 Summary&lt;/h1&gt;</SUMMARY>
+        <VISIBLE>1</VISIBLE>
+      </SECTION>
+      <SECTION>
+        <ID>45678</ID>
+        <NUMBER>3</NUMBER>
+        <SUMMARY>&lt;h1&gt;Week 3 Summary&lt;/h1&gt;</SUMMARY>
+        <VISIBLE>0</VISIBLE>
+        <MODS>
           <MOD>
-            <ID>12121</ID>
-            <TYPE>assignment</TYPE>
-            <INSTANCE>987</INSTANCE>
-            <ADDED>1338410699</ADDED>
+            <ID>23232</ID>
+            <TYPE>forum</TYPE>
+            <INSTANCE>765</INSTANCE>
+            <ADDED>1338472800</ADDED>
             <SCORE>0</SCORE>
             <INDENT>0</INDENT>
-            <VISIBLE>0</VISIBLE>
+            <VISIBLE>1</VISIBLE>
             <GROUPMODE>0</GROUPMODE>
             <GROUPINGID>0</GROUPINGID>
             <GROUPMEMBERSONLY>0</GROUPMEMBERSONLY>
@@ -215,12 +229,6 @@
             </ROLES_ASSIGNMENTS>
           </MOD>
         </MODS>
-      </SECTION>
-      <SECTION>
-        <ID>34567</ID>
-        <NUMBER>2</NUMBER>
-        <SUMMARY>&lt;h1&gt;Week 2 Summary&lt;/h1&gt;</SUMMARY>
-        <VISIBLE>0</VISIBLE>
       </SECTION>
     </SECTIONS>
     <QUESTION_CATEGORIES>

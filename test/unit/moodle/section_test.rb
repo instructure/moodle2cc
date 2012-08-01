@@ -22,7 +22,7 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_sections
-    assert_equal 3, @sections.length
+    assert_equal 4, @sections.length
   end
 
   def test_it_has_an_id

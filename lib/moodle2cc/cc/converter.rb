@@ -91,7 +91,7 @@ module Moodle2CC::CC
         ) do |org|
           org.item(:identifier => "LearningModules") do |root_item|
             @moodle_backup.course.sections.each do |section|
-              next unless section.visible
+              next if section.mods.length == 0
               root_item.item(:identifier => create_key(section.id, "section_")) do |item_node|
                 item_node.title "#{course.format} #{section.number}"
                 section.mods.each do |mod|
