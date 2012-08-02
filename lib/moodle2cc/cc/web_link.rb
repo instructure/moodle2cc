@@ -3,27 +3,43 @@ module Moodle2CC::CC
     include CCHelper
     include Resource
 
-    attr_accessor :url
+    attr_accessor :url, :external_link, :href
 
     def initialize(mod)
       super
       @url = mod.reference.to_s.strip
+      @external_link = self.class.external_link?(mod)
+      @href = @external_link ? "#{@identifier}.xml" : File.join(WEB_RESOURCES_FOLDER, @url)
     end
 
     def self.create_resource_key(mod)
-      if !URI.parse(mod.reference).scheme
+      unless external_link?(mod)
         create_key(File.join(WEB_RESOURCES_FOLDER, mod.reference), 'resource_')
       else
         super
       end
     end
 
+    def self.external_link?(mod)
+      !!URI.parse(mod.reference.strip).scheme
+    end
+
     def create_resource_node(resources_node)
-      resources_node.resource(
-        :type => WEB_LINK,
-        :identifier => identifier
-      ) do |resource_node|
-        resource_node.file(:href => "#{identifier}.xml")
+      if @external_link
+        resources_node.resource(
+          :type => WEB_LINK,
+          :identifier => identifier
+        ) do |resource_node|
+          resource_node.file(:href => href)
+        end
+      else
+        resources_node.resource(
+          :type => WEBCONTENT,
+          :href => href,
+          :identifier => identifier
+        ) do |resource_node|
+          resource_node.file(:href => href)
+        end
       end
     end
 
@@ -32,6 +48,7 @@ module Moodle2CC::CC
     end
 
     def create_xml(export_dir)
+      return unless @external_link
       path = File.join(export_dir, "#{identifier}.xml")
       FileUtils.mkdir_p(File.dirname(path))
       File.open(path, 'w') do |file|

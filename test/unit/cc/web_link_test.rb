@@ -43,6 +43,26 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
     assert_equal "http://en.wikipedia.org/wiki/Einstein", web_link.url
   end
 
+  def test_it_converts_external_link
+    @mod.reference = "http://en.wikipedia.org/wiki/Einstein"
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal true, web_link.external_link
+
+    @mod.reference = "files/myfile.txt"
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal false, web_link.external_link
+  end
+
+  def test_if_converts_href
+    @mod.reference = "http://en.wikipedia.org/wiki/Einstein"
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal "#{web_link.identifier}.xml", web_link.href
+
+    @mod.reference = "files/myfile.txt"
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal 'web_resources/files/myfile.txt', web_link.href
+  end
+
   def test_it_has_an_identifier
     @mod.id = 123
 
@@ -50,7 +70,8 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
     assert_equal 'iecc4b622fbc1adf8b8a2085e0974ac7d', web_link.identifier
   end
 
-  def test_it_creates_resource_in_imsmanifest
+  def test_it_creates_resource_in_imsmanifest_for_external_link
+    @mod.reference = "http://en.wikipedia.org/wiki/Einstein"
     web_link = Moodle2CC::CC::WebLink.new @mod
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(web_link.create_resource_node(node))
@@ -61,6 +82,22 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
     assert_equal 'i15aaccec404aa2ad557108a689bbba8f', resource.attributes['identifier'].value
 
     file = resource.xpath('file[@href="i15aaccec404aa2ad557108a689bbba8f.xml"]').first
+    assert file
+  end
+
+  def test_it_creates_resource_in_imsmanifest_for_local_file
+    @mod.reference = "files/myfile.txt"
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(web_link.create_resource_node(node))
+
+    resource = xml.xpath('resource').first
+    assert resource
+    assert_equal 'webcontent', resource.attributes['type'].value
+    assert_equal 'web_resources/files/myfile.txt', resource.attributes['href'].value
+    assert_equal 'i15aaccec404aa2ad557108a689bbba8f', resource.attributes['identifier'].value
+
+    file = resource.xpath('file[@href="web_resources/files/myfile.txt"]').first
     assert file
   end
 
@@ -82,5 +119,14 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
 
     assert_equal "About Your Instructor", xml.xpath('xmlns:webLink/xmlns:title').text
     assert xml.xpath('xmlns:webLink/xmlns:url[@href="http://en.wikipedia.org/wiki/Einstein"]').first
+  end
+
+  def test_it_does_not_create_xml_for_local_files
+    @mod.reference = "files/myfile.txt"
+
+    tmp_dir = File.expand_path('../../../tmp', __FILE__)
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    web_link.create_xml(tmp_dir)
+    refute File.exists?(File.join(tmp_dir, "#{web_link.identifier}.xml")), 'xml file was created for local file'
   end
 end
