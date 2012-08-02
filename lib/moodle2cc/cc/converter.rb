@@ -106,23 +106,23 @@ module Moodle2CC::CC
     end
 
     def create_resources(resources_node)
-      @moodle_backup.course.mods.each_with_index do |mod, index|
-        resource = @resource_factory.get_resource_from_mod(mod, index)
-        if resource
-          resource.create_resource_node(resources_node)
-          resource.create_files(@export_dir)
+      resources = @moodle_backup.course.mods.map do |mod|
+        @resource_factory.get_resource_from_mod(mod)
+      end.compact
+      @moodle_backup.files.each do |file|
+        unless resources.find { |r| r.respond_to?(:url) && r.url == file }
+          mod = Moodle2CC::Moodle::Mod.new
+          mod.mod_type = 'resource'
+          mod.type = 'file'
+          mod.reference = file
+          mod.course = @moodle_backup.course
+          resources << @resource_factory.get_resource_from_mod(mod)
         end
       end
 
-      @moodle_backup.files.each do |file|
-        href = File.join(WEB_RESOURCES_FOLDER, file)
-        resources_node.resource(
-          :type => WEBCONTENT,
-          :identifier => create_key(href, 'resource_'),
-          :href => href
-        ) do |resource_node|
-          resource_node.file(:href => href)
-        end
+      resources.each_with_index do |resource, index|
+        resource.create_resource_node(resources_node)
+        resource.create_files(@export_dir)
       end
     end
 

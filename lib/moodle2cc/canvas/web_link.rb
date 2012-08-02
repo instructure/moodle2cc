@@ -5,8 +5,7 @@ module Moodle2CC::Canvas
     def create_module_meta_item_elements(item_node)
       item_node.identifierref @identifier
 
-      uri = URI.parse(@url)
-      if uri.scheme
+      if @external_link
         item_node.url @url
         item_node.content_type 'ExternalUrl'
       else

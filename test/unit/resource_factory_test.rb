@@ -42,7 +42,17 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
     assert_kind_of Moodle2CC::Canvas::DiscussionTopic, resource
   end
 
-  def test_it_can_get_web_content_resource
+  def test_it_can_get_web_content_resource_from_text_resource
+    mod = @backup.course.mods.find { |m| m.mod_type == "resource" }
+    mod.type = 'text'
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::WebContent, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebContent, resource
+  end
+
+  def test_it_can_get_web_content_resource_from_html_resource
     mod = @backup.course.mods.find { |m| m.mod_type == "resource" }
     mod.type = 'html'
     resource = @cc_factory.get_resource_from_mod(mod)

@@ -156,12 +156,14 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
     assert_equal 'webcontent', resource.attributes['type'].value
     assert_equal 'web_resources/folder/test.txt', resource.attributes['href'].value
     assert resource.xpath('xmlns:file[@href="web_resources/folder/test.txt"]').first
+    assert_equal 1, xml.search('file[href="web_resources/folder/test.txt"]').count
 
     resource = xml.xpath('//xmlns:manifest/xmlns:resources/xmlns:resource[@identifier="ib98bb8ec201a97840ae4ed4bb40207c0"]').first
     assert resource, 'resources does not exist for "web_resources/test.txt" file'
     assert_equal 'webcontent', resource.attributes['type'].value
     assert_equal 'web_resources/test.txt', resource.attributes['href'].value
     assert resource.xpath('xmlns:file[@href="web_resources/test.txt"]').first
+    assert_equal 1, xml.search('file[href="web_resources/test.txt"]').count
   end
 
   def test_it_deletes_all_files_except_imscc

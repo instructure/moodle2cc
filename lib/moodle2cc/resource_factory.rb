@@ -9,9 +9,10 @@ class Moodle2CC::ResourceFactory
     when 'assignment', 'workshop'
       @namespace.const_get(:Assignment).new(mod, position)
     when 'resource'
-      if mod.type == 'file'
+      case mod.type
+      when 'file'
         @namespace.const_get(:WebLink).new(mod)
-      elsif mod.type == 'html'
+      when 'html', 'text'
         @namespace.const_get(:WebContent).new(mod)
       end
     when 'forum'
