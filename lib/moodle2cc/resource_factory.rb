@@ -20,7 +20,7 @@ class Moodle2CC::ResourceFactory
       @namespace.const_get(:Assessment).new(mod, position)
     when 'wiki'
       @namespace.const_get(:Wiki).new(mod)
-    when 'label'
+    when 'label', 'summary'
       html = Nokogiri::HTML(mod.content)
       if html.search('img[src]').length > 0 ||
         html.search('a[href]').length > 0 ||

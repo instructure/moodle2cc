@@ -129,19 +129,19 @@ class TestUnitCanvasCourse < MiniTest::Unit::TestCase
     assert_equal 'Week 0', module_node.xpath('xmlns:title').text
     assert_equal '0', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
-    assert_equal 2, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+    assert_equal 3, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[2]').first
     assert_equal 'Week 1', module_node.xpath('xmlns:title').text
     assert_equal '1', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
-    assert_equal 8, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+    assert_equal 9, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
 
     module_node = xml.xpath('//xmlns:modules/xmlns:module[3]').first
     assert_equal 'Week 3', module_node.xpath('xmlns:title').text
     assert_equal '3', module_node.xpath('xmlns:position').text
     assert_equal 'false', module_node.xpath('xmlns:require_sequential_progress').text
-    assert_equal 1, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
+    assert_equal 2, module_node.xpath('xmlns:items').first.xpath('xmlns:item').count
   end
 
   def test_it_creates_assignment_groups_xml

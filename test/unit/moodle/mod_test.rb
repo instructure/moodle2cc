@@ -24,7 +24,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_all_the_mods
-    assert_equal 11, @mods.length
+    assert_equal 14, @mods.length
   end
 
   def test_it_has_an_id
@@ -290,7 +290,7 @@ class TestUnitMoodleMod < MiniTest::Unit::TestCase
   end
 
   def test_it_has_section_mods
-    assert_equal @course.sections.first.mods.first, @mods[0].section_mod
+    assert_equal @course.sections.first.mods[1], @mods[0].section_mod
   end
 
   def test_it_has_a_grade_item

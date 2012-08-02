@@ -15,7 +15,11 @@ module Moodle2CC::Moodle
     has_many :question_categories, QuestionCategory
 
     after_parse do |course|
-      course.sections.each { |section| section.course = course }
+      course.sections.each do |section|
+        section.course = course
+        mod = section.mods.find { |mod| mod.mod_type == 'summary' }
+        course.mods << mod.instance if mod
+      end
       course.mods.each { |mod| mod.course = course }
       course.grade_items.each { |grade_item| grade_item.course = course }
       course.question_categories.each { |question_category| question_category.course = course }

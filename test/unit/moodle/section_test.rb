@@ -46,30 +46,47 @@ class TestUnitMoodleSection < MiniTest::Unit::TestCase
   end
 
   def test_mods_have_an_id
-    assert 11111, @section.mods.first.id
+    assert 11111, @section.mods[1].id
   end
 
   def test_mods_have_an_instance_id
-    assert 987, @section.mods.first.instance_id
+    assert 987, @section.mods[1].instance_id
   end
 
   def test_mods_have_an_indent
-    assert_equal 0, @section.mods[0].indent
+    assert_equal 0, @section.mods[1].indent
   end
 
   def test_mods_have_a_visibility
-    assert_equal true, @section.mods[0].visible
+    assert_equal true, @section.mods[1].visible
   end
 
   def test_mods_have_instances
-    assert_equal @course.mods.first.id, @section.mods.first.instance.id
+    assert_equal @course.mods.first.id, @section.mods[1].instance.id
   end
 
   def test_mods_have_added
-    assert_equal 1338410699, @section.mods.first.added
+    assert_equal 1338410699, @section.mods[1].added
   end
 
   def test_mods_have_a_mod_type
-    assert_equal 'assignment', @section.mods.first.mod_type
+    assert_equal 'assignment', @section.mods[1].mod_type
+  end
+
+  def test_first_mod_is_label_from_summary
+    mod = @section.mods.first
+    assert_equal "section_summary_mod_#{@section.id}", mod.id
+    assert_equal "section_summary_instance_#{@section.id}", mod.instance_id
+    assert_equal 'summary', mod.mod_type
+    assert_equal 0, mod.indent
+    assert_equal true, mod.visible
+    assert_equal @section, mod.section
+
+    instance = mod.instance
+    assert_equal mod, instance.section_mod
+    assert_equal "section_summary_instance_#{@section.id}", instance.id
+    assert_equal 'summary', instance.mod_type
+    assert_equal "This is the Syllabus", instance.name
+    assert_equal "<h1>This is the Syllabus</h1>", instance.content
   end
 end

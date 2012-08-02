@@ -80,6 +80,15 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
     assert_kind_of Moodle2CC::Canvas::Label, resource
   end
 
+  def test_it_can_get_label_resource_from_summary_mod
+    mod = @backup.course.mods.find { |m| m.mod_type == "summary" }
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::Label, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::Label, resource
+  end
+
   def test_it_can_get_web_content_resource_from_label_mod_with_img_tag
     mod = @backup.course.mods.find { |m| m.mod_type == "label" }
     mod.content = %(<img src="http://image.com/image.jpg" />")

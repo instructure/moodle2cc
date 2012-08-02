@@ -113,11 +113,17 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[1]').first
     assert item
+    assert_equal "i421aa3e876264b528cdc0c22cf9b2124", item.attributes['identifier'].value
+    assert_equal "i2bbef1184ce7da2a0f6d9038cb872c28", item.attributes['identifierref'].value
+    assert_equal 'This is the Syllabus', item.xpath('xmlns:title').text
+
+    item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[2]').first
+    assert item
     assert_equal "i10241816e5909d8e76da003b2814c6a4", item.attributes['identifier'].value
     assert_equal "i6b162484accdf6081cea43b39219d129", item.attributes['identifierref'].value
     assert_equal 'Create a Rails site', item.xpath('xmlns:title').text
 
-    item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[2]').first
+    item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[1]/xmlns:item[3]').first
     assert item
     assert_equal "i966437b815a49aad86a356bc8aa8f24a", item.attributes['identifier'].value
     assert_equal "i15aaccec404aa2ad557108a689bbba8f", item.attributes['identifierref'].value
@@ -125,11 +131,17 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
 
     item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[1]').first
     assert item
+    assert_equal "i61c91e0962069aa79c40a406a6c38e3e", item.attributes['identifier'].value
+    assert_equal "i9c32ce07701475bf3eb14257f2d6def4", item.attributes['identifierref'].value
+    assert_equal 'Week 1 Summary', item.xpath('xmlns:title').text
+
+    item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[2]').first
+    assert item
     assert_equal "ie8e11ad7a1b32660f6aeaf94948faa22", item.attributes['identifier'].value
     assert_equal "if7091ac80f57e45c757345555327b248", item.attributes['identifierref'].value
     assert_equal 'Announcements', item.xpath('xmlns:title').text
 
-    item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[2]').first
+    item = xml.xpath('//xmlns:manifest/xmlns:organizations/xmlns:organization/xmlns:item/xmlns:item[2]/xmlns:item[3]').first
     assert item
     assert_equal "ifcf0624ce811c812c749c53f3c914f20", item.attributes['identifier'].value
     assert_equal "iddbfacadb16c78a584f81538cd53cc72", item.attributes['identifierref'].value
