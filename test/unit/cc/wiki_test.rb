@@ -60,7 +60,7 @@ class TestUnitCCWiki < MiniTest::Unit::TestCase
     wiki = Moodle2CC::CC::Wiki.new @mod
     assert_equal 1, wiki.pages.length
 
-    assert_equal 'My Wiki', wiki.pages[0].title
+    assert_equal 'My wiki', wiki.pages[0].title
     assert_equal 'This is the summary', wiki.pages[0].body
     assert_equal 'wiki_content/my-wiki.html', wiki.pages[0].href
     assert_equal 'ib87fd4bafae6f3e3ee7dadb65b0e45a3', wiki.pages[0].identifier

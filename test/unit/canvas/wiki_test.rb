@@ -46,7 +46,7 @@ class TestUnitCanvasWiki < MiniTest::Unit::TestCase
 
     assert_equal 'item', xml.root.name
     assert_equal 'i7b382ae83ddb7cc9be1a12e517088bc4', xml.root.attributes['identifier'].value
-    assert_equal "My Wiki", xml.root.xpath('title').text
+    assert_equal "My wiki", xml.root.xpath('title').text
     assert_equal '5', xml.root.xpath('position').text
     assert_equal '', xml.root.xpath('new_tab').text
     assert_equal '0', xml.root.xpath('indent').text

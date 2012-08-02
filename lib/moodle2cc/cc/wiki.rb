@@ -37,7 +37,7 @@ module Moodle2CC::CC
     end
 
     def root_page
-      @pages.find { |page| page.title == @title }
+      @pages.find { |page| page.title.downcase == @title.downcase }
     end
 
     def create_resource_node(resources_node)

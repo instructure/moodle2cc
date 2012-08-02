@@ -12,7 +12,11 @@ module Moodle2CC
       if logger.respond_to? :add_warning
         logger.add_warning(message, exception)
       elsif logger.respond_to? :warn
-        logger.warn "#{message}\n    #{exception.message}\n"
+        log = "#{message}\n    #{exception.message}\n"
+        if exception.backtrace
+          exception.backtrace.each { |line| log << "    #{line}\n" }
+        end
+        logger.warn log
       end
     end
   end

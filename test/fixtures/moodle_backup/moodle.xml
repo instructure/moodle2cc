@@ -655,7 +655,7 @@
       <MOD>
         <ID>210</ID>
         <MODTYPE>wiki</MODTYPE>
-        <NAME>My Wiki</NAME>
+        <NAME>My wiki</NAME>
         <SUMMARY>This is my wiki. There are many like it, but this one is mine.</SUMMARY>
         <PAGENAME>My Wiki</PAGENAME>
         <WTYPE>group</WTYPE>
