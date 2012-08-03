@@ -115,7 +115,7 @@ module Moodle2CC::Canvas
 
       material = question.text
       material = question.content || '' if material.nil?
-      material.gsub!(/\{(.*?)\}/, '[\1]')
+      material = material.gsub(/\{(.*?)\}/, '[\1]')
       material = RDiscount.new(material).to_html if question.format == 4 # markdown
       @material = material
 
