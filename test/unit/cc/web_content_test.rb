@@ -52,9 +52,9 @@ class TestUnitCCWebContent < MiniTest::Unit::TestCase
     assert resource
     assert_equal 'webcontent', resource.attributes['type'].value
     assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', resource.attributes['identifier'].value
-    assert_equal 'wiki_content/instructor-resources.html', resource.attributes['href'].value
+    assert_equal Moodle2CC::CC::CCHelper::CC_WIKI_FOLDER + '/instructor-resources.html', resource.attributes['href'].value
 
-    file = resource.xpath('file[@href="wiki_content/instructor-resources.html"]').first
+    file = resource.xpath(%{file[@href="#{Moodle2CC::CC::CCHelper::CC_WIKI_FOLDER}/instructor-resources.html"]}).first
     assert file
   end
 
@@ -66,7 +66,7 @@ class TestUnitCCWebContent < MiniTest::Unit::TestCase
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
     web_content = Moodle2CC::CC::WebContent.new @mod
     web_content.create_html(tmp_dir)
-    html = Nokogiri::HTML(File.read(File.join(tmp_dir, 'wiki_content', 'instructor-resources.html')))
+    html = Nokogiri::HTML(File.read(File.join(tmp_dir, Moodle2CC::CC::CCHelper::CC_WIKI_FOLDER, 'instructor-resources.html')))
 
     assert html
     assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', html.search('head meta[name="identifier"]').first.attributes['content'].value

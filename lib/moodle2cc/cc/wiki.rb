@@ -7,6 +7,7 @@ module Moodle2CC::CC
 
     def initialize(mod)
       super
+      @href_template ||= "#{CC_WIKI_FOLDER}/%s.html"
       page_versions = mod.pages.inject({}) do |result, page|
         version = result[page.page_name]
         result[page.page_name] = page.version if version.nil? || page.version > version
@@ -18,14 +19,14 @@ module Moodle2CC::CC
           title_slug = file_slug(@title)
           body = page.content
           slug = [title_slug, file_slug(page.page_name)].join('-')
-          href = "#{WIKI_FOLDER}/#{slug}.html"
+          href = @href_template % slug
           Moodle2CC::OpenStruct.new(:title => page.page_name, :body => body, :href => href, :identifier => create_key(href))
         end
       end.compact
 
       if @pages.empty?
         slug = file_slug(@title)
-        href = File.join(WIKI_FOLDER, "#{slug}.html")
+        href = @href_template % slug
         @pages = [Moodle2CC::OpenStruct.new(:title => @title, :body => mod.summary, :href => href, :identifier => create_key(href))]
       end
 

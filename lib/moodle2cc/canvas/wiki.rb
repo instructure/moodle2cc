@@ -4,6 +4,7 @@ module Moodle2CC::Canvas
     attr_accessor :pages
 
     def initialize(mod)
+      @href_template = "#{WIKI_FOLDER}/%s.html"
       super
 
       @pages.map! do |page|

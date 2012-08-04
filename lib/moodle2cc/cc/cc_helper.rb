@@ -72,6 +72,7 @@ module CCHelper
   MEDIA_OBJECTS_FOLDER = 'media_objects'
   
   CC_ASSIGNMENT_FOLDER = File.join(WEB_RESOURCES_FOLDER, "assignments")
+  CC_WIKI_FOLDER = File.join(WEB_RESOURCES_FOLDER, "pages")
 
   def create_key(object, prepend="")
     CCHelper.create_key(object, prepend)
