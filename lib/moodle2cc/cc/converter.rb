@@ -129,7 +129,7 @@ module Moodle2CC::CC
 
     def create_web_resources
       web_resources_folder = File.join(@export_dir, WEB_RESOURCES_FOLDER)
-      FileUtils.mkdir(web_resources_folder)
+      FileUtils.mkdir_p(web_resources_folder)
       @moodle_backup.copy_files_to(web_resources_folder)
     end
 

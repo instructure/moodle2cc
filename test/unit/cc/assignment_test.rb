@@ -47,21 +47,26 @@ class TestUnitCCAssignment < MiniTest::Unit::TestCase
 
     resource = xml.xpath('resource').first
     assert resource
-    assert_equal 'associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.attributes['type'].value
-    assert_equal 'i6b162484accdf6081cea43b39219d129/create-a-rails-site.html', resource.attributes['href'].value
+    assert_equal 'webcontent', resource.attributes['type'].value
+    assert_equal 'web_resources/assignments/create-a-rails-site.html', resource.attributes['href'].value
     assert_equal 'i6b162484accdf6081cea43b39219d129', resource.attributes['identifier'].value
 
-    file = resource.xpath('file[@href="i6b162484accdf6081cea43b39219d129/create-a-rails-site.html"]').first
+    file = resource.xpath('file[@href="web_resources/assignments/create-a-rails-site.html"]').first
     assert file
   end
 
   def test_it_creates_assignment_html
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
     @assignment.create_html(tmp_dir)
-    html = Nokogiri::HTML(File.read(File.join(tmp_dir, @assignment.identifier, 'create-a-rails-site.html')))
+    html = Nokogiri::HTML(File.read(File.join(tmp_dir, Moodle2CC::CC::CCHelper::CC_ASSIGNMENT_FOLDER, 'create-a-rails-site.html')))
 
     assert html
     assert_equal 'Assignment: Create a Rails site', html.search('title').text
     assert_equal '<h1>Hello World</h1>', html.search('body').inner_html.strip
+    assert_equal 'assignment', html.at_css('meta[name=mod_type]')['content']
+    assert_equal 'offline', html.at_css('meta[name=assignment_type]')['content']
+    assert_equal '1.0', html.at_css('meta[name=grade_min]')['content']
+    assert_equal '150.0', html.at_css('meta[name=grade_max]')['content']
+    assert_equal '2', html.at_css('meta[name=grade_type]')['content']
   end
 end

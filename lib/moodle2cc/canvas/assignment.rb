@@ -10,6 +10,8 @@ module Moodle2CC::Canvas
 
     def initialize(mod, position=0)
       super
+      @rel_path = "#{identifier}/#{file_slug(@title)}.html"
+      @resource_type = LOR
       @body = convert_file_path_tokens(mod.description)
       @points_possible = mod.grade_item ? mod.grade_item.grade_max : mod.grade
       @grading_type = 'points'
@@ -57,18 +59,6 @@ module Moodle2CC::Canvas
         submission_types = ['online_text_entry']
         submission_types.unshift('online_upload') if mod.number_of_attachments > 0
         submission_types.join(',')
-      end
-    end
-
-    def create_resource_node(resources_node)
-      href = "#{identifier}/#{file_slug(@title)}.html"
-      resources_node.resource(
-        :href => href,
-        :type => LOR,
-        :identifier => identifier
-      ) do |resource_node|
-        resource_node.file(:href => href)
-        resource_node.file(:href => File.join(identifier, ASSIGNMENT_SETTINGS))
       end
     end
 

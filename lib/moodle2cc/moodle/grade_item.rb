@@ -1,6 +1,9 @@
 module Moodle2CC::Moodle
   class GradeItem
     include HappyMapper
+    
+    PROPERTIES = %w{id category_id item_name item_type item_module item_instance 
+                    item_number grade_type grade_max grade_min scale_id}
 
     attr_accessor :course
 

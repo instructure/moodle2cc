@@ -7,7 +7,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    convert_moodle_backup
+    convert_moodle_backup('canvas')
   end
 
   def teardown

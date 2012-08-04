@@ -70,6 +70,8 @@ module CCHelper
   WEB_RESOURCES_FOLDER = 'web_resources'
   WIKI_FOLDER = 'wiki_content'
   MEDIA_OBJECTS_FOLDER = 'media_objects'
+  
+  CC_ASSIGNMENT_FOLDER = File.join(WEB_RESOURCES_FOLDER, "assignments")
 
   def create_key(object, prepend="")
     CCHelper.create_key(object, prepend)
