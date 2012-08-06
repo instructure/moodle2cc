@@ -106,9 +106,10 @@ module Moodle2CC::CC
     end
 
     def create_resources(resources_node)
-      resources = @moodle_backup.course.mods.map do |mod|
-        @resource_factory.get_resource_from_mod(mod)
-      end.compact
+      resources = []
+      @moodle_backup.course.mods.each_with_index do |mod, index|
+        resources << @resource_factory.get_resource_from_mod(mod, index)
+      end
       @moodle_backup.files.each do |file|
         unless resources.find { |r| r.respond_to?(:url) && r.url == file }
           mod = Moodle2CC::Moodle::Mod.new
@@ -120,7 +121,7 @@ module Moodle2CC::CC
         end
       end
 
-      resources.each_with_index do |resource, index|
+      resources.compact.each do |resource|
         resource.create_resource_node(resources_node)
         resource.create_files(@export_dir)
       end
