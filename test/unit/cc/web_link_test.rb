@@ -53,6 +53,26 @@ class TestUnitCCWebLink < MiniTest::Unit::TestCase
     assert_equal false, web_link.external_link
   end
 
+  def test_it_converts_external_link_with_spaces_in_the_url
+    @mod.reference = "http://en.wikipedia.org/wiki/Einstein with a Space"
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal true, web_link.external_link
+
+    @mod.reference = "files/my file.txt"
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal false, web_link.external_link
+  end
+
+  def test_it_converts_external_link_with_completely_invalid_url
+    @mod.reference = 'http://!@#$%^&*'
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal true, web_link.external_link
+
+    @mod.reference = 'files/!@#$%^&*.txt'
+    web_link = Moodle2CC::CC::WebLink.new @mod
+    assert_equal false, web_link.external_link
+  end
+
   def test_if_converts_href
     @mod.reference = "http://en.wikipedia.org/wiki/Einstein"
     web_link = Moodle2CC::CC::WebLink.new @mod

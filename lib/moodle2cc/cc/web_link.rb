@@ -22,7 +22,11 @@ module Moodle2CC::CC
     end
 
     def self.external_link?(mod)
-      !!URI.parse(mod.reference.strip).scheme
+      begin
+        !!URI.parse(mod.reference.to_s.strip.gsub(/\s/, '+')).scheme
+      rescue URI::InvalidURIError
+        !!mod.reference.strip.match(/^https?\:\/\//)
+      end
     end
 
     def create_resource_node(resources_node)
