@@ -1,0 +1,36 @@
+2012-12-07 Version 0.1.6
+    * Added Changelog
+    * Don't error out when trying to reference non-existent quiz question
+
+2012-08-20 Version 0.1.5
+
+    * Readme improvements
+        * Listed todo items for complete Common Cartridge conversion support
+    * Added assignment conversion to plain CC
+    * Added wiki page conversion to plain CC
+
+2012-08-15 Version 0.1.4
+
+    * More robust URI parsing
+
+2012-08-06 Version 0.1.3
+
+    * Fix external link and attachment references
+    * Fix ordering of module items
+
+
+2012-08-03 Version 0.1.2
+
+    * Add quiz support
+    * Better handle wiki titles and summaries
+
+
+2012-07-26 Version 0.1.1
+
+    * Fix extra whitespace errors
+    * Add ability to inject logger during conversion process 
+
+
+2012-7-24 Version 0.1.0
+
+    * Initial release
