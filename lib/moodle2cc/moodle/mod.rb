@@ -15,7 +15,7 @@ module Moodle2CC::Moodle
       element :grade, Integer, :tag => 'GRADE'
 
       def question
-        mod.course.question_categories.map do |qc|
+        @question ||= mod.course.question_categories.map do |qc|
           qc.questions.find { |q| q.id == question_id }
         end.compact.first
       end
@@ -115,6 +115,7 @@ module Moodle2CC::Moodle
         end
         @questions = [question]
       else
+        question_instances.reject!{ |qi| qi.question.nil? }
         @questions = question_instances.map do |qi|
           question = qi.question
           question.grade = qi.grade
