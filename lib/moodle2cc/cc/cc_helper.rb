@@ -95,6 +95,7 @@ module CCHelper
   end
 
   def file_slug(name)
+    name = @section_number.nil? ? name : "#@section_number-#{name}"
     CCHelper.file_slug(name)
   end
 

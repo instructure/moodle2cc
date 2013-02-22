@@ -11,6 +11,7 @@ module Moodle2CC::CC
       @id = mod.id
       @title = mod.name
       @indent = mod.section_mod.nil? ? 0 : mod.section_mod.indent
+      @section_number = mod.section_mod.nil? ? 0 : mod.section_mod.section.number
       @identifier = create_resource_key(mod)
     end
 
