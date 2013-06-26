@@ -12,6 +12,7 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     convert_moodle_backup 'canvas'
     @mod = @backup.course.mods.find { |mod| mod.mod_type == 'quiz' }
     @question = @mod.questions.first
+    @question.image = nil
   end
 
   def teardown
@@ -118,6 +119,13 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     @question.text = "How much is {a} + {b} ?"
     question = Moodle2CC::Canvas::Question.new @question
     assert_equal "How much is [a] + [b] ?", question.material
+  end
+
+  def test_it_adds_image_tag_to_material
+    @question.text = "How much is {a} + {b} ?"
+    @question.image = "test.jpg"
+    question = Moodle2CC::Canvas::Question.new @question
+    assert_equal %{<img src="$IMS_CC_FILEBASE$/test.jpg" alt="test.jpg"/>How much is [a] + [b] ?}, question.material
   end
 
   def test_it_converts_markdown_text_to_html_material
@@ -381,6 +389,7 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
   end
 
   def test_it_creates_item_xml
+    @question.image = 'test.jpg'
     question = Moodle2CC::Canvas::Question.new @question
     node = Builder::XmlMarkup.new
     xml = Nokogiri::XML(question.create_item_xml(node))
@@ -394,7 +403,7 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="points_possible" and fieldentry="1"]').first, 'does not have meta data for points possible'
     assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="assessment_question_identifierref" and fieldentry="i04823ed56ffd4fd5f9c21db0cf25be6c"]').first, 'does not have meta data for assessment_question_identifierref'
 
-    assert_equal 'How much is [a] + [b] ?', xml.root.xpath('presentation/material/mattext[@texttype="text/html"]').text
+    assert_equal %{<img src="$IMS_CC_FILEBASE$/test.jpg" alt="test.jpg"/>How much is [a] + [b] ?}, xml.root.xpath('presentation/material/mattext[@texttype="text/html"]').text
 
     # Score
     outcome = xml.root.xpath('resprocessing/outcomes/decvar').first
