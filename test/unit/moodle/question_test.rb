@@ -41,6 +41,10 @@ class TestUnitMoodleQuestion < MiniTest::Unit::TestCase
     assert_equal 'How much is {a} + {b} ?', @calculated_question.text
   end
 
+  def test_it_has_image
+    assert_equal 'test.jpg', @calculated_question.image
+  end
+
   def test_it_has_a_format
     assert_equal 1, @calculated_question.format
   end
