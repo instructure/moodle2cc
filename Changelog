@@ -1,3 +1,7 @@
+2013-06-27 Version 0.1.7
+    * Include question images when converting to QTI
+		* Added travis setup for happiness
+
 2012-12-07 Version 0.1.6
     * Added Changelog
     * Don't error out when trying to reference non-existent quiz question
