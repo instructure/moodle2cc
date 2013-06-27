@@ -80,6 +80,7 @@ module Moodle2CC::Moodle
     element :position, Integer, :tag => 'POSITION'
     element :type, String, :tag => 'QTYPE'
     element :type_id, Integer, :tag => 'TYPE_ID'
+    element :image, String, :tag => 'IMAGE'
     has_many :numericals, Numerical
     has_many :answers, Answer
     has_many :calculations, Calculation

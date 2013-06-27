@@ -249,7 +249,7 @@
             <NAME>Basic Arithmetic</NAME>
             <QUESTIONTEXT>How much is {a} + {b} ?</QUESTIONTEXT>
             <QUESTIONTEXTFORMAT>1</QUESTIONTEXTFORMAT>
-            <IMAGE></IMAGE>
+            <IMAGE>test.jpg</IMAGE>
             <GENERALFEEDBACK>This should be easy</GENERALFEEDBACK>
             <DEFAULTGRADE>1</DEFAULTGRADE>
             <PENALTY>0.1</PENALTY>
