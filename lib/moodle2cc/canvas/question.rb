@@ -116,7 +116,7 @@ module Moodle2CC::Canvas
       material = question.text
       material = question.content || '' if material.nil?
       material = material.gsub(/\{(.*?)\}/, '[\1]')
-      material = image_html(question.image) + material unless question.image.nil? || question.image.strip == ''
+      material = material + image_html(question.image) unless question.image.nil? || question.image.strip == ''
       material = RDiscount.new(material).to_html if question.format == 4 # markdown
       @material = material
 
@@ -471,7 +471,7 @@ module Moodle2CC::Canvas
 
     def image_html(image)
       image = image.strip
-      %{<img src="#{WEB_CONTENT_TOKEN}/#{image}" alt="#{image}"/>}
+      %{<p><img src="#{WEB_CONTENT_TOKEN}/#{image}" alt="#{image}"/></p>}
     end
   end
 end
