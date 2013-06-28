@@ -40,6 +40,13 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
 
     resource = @canvas_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::Canvas::DiscussionTopic, resource
+
+    mod = @backup.course.mods.find { |m| m.mod_type == "hsuforum" }
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::DiscussionTopic, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::DiscussionTopic, resource
   end
 
   def test_it_can_get_web_content_resource_from_text_resource
