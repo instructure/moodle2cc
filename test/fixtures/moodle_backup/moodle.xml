@@ -529,6 +529,26 @@
         <BLOCKPERIOD>0</BLOCKPERIOD>
       </MOD>
       <MOD>
+        <ID>766</ID>
+        <MODTYPE>hsuforum</MODTYPE>
+        <TYPE>news</TYPE>
+        <NAME>Announcements</NAME>
+        <INTRO>General news and announcements</INTRO>
+        <ASSESSED>0</ASSESSED>
+        <ASSESSTIMESTART>0</ASSESSTIMESTART>
+        <ASSESSTIMEFINISH>0</ASSESSTIMEFINISH>
+        <MAXBYTES>0</MAXBYTES>
+        <SCALE>0</SCALE>
+        <FORCESUBSCRIBE>1</FORCESUBSCRIBE>
+        <TRACKINGTYPE>1</TRACKINGTYPE>
+        <RSSTYPE>0</RSSTYPE>
+        <RSSARTICLES>0</RSSARTICLES>
+        <TIMEMODIFIED>1338472516</TIMEMODIFIED>
+        <WARNAFTER>0</WARNAFTER>
+        <BLOCKAFTER>0</BLOCKAFTER>
+        <BLOCKPERIOD>0</BLOCKPERIOD>
+      </MOD>
+      <MOD>
         <ID>654</ID>
         <MODTYPE>label</MODTYPE>
         <NAME>label123</NAME>

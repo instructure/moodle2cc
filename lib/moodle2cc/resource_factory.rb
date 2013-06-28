@@ -15,7 +15,7 @@ class Moodle2CC::ResourceFactory
       when 'html', 'text'
         @namespace.const_get(:WebContent).new(mod)
       end
-    when 'forum'
+    when 'forum', 'hsuforum'
       @namespace.const_get(:DiscussionTopic).new(mod, position)
     when 'quiz', 'questionnaire', 'choice'
       @namespace.const_get(:Assessment).new(mod, position)
