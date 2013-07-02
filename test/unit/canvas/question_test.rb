@@ -125,7 +125,7 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     @question.text = "How much is {a} + {b} ?"
     @question.image = "test.jpg"
     question = Moodle2CC::Canvas::Question.new @question
-    assert_equal %{<img src="$IMS_CC_FILEBASE$/test.jpg" alt="test.jpg"/>How much is [a] + [b] ?}, question.material
+    assert_equal %{How much is [a] + [b] ?<p><img src="$IMS_CC_FILEBASE$/test.jpg" alt="test.jpg"/></p>}, question.material
   end
 
   def test_it_converts_markdown_text_to_html_material
@@ -403,7 +403,7 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="points_possible" and fieldentry="1"]').first, 'does not have meta data for points possible'
     assert xml.root.xpath('itemmetadata/qtimetadata/qtimetadatafield[fieldlabel="assessment_question_identifierref" and fieldentry="i04823ed56ffd4fd5f9c21db0cf25be6c"]').first, 'does not have meta data for assessment_question_identifierref'
 
-    assert_equal %{<img src="$IMS_CC_FILEBASE$/test.jpg" alt="test.jpg"/>How much is [a] + [b] ?}, xml.root.xpath('presentation/material/mattext[@texttype="text/html"]').text
+    assert_equal %{How much is [a] + [b] ?<p><img src="$IMS_CC_FILEBASE$/test.jpg" alt="test.jpg"/></p>}, xml.root.xpath('presentation/material/mattext[@texttype="text/html"]').text
 
     # Score
     outcome = xml.root.xpath('resprocessing/outcomes/decvar').first
