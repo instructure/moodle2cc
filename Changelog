@@ -1,3 +1,7 @@
+2013-07-02 Version 0.1.8
+    * Improved question image conversion by putting it in its own p tag
+		* Added support for hsuforum content
+
 2013-06-27 Version 0.1.7
     * Include question images when converting to QTI
 		* Added travis setup for happiness
