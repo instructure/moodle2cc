@@ -83,6 +83,7 @@ module Moodle2CC::Moodle
     has_many :options, Option
 
     after_parse do |mod|
+      mod.mod_type = mod.mod_type.strip if mod.mod_type
       mod.question_instances.each { |question_instance| question_instance.mod = mod }
     end
 
