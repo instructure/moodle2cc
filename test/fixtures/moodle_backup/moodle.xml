@@ -569,7 +569,8 @@
       </MOD>
       <MOD>
         <ID>432</ID>
-        <MODTYPE>resource</MODTYPE>
+        <MODTYPE>resource
+        </MODTYPE>
         <NAME>Test Text File</NAME>
         <TYPE>file</TYPE>
         <REFERENCE>folder/test.txt</REFERENCE>
