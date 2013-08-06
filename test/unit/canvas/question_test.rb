@@ -142,6 +142,12 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     assert_equal "This is a rating question\nI test my code [response1]\nI am happy [response2]", question.material
   end
 
+  def test_it_converts_material_for_multiple_dropdowns_question_without_choices
+    multiple_dropdowns_question_without_choices!
+    question = Moodle2CC::Canvas::Question.new @question
+    assert_equal "This is a rating question but not formatted very well\nthis isn't actually a choice [response1]\nso add the choices automatically [response2]", question.material
+  end
+
   def test_it_converts_general_feedback
     @question.general_feedback = "This should be easy"
     question = Moodle2CC::Canvas::Question.new @question
@@ -647,6 +653,44 @@ class TestUnitCanvasQuestion < MiniTest::Unit::TestCase
     assert_equal '1=Almost Never', response.xpath('render_choice/response_label[@ident="21"]/material/mattext[@texttype="text/html"]').text
     assert_equal '2=Sometimes', response.xpath('render_choice/response_label[@ident="22"]/material/mattext[@texttype="text/html"]').text
     assert_equal '3=Always', response.xpath('render_choice/response_label[@ident="23"]/material/mattext[@texttype="text/html"]').text
+    refute response.xpath('render_choice/response_label[4]').first, 'there should not be a response for answer text'
+    refute response.xpath('render_choice/response_label[5]').first, 'there should not be a response for answer text'
+
+    # Conditions
+    condition = xml.root.xpath('resprocessing/respcondition/conditionvar/varequal[@respident="response_response1" and text()="11"]/../..').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Add" and text()="50.00"]').first
+    assert var, 'score does not exist for first answer'
+
+    condition = xml.root.xpath('resprocessing/respcondition/conditionvar/varequal[@respident="response_response2" and text()="21"]/../..').first
+    assert condition, 'condition does not exist for first answer'
+    var = condition.xpath('setvar[@varname="SCORE" and @action="Add" and text()="50.00"]').first
+    assert var, 'score does not exist for second answer'
+  end
+
+  def test_it_creates_item_xml_for_multiple_dropdowns_question_without_choices
+    multiple_dropdowns_question_without_choices!
+
+    question = Moodle2CC::Canvas::Question.new @question
+    node = Builder::XmlMarkup.new
+    xml = Nokogiri::XML(question.create_item_xml(node))
+
+    # Responses
+    response = xml.root.xpath('presentation/response_lid[@ident="response_response1"]').first
+    assert response, 'first response for multiple dropdowns question does not exist'
+    assert response.xpath('material/mattext["response1"]').first, 'material text does not exist for multiple dropdowns question first response'
+    assert_equal '1', response.xpath('render_choice/response_label[@ident="11"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '2', response.xpath('render_choice/response_label[@ident="12"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '3', response.xpath('render_choice/response_label[@ident="13"]/material/mattext[@texttype="text/html"]').text
+    refute response.xpath('render_choice/response_label[4]').first, 'there should not be a response for answer text'
+    refute response.xpath('render_choice/response_label[5]').first, 'there should not be a response for answer text'
+
+    response = xml.root.xpath('presentation/response_lid[@ident="response_response2"]').first
+    assert response, 'second response for multiple dropdowns question does not exist'
+    assert response.xpath('material/mattext["response2"]').first, 'material text does not exist for multiple dropdowns question second response'
+    assert_equal '1', response.xpath('render_choice/response_label[@ident="21"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '2', response.xpath('render_choice/response_label[@ident="22"]/material/mattext[@texttype="text/html"]').text
+    assert_equal '3', response.xpath('render_choice/response_label[@ident="23"]/material/mattext[@texttype="text/html"]').text
     refute response.xpath('render_choice/response_label[4]').first, 'there should not be a response for answer text'
     refute response.xpath('render_choice/response_label[5]').first, 'there should not be a response for answer text'
 
