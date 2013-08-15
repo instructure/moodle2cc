@@ -120,9 +120,22 @@ module Moodle2CC::Canvas
       material = RDiscount.new(material).to_html if question.format == 4 # markdown
       @material = material
 
-      if @question_type == 'multiple_dropdowns_question' && !@answers.empty?
-        responses = @answers[@length..-1]
-        responses.each_with_index do |response, index|
+      if @question_type == 'multiple_dropdowns_question' && !@answers.empty? && @length
+        choices = @answers[0..(@length-1)]
+        if @length >= @answers.length || !choices.all?{|a| !!a.text.match(/^\d/)}
+          # the choices don't seem to be present, so construct them
+          choices = (1..@length).map do |i|
+            Moodle2CC::OpenStruct.new(
+              :id => "#{i}",
+              :text => "#{i}"
+            )
+          end
+          @responses = @answers
+        else
+          @responses = @answers[@length..-1]
+        end
+        @answers = choices
+        @responses.each_with_index do |response, index|
           @material << "\n#{response.text} [response#{index + 1}]"
         end
       end
@@ -231,16 +244,14 @@ module Moodle2CC::Canvas
           end
         end
       when 'multiple_dropdowns_question'
-        answers = @answers[0...@length]
-        responses = @answers[@length..-1]
-        responses.each_with_index do |response, index|
+        @responses.each_with_index do |response, index|
           response_id = index + 1
           presentation_node.response_lid(:ident => "response_response#{response_id}") do |response_node|
             response_node.material do |material_node|
               material_node.mattext "response#{response_id}"
             end
             response_node.render_choice do |choice_node|
-              answers.each do |answer|
+              @answers.each do |answer|
                 choice_node.response_label(:ident => "#{response_id}#{answer.id}") do |label_node|
                   label_node.material do |material_node|
                     material_node.mattext answer.text, :texttype => 'text/html'
@@ -340,14 +351,12 @@ module Moodle2CC::Canvas
           condition_node.setvar('100', :varname => 'SCORE', :action => 'Set')
         end
       when 'multiple_dropdowns_question'
-        answers = @answers[0...@length]
-        responses = @answers[@length..-1]
-        score = 100.0 / responses.length.to_f
-        responses.each_with_index do |response, index|
+        score = 100.0 / @responses.length.to_f
+        @responses.each_with_index do |response, index|
           response_id = index + 1
           processing_node.respcondition do |condition_node|
             condition_node.conditionvar do |var_node|
-              var_node.varequal "#{response_id}#{answers.first.id}", :respident => "response_response#{response_id}"
+              var_node.varequal "#{response_id}#{@answers.first.id}", :respident => "response_response#{response_id}"
             end
             condition_node.setvar "%.2f" % score, :varname => 'SCORE', :action => 'Add'
           end

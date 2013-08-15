@@ -74,6 +74,21 @@ module TestQuestionHelper
     @question.choices = [choice1, choice2, choice3, choice4, choice5]
   end
 
+  def multiple_dropdowns_question_without_choices!
+    @question.type = nil
+    @question.type_id = 8 # rate 1..5 question
+    @question.length = 3
+    @question.text = nil
+    @question.content = "This is a rating question but not formatted very well"
+    choice1 = Moodle2CC::Moodle::Question::Choice.new
+    choice1.id = 1
+    choice1.content = "this isn't actually a choice"
+    choice2 = Moodle2CC::Moodle::Question::Choice.new
+    choice2.id = 2
+    choice2.content = 'so add the choices automatically'
+    @question.choices = [choice1, choice2]
+  end
+
   def multiple_answers_question!
     @question.type = nil
     @question.type_id = 5 # check boxes question
