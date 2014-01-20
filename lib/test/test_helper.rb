@@ -1,9 +1,10 @@
-require 'zip/zipfilesystem'
+require 'zip'
 
 module TestHelper
   def create_moodle_backup_zip(backup_name='moodle_backup')
     moodle_backup_path = File.expand_path("../../../test/tmp/#{backup_name}.zip", __FILE__)
-    Zip::ZipFile.open(moodle_backup_path, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(moodle_backup_path, Zip::File::CREATE) do |zipfile|
+      zipfile.remove("moodle.xml") if zipfile.find_entry("moodle.xml")
       zipfile.add("moodle.xml", File.expand_path("../../../test/fixtures/#{backup_name}/moodle.xml", __FILE__))
       zipfile.mkdir("course_files")
       zipfile.mkdir("course_files/folder")
@@ -24,13 +25,13 @@ module TestHelper
   end
 
   def get_imsmanifest_xml
-    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
+    Zip::File.open(@converter.imscc_path) do |zipfile|
       xml = Nokogiri::XML(zipfile.read("imsmanifest.xml"))
     end
   end
 
   def get_imscc_file(file)
-    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
+    Zip::File.open(@converter.imscc_path) do |zipfile|
       zipfile.read(file)
     end
   end

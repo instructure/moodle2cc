@@ -11,7 +11,11 @@ class Moodle2CC::ResourceFactory
     when 'resource'
       case mod.type
       when 'file'
-        @namespace.const_get(:WebLink).new(mod)
+        if mod.summary && mod.summary.length > 0
+          @namespace.const_get(:WebContent).new(mod)
+        else
+          @namespace.const_get(:WebLink).new(mod)
+        end
       when 'html', 'text'
         @namespace.const_get(:WebContent).new(mod)
       end

@@ -23,7 +23,7 @@ class TestUnitCCConverter < MiniTest::Unit::TestCase
   end
 
   def test_it_creates_imsmanifest_xml
-    Zip::ZipFile.open(@converter.imscc_path) do |zipfile|
+    Zip::File.open(@converter.imscc_path) do |zipfile|
       assert zipfile.find_entry("imsmanifest.xml")
     end
   end

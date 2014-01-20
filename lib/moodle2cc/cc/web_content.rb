@@ -10,6 +10,13 @@ module Moodle2CC::CC
       @rel_path = File.join(CC_WIKI_FOLDER, "#{file_slug(@title)}.html")
       body = mod.alltext
       body = mod.content || '' if body.nil? || body.length == 0
+      if body.nil? || body.length == 0 && mod.summary
+        body = mod.summary
+        url = mod.reference.to_s.strip
+        unless url.gsub(%r{http(s)?://}, '').length == 0
+          body += %(<p><a href="#{CGI.escapeHTML(url)}" title="#{CGI.escapeHTML(@title)}">#{@title}</a></p>)
+        end
+      end
       @body = convert_file_path_tokens(body)
     end
 
