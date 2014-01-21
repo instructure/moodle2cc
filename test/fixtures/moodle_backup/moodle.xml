@@ -502,7 +502,7 @@
         <NAME>About Your Instructor</NAME>
         <TYPE>file</TYPE>
         <REFERENCE>http://en.wikipedia.org/wiki/Einstein</REFERENCE>
-        <SUMMARY></SUMMARY>
+        <SUMMARY>Sometimes these include a summary</SUMMARY>
         <ALLTEXT></ALLTEXT>
         <POPUP>resizable=1,scrollbars=1,directories=1,location=1,menubar=1,toolbar=1,status=1,width=1024,height=768</POPUP>
         <OPTIONS></OPTIONS>

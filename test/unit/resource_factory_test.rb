@@ -69,8 +69,18 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
     assert_kind_of Moodle2CC::Canvas::WebContent, resource
   end
 
+  def test_it_can_get_web_content_resource_from_file_resource_with_summary
+    mod = @backup.course.mods.find { |m| m.mod_type == "resource" && (!m.summary.nil? && m.summary.length != 0)}
+    mod.type = 'file'
+    resource = @cc_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::CC::WebContent, resource
+
+    resource = @canvas_factory.get_resource_from_mod(mod)
+    assert_kind_of Moodle2CC::Canvas::WebContent, resource
+  end
+
   def test_it_can_get_web_link_resource
-    mod = @backup.course.mods.find { |m| m.mod_type == "resource" }
+    mod = @backup.course.mods.find { |m| m.mod_type == "resource" && (m.summary.nil? || m.summary.length == 0) }
     mod.type = 'file'
     resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::WebLink, resource

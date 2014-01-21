@@ -34,4 +34,13 @@ class TestUnitCanvasWebContent < MiniTest::Unit::TestCase
     assert_equal 'i6447ff05ab6e342a42302007a6e3bcb4', xml.root.xpath('identifierref').text
   end
 
+  def test_it_creates_web_content_item_from_link_with_summary
+    mod = @backup.course.mods.find { |m| m.mod_type == "resource" &&
+        (!m.summary.nil? && m.summary.length != 0)}
+    mod.type = 'file'
+    web_content = Moodle2CC::Canvas::WebContent.new mod
+
+    assert web_content.body.include?(mod.reference)
+    assert web_content.body.include?(mod.summary)
+  end
 end
