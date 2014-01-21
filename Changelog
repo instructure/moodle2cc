@@ -1,3 +1,7 @@
+2014-01-21 Version 0.1.11
+    * files with associated text/html content are now made into
+		  html pages with that text and a link to the file
+
 2013-08-15 Version 0.1.10
     * improve multiple dropdown question handling
 
