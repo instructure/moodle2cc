@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require 'test/test_helper'
+require 'test_helper'
 require 'moodle2cc'
 
 class TestUnitMoodleBackup < MiniTest::Unit::TestCase
