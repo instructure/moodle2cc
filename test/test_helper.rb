@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'zip'
+require 'moodle2cc'
 
 module TestHelper
 
@@ -7,11 +8,11 @@ module TestHelper
     moodle_backup_path = File.expand_path("../../test/tmp/#{backup_name}.zip", __FILE__)
     Zip::File.open(moodle_backup_path, Zip::File::CREATE) do |zipfile|
       zipfile.remove("moodle.xml") if zipfile.find_entry("moodle.xml")
-      zipfile.add("moodle.xml", File.expand_path("../../test/fixtures/#{backup_name}/moodle.xml", __FILE__))
+      zipfile.add("moodle.xml", fixture_path("#{backup_name}/moodle.xml"))
       zipfile.mkdir("course_files")
       zipfile.mkdir("course_files/folder")
-      zipfile.add("course_files/test.txt", File.expand_path("../../test/fixtures/#{backup_name}/course_files/test.txt", __FILE__))
-      zipfile.add("course_files/folder/test.txt", File.expand_path("../../test/fixtures/#{backup_name}/course_files/folder/test.txt", __FILE__))
+      zipfile.add("course_files/test.txt", fixture_path("#{backup_name}/course_files/test.txt"))
+      zipfile.add("course_files/folder/test.txt", fixture_path("#{backup_name}/course_files/folder/test.txt"))
     end
     moodle_backup_path
   end
@@ -44,9 +45,15 @@ module TestHelper
     end
   end
 
-  def assert_accessor(object, accessor)
-    object.send "#{accessor}=".to_sym, 'foo'
-    assert_equal object.send(accessor.to_sym), 'foo'
+  def assert_accessors(object, *accessor)
+    accessor.each do |a|
+      object.send "#{a}=".to_sym, 'foo'
+      assert_equal object.send(a.to_sym), 'foo'
+    end
+  end
+
+  def fixture_path(path)
+    File.join(File.expand_path("../../test/fixtures", __FILE__), path)
   end
 
 end

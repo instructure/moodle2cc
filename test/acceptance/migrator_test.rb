@@ -1,3 +1,4 @@
+puts $LOAD_PATH
 require 'minitest/autorun'
 require 'test_helper'
 require 'moodle2cc'

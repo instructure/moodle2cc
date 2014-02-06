@@ -61,4 +61,15 @@ module Moodle2CC
     autoload :QuestionCategory, 'moodle2cc/moodle/question_category'
     autoload :Section, 'moodle2cc/moodle/section'
   end
+  module CommonCartridge
+    autoload :ImsManifestGenerator, 'moodle2cc/common_cartridge/ims_manifest_generator'
+    module Resources
+      autoload :Course, 'moodle2cc/common_cartridge/resources/course'
+      autoload :Assignment, 'moodle2cc/common_cartridge/resources/assignment'
+      autoload :DiscussionTopic, 'moodle2cc/common_cartridge/resources/discussion_topic'
+      autoload :Question, 'moodle2cc/common_cartridge/resources/question'
+      autoload :WebContent, 'moodle2cc/common_cartridge/resources/web_content'
+      autoload :WebLink, 'moodle2cc/common_cartridge/resources/web_link'
+    end
+  end
 end
