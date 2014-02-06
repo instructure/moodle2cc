@@ -63,6 +63,7 @@ module Moodle2CC
   end
   module CommonCartridge
     autoload :ImsManifestGenerator, 'moodle2cc/common_cartridge/ims_manifest_generator'
+    autoload :CartridgeCreator, 'moodle2cc/common_cartridge/cartridge_creator'
     module Resources
       autoload :Course, 'moodle2cc/common_cartridge/resources/course'
       autoload :Assignment, 'moodle2cc/common_cartridge/resources/assignment'
