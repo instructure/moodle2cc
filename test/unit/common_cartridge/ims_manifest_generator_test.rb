@@ -6,7 +6,7 @@ class ImsManifestGeneratorTest < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @course = Moodle2CC::CommonCartridge::Resources::Course.new
+    @course = Moodle2CC::CommonCartridge::Resource::Course.new
   end
 
   def test_ims_manifest_schema

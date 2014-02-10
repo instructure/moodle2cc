@@ -6,7 +6,7 @@ class AssignmentTest < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @assignemnt = Moodle2CC::CommonCartridge::Resources::Assignment.new
+    @assignemnt = Moodle2CC::CommonCartridge::Resource::Assignment.new
   end
 
   def test_accessors

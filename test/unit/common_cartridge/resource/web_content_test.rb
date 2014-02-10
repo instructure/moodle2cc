@@ -6,7 +6,7 @@ class WebContentTest < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @web_content = Moodle2CC::CommonCartridge::Resources::WebContent.new
+    @web_content = Moodle2CC::CommonCartridge::Resource::WebContent.new
   end
 
   def test_accessors

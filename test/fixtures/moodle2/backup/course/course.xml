@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<course id="4" contextid="71">
+  <shortname>Short Name</shortname>
+  <fullname>Long Name</fullname>
+  <idnumber>SIS ID</idnumber>
+  <summary>&lt;p&gt;Course Summary&lt;/p&gt;</summary>
+  <summaryformat>1</summaryformat>
+  <format>weeks</format>
+  <showgrades>1</showgrades>
+  <newsitems>5</newsitems>
+  <startdate>1391875200</startdate>
+  <marker>0</marker>
+  <maxbytes>272629760</maxbytes>
+  <legacyfiles>0</legacyfiles>
+  <showreports>0</showreports>
+  <visible>1</visible>
+  <groupmode>0</groupmode>
+  <groupmodeforce>0</groupmodeforce>
+  <defaultgroupingid>0</defaultgroupingid>
+  <lang></lang>
+  <theme></theme>
+  <timecreated>1391810568</timecreated>
+  <timemodified>1391810568</timemodified>
+  <requested>0</requested>
+  <enablecompletion>0</enablecompletion>
+  <completionnotify>0</completionnotify>
+  <numsections>10</numsections>
+  <hiddensections>0</hiddensections>
+  <coursedisplay>0</coursedisplay>
+  <category id="1">
+    <name>Miscellaneous</name>
+    <description>$@NULL@$</description>
+  </category>
+  <tags>
+  </tags>
+</course>

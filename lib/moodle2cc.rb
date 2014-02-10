@@ -64,13 +64,24 @@ module Moodle2CC
   module CommonCartridge
     autoload :ImsManifestGenerator, 'moodle2cc/common_cartridge/ims_manifest_generator'
     autoload :CartridgeCreator, 'moodle2cc/common_cartridge/cartridge_creator'
-    module Resources
-      autoload :Course, 'moodle2cc/common_cartridge/resources/course'
-      autoload :Assignment, 'moodle2cc/common_cartridge/resources/assignment'
-      autoload :DiscussionTopic, 'moodle2cc/common_cartridge/resources/discussion_topic'
-      autoload :Question, 'moodle2cc/common_cartridge/resources/question'
-      autoload :WebContent, 'moodle2cc/common_cartridge/resources/web_content'
-      autoload :WebLink, 'moodle2cc/common_cartridge/resources/web_link'
+    module Resource
+      autoload :Course, 'moodle2cc/common_cartridge/resource/course'
+      autoload :Assignment, 'moodle2cc/common_cartridge/resource/assignment'
+      autoload :DiscussionTopic, 'moodle2cc/common_cartridge/resource/discussion_topic'
+      autoload :Question, 'moodle2cc/common_cartridge/resource/question'
+      autoload :WebContent, 'moodle2cc/common_cartridge/resource/web_content'
+      autoload :WebLink, 'moodle2cc/common_cartridge/resource/web_link'
     end
+  end
+  module Moodle2
+    autoload :Extractor, 'moodle2cc/moodle2/extractor'
+    autoload :CourseParser, 'moodle2cc/moodle2/course_parser'
+    module Resource
+      autoload :Course, 'moodle2cc/moodle2/resource/course'
+    end
+  end
+  module Moodle2Converter
+    autoload :CourseConverter, 'moodle2cc/moodle2converter/course_converter'
+    autoload :Migrator, 'moodle2cc/moodle2converter/migrator'
   end
 end

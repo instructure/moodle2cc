@@ -56,4 +56,14 @@ module TestHelper
     File.join(File.expand_path("../../test/fixtures", __FILE__), path)
   end
 
+  def expect(obj, method_name)
+    verify_mock = MiniTest::Mock.new
+    verify_mock.expect(:test_method, nil)
+    verify_method = lambda { verify_mock.test_method() }
+    obj.stub(method_name.to_sym, verify_method) do
+      yield
+    end
+    verify_mock.verify
+  end
+
 end

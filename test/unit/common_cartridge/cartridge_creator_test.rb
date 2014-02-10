@@ -10,7 +10,7 @@ class CartridgeCreatorTest < MiniTest::Unit::TestCase
 
     def setup
       @tmpdir = Dir.mktmpdir
-      course = Moodle2CC::CommonCartridge::Resources::Course.new
+      course = Moodle2CC::CommonCartridge::Resource::Course.new
       course.title = 'My Course'
       @cartridge_creator = Moodle2CC::CommonCartridge::CartridgeCreator.new(course)
       @ims_generator_mock = MiniTest::Mock.new
