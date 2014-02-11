@@ -61,16 +61,16 @@ module Moodle2CC
     autoload :QuestionCategory, 'moodle2cc/moodle/question_category'
     autoload :Section, 'moodle2cc/moodle/section'
   end
-  module CommonCartridge
-    autoload :ImsManifestGenerator, 'moodle2cc/common_cartridge/ims_manifest_generator'
-    autoload :CartridgeCreator, 'moodle2cc/common_cartridge/cartridge_creator'
+  module CanvasCC
+    autoload :ImsManifestGenerator, 'moodle2cc/canvas_cc/ims_manifest_generator'
+    autoload :CartridgeCreator, 'moodle2cc/canvas_cc/cartridge_creator'
     module Resource
-      autoload :Course, 'moodle2cc/common_cartridge/resource/course'
-      autoload :Assignment, 'moodle2cc/common_cartridge/resource/assignment'
-      autoload :DiscussionTopic, 'moodle2cc/common_cartridge/resource/discussion_topic'
-      autoload :Question, 'moodle2cc/common_cartridge/resource/question'
-      autoload :WebContent, 'moodle2cc/common_cartridge/resource/web_content'
-      autoload :WebLink, 'moodle2cc/common_cartridge/resource/web_link'
+      autoload :Course, 'moodle2cc/canvas_cc/resource/course'
+      autoload :Assignment, 'moodle2cc/canvas_cc/resource/assignment'
+      autoload :DiscussionTopic, 'moodle2cc/canvas_cc/resource/discussion_topic'
+      autoload :Question, 'moodle2cc/canvas_cc/resource/question'
+      autoload :WebContent, 'moodle2cc/canvas_cc/resource/web_content'
+      autoload :WebLink, 'moodle2cc/canvas_cc/resource/web_link'
     end
   end
   module Moodle2

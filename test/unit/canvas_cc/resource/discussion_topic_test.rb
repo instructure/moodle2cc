@@ -6,7 +6,7 @@ class DiscussionTopicTest < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @discussion_topic = Moodle2CC::CommonCartridge::Resource::DiscussionTopic.new
+    @discussion_topic = Moodle2CC::CanvasCC::Resource::DiscussionTopic.new
   end
 
   def test_accessors

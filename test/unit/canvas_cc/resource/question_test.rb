@@ -6,7 +6,7 @@ class QuestionTest < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @question = Moodle2CC::CommonCartridge::Resource::Question.new
+    @question = Moodle2CC::CanvasCC::Resource::Question.new
   end
 
   def test_accessors

@@ -17,9 +17,11 @@ class MigratorTest < MiniTest::Unit::TestCase
     mock_extractor.expect(:extract, nil)
     mock_course_converter = MiniTest::Mock.new
     mock_course_converter.expect(:convert, nil, [Object])
+    mock_cartridge_creator = MiniTest::Mock.new
+    mock_cartridge_creator.expect(:create, 'my_output_file', [Object])
     Moodle2CC::Moodle2::Extractor.stub(:new, mock_extractor) do
       Moodle2CC::Moodle2Converter::CourseConverter.stub(:new, mock_course_converter) do
-        Moodle2CC::CommonCartridge::CartridgeCreator.stub(:new, 'my_output_file') do
+        Moodle2CC::CanvasCC::CartridgeCreator.stub(:new, mock_cartridge_creator) do
           migrator = Moodle2CC::Moodle2Converter::Migrator.new('source_path', 'output_dir')
           assert_equal(migrator.migrate, 'my_output_file')
         end

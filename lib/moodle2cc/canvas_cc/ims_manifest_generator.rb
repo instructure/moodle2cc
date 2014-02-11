@@ -1,4 +1,4 @@
-class Moodle2CC::CommonCartridge::ImsManifestGenerator
+class Moodle2CC::CanvasCC::ImsManifestGenerator
 
   MANIFEST_FILE_NAME = 'imsmanifest.xml'
   SCHEMA = 'IMS Common Cartridge'

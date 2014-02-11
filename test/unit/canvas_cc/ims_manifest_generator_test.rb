@@ -6,7 +6,7 @@ class ImsManifestGeneratorTest < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @course = Moodle2CC::CommonCartridge::Resource::Course.new
+    @course = Moodle2CC::CanvasCC::Resource::Course.new
   end
 
   def test_ims_manifest_schema
@@ -57,7 +57,7 @@ class ImsManifestGeneratorTest < MiniTest::Unit::TestCase
   private
 
   def manifest_path
-    File.join(@tmp_dir, Moodle2CC::CommonCartridge::ImsManifestGenerator::MANIFEST_FILE_NAME)
+    File.join(@tmp_dir, Moodle2CC::CanvasCC::ImsManifestGenerator::MANIFEST_FILE_NAME)
   end
 
   def assert_xml_schema(xml)
@@ -67,6 +67,6 @@ class ImsManifestGeneratorTest < MiniTest::Unit::TestCase
   end
 
   def generator(course)
-    Moodle2CC::CommonCartridge::ImsManifestGenerator.new(course)
+    Moodle2CC::CanvasCC::ImsManifestGenerator.new(course)
   end
 end

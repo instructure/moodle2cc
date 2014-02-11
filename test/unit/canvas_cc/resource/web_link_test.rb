@@ -6,7 +6,7 @@ class WebLinkTest < MiniTest::Unit::TestCase
   include TestHelper
 
   def setup
-    @web_link = Moodle2CC::CommonCartridge::Resource::WebLink.new
+    @web_link = Moodle2CC::CanvasCC::Resource::WebLink.new
   end
 
   def test_accessors

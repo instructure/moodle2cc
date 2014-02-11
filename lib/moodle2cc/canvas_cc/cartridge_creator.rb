@@ -1,4 +1,4 @@
-class Moodle2CC::CommonCartridge::CartridgeCreator
+class Moodle2CC::CanvasCC::CartridgeCreator
 
   IMS_MANIFEST = 'imsmanifest.xml'
 
@@ -10,7 +10,7 @@ class Moodle2CC::CommonCartridge::CartridgeCreator
     out_file = File.join(out_dir, filename)
     Dir.mktmpdir do |dir|
       tmp_file = File.join(dir, filename)
-      xml = Moodle2CC::CommonCartridge::ImsManifestGenerator.new(@course).generate
+      xml = Moodle2CC::CanvasCC::ImsManifestGenerator.new(@course).generate
       File.open(File.join(dir, 'imsmanifest.xml'), 'w'){|f| f.write(xml)}
       Zip::File.open(tmp_file, Zip::File::CREATE) do |zipfile|
         Dir["#{dir}/**/*"].each do |file|
