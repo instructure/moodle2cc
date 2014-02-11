@@ -7,7 +7,7 @@ class Moodle2CC::Moodle2::CourseParser
   end
 
   def convert
-    course = Moodle2CC::Moodle2::Resource::Course.new
+    course = Moodle2CC::Moodle2::Model::Course.new
     File.open(File.join(@backup_folder, COURSE_XML_PATH)) do |f|
       course_doc = Nokogiri::XML(f)
       course.id_number = course_doc.at_xpath('/course/idnumber').text

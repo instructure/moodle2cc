@@ -64,20 +64,22 @@ module Moodle2CC
   module CanvasCC
     autoload :ImsManifestGenerator, 'moodle2cc/canvas_cc/ims_manifest_generator'
     autoload :CartridgeCreator, 'moodle2cc/canvas_cc/cartridge_creator'
-    module Resource
-      autoload :Course, 'moodle2cc/canvas_cc/resource/course'
-      autoload :Assignment, 'moodle2cc/canvas_cc/resource/assignment'
-      autoload :DiscussionTopic, 'moodle2cc/canvas_cc/resource/discussion_topic'
-      autoload :Question, 'moodle2cc/canvas_cc/resource/question'
-      autoload :WebContent, 'moodle2cc/canvas_cc/resource/web_content'
-      autoload :WebLink, 'moodle2cc/canvas_cc/resource/web_link'
+    autoload :CourseSettingWriter, 'moodle2cc/canvas_cc/course_setting_writer'
+    module Model
+      autoload :Course, 'moodle2cc/canvas_cc/model/course'
+      autoload :Assignment, 'moodle2cc/canvas_cc/model/assignment'
+      autoload :DiscussionTopic, 'moodle2cc/canvas_cc/model/discussion_topic'
+      autoload :Question, 'moodle2cc/canvas_cc/model/question'
+      autoload :WebContent, 'moodle2cc/canvas_cc/model/web_content'
+      autoload :WebLink, 'moodle2cc/canvas_cc/model/web_link'
+      autoload :CourseSetting, 'moodle2cc/canvas_cc/model/course_setting'
     end
   end
   module Moodle2
     autoload :Extractor, 'moodle2cc/moodle2/extractor'
     autoload :CourseParser, 'moodle2cc/moodle2/course_parser'
-    module Resource
-      autoload :Course, 'moodle2cc/moodle2/resource/course'
+    module Model
+      autoload :Course, 'moodle2cc/moodle2/model/course'
     end
   end
   module Moodle2Converter

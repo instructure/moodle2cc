@@ -16,7 +16,6 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
         organizations(xml)
         resources(xml)
       end
-
     end.to_xml
   end
 
