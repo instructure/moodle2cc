@@ -47,8 +47,10 @@ module TestHelper
 
   def assert_accessors(object, *accessor)
     accessor.each do |a|
+      orig_val = object.send(a.to_sym)
       object.send "#{a}=".to_sym, 'foo'
       assert_equal object.send(a.to_sym), 'foo'
+      object.send "#{a}=".to_sym, orig_val
     end
   end
 

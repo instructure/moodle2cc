@@ -14,7 +14,7 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
       manifest(xml) do |xml|
         metadata(xml)
         organizations(xml)
-        resources(xml)
+        resources(xml, @course.resources)
       end
     end.to_xml
   end
@@ -68,8 +68,14 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
     xml.organizations
   end
 
-  def resources(xml)
-    xml.resources
+  def resources(xml, resources)
+    xml.resources do |xml|
+      resources.each do |resource|
+        xml.resource(resource.attributes) do |xml|
+          resource.files.each {|file| xml.file(href: file)}
+        end
+      end
+    end
   end
 
 

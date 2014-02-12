@@ -4,7 +4,6 @@ require 'test_helper'
 
 module CanvasCC
   module Model
-
     class CourseTest < MiniTest::Unit::TestCase
       include TestHelper
 
@@ -14,6 +13,7 @@ module CanvasCC
 
       def test_accessors
         assert_accessors(@course, :format, :identifier, :title, :copyright)
+        assert_equal(@course.resources.class, Array)
       end
 
       def test_settings

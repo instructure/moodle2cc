@@ -56,8 +56,23 @@ module CanvasCC
     end
 
     class ResourcesTests < ImsManifestGeneratorTest
-
+      def test_resource
+        resource = Moodle2CC::CanvasCC::Model::Resource.new
+        resource.identifier = 'resource_identifier'
+        resource.type = 'resource_type'
+        resource.href = 'resource_href'
+        resource.files << 'file_1'
+        resource.files << 'file_2'
+        @course.resources << resource
+        xml = Nokogiri(generator(@course).generate)
+        base_node = xml.at_xpath("/xmlns:manifest/xmlns:resources/xmlns:resource[@identifier='resource_identifier']")
+        assert_equal(base_node.at_xpath('@type').value, 'resource_type')
+        assert_equal(base_node.at_xpath('@href').value, 'resource_href')
+        assert_equal(base_node.xpath("xmlns:file[@href='file_1']").count, 1)
+        assert_equal(base_node.xpath("xmlns:file[@href='file_2']").count, 1)
+      end
     end
+
     private
 
     def manifest_path

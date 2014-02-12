@@ -72,7 +72,7 @@ module Moodle2CC
       autoload :Question, 'moodle2cc/canvas_cc/model/question'
       autoload :WebContent, 'moodle2cc/canvas_cc/model/web_content'
       autoload :WebLink, 'moodle2cc/canvas_cc/model/web_link'
-      autoload :CourseSetting, 'moodle2cc/canvas_cc/model/course_setting'
+      autoload :Resource, 'moodle2cc/canvas_cc/model/resource'
     end
   end
   module Moodle2
