@@ -10,6 +10,7 @@ class Moodle2CC::Moodle2::CourseParser
     course = Moodle2CC::Moodle2::Model::Course.new
     File.open(File.join(@backup_folder, COURSE_XML_PATH)) do |f|
       course_doc = Nokogiri::XML(f)
+      course.course_id = course_doc.at_xpath('/course/@id').value
       course.id_number = course_doc.at_xpath('/course/idnumber').text
       course.fullname = course_doc.at_xpath('/course/fullname').text
       course.shortname = course_doc.at_xpath('/course/shortname').text

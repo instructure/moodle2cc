@@ -7,6 +7,18 @@ class Moodle2CC::CanvasCC::Model::Course
     @resources = []
   end
 
+  def start_at
+    Moodle2CC::CC::CCHelper.ims_datetime(@settings[:start_at]) if @settings[:start_at]
+  end
+
+
+  def conclude_at
+    Moodle2CC::CC::CCHelper.ims_datetime(@settings[:conclude_at]) if @settings[:conclude_at]
+  end
+
+  def identifier=(identifier)
+    @identifier = Digest::MD5.hexdigest(identifier.to_s)
+  end
 
   def method_missing(m, *args, &block)
     method = m.to_s

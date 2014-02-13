@@ -16,11 +16,13 @@ module Moodle2
 
     def test_create_course
       course = @course_parser.convert
-      assert_equal(course.id_number, 'SIS ID')
-      assert_equal(course.fullname, 'Long Name')
-      assert_equal(course.shortname, 'Short Name')
-      assert_equal(course.startdate, Time.parse('Sat, 08 Feb 2014 16:00:00 GMT'))
-      assert_equal(course.summary, '<p>Course Summary</p>')
+      assert_equal( 'SIS ID', course.id_number)
+      assert_equal( 'Long Name', course.fullname)
+      assert_equal( 'Short Name', course.shortname)
+      assert_equal( Time.parse('Sat, 08 Feb 2014 16:00:00 GMT'), course.startdate)
+      assert_equal( '<p>Course Summary</p>', course.summary)
+      assert_equal('4', course.course_id)
+
     end
 
   end

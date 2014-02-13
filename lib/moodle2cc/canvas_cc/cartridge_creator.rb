@@ -2,6 +2,7 @@ class Moodle2CC::CanvasCC::CartridgeCreator
 
   IMS_MANIFEST_FILE = 'imsmanifest.xml'
   COURSE_SETTINGS_FILE = 'course_settings.xml'
+  CANVAS_EXPORT_FILE = 'canvas_export.txt'
   SETTINGS_POSTFIX = '_settings'
   COURSE_SETTINGS_DIR = 'course_settings'
   TYPE_LAR = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
@@ -46,9 +47,13 @@ class Moodle2CC::CanvasCC::CartridgeCreator
     resource = Moodle2CC::CanvasCC::Model::Resource.new
     resource.type = TYPE_LAR
     resource.identifier = setting_identifier
+    resource.href = File.join(COURSE_SETTINGS_DIR, CANVAS_EXPORT_FILE)
     xml = Moodle2CC::CanvasCC::CourseSettingWriter.new(@course, setting_identifier).write
     Dir.mkdir(File.join(work_dir, COURSE_SETTINGS_DIR))
-    File.open(File.join(work_dir, COURSE_SETTINGS_DIR, COURSE_SETTINGS_FILE), 'w'){|f| f.write(xml)}
+    File.open(File.join(work_dir, COURSE_SETTINGS_DIR, COURSE_SETTINGS_FILE), 'w' ) {|f| f.write(xml)}
+    File.open(File.join(work_dir, COURSE_SETTINGS_DIR, CANVAS_EXPORT_FILE), 'w' )do |f|
+      f.write("Q: What did the panda say when he was forced out of his natural habitat?\nA: This is un-BEAR-able")
+    end
     resource.files << File.join(COURSE_SETTINGS_DIR, COURSE_SETTINGS_FILE)
     @course.resources << resource
   end

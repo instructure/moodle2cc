@@ -17,7 +17,7 @@ module Moodle2
       end
 
       def test_accessors
-        assert_accessors(@course, :id_number, :fullname, :shortname, :startdate, :summary)
+        assert_accessors(@course, :id_number, :fullname, :shortname, :startdate, :summary, :course_id)
       end
     end
   end
