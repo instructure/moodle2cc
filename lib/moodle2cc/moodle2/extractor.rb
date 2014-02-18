@@ -10,7 +10,7 @@ class Moodle2CC::Moodle2::Extractor
   def extract
     Dir.mktmpdir do |work_dir|
       extract_zip(work_dir)
-      course = Moodle2CC::Moodle2::CourseParser.new(work_dir).convert
+      course = Moodle2CC::Moodle2::CourseParser.new(work_dir).parse
     end
   end
 

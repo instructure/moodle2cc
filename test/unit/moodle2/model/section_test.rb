@@ -17,8 +17,8 @@ module Moodle2
 
       # Fake test
       def test_accessors
-        assert_accessors(@section, :id, :number, :name, :summary, :summaryformat, :sequence, :visible, :availableuntil,
-                         :releasecode, :show_availability, :groupingid)
+        assert_accessors(@section, :id, :number, :name, :summary, :summary_format, :sequence, :visible, :available_from,
+                         :available_until, :release_code, :show_availability, :grouping_id, :position)
       end
     end
   end

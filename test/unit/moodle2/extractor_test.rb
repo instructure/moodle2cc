@@ -21,7 +21,7 @@ module Moodle2
       course.id_number = 'id_number'
 
       course_converter_mock = MiniTest::Mock.new
-      course_converter_mock.expect(:convert, course)
+      course_converter_mock.expect(:parse, course)
 
       Moodle2CC::Moodle2::CourseParser.stub(:new, course_converter_mock) do
         @extractor.stub(:extract_zip, nil) do

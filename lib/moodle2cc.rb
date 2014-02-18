@@ -78,6 +78,7 @@ module Moodle2CC
   module Moodle2
     autoload :Extractor, 'moodle2cc/moodle2/extractor'
     autoload :CourseParser, 'moodle2cc/moodle2/course_parser'
+    autoload :SectionParser, 'moodle2cc/moodle2/section_parser'
     module Model
       autoload :Course, 'moodle2cc/moodle2/model/course'
       autoload :Section, 'moodle2cc/moodle2/model/section'

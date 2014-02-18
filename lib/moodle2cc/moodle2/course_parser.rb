@@ -6,7 +6,7 @@ class Moodle2CC::Moodle2::CourseParser
     @backup_folder = backup_folder
   end
 
-  def convert
+  def parse
     course = Moodle2CC::Moodle2::Model::Course.new
     File.open(File.join(@backup_folder, COURSE_XML_PATH)) do |f|
       course_doc = Nokogiri::XML(f)

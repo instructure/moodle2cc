@@ -15,7 +15,7 @@ module Moodle2
     end
 
     def test_create_course
-      course = @course_parser.convert
+      course = @course_parser.parse
       assert_equal( 'sis_id_SC', course.id_number)
       assert_equal( 'Sample Course', course.fullname)
       assert_equal( 'SC', course.shortname)
