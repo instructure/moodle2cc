@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="2">
+  <number>1</number>
+  <name>My First Section</name>
+  <summary>&lt;p&gt;Some &lt;strong&gt;HTML &lt;/strong&gt;Summary T&lt;em&gt;ext&lt;/em&gt;&lt;/p&gt;</summary>
+  <summaryformat>1</summaryformat>
+  <sequence></sequence>
+  <visible>1</visible>
+  <availablefrom>0</availablefrom>
+  <availableuntil>0</availableuntil>
+  <showavailability>0</showavailability>
+  <groupingid>0</groupingid>
+</section>

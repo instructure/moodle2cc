@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block id="12" contextid="18" version="2012112900">
+  <blockname>calendar_upcoming</blockname>
+  <parentcontextid>15</parentcontextid>
+  <showinsubcontexts>0</showinsubcontexts>
+  <pagetypepattern>course-view-*</pagetypepattern>
+  <subpagepattern>$@NULL@$</subpagepattern>
+  <defaultregion>side-post</defaultregion>
+  <defaultweight>2</defaultweight>
+  <configdata></configdata>
+  <block_positions>
+  </block_positions>
+</block>

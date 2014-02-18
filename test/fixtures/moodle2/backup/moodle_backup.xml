@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <moodle_backup>
   <information>
-    <name>backup-moodle2-course-4-short_name-20140208-0606.mbz</name>
-    <moodle_version>2013111800</moodle_version>
-    <moodle_release>2.6 (Build: 20131118)</moodle_release>
-    <backup_version>2013110500</backup_version>
-    <backup_release>2.6</backup_release>
-    <backup_date>1391810820</backup_date>
+    <name>SC.mbz</name>
+    <moodle_version>2012120306.06</moodle_version>
+    <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
+    <backup_version>2012120300</backup_version>
+    <backup_release>2.4</backup_release>
+    <backup_date>1392410827</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
-    <include_files>1</include_files>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
-    <original_wwwroot>http://demo.moodle.net</original_wwwroot>
-    <original_site_identifier_hash>197f2586f57af04cc3228e243d79e504</original_site_identifier_hash>
-    <original_course_id>4</original_course_id>
-    <original_course_fullname>Long Name</original_course_fullname>
-    <original_course_shortname>Short Name</original_course_shortname>
-    <original_course_startdate>1391875200</original_course_startdate>
-    <original_course_contextid>71</original_course_contextid>
+    <original_wwwroot>https://moodle</original_wwwroot>
+    <original_site_identifier_hash>02d8842522c216b34eea4ba8c14a9a5b</original_site_identifier_hash>
+    <original_course_id>2</original_course_id>
+    <original_course_fullname>Sample Course</original_course_fullname>
+    <original_course_shortname>SC</original_course_shortname>
+    <original_course_startdate>1392422400</original_course_startdate>
+    <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="83ec2602adbba8cdb65b66c3f49e0c74">
+      <detail backup_id="2fb9c5499f721f17bd4fce5688c1d644">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
@@ -31,73 +30,48 @@
     <contents>
       <activities>
         <activity>
-          <moduleid>41</moduleid>
-          <sectionid>25</sectionid>
+          <moduleid>1</moduleid>
+          <sectionid>1</sectionid>
           <modulename>forum</modulename>
           <title>News forum</title>
-          <directory>activities/forum_41</directory>
+          <directory>activities/forum_1</directory>
         </activity>
       </activities>
       <sections>
         <section>
-          <sectionid>25</sectionid>
+          <sectionid>1</sectionid>
           <title>0</title>
-          <directory>sections/section_25</directory>
+          <directory>sections/section_1</directory>
         </section>
         <section>
-          <sectionid>36</sectionid>
-          <title>1</title>
-          <directory>sections/section_36</directory>
+          <sectionid>2</sectionid>
+          <title>My First Section</title>
+          <directory>sections/section_2</directory>
         </section>
         <section>
-          <sectionid>37</sectionid>
+          <sectionid>4</sectionid>
           <title>2</title>
-          <directory>sections/section_37</directory>
+          <directory>sections/section_4</directory>
         </section>
         <section>
-          <sectionid>38</sectionid>
-          <title>3</title>
-          <directory>sections/section_38</directory>
+          <sectionid>3</sectionid>
+          <title>My reordered Section</title>
+          <directory>sections/section_3</directory>
         </section>
         <section>
-          <sectionid>39</sectionid>
+          <sectionid>5</sectionid>
           <title>4</title>
-          <directory>sections/section_39</directory>
+          <directory>sections/section_5</directory>
         </section>
         <section>
-          <sectionid>40</sectionid>
+          <sectionid>6</sectionid>
           <title>5</title>
-          <directory>sections/section_40</directory>
-        </section>
-        <section>
-          <sectionid>41</sectionid>
-          <title>6</title>
-          <directory>sections/section_41</directory>
-        </section>
-        <section>
-          <sectionid>42</sectionid>
-          <title>7</title>
-          <directory>sections/section_42</directory>
-        </section>
-        <section>
-          <sectionid>43</sectionid>
-          <title>8</title>
-          <directory>sections/section_43</directory>
-        </section>
-        <section>
-          <sectionid>44</sectionid>
-          <title>9</title>
-          <directory>sections/section_44</directory>
-        </section>
-        <section>
-          <sectionid>45</sectionid>
-          <title>10</title>
-          <directory>sections/section_45</directory>
+          <directory>sections/section_6</directory>
         </section>
       </sections>
       <course>
-        <courseid>4</courseid>
-        <title>Short Name</title>
+        <courseid>2</courseid>
+        <title>SC</title>
         <directory>course</directory>
       </course>
     </contents>
@@ -105,7 +79,7 @@
       <setting>
         <level>root</level>
         <name>filename</name>
-        <value>backup-moodle2-course-4-short_name-20140208-0606.mbz</value>
+        <value>SC.mbz</value>
       </setting>
       <setting>
         <level>root</level>
@@ -149,11 +123,6 @@
       </setting>
       <setting>
         <level>root</level>
-        <name>badges</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>root</level>
         <name>calendarevents</name>
         <value>1</value>
       </setting>
@@ -173,153 +142,88 @@
         <value>0</value>
       </setting>
       <setting>
-        <level>root</level>
-        <name>questionbank</name>
+        <level>section</level>
+        <section>section_1</section>
+        <name>section_1_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>section</level>
-        <section>section_25</section>
-        <name>section_25_included</name>
-        <value>1</value>
+        <section>section_1</section>
+        <name>section_1_userinfo</name>
+        <value>0</value>
       </setting>
       <setting>
-        <level>section</level>
-        <section>section_25</section>
-        <name>section_25_userinfo</name>
+        <level>activity</level>
+        <activity>forum_1</activity>
+        <name>forum_1_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
-        <activity>forum_41</activity>
-        <name>forum_41_included</name>
-        <value>1</value>
+        <activity>forum_1</activity>
+        <name>forum_1_userinfo</name>
+        <value>0</value>
       </setting>
       <setting>
-        <level>activity</level>
-        <activity>forum_41</activity>
-        <name>forum_41_userinfo</name>
+        <level>section</level>
+        <section>section_2</section>
+        <name>section_2_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>section</level>
-        <section>section_36</section>
-        <name>section_36_included</name>
+        <section>section_2</section>
+        <name>section_2_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_4</section>
+        <name>section_4_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>section</level>
-        <section>section_36</section>
-        <name>section_36_userinfo</name>
+        <section>section_4</section>
+        <name>section_4_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_3</section>
+        <name>section_3_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>section</level>
-        <section>section_37</section>
-        <name>section_37_included</name>
+        <section>section_3</section>
+        <name>section_3_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_5</section>
+        <name>section_5_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>section</level>
-        <section>section_37</section>
-        <name>section_37_userinfo</name>
+        <section>section_5</section>
+        <name>section_5_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_6</section>
+        <name>section_6_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>section</level>
-        <section>section_38</section>
-        <name>section_38_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_38</section>
-        <name>section_38_userinfo</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_39</section>
-        <name>section_39_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_39</section>
-        <name>section_39_userinfo</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_40</section>
-        <name>section_40_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_40</section>
-        <name>section_40_userinfo</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_41</section>
-        <name>section_41_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_41</section>
-        <name>section_41_userinfo</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_42</section>
-        <name>section_42_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_42</section>
-        <name>section_42_userinfo</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_43</section>
-        <name>section_43_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_43</section>
-        <name>section_43_userinfo</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_44</section>
-        <name>section_44_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_44</section>
-        <name>section_44_userinfo</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_45</section>
-        <name>section_45_included</name>
-        <value>1</value>
-      </setting>
-      <setting>
-        <level>section</level>
-        <section>section_45</section>
-        <name>section_45_userinfo</name>
-        <value>1</value>
+        <section>section_6</section>
+        <name>section_6_userinfo</name>
+        <value>0</value>
       </setting>
     </settings>
   </information>

@@ -17,7 +17,7 @@ class Moodle2CC::CanvasCC::Model::Course
   end
 
   def identifier=(identifier)
-    @identifier = Digest::MD5.hexdigest(identifier.to_s)
+    @identifier = "CC_#{Digest::MD5.hexdigest(identifier.to_s)}"
   end
 
   def method_missing(m, *args, &block)

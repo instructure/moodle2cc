@@ -26,7 +26,7 @@ module Moodle2Converter
       assert_equal('Full Name', cc_course.title)
       assert_equal('Short Name', cc_course.course_code)
       assert_equal('2014-02-08T16:00:00', cc_course.start_at)
-      assert_equal('course_id', cc_course.identifier)
+      assert_equal('CC_ea134da7ce0152b54fb73853f6d62644', cc_course.identifier)
     end
 
   end

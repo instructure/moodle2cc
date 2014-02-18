@@ -18,7 +18,7 @@ module CanvasCC
 
       def test_identifier
         @course.identifier = '4321_ident'
-        assert_equal('e8b5470638aa6d420713986cdd7ce3a3', @course.identifier)
+        assert_equal('CC_e8b5470638aa6d420713986cdd7ce3a3', @course.identifier)
       end
 
       def test_settings

@@ -45,7 +45,7 @@ module CanvasCC
             assert_equal(course.resources.count, 1)
             resource = course.resources.first
             assert_equal('associatedcontent/imscc_xmlv1p1/learning-application-resource', resource.type)
-            assert_equal('ea134da7ce0152b54fb73853f6d62644_settings', resource.identifier)
+            assert_equal('CC_ea134da7ce0152b54fb73853f6d62644_settings', resource.identifier)
             assert_equal(1, resource.files.count)
             assert_equal('course_settings/course_settings.xml', resource.files.first)
             assert_equal('course_settings/canvas_export.txt', resource.href)

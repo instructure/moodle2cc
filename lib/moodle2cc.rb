@@ -80,6 +80,7 @@ module Moodle2CC
     autoload :CourseParser, 'moodle2cc/moodle2/course_parser'
     module Model
       autoload :Course, 'moodle2cc/moodle2/model/course'
+      autoload :Section, 'moodle2cc/moodle2/model/section'
     end
   end
   module Moodle2Converter

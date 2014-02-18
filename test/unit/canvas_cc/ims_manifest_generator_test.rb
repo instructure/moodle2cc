@@ -21,7 +21,7 @@ module CanvasCC
     def test_manifest
       @course.identifier = 'manifiest_identifier'
       xml = Nokogiri::XML(generator(@course).generate)
-      assert_equal('manifiest_identifier', xml.at_xpath('//xmlns:manifest/@identifier').value)
+      assert_equal('CC_838643504692779b6dbd3dab51ff7eb4', xml.at_xpath('//xmlns:manifest/@identifier').value)
     end
 
     class MetadataTest < ImsManifestGeneratorTest

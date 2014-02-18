@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<course id="4" contextid="71">
-  <shortname>Short Name</shortname>
-  <fullname>Long Name</fullname>
-  <idnumber>SIS ID</idnumber>
-  <summary>&lt;p&gt;Course Summary&lt;/p&gt;</summary>
+<course id="2" contextid="15">
+  <shortname>SC</shortname>
+  <fullname>Sample Course</fullname>
+  <idnumber>sis_id_SC</idnumber>
+  <summary>&lt;p&gt;This is my course summary&lt;/p&gt;</summary>
   <summaryformat>1</summaryformat>
   <format>weeks</format>
   <showgrades>1</showgrades>
   <newsitems>5</newsitems>
-  <startdate>1391875200</startdate>
+  <startdate>1392422400</startdate>
   <marker>0</marker>
-  <maxbytes>272629760</maxbytes>
+  <maxbytes>8388608</maxbytes>
   <legacyfiles>0</legacyfiles>
   <showreports>0</showreports>
   <visible>1</visible>
@@ -19,12 +19,13 @@
   <defaultgroupingid>0</defaultgroupingid>
   <lang></lang>
   <theme></theme>
-  <timecreated>1391810568</timecreated>
-  <timemodified>1391810568</timemodified>
+  <timecreated>1392409396</timecreated>
+  <timemodified>1392409396</timemodified>
   <requested>0</requested>
   <enablecompletion>0</enablecompletion>
+  <completionstartonenrol>0</completionstartonenrol>
   <completionnotify>0</completionnotify>
-  <numsections>10</numsections>
+  <numsections>5</numsections>
   <hiddensections>0</hiddensections>
   <coursedisplay>0</coursedisplay>
   <category id="1">

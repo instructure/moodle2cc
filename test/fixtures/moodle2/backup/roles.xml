@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roles_definition>
+  <role id="5">
+    <name></name>
+    <shortname>student</shortname>
+    <nameincourse>$@NULL@$</nameincourse>
+    <description></description>
+    <sortorder>5</sortorder>
+    <archetype>student</archetype>
+  </role>
+</roles_definition>
