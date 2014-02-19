@@ -18,6 +18,7 @@ module Moodle2
 
       def test_accessors
         assert_accessors(@course, :id_number, :fullname, :shortname, :startdate, :summary, :course_id)
+        assert_instance_of(Array, @course.sections)
       end
     end
   end
