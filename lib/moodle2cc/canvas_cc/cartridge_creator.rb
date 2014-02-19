@@ -6,6 +6,7 @@ class Moodle2CC::CanvasCC::CartridgeCreator
   SETTINGS_POSTFIX = '_settings'
   COURSE_SETTINGS_DIR = 'course_settings'
   TYPE_LAR = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
+  MODULE_META_FILE = 'module_meta.xml'
 
   def initialize(course)
     @course = course
@@ -53,6 +54,12 @@ class Moodle2CC::CanvasCC::CartridgeCreator
     File.open(File.join(work_dir, COURSE_SETTINGS_DIR, COURSE_SETTINGS_FILE), 'w' ) {|f| f.write(xml)}
     File.open(File.join(work_dir, COURSE_SETTINGS_DIR, CANVAS_EXPORT_FILE), 'w' )do |f|
       f.write("Q: What did the panda say when he was forced out of his natural habitat?\nA: This is un-BEAR-able")
+    end
+    if @course.canvas_modules.count > 0
+      module_meta_xml = Moodle2CC::CanvasCC::ModuleMetaWriter.new(@course.canvas_modules).write
+      module_meta_path = File.join(COURSE_SETTINGS_DIR, MODULE_META_FILE)
+      File.open(File.join(work_dir, module_meta_path), 'w') {|f| f.write(module_meta_xml)}
+      resource.files << module_meta_path
     end
     resource.files << File.join(COURSE_SETTINGS_DIR, COURSE_SETTINGS_FILE)
     @course.resources << resource

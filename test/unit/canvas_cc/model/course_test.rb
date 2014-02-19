@@ -14,6 +14,7 @@ module CanvasCC
       def test_accessors
         assert_accessors(@course, :format, :title, :copyright)
         assert_equal(@course.resources.class, Array)
+        assert_equal(@course.canvas_modules.class, Array)
       end
 
       def test_identifier

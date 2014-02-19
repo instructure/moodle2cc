@@ -1,10 +1,11 @@
 class Moodle2CC::CanvasCC::Model::Course
 
-  attr_accessor :format, :identifier, :copyright, :settings, :resources
+  attr_accessor :format, :identifier, :copyright, :settings, :resources, :canvas_modules
 
   def initialize
     @settings = {}
     @resources = []
+    @canvas_modules = []
   end
 
   def start_at

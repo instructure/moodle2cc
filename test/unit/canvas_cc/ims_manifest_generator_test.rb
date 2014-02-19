@@ -73,6 +73,21 @@ module CanvasCC
       end
     end
 
+    class OrganizationTests < ImsManifestGeneratorTest
+      def test_organizations
+        canvas_module = Moodle2CC::CanvasCC::Model::CanvasModule.new
+        canvas_module.title = 'my module title'
+        canvas_module.identifier = 'my_id'
+        @course.canvas_modules << canvas_module
+        xml = Nokogiri(generator(@course).generate)
+        org_node = xml.at_xpath('/xmlns:manifest/xmlns:organizations/xmlns:organization')
+        assert_equal('rooted-hierarchy', org_node.at_xpath('@structure').value)
+        assert_equal('org_1', org_node.at_xpath('@identifier').value)
+        assert_equal('module_011ed73876357cbeeb11abdc2b7e1c0b', org_node.at_xpath('xmlns:item/@identifier').value)
+        assert_equal('my module title', org_node.%('item/title').text)
+      end
+    end
+
     private
 
     def manifest_path

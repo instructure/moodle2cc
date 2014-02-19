@@ -65,6 +65,7 @@ module Moodle2CC
     autoload :ImsManifestGenerator, 'moodle2cc/canvas_cc/ims_manifest_generator'
     autoload :CartridgeCreator, 'moodle2cc/canvas_cc/cartridge_creator'
     autoload :CourseSettingWriter, 'moodle2cc/canvas_cc/course_setting_writer'
+    autoload :ModuleMetaWriter, 'moodle2cc/canvas_cc/module_meta_writer'
     module Model
       autoload :Course, 'moodle2cc/canvas_cc/model/course'
       autoload :Assignment, 'moodle2cc/canvas_cc/model/assignment'
@@ -73,6 +74,7 @@ module Moodle2CC
       autoload :WebContent, 'moodle2cc/canvas_cc/model/web_content'
       autoload :WebLink, 'moodle2cc/canvas_cc/model/web_link'
       autoload :Resource, 'moodle2cc/canvas_cc/model/resource'
+      autoload :CanvasModule, 'moodle2cc/canvas_cc/model/canvas_module'
     end
   end
   module Moodle2

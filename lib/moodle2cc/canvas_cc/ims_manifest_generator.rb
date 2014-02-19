@@ -38,8 +38,8 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
       xml.schemaversion SCHEMA_VERSION
       ns = LOMIMSCC
       xml[ns].lom {
-        xml[ns].general{
-          xml[ns].title{
+        xml[ns].general {
+          xml[ns].title {
             xml[ns].string @course.title
           }
         }
@@ -51,12 +51,12 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
   def rights(xml)
     ns = LOMIMSCC
     has_copyright = @course.copyright && !@course.copyright.empty?
-    xml[ns].rights{
-      xml[ns].copyrightAndOtherRestrictions{
+    xml[ns].rights {
+      xml[ns].copyrightAndOtherRestrictions {
         xml[ns].value has_copyright ? 'yes' : 'no'
       }
       if has_copyright
-        xml[ns].description{
+        xml[ns].description {
           xml[ns].string @course.copyright
         }
       end
@@ -65,17 +65,28 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
 
 
   def organizations(xml)
-    xml.organizations
+    canvas_modules = @course.canvas_modules
+    xml.organizations { |xml|
+      if canvas_modules.count > 0
+        xml.organization('identifier' => 'org_1', 'structure' => 'rooted-hierarchy') { |xml|
+          canvas_modules.each do |mod|
+            xml.item('identifier' => mod.identifier) { |xml|
+              xml.title mod.title
+            }
+          end
+        }
+      end
+    }
   end
 
   def resources(xml, resources)
-    xml.resources do |xml|
+    xml.resources { |xml|
       resources.each do |resource|
         xml.resource(resource.attributes) do |xml|
-          resource.files.each {|file| xml.file(href: file)}
+          resource.files.each { |file| xml.file(href: file) }
         end
       end
-    end
+    }
   end
 
 
