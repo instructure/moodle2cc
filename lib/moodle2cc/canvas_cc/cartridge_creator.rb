@@ -32,6 +32,7 @@ class Moodle2CC::CanvasCC::CartridgeCreator
     Dir.mkdir(File.join(dir, COURSE_SETTINGS_DIR))
     Moodle2CC::CanvasCC::CanvasExportWriter.new(dir).write
     Moodle2CC::CanvasCC::CourseSettingWriter.new(dir, @course).write
+    Moodle2CC::CanvasCC::ModuleMetaWriter.new(dir, *@course.canvas_modules).write
     Moodle2CC::CanvasCC::ImsManifestGenerator.new(dir, @course).write
   end
 

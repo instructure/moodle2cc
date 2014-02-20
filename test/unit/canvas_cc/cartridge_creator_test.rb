@@ -17,6 +17,7 @@ module CanvasCC
         @cartridge_creator = Moodle2CC::CanvasCC::CartridgeCreator.new(course)
         @ims_generator_mock = MiniTest::Mock.new
         @ims_generator_mock.expect(:write, 'lorem ipsum')
+        @writers = []
       end
 
       def teardown
@@ -24,13 +25,15 @@ module CanvasCC
       end
 
       def test_zipfile_creation
-        expect_writer(Moodle2CC::CanvasCC::CanvasExportWriter) do
-          expect_writer(Moodle2CC::CanvasCC::CourseSettingWriter) do
-            expect_writer(Moodle2CC::CanvasCC::ImsManifestGenerator) do
-              imscc_path = @cartridge_creator.create(@tmpdir)
-              assert File.exist?(imscc_path)
-            end
-          end
+
+        expect_writer Moodle2CC::CanvasCC::CanvasExportWriter
+        expect_writer Moodle2CC::CanvasCC::CourseSettingWriter
+        expect_writer Moodle2CC::CanvasCC::ImsManifestGenerator
+        expect_writer Moodle2CC::CanvasCC::ModuleMetaWriter
+
+        verify_writers do
+          imscc_path = @cartridge_creator.create(@tmpdir)
+          assert File.exist?(imscc_path)
         end
       end
 
@@ -43,7 +46,25 @@ module CanvasCC
 
       private
 
-      def expect_writer(writer_class)
+      def expect_writer(writer)
+        @writers << writer
+      end
+
+      def verify_writers
+        expected_writers(*@writers) { yield }
+      end
+
+      def expected_writers(*writer_classes)
+        if writer_classes.count > 1
+          mock_writer(writer_classes.first) do
+            expected_writers(*writer_classes.drop(1)) { yield }
+          end
+        else
+          mock_writer(writer_classes.first) { yield }
+        end
+      end
+
+      def mock_writer(writer_class)
         writer_mock = MiniTest::Mock.new
         writer_mock.expect(:write, nil)
         writer_class.stub(:new, writer_mock) do
