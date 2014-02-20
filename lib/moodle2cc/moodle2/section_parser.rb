@@ -25,7 +25,7 @@ class Moodle2CC::Moodle2::SectionParser
       section.summary = parse_text(section_xml, '/section/summary')
       section.summary_format = parse_text(section_xml, 'section/summaryformat')
       section.sequence = parse_text(section_xml, 'section/sequence')
-      section.visible = parse_text(section_xml, 'section/visible')
+      section.visible = parse_text(section_xml, 'section/visible') == '1' ? true : false
       section.available_from = parse_text(section_xml, 'section/availablefrom')
       section.available_until = parse_text(section_xml, 'section/availableuntil')
       section.show_availability = parse_text(section_xml, 'section/showavailability')

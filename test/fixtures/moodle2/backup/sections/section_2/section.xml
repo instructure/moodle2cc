@@ -5,7 +5,7 @@
   <summary>&lt;p&gt;Some &lt;strong&gt;HTML &lt;/strong&gt;Summary T&lt;em&gt;ext&lt;/em&gt;&lt;/p&gt;</summary>
   <summaryformat>1</summaryformat>
   <sequence></sequence>
-  <visible>1</visible>
+  <visible>0</visible>
   <availablefrom>0</availablefrom>
   <availableuntil>0</availableuntil>
   <showavailability>0</showavailability>
