@@ -88,7 +88,8 @@ module Moodle2CC
     end
   end
   module Moodle2Converter
-    autoload :CourseConverter, 'moodle2cc/moodle2converter/course_converter'
     autoload :Migrator, 'moodle2cc/moodle2converter/migrator'
+    autoload :CourseConverter, 'moodle2cc/moodle2converter/course_converter'
+    autoload :SectionConverter, 'moodle2cc/moodle2converter/section_converter'
   end
 end
