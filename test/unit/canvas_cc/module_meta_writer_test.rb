@@ -3,15 +3,17 @@ require 'moodle2cc'
 require 'test_helper'
 
 module CanvasCC
-  class ModuleWriterTest < MiniTest::Unit::TestCase
+  class ModuleMetaWriterTest < MiniTest::Unit::TestCase
     include TestHelper
 
     def setup
       @module = Moodle2CC::CanvasCC::Model::CanvasModule.new
+      @tmpdir = Dir.mktmpdir
+      Dir.mkdir(File.join(@tmpdir, Moodle2CC::CanvasCC::CartridgeCreator::COURSE_SETTINGS_DIR))
     end
 
     def teardown
-      # Do nothing
+      FileUtils.rm_r @tmpdir
     end
 
     def test_schema
@@ -19,7 +21,7 @@ module CanvasCC
       @module.title = 'test_title'
       @module.workflow_state = 'active'
       @module.position = 0
-      xml = writer(@module).write
+      xml = write_xml(@module)
       assert_xml_schema xml
     end
 
@@ -28,7 +30,7 @@ module CanvasCC
       @module.title = 'module title'
       @module.workflow_state = 'active'
       @module.position = 0
-      xml = Nokogiri::XML(writer(@module).write)
+      xml = write_xml(@module)
       assert_equal('module_67217d8b401cf5e72bbf5103d60f3e97', xml.at_xpath('xmlns:modules/xmlns:module/@identifier').text)
       assert_equal('module title', xml.%('modules/module/title').text)
       assert_equal('active', xml.%('modules/module/workflow_state').text)
@@ -37,12 +39,13 @@ module CanvasCC
 
     private
 
-    def writer(mod)
-      Moodle2CC::CanvasCC::ModuleMetaWriter.new(mod)
+    def write_xml(mod)
+
+      Moodle2CC::CanvasCC::ModuleMetaWriter.new(@tmpdir, mod).write
+      Nokogiri::XML(File.read(File.join(@tmpdir,  Moodle2CC::CanvasCC::CartridgeCreator::COURSE_SETTINGS_DIR, Moodle2CC::CanvasCC::ModuleMetaWriter::MODULE_META_FILE)))
     end
 
     def assert_xml_schema(xml)
-      xml = Nokogiri::XML(xml)
       xsd = Nokogiri::XML::Schema(File.read(fixture_path(File.join('common_cartridge', 'schema', 'cccv1p0.xsd'))))
       assert_empty(xsd.validate(xml))
     end

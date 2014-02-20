@@ -66,6 +66,7 @@ module Moodle2CC
     autoload :CartridgeCreator, 'moodle2cc/canvas_cc/cartridge_creator'
     autoload :CourseSettingWriter, 'moodle2cc/canvas_cc/course_setting_writer'
     autoload :ModuleMetaWriter, 'moodle2cc/canvas_cc/module_meta_writer'
+    autoload :CanvasExportWriter, 'moodle2cc/canvas_cc/canvas_export_writer'
     module Model
       autoload :Course, 'moodle2cc/canvas_cc/model/course'
       autoload :Assignment, 'moodle2cc/canvas_cc/model/assignment'

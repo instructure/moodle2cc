@@ -4,20 +4,27 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
   SCHEMA = 'IMS Common Cartridge'
   SCHEMA_VERSION = '1.1.0'
   LOMIMSCC = 'lomimscc'
+  SETTINGS_POSTFIX = '_settings'
+  TYPE_LAR = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
+  CANVAS_EXPORT_PATH = 'course_settings/canvas_export.txt'
 
-  def initialize(course)
+  def initialize(work_dir, course)
+    @work_dir = work_dir
     @course = course
   end
 
-  def generate
-    Nokogiri::XML::Builder.new do |xml|
+  def write
+    xml = Nokogiri::XML::Builder.new do |xml|
       manifest(xml) do |xml|
         metadata(xml)
         organizations(xml)
         resources(xml, @course.resources)
       end
     end.to_xml
+    File.open(File.join(@work_dir, MANIFEST_FILE_NAME), 'w' ) {|f| f.write(xml)}
   end
+
+  private
 
   def manifest(xml)
     xml.manifest(
@@ -81,11 +88,23 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
 
   def resources(xml, resources)
     xml.resources { |xml|
+      course_setting_resource(xml)
       resources.each do |resource|
         xml.resource(resource.attributes) do |xml|
           resource.files.each { |file| xml.file(href: file) }
         end
       end
+    }
+  end
+
+  def course_setting_resource(xml)
+    course_setting_dir = Moodle2CC::CanvasCC::CartridgeCreator::COURSE_SETTINGS_DIR
+    export_file = File.join(course_setting_dir, Moodle2CC::CanvasCC::CanvasExportWriter::CANVAS_EXPORT_FILE)
+    course_setting_file = File.join(course_setting_dir, Moodle2CC::CanvasCC::CourseSettingWriter::COURSE_SETTINGS_FILE)
+    module_meta_file = File.join(course_setting_dir, Moodle2CC::CanvasCC::ModuleMetaWriter::MODULE_META_FILE)
+    xml.resource('identifier' => @course.identifier + SETTINGS_POSTFIX, 'type' => TYPE_LAR, 'href' => export_file) { |xml|
+      xml.file('href' => course_setting_file)
+      xml.file('href' => module_meta_file) if @course.canvas_modules.count > 0
     }
   end
 
