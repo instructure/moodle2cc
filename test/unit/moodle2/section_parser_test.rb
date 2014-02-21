@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/autorun'
 require 'moodle2cc'
 require 'test_helper'
 

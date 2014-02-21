@@ -1,3 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files>
+  <file id="7">
+    <contenthash>a0f324310c8d8dd9c79458986c4322f5a060a1d9</contenthash>
+    <contextid>21</contextid>
+    <component>mod_page</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>smaple_gif.gif</filename>
+    <userid>2</userid>
+    <filesize>2444236</filesize>
+    <mimetype>image/gif</mimetype>
+    <status>0</status>
+    <timecreated>1392877532</timecreated>
+    <timemodified>1392877562</timemodified>
+    <source>1.gif</source>
+    <author>Admin User</author>
+    <license>allrightsreserved</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="8">
+    <contenthash>da39a3ee5e6b4b0d3255bfef95601890afd80709</contenthash>
+    <contextid>21</contextid>
+    <component>mod_page</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>.</filename>
+    <userid>2</userid>
+    <filesize>0</filesize>
+    <mimetype>$@NULL@$</mimetype>
+    <status>0</status>
+    <timecreated>1392877532</timecreated>
+    <timemodified>1392877562</timemodified>
+    <source>$@NULL@$</source>
+    <author>$@NULL@$</author>
+    <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
 </files>

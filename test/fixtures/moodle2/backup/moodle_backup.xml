@@ -6,7 +6,7 @@
     <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
     <backup_version>2012120300</backup_version>
     <backup_release>2.4</backup_release>
-    <backup_date>1392410827</backup_date>
+    <backup_date>1392877732</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
     <original_wwwroot>https://moodle</original_wwwroot>
@@ -18,7 +18,7 @@
     <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="2fb9c5499f721f17bd4fce5688c1d644">
+      <detail backup_id="56d44ecbc4ea3bb03e8d5e766a475e19">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
@@ -35,6 +35,13 @@
           <modulename>forum</modulename>
           <title>News forum</title>
           <directory>activities/forum_1</directory>
+        </activity>
+        <activity>
+          <moduleid>2</moduleid>
+          <sectionid>3</sectionid>
+          <modulename>page</modulename>
+          <title>My Sample Page</title>
+          <directory>activities/page_2</directory>
         </activity>
       </activities>
       <sections>
@@ -67,6 +74,11 @@
           <sectionid>6</sectionid>
           <title>5</title>
           <directory>sections/section_6</directory>
+        </section>
+        <section>
+          <sectionid>7</sectionid>
+          <title>6</title>
+          <directory>sections/section_7</directory>
         </section>
       </sections>
       <course>
@@ -202,6 +214,18 @@
         <value>0</value>
       </setting>
       <setting>
+        <level>activity</level>
+        <activity>page_2</activity>
+        <name>page_2_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>page_2</activity>
+        <name>page_2_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
         <level>section</level>
         <section>section_5</section>
         <name>section_5_included</name>
@@ -223,6 +247,18 @@
         <level>section</level>
         <section>section_6</section>
         <name>section_6_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_7</section>
+        <name>section_7_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_7</section>
+        <name>section_7_userinfo</name>
         <value>0</value>
       </setting>
     </settings>

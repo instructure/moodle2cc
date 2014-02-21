@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section id="3">
-  <number>3</number>
-  <name>My reordered Section</name>
-  <summary>&lt;p&gt;was position3 is now 4&lt;/p&gt;</summary>
+<section id="7">
+  <number>6</number>
+  <name>$@NULL@$</name>
+  <summary></summary>
   <summaryformat>1</summaryformat>
-  <sequence>2</sequence>
+  <sequence></sequence>
   <visible>1</visible>
   <availablefrom>0</availablefrom>
   <availableuntil>0</availableuntil>

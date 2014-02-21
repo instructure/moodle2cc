@@ -82,9 +82,11 @@ module Moodle2CC
     autoload :Extractor, 'moodle2cc/moodle2/extractor'
     autoload :CourseParser, 'moodle2cc/moodle2/course_parser'
     autoload :SectionParser, 'moodle2cc/moodle2/section_parser'
+    autoload :FileParser, 'moodle2cc/moodle2/file_parser'
     module Model
       autoload :Course, 'moodle2cc/moodle2/model/course'
       autoload :Section, 'moodle2cc/moodle2/model/section'
+      autoload :File, 'moodle2cc/moodle2/model/file'
     end
   end
   module Moodle2Converter

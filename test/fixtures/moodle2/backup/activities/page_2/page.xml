@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="2" modulename="page" contextid="21">
+  <page id="1">
+    <name>My Sample Page</name>
+    <intro>&lt;p&gt;Some Html Content &lt;strong&gt;Bolded&lt;/strong&gt; in the description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <content>&lt;p&gt;This is the page content, with a link to &lt;img src="@@PLUGINFILE@@/smaple_gif.gif" width="400" height="210" alt="Image Description" /&gt;&lt;/p&gt;</content>
+    <contentformat>1</contentformat>
+    <legacyfiles>0</legacyfiles>
+    <legacyfileslast>$@NULL@$</legacyfileslast>
+    <display>0</display>
+    <displayoptions>a:2:{s:12:"printheading";s:1:"0";s:10:"printintro";s:1:"0";}</displayoptions>
+    <revision>1</revision>
+    <timemodified>1392877562</timemodified>
+  </page>
+</activity>
