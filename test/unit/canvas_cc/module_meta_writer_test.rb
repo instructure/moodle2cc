@@ -40,7 +40,6 @@ module CanvasCC
     private
 
     def write_xml(mod)
-
       Moodle2CC::CanvasCC::ModuleMetaWriter.new(@tmpdir, mod).write
       Nokogiri::XML(File.read(File.join(@tmpdir,  Moodle2CC::CanvasCC::CartridgeCreator::COURSE_SETTINGS_DIR, Moodle2CC::CanvasCC::ModuleMetaWriter::MODULE_META_FILE)))
     end

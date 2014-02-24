@@ -66,6 +66,7 @@ module Moodle2CC
     autoload :CartridgeCreator, 'moodle2cc/canvas_cc/cartridge_creator'
     autoload :CourseSettingWriter, 'moodle2cc/canvas_cc/course_setting_writer'
     autoload :ModuleMetaWriter, 'moodle2cc/canvas_cc/module_meta_writer'
+    autoload :FileMetaWriter, 'moodle2cc/canvas_cc/file_meta_writer'
     autoload :CanvasExportWriter, 'moodle2cc/canvas_cc/canvas_export_writer'
     module Model
       autoload :Course, 'moodle2cc/canvas_cc/model/course'
@@ -76,6 +77,7 @@ module Moodle2CC
       autoload :WebLink, 'moodle2cc/canvas_cc/model/web_link'
       autoload :Resource, 'moodle2cc/canvas_cc/model/resource'
       autoload :CanvasModule, 'moodle2cc/canvas_cc/model/canvas_module'
+      autoload :CanvasFile, 'moodle2cc/canvas_cc/model/canvas_file'
     end
   end
   module Moodle2
@@ -86,7 +88,7 @@ module Moodle2CC
     module Model
       autoload :Course, 'moodle2cc/moodle2/model/course'
       autoload :Section, 'moodle2cc/moodle2/model/section'
-      autoload :File, 'moodle2cc/moodle2/model/file'
+      autoload :Moodle2File, 'moodle2cc/moodle2/model/moodle2_file'
     end
   end
   module Moodle2Converter

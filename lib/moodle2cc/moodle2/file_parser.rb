@@ -11,7 +11,7 @@ class Moodle2CC::Moodle2::FileParser
     xml = Nokogiri::XML(File.read(File.join(@work_dir, FILES_XML)))
     file_nodes = xml./('files/file')
     file_nodes.map do |node|
-      file = Moodle2CC::Moodle2::Model::File.new
+      file = Moodle2CC::Moodle2::Model::Moodle2File.new
       file.id = node.at_xpath('@id').value
       file.content_hash = parse_text(node, 'contenthash')
       file.context_id = parse_text(node, 'contextid')

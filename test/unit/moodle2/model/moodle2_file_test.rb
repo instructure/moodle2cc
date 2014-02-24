@@ -4,11 +4,11 @@ require 'test_helper'
 
 module Moodle2
   module Model
-    class FileTest < MiniTest::Unit::TestCase
+    class Moodle2FileTest < MiniTest::Unit::TestCase
       include TestHelper
 
       def setup
-        @file = Moodle2CC::Moodle2::Model::File.new
+        @file = Moodle2CC::Moodle2::Model::Moodle2File.new
       end
 
       def teardown

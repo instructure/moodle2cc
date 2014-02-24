@@ -16,7 +16,7 @@ module Moodle2
 
     def test_create_section
       sections = @section_parser.parse
-      assert_equal(6, sections.count)
+      assert_equal(7, sections.count)
       section = sections.first
       assert_equal( 0, section.position)
       assert_equal( '0', section.number)
