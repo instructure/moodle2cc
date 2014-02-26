@@ -1,11 +1,12 @@
 class Moodle2CC::CanvasCC::Model::Course
 
-  attr_accessor :format, :identifier, :copyright, :settings, :resources, :canvas_modules
+  attr_accessor :format, :identifier, :copyright, :settings, :resources, :canvas_modules, :files
 
   def initialize
     @settings = {}
     @resources = []
     @canvas_modules = []
+    @files = []
   end
 
   def start_at
@@ -19,6 +20,10 @@ class Moodle2CC::CanvasCC::Model::Course
 
   def identifier=(identifier)
     @identifier = "CC_#{Digest::MD5.hexdigest(identifier.to_s)}"
+  end
+
+  def all_resources
+    @resources + @files
   end
 
   def method_missing(m, *args, &block)

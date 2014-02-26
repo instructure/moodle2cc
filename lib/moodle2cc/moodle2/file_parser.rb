@@ -2,6 +2,7 @@ class Moodle2CC::Moodle2::FileParser
 
   FILES_XML = 'files.xml'
   NULL_XML_VALUE = '$@NULL@$'
+  FILES_DIR = 'files'
 
   def initialize(work_dir)
     @work_dir = work_dir
@@ -10,7 +11,8 @@ class Moodle2CC::Moodle2::FileParser
   def parse
     xml = Nokogiri::XML(File.read(File.join(@work_dir, FILES_XML)))
     file_nodes = xml./('files/file')
-    file_nodes.map do |node|
+    files = {}
+    file_nodes.each do |node|
       file = Moodle2CC::Moodle2::Model::Moodle2File.new
       file.id = node.at_xpath('@id').value
       file.content_hash = parse_text(node, 'contenthash')
@@ -33,8 +35,10 @@ class Moodle2CC::Moodle2::FileParser
       file.repository_type = parse_text(node, 'repositorytype')
       file.repository_id = parse_text(node, 'repositoryid')
       file.reference = parse_text(node, 'reference')
-      file
+      file.file_location = File.join(@work_dir, FILES_DIR, file.content_hash[0..1], file.content_hash)
+      files[file.content_hash] = file if file.file_size > 0
     end
+    files.values
   end
 
 

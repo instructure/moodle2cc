@@ -95,5 +95,6 @@ module Moodle2CC
     autoload :Migrator, 'moodle2cc/moodle2converter/migrator'
     autoload :CourseConverter, 'moodle2cc/moodle2converter/course_converter'
     autoload :SectionConverter, 'moodle2cc/moodle2converter/section_converter'
+    autoload :FileConverter, 'moodle2cc/moodle2converter/file_converter'
   end
 end

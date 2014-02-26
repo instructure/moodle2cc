@@ -18,7 +18,7 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
       manifest(xml) do |xml|
         metadata(xml)
         organizations(xml)
-        resources(xml, @course.resources)
+        resources(xml, @course.all_resources)
       end
     end.to_xml
     File.open(File.join(@work_dir, MANIFEST_FILE_NAME), 'w' ) {|f| f.write(xml)}

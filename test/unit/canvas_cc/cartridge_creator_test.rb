@@ -30,6 +30,7 @@ module CanvasCC
         expect_writer Moodle2CC::CanvasCC::CourseSettingWriter
         expect_writer Moodle2CC::CanvasCC::ImsManifestGenerator
         expect_writer Moodle2CC::CanvasCC::ModuleMetaWriter
+        expect_writer Moodle2CC::CanvasCC::FileMetaWriter
 
         verify_writers do
           imscc_path = @cartridge_creator.create(@tmpdir)

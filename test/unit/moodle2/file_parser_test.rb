@@ -17,7 +17,7 @@ module Moodle2
 
     def test_files_parsing
       files = @file_parser.parse
-      files.count.must_equal(2)
+      files.count.must_equal(1)
       file = files[0]
       file.id.must_equal('7')
       file.content_hash.must_equal('a0f324310c8d8dd9c79458986c4322f5a060a1d9')
@@ -28,7 +28,7 @@ module Moodle2
       file.file_path.must_equal('/')
       file.file_name.must_equal('smaple_gif.gif')
       file.user_id.must_equal('2')
-      file.file_size.must_equal('2444236')
+      file.file_size.must_equal(2444236)
       file.mime_type.must_equal('image/gif')
       file.status.must_equal('0')
       file.time_created.must_equal('1392877532')
@@ -40,6 +40,7 @@ module Moodle2
       file.repository_type.must_equal(nil)
       file.repository_id.must_equal(nil)
       file.reference.must_equal(nil)
+      file.file_location.must_include('files/a0/a0f324310c8d8dd9c79458986c4322f5a060a1d9')
     end
 
   end

@@ -14,7 +14,8 @@ class Moodle2CC::Moodle2::Extractor
       extract_zip(work_dir)
       course = Moodle2CC::Moodle2::CourseParser.new(work_dir).parse
       parse_sections(work_dir, course)
-      course
+      parse_files(work_dir, course)
+      yield course
     end
   end
 
@@ -33,6 +34,12 @@ class Moodle2CC::Moodle2::Extractor
   def parse_sections(work_dir, course)
     if sections = Moodle2CC::Moodle2::SectionParser.new(work_dir).parse
       course.sections += sections
+    end
+  end
+
+  def parse_files(work_dir, course)
+    if files = Moodle2CC::Moodle2::FileParser.new(work_dir).parse
+      course.files += files
     end
   end
 

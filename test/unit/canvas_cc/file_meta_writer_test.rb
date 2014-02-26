@@ -32,7 +32,7 @@ module CanvasCC
         @file.file_location = source_file
         @file.file_path = 'sample.txt'
         write_xml(writer(@file))
-        assert(File.exist?(File.join(@tmpdir, Moodle2CC::CanvasCC::Model::CanvasFile::WEB_CONTENT_TYPE, 'sample.txt')), 'sample.txt must exist in the web resources dir')
+        assert(File.exist?(File.join(@tmpdir, Moodle2CC::CanvasCC::Model::CanvasFile::WEB_RESOURCES, 'sample.txt')), 'sample.txt must exist in the web resources dir')
       end
     end
 
@@ -41,6 +41,7 @@ module CanvasCC
     def writer(file)
       Moodle2CC::CanvasCC::FileMetaWriter.new(@tmpdir, file)
     end
+
     def write_xml(writer)
       writer.write
       Nokogiri::XML(File.read(File.join(@tmpdir, Moodle2CC::CanvasCC::CartridgeCreator::COURSE_SETTINGS_DIR, Moodle2CC::CanvasCC::FileMetaWriter::FILE_META_FILE)))
