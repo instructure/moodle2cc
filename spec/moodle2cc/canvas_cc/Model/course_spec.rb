@@ -9,6 +9,7 @@ describe Moodle2CC::CanvasCC::Model::Course do
   it_behaves_like 'it has an attribute for', :resources, []
   it_behaves_like 'it has an attribute for', :canvas_modules, []
   it_behaves_like 'it has an attribute for', :files, []
+  it_behaves_like 'it has an attribute for', :pages, []
 
   it 'hashes the identifier' do
     course.identifier = 'course_id'
@@ -29,9 +30,10 @@ describe Moodle2CC::CanvasCC::Model::Course do
 
   describe '#all_resources' do
     it 'includes files and resources' do
-      course.files << :foo
-      course.resources << :bar
-      expect(course.all_resources).to eq [:bar, :foo]
+      course.resources << :resource
+      course.files << :file
+      course.pages << :page
+      expect(course.all_resources).to eq [:resource, :file, :page]
     end
   end
 

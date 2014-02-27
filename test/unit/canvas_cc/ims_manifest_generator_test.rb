@@ -85,7 +85,7 @@ module CanvasCC
         resource.files << 'file_2'
         @course.resources << resource
         xml = write_xml(@course)
-        base_node = xml.at_xpath("/xmlns:manifest/xmlns:resources/xmlns:resource[@identifier='resource_identifier']")
+        base_node = xml.at_xpath("/xmlns:manifest/xmlns:resources/xmlns:resource[@identifier='CC_bfb11a99f5f71d2e1f51844f43402df3']")
         assert_equal(base_node.at_xpath('@type').value, 'resource_type')
         assert_equal(base_node.at_xpath('@href').value, 'resource_href')
         assert_equal(base_node.xpath("xmlns:file[@href='file_1']").count, 1)

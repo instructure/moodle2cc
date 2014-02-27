@@ -68,6 +68,7 @@ module Moodle2CC
     autoload :ModuleMetaWriter, 'moodle2cc/canvas_cc/module_meta_writer'
     autoload :FileMetaWriter, 'moodle2cc/canvas_cc/file_meta_writer'
     autoload :CanvasExportWriter, 'moodle2cc/canvas_cc/canvas_export_writer'
+    autoload :PageWriter, 'moodle2cc/canvas_cc/page_writer'
     module Model
       autoload :Course, 'moodle2cc/canvas_cc/model/course'
       autoload :Assignment, 'moodle2cc/canvas_cc/model/assignment'
@@ -78,6 +79,7 @@ module Moodle2CC
       autoload :Resource, 'moodle2cc/canvas_cc/model/resource'
       autoload :CanvasModule, 'moodle2cc/canvas_cc/model/canvas_module'
       autoload :CanvasFile, 'moodle2cc/canvas_cc/model/canvas_file'
+      autoload :Page, 'moodle2cc/canvas_cc/model/page'
     end
   end
   module Moodle2
@@ -85,10 +87,12 @@ module Moodle2CC
     autoload :CourseParser, 'moodle2cc/moodle2/course_parser'
     autoload :SectionParser, 'moodle2cc/moodle2/section_parser'
     autoload :FileParser, 'moodle2cc/moodle2/file_parser'
+    autoload :PageParser, 'moodle2cc/moodle2/page_parser'
     module Model
       autoload :Course, 'moodle2cc/moodle2/model/course'
       autoload :Section, 'moodle2cc/moodle2/model/section'
       autoload :Moodle2File, 'moodle2cc/moodle2/model/moodle2_file'
+      autoload :Page, 'moodle2cc/moodle2/model/page'
     end
   end
   module Moodle2Converter

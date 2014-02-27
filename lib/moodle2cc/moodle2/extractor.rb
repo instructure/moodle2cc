@@ -2,8 +2,7 @@ require 'zip'
 
 class Moodle2CC::Moodle2::Extractor
 
-
-
+  MOODLE_BACKUP_XML = 'moodle_backup.xml'
 
   def initialize(zip_path)
     @zip_path = zip_path
@@ -15,6 +14,7 @@ class Moodle2CC::Moodle2::Extractor
       course = Moodle2CC::Moodle2::CourseParser.new(work_dir).parse
       parse_sections(work_dir, course)
       parse_files(work_dir, course)
+      parse_pages(work_dir, course)
       yield course
     end
   end
@@ -40,6 +40,12 @@ class Moodle2CC::Moodle2::Extractor
   def parse_files(work_dir, course)
     if files = Moodle2CC::Moodle2::FileParser.new(work_dir).parse
       course.files += files
+    end
+  end
+
+  def parse_pages(work_dir, course)
+    if pages = Moodle2CC::Moodle2::PageParser.new(work_dir).parse
+      course.pages += pages
     end
   end
 

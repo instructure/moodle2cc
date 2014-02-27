@@ -18,9 +18,11 @@ module CanvasCC
 
       def test_resource
         resource = Moodle2CC::CanvasCC::Model::Resource.new
-        assert_accessors(resource, :identifier, :type, :href)
+        resource.identifier = 'test_id'
+        assert_accessors(resource, :type, :href)
         assert_equal(resource.files.class, Array)
-        assert_equal(resource.attributes.class, Hash)
+        assert_equal({identifier: 'CC_2e06cda4c3c0d4a2a42058f74641546a'}, resource.attributes)
+        assert_equal('CC_2e06cda4c3c0d4a2a42058f74641546a' ,resource.identifier )
       end
 
     end

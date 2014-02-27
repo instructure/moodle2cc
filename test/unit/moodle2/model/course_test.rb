@@ -20,6 +20,7 @@ module Moodle2
         assert_accessors(@course, :id_number, :fullname, :shortname, :startdate, :summary, :course_id)
         assert_instance_of(Array, @course.sections)
         assert_instance_of(Array, @course.files)
+        assert_instance_of(Array, @course.pages)
       end
     end
   end

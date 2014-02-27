@@ -1,6 +1,5 @@
 class Moodle2CC::Moodle2::SectionParser
 
-  MOODLE_BACKUP_XML = 'moodle_backup.xml'
   SECTION_XML = 'section.xml'
   NULL_XML_VALUE = '$@NULL@$'
 
@@ -34,8 +33,10 @@ class Moodle2CC::Moodle2::SectionParser
     section
   end
 
+  private
+
   def parse_moodle_backup
-    File.open(File.join(@backup_dir, MOODLE_BACKUP_XML)) do |f|
+    File.open(File.join(@backup_dir, Moodle2CC::Moodle2::Extractor::MOODLE_BACKUP_XML)) do |f|
       moodle_backup_xml = Nokogiri::XML(f)
       sections = moodle_backup_xml / '/moodle_backup/information/contents/sections/section'
       sections.map {|section| section./('directory').text }

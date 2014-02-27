@@ -28,6 +28,7 @@ module CanvasCC
         @file.href.must_equal 'web_resources/myfile.txt'
         @file.attributes[:identifier].must_equal 'CC_5c7d96a3dd7a87850a2ef34087565a6e_FILE'
         @file.attributes[:type].must_equal 'webcontent'
+
       end
 
     end

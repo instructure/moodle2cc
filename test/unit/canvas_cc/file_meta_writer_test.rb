@@ -17,7 +17,6 @@ module CanvasCC
     end
 
     def test_schema
-      @file.file
       meta_writer = writer(@file)
       meta_writer.stub(:copy_files, nil) do
         xml = write_xml(meta_writer)
