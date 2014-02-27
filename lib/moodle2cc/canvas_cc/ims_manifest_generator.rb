@@ -14,7 +14,7 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
   end
 
   def write
-    xml = Nokogiri::XML::Builder.new do |xml|
+    xml = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
       manifest(xml) do |xml|
         metadata(xml)
         organizations(xml)

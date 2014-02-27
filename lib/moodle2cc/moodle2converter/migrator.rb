@@ -10,6 +10,7 @@ class Moodle2CC::Moodle2Converter::Migrator
       cc_course = convert_course(moodle_course)
       cc_course.canvas_modules += convert_sections(moodle_course.sections)
       cc_course.files += convert_files(moodle_course.files)
+      cc_course.pages += convert_pages(moodle_course.pages)
       @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
     end
     @path
@@ -33,6 +34,11 @@ class Moodle2CC::Moodle2Converter::Migrator
   def convert_files(files)
     file_converter = Moodle2CC::Moodle2Converter::FileConverter.new
     files.map { |file| file_converter.convert(file) }
+  end
+
+  def convert_pages(pages)
+    page_converter = Moodle2CC::Moodle2Converter::PageConverter.new
+    pages.map { |page| page_converter.convert(page)}
   end
 
 end

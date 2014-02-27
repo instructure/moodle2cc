@@ -20,7 +20,7 @@ class Moodle2CC::CanvasCC::FileMetaWriter
   end
 
   def write_xml
-    xml = Nokogiri::XML::Builder.new do |xml|
+    xml = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
       xml.fileMeta(
         'xmlns' => 'http://canvas.instructure.com/xsd/cccv1p0',
         'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',

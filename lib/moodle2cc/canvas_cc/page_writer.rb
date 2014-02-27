@@ -14,7 +14,7 @@ class Moodle2CC::CanvasCC::PageWriter
   private
 
   def write_html(page)
-    builder = Nokogiri::HTML::Builder.new do |doc|
+    builder = Nokogiri::HTML::Builder.new(:encoding => 'UTF-8') do |doc|
       doc.html { |html|
         html.head { |head|
           head.meta('http-equiv' => 'Content-Type', content: 'text/html; charset=utf-8')

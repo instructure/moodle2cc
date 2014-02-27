@@ -9,7 +9,7 @@ class Moodle2CC::CanvasCC::CourseSettingWriter
   end
 
   def write
-    xml = Nokogiri::XML::Builder.new do |xml|
+    xml = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
       course(xml) do |xml|
         @course.settings.each { |k, v| xml.send(k, v) }
       end

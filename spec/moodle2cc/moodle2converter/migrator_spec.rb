@@ -5,14 +5,16 @@ describe Moodle2CC::Moodle2Converter::Migrator do
   let(:canvas_course) { Moodle2CC::CanvasCC::Model::Course.new }
   let(:canvas_module) { Moodle2CC::CanvasCC::Model::CanvasModule.new }
   let(:canvas_file) { Moodle2CC::CanvasCC::Model::CanvasFile.new }
+  let(:canvas_page) { Moodle2CC::CanvasCC::Model::Page.new}
 
   before(:each) do
     extractor = double('extractor', extract: nil)
-    extractor.stub(:extract).and_yield(double('moodle_course', sections: [:section1, :section2], files: [:file1, :file2]))
+    extractor.stub(:extract).and_yield(double('moodle_course', sections: [:section1, :section2], files: [:file1, :file2], pages: [:page1, :page2]))
     Moodle2CC::Moodle2::Extractor.stub(:new).and_return(extractor)
     Moodle2CC::Moodle2Converter::CourseConverter.any_instance.stub(:convert).and_return(canvas_course)
     Moodle2CC::Moodle2Converter::SectionConverter.any_instance.stub(:convert)
     Moodle2CC::Moodle2Converter::FileConverter.any_instance.stub(:convert)
+    Moodle2CC::Moodle2Converter::PageConverter.any_instance.stub(:convert)
     Moodle2CC::CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
   end
 
@@ -35,6 +37,13 @@ describe Moodle2CC::Moodle2Converter::Migrator do
       migrator.migrate
       expect(canvas_course.files).to eq ['file', 'file']
     end
+
+    it 'converts pages' do
+      Moodle2CC::Moodle2Converter::PageConverter.any_instance.stub(:convert).and_return('page')
+      migrator.migrate
+      expect(canvas_course.pages).to eq ['page', 'page']
+    end
+
   end
 
   it 'sets the imscc_path' do
