@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+  <event id="1">
+    <name>Assignment Name</name>
+    <description>&lt;div class="no-overflow"&gt;&lt;p&gt;Assignemnt Description&lt;/p&gt;&lt;/div&gt;</description>
+    <format>1</format>
+    <courseid>2</courseid>
+    <groupid>0</groupid>
+    <userid>2</userid>
+    <repeatid>0</repeatid>
+    <modulename>assign</modulename>
+    <instance>1</instance>
+    <eventtype>due</eventtype>
+    <timestart>1394221500</timestart>
+    <timeduration>0</timeduration>
+    <visible>1</visible>
+    <uuid></uuid>
+    <sequence>1</sequence>
+    <timemodified>1393620527</timemodified>
+  </event>
+</events>

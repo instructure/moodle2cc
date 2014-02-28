@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 describe Moodle2CC::Moodle2::Extractor do
-  subject(:extractor){Moodle2CC::Moodle2::Extractor.new('path_to_zip')}
-  let(:course){double(sections: [], files:[], :sections= => [], :files= => [], :pages => [], :pages= => [], :forums => [], :forums= => [])}
+  subject(:extractor) { Moodle2CC::Moodle2::Extractor.new('path_to_zip') }
+  let(:course) { double(sections: [], :sections= => [],
+                        files: [], :files= => [],
+                        :pages => [], :pages= => [],
+                        :forums => [], :forums= => [],
+                        :assignments => [], :assignments= => []
+  )}
 
   before(:each) do
     Dir.stub(:mktmpdir).and_yield('work_dir')
@@ -11,13 +16,14 @@ describe Moodle2CC::Moodle2::Extractor do
     Moodle2CC::Moodle2::FileParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::PageParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::ForumParser.any_instance.stub(:parse)
+    Moodle2CC::Moodle2::AssignmentParser.any_instance.stub(:parse)
     Zip::File.stub(:open).and_yield([])
   end
 
   it 'parses courses' do
-    allow(course).to receive(:name) {'course double'}
+    allow(course).to receive(:name) { 'course double' }
     Moodle2CC::Moodle2::CourseParser.any_instance.stub(:parse).and_return(course)
-    extractor.extract { |parsed_course| expect(parsed_course.name).to eq 'course double'}
+    extractor.extract { |parsed_course| expect(parsed_course.name).to eq 'course double' }
   end
 
   it 'parses sections' do
@@ -42,6 +48,12 @@ describe Moodle2CC::Moodle2::Extractor do
     Moodle2CC::Moodle2::ForumParser.any_instance.stub(:parse).and_return(['forum'])
     extractor.extract {}
     expect(course).to have_received(:forums=).with(['forum'])
+  end
+
+  it 'parsed assignments' do
+    Moodle2CC::Moodle2::AssignmentParser.any_instance.stub(:parse).and_return(['assign'])
+    extractor.extract {}
+    expect(course).to have_received(:assignments=).with(['assign'])
   end
 
 end

@@ -17,7 +17,7 @@ describe Moodle2CC::Moodle2::ForumParser do
     expect(forum.assessed).to eq '0'
     expect(forum.assess_time_start).to eq '0'
     expect(forum.assess_time_finish).to eq '0'
-    expect(forum.scale).to eq '0'
+    expect(forum.scale).to eq '1'
     expect(forum.max_bytes).to eq '0'
     expect(forum.max_attachments).to eq '1'
     expect(forum.force_subsscribe).to eq '1'

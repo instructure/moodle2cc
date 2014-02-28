@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="4" modulename="assign" contextid="23">
+  <assign id="1">
+    <name>Assignment Name</name>
+    <intro>&lt;p&gt;Assignemnt Description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <alwaysshowdescription>1</alwaysshowdescription>
+    <submissiondrafts>1</submissiondrafts>
+    <sendnotifications>1</sendnotifications>
+    <sendlatenotifications>1</sendlatenotifications>
+    <duedate>1394221500</duedate>
+    <cutoffdate>1394221500</cutoffdate>
+    <allowsubmissionsfromdate>1393616700</allowsubmissionsfromdate>
+    <grade>100</grade>
+    <timemodified>1393620527</timemodified>
+    <completionsubmit>0</completionsubmit>
+    <requiresubmissionstatement>0</requiresubmissionstatement>
+    <teamsubmission>1</teamsubmission>
+    <requireallteammemberssubmit>1</requireallteammemberssubmit>
+    <teamsubmissiongroupingid>0</teamsubmissiongroupingid>
+    <blindmarking>1</blindmarking>
+    <revealidentities>0</revealidentities>
+    <submissions>
+    </submissions>
+    <grades>
+    </grades>
+    <plugin_configs>
+      <plugin_config id="1">
+        <plugin>onlinetext</plugin>
+        <subtype>assignsubmission</subtype>
+        <name>enabled</name>
+        <value>1</value>
+      </plugin_config>
+      <plugin_config id="2">
+        <plugin>file</plugin>
+        <subtype>assignsubmission</subtype>
+        <name>enabled</name>
+        <value>1</value>
+      </plugin_config>
+      <plugin_config id="3">
+        <plugin>file</plugin>
+        <subtype>assignsubmission</subtype>
+        <name>maxfilesubmissions</name>
+        <value>2</value>
+      </plugin_config>
+      <plugin_config id="4">
+        <plugin>file</plugin>
+        <subtype>assignsubmission</subtype>
+        <name>maxsubmissionsizebytes</name>
+        <value>0</value>
+      </plugin_config>
+      <plugin_config id="5">
+        <plugin>comments</plugin>
+        <subtype>assignsubmission</subtype>
+        <name>enabled</name>
+        <value>1</value>
+      </plugin_config>
+      <plugin_config id="6">
+        <plugin>comments</plugin>
+        <subtype>assignfeedback</subtype>
+        <name>enabled</name>
+        <value>1</value>
+      </plugin_config>
+      <plugin_config id="7">
+        <plugin>offline</plugin>
+        <subtype>assignfeedback</subtype>
+        <name>enabled</name>
+        <value>1</value>
+      </plugin_config>
+      <plugin_config id="8">
+        <plugin>file</plugin>
+        <subtype>assignfeedback</subtype>
+        <name>enabled</name>
+        <value>1</value>
+      </plugin_config>
+    </plugin_configs>
+  </assign>
+</activity>

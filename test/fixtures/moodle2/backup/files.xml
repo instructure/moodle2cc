@@ -44,4 +44,48 @@
     <repositoryid>$@NULL@$</repositoryid>
     <reference>$@NULL@$</reference>
   </file>
+  <file id="15">
+    <contenthash>a0f324310c8d8dd9c79458986c4322f5a060a1d9</contenthash>
+    <contextid>22</contextid>
+    <component>mod_resource</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>smaple_gif.gif</filename>
+    <userid>2</userid>
+    <filesize>2444236</filesize>
+    <mimetype>image/gif</mimetype>
+    <status>0</status>
+    <timecreated>1392903875</timecreated>
+    <timemodified>1392903895</timemodified>
+    <source>Server files: Miscellaneous/Sample Course/My Sample Page (Page)/Page content/smaple_gif.gif</source>
+    <author>Admin User</author>
+    <license>allrightsreserved</license>
+    <sortorder>1</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="16">
+    <contenthash>da39a3ee5e6b4b0d3255bfef95601890afd80709</contenthash>
+    <contextid>22</contextid>
+    <component>mod_resource</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>.</filename>
+    <userid>2</userid>
+    <filesize>0</filesize>
+    <mimetype>$@NULL@$</mimetype>
+    <status>0</status>
+    <timecreated>1392903875</timecreated>
+    <timemodified>1392903895</timemodified>
+    <source>$@NULL@$</source>
+    <author>$@NULL@$</author>
+    <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
 </files>

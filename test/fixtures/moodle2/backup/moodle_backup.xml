@@ -6,7 +6,7 @@
     <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
     <backup_version>2012120300</backup_version>
     <backup_release>2.4</backup_release>
-    <backup_date>1392877732</backup_date>
+    <backup_date>1393620548</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
     <original_wwwroot>https://moodle</original_wwwroot>
@@ -18,7 +18,7 @@
     <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="56d44ecbc4ea3bb03e8d5e766a475e19">
+      <detail backup_id="0abcc8597a27ae7812c85ffc302a5450">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
@@ -42,6 +42,20 @@
           <modulename>page</modulename>
           <title>My Sample Page</title>
           <directory>activities/page_2</directory>
+        </activity>
+        <activity>
+          <moduleid>3</moduleid>
+          <sectionid>5</sectionid>
+          <modulename>resource</modulename>
+          <title>Test File</title>
+          <directory>activities/resource_3</directory>
+        </activity>
+        <activity>
+          <moduleid>4</moduleid>
+          <sectionid>6</sectionid>
+          <modulename>assign</modulename>
+          <title>Assignment Name</title>
+          <directory>activities/assign_4</directory>
         </activity>
       </activities>
       <sections>
@@ -238,6 +252,18 @@
         <value>0</value>
       </setting>
       <setting>
+        <level>activity</level>
+        <activity>resource_3</activity>
+        <name>resource_3_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>resource_3</activity>
+        <name>resource_3_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
         <level>section</level>
         <section>section_6</section>
         <name>section_6_included</name>
@@ -247,6 +273,18 @@
         <level>section</level>
         <section>section_6</section>
         <name>section_6_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>assign_4</activity>
+        <name>assign_4_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>assign_4</activity>
+        <name>assign_4_userinfo</name>
         <value>0</value>
       </setting>
       <setting>

@@ -91,12 +91,14 @@ module Moodle2CC
     autoload :FileParser, 'moodle2cc/moodle2/file_parser'
     autoload :PageParser, 'moodle2cc/moodle2/page_parser'
     autoload :ForumParser, 'moodle2cc/moodle2/forum_parser'
+    autoload :AssignmentParser, 'moodle2cc/moodle2/assignment_parser'
     module Model
       autoload :Course, 'moodle2cc/moodle2/model/course'
       autoload :Section, 'moodle2cc/moodle2/model/section'
       autoload :Moodle2File, 'moodle2cc/moodle2/model/moodle2_file'
       autoload :Page, 'moodle2cc/moodle2/model/page'
       autoload :Forum, 'moodle2cc/moodle2/model/forum'
+      autoload :Assignment, 'moodle2cc/moodle2/model/assignment'
     end
   end
   module Moodle2Converter
