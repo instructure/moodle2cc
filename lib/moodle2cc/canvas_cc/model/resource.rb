@@ -2,16 +2,20 @@ class Moodle2CC::CanvasCC::Model::Resource
 
   WEB_CONTENT_TYPE = 'webcontent'
 
-  attr_accessor :files, :href, :type
-  attr_reader :identifier
+  attr_accessor :files, :href, :type, :dependencies, :ident_postfix
 
 
   def initialize
     @files = []
+    @dependencies = []
   end
 
   def identifier=(ident)
     @identifier = "CC_#{Digest::MD5.hexdigest(ident.to_s)}"
+  end
+
+  def identifier
+    @identifier + @ident_postfix.to_s
   end
 
   def attributes

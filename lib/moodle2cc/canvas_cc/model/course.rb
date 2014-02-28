@@ -1,6 +1,6 @@
 class Moodle2CC::CanvasCC::Model::Course
 
-  attr_accessor :format, :identifier, :copyright, :settings, :resources, :canvas_modules, :files, :pages
+  attr_accessor :format, :identifier, :copyright, :settings, :resources, :canvas_modules, :files, :pages, :discussions
 
   def initialize
     @settings = {}
@@ -8,6 +8,7 @@ class Moodle2CC::CanvasCC::Model::Course
     @canvas_modules = []
     @files = []
     @pages = []
+    @discussions = []
   end
 
   def start_at
@@ -24,7 +25,7 @@ class Moodle2CC::CanvasCC::Model::Course
   end
 
   def all_resources
-    @resources + @files + @pages
+    @resources + @files + @pages + @discussions.map(&:resources).flatten
   end
 
   def method_missing(m, *args, &block)

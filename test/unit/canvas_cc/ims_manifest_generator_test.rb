@@ -83,6 +83,7 @@ module CanvasCC
         resource.href = 'resource_href'
         resource.files << 'file_1'
         resource.files << 'file_2'
+        resource.dependencies << :dependency
         @course.resources << resource
         xml = write_xml(@course)
         base_node = xml.at_xpath("/xmlns:manifest/xmlns:resources/xmlns:resource[@identifier='CC_bfb11a99f5f71d2e1f51844f43402df3']")
@@ -90,6 +91,7 @@ module CanvasCC
         assert_equal(base_node.at_xpath('@href').value, 'resource_href')
         assert_equal(base_node.xpath("xmlns:file[@href='file_1']").count, 1)
         assert_equal(base_node.xpath("xmlns:file[@href='file_2']").count, 1)
+        assert_equal(base_node.xpath("xmlns:dependency[@identifierref='dependency']").count, 1)
       end
     end
 

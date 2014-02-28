@@ -69,6 +69,7 @@ module Moodle2CC
     autoload :FileMetaWriter, 'moodle2cc/canvas_cc/file_meta_writer'
     autoload :CanvasExportWriter, 'moodle2cc/canvas_cc/canvas_export_writer'
     autoload :PageWriter, 'moodle2cc/canvas_cc/page_writer'
+    autoload :DiscussionWriter, 'moodle2cc/canvas_cc/discussion_writer'
     module Model
       autoload :Course, 'moodle2cc/canvas_cc/model/course'
       autoload :Assignment, 'moodle2cc/canvas_cc/model/assignment'
@@ -80,6 +81,7 @@ module Moodle2CC
       autoload :CanvasModule, 'moodle2cc/canvas_cc/model/canvas_module'
       autoload :CanvasFile, 'moodle2cc/canvas_cc/model/canvas_file'
       autoload :Page, 'moodle2cc/canvas_cc/model/page'
+      autoload :Discussion, 'moodle2cc/canvas_cc/model/discussion'
     end
   end
   module Moodle2

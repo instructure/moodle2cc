@@ -32,6 +32,7 @@ module CanvasCC
         expect_writer Moodle2CC::CanvasCC::ModuleMetaWriter
         expect_writer Moodle2CC::CanvasCC::FileMetaWriter
         expect_writer Moodle2CC::CanvasCC::PageWriter
+        expect_writer Moodle2CC::CanvasCC::DiscussionWriter
 
         verify_writers do
           imscc_path = @cartridge_creator.create(@tmpdir)

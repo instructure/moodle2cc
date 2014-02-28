@@ -36,6 +36,7 @@ class Moodle2CC::CanvasCC::CartridgeCreator
     Moodle2CC::CanvasCC::ImsManifestGenerator.new(dir, @course).write
     Moodle2CC::CanvasCC::FileMetaWriter.new(dir, *@course.files).write
     Moodle2CC::CanvasCC::PageWriter.new(dir, *@course.pages).write
+    Moodle2CC::CanvasCC::DiscussionWriter.new(dir, *@course.discussions).write
   end
 
   def zip_dir(out_file, dir)

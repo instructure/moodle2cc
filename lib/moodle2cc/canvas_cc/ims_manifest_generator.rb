@@ -92,6 +92,7 @@ class Moodle2CC::CanvasCC::ImsManifestGenerator
       resources.each do |resource|
         xml.resource(resource.attributes) do |xml|
           resource.files.each { |file| xml.file(href: file) }
+          resource.dependencies.each {|dependency| xml.dependency(identifierref: dependency)}
         end
       end
     }
