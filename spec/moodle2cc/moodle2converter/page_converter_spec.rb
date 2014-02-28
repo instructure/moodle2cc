@@ -17,6 +17,7 @@ describe Moodle2CC::Moodle2Converter::PageConverter do
 
   it 'replaces moodle links with canvas links' do
     moodle_page.content = '&lt;p&gt;a link to &lt;img src="@@PLUGINFILE@@/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
+    moodle_page.name = 'Page Name'
     canvas_page = subject.convert(moodle_page)
     expect(canvas_page.body).to eq '&lt;p&gt;a link to &lt;img src="%24IMS_CC_FILEBASE%24/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
   end

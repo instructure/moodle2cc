@@ -15,6 +15,7 @@ class Moodle2CC::Moodle2::Extractor
       parse_sections(work_dir, course)
       parse_files(work_dir, course)
       parse_pages(work_dir, course)
+      parse_forums(work_dir, course)
       yield course
     end
   end
@@ -46,6 +47,12 @@ class Moodle2CC::Moodle2::Extractor
   def parse_pages(work_dir, course)
     if pages = Moodle2CC::Moodle2::PageParser.new(work_dir).parse
       course.pages += pages
+    end
+  end
+
+  def parse_forums(work_dir, course)
+    if forums = Moodle2CC::Moodle2::ForumParser.new(work_dir).parse
+      course.forums += forums
     end
   end
 

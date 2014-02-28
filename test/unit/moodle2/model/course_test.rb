@@ -21,6 +21,7 @@ module Moodle2
         assert_instance_of(Array, @course.sections)
         assert_instance_of(Array, @course.files)
         assert_instance_of(Array, @course.pages)
+        assert_instance_of(Array, @course.forums)
       end
     end
   end
