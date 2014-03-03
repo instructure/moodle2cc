@@ -72,8 +72,8 @@ module CanvasCC
         assert_equal('associatedcontent/imscc_xmlv1p1/learning-application-resource', resources_node.at_xpath('xmlns:resource/@type').value)
         assert_equal('CC_838643504692779b6dbd3dab51ff7eb4_settings', resources_node.at_xpath('xmlns:resource/@identifier').value)
         files = resources_node.xpath('xmlns:resource/xmlns:file/@href').map(&:value)
-        files.must_include('course_settings/course_settings.xml')
-        files.must_include('course_settings/module_meta.xml')
+        assert_includes(files, 'course_settings/course_settings.xml')
+        assert_includes(files, 'course_settings/module_meta.xml')
       end
 
       def test_resource
