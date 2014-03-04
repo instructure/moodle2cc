@@ -7,6 +7,7 @@ describe Moodle2CC::Moodle2Converter::Migrator do
   let(:canvas_file) { Moodle2CC::CanvasCC::Model::CanvasFile.new }
   let(:canvas_page) { Moodle2CC::CanvasCC::Model::Page.new}
   let(:canvas_discussion) {Moodle2CC::CanvasCC::Discussion.new}
+  let(:canvas_discussion) {Moodle2CC::CanvasCC::Assignment.new}
 
   before(:each) do
     extractor = double('extractor', extract: nil)
@@ -14,7 +15,8 @@ describe Moodle2CC::Moodle2Converter::Migrator do
                                               sections: [:section1, :section2],
                                               files: [:file1, :file2],
                                               pages: [:page1, :page2],
-                                              forums: [:forum1, :forum2]
+                                              forums: [:forum1, :forum2],
+                                              assignments: [:assignment1, :assignment2]
                                        ))
     Moodle2CC::Moodle2::Extractor.stub(:new).and_return(extractor)
     Moodle2CC::Moodle2Converter::CourseConverter.any_instance.stub(:convert).and_return(canvas_course)
@@ -22,6 +24,7 @@ describe Moodle2CC::Moodle2Converter::Migrator do
     Moodle2CC::Moodle2Converter::FileConverter.any_instance.stub(:convert)
     Moodle2CC::Moodle2Converter::PageConverter.any_instance.stub(:convert)
     Moodle2CC::Moodle2Converter::DiscussionConverter.any_instance.stub(:convert)
+    Moodle2CC::Moodle2Converter::AssignmentConverter.any_instance.stub(:convert)
     Moodle2CC::CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
   end
 
@@ -55,6 +58,12 @@ describe Moodle2CC::Moodle2Converter::Migrator do
       Moodle2CC::Moodle2Converter::DiscussionConverter.any_instance.stub(:convert).and_return('discussion')
       migrator.migrate
       expect(canvas_course.discussions).to eq ['discussion', 'discussion']
+    end
+
+    it 'converts assignments' do
+      Moodle2CC::Moodle2Converter::AssignmentConverter.any_instance.stub(:convert).and_return('assignment')
+      migrator.migrate
+      expect(canvas_course.assignments).to eq ['assignment', 'assignment']
     end
 
   end

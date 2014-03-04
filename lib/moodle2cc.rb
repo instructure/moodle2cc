@@ -109,5 +109,6 @@ module Moodle2CC
     autoload :FileConverter, 'moodle2cc/moodle2converter/file_converter'
     autoload :PageConverter, 'moodle2cc/moodle2converter/page_converter'
     autoload :DiscussionConverter, 'moodle2cc/moodle2converter/discussion_converter'
+    autoload :AssignmentConverter, 'moodle2cc/moodle2converter/assignment_converter'
   end
 end
