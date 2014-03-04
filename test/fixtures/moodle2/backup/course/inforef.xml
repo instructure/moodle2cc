@@ -5,4 +5,9 @@
       <id>5</id>
     </role>
   </roleref>
+  <question_categoryref>
+    <question_category>
+      <id>2</id>
+    </question_category>
+  </question_categoryref>
 </inforef>

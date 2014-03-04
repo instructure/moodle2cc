@@ -21,10 +21,10 @@ module Moodle2Converter
       moodle_section.visible = false
       moodle_section.position = 1
       canvas_module = @section_converter.convert(moodle_section)
-      canvas_module.identifier.must_equal('module_730f6511535a1e4cf13e886e52b21dc9')
-      canvas_module.title.must_equal('section_name')
-      canvas_module.workflow_state.must_equal('unpublished')
-      canvas_module.position.must_equal(1)
+      assert_equal('module_730f6511535a1e4cf13e886e52b21dc9', canvas_module.identifier)
+      assert_equal(canvas_module.title, 'section_name')
+      assert_equal(canvas_module.workflow_state, 'unpublished')
+      assert_equal(canvas_module.position, 1)
     end
 
   end

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <activity_gradebook>
   <grade_items>
-    <grade_item id="2">
+    <grade_item id="3">
       <categoryid>1</categoryid>
-      <itemname>Assignment Name</itemname>
+      <itemname>Quiz Name</itemname>
       <itemtype>mod</itemtype>
-      <itemmodule>assign</itemmodule>
+      <itemmodule>quiz</itemmodule>
       <iteminstance>1</iteminstance>
       <itemnumber>0</itemnumber>
       <iteminfo>$@NULL@$</iteminfo>
@@ -20,15 +20,15 @@
       <multfactor>1.00000</multfactor>
       <plusfactor>0.00000</plusfactor>
       <aggregationcoef>0.00000</aggregationcoef>
-      <sortorder>2</sortorder>
+      <sortorder>3</sortorder>
       <display>0</display>
       <decimals>$@NULL@$</decimals>
-      <hidden>0</hidden>
+      <hidden>1</hidden>
       <locked>0</locked>
       <locktime>0</locktime>
       <needsupdate>0</needsupdate>
-      <timecreated>1393617123</timecreated>
-      <timemodified>1393924398</timemodified>
+      <timecreated>1393968611</timecreated>
+      <timemodified>1393968611</timemodified>
       <grade_grades>
       </grade_grades>
     </grade_item>

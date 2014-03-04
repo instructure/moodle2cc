@@ -20,8 +20,8 @@ class FileConverterTest < MiniTest::Unit::TestCase
     moodle_file.file_name = 'my_file_name'
     moodle_file.id = 'my_file_id'
     canvas_file = @file_converter.convert(moodle_file)
-    canvas_file.identifier.must_equal 'CC_4087b826b314cdf5502177830f7f11ac_FILE'
-    canvas_file.file_location.must_equal 'path_to_file'
-    canvas_file.file_path.must_equal 'my_file_name'
+    assert_equal('CC_4087b826b314cdf5502177830f7f11ac_FILE', canvas_file.identifier)
+    assert_equal('path_to_file', canvas_file.file_location)
+    assert_equal('my_file_name', canvas_file.file_path)
   end
 end

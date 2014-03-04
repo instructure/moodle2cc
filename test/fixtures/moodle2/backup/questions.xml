@@ -1,3 +1,948 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <question_categories>
+  <question_category id="1">
+    <name>Default for Quiz Name</name>
+    <contextid>24</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>5</contextinstanceid>
+    <info>The default category for questions shared in context 'Quiz Name'.</info>
+    <infoformat>0</infoformat>
+    <stamp>10.0.21.141+140304213555+4eljji</stamp>
+    <parent>0</parent>
+    <sortorder>999</sortorder>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="2">
+    <name>Default for SC</name>
+    <contextid>15</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>2</contextinstanceid>
+    <info>The default category for questions shared in context 'SC'.</info>
+    <infoformat>0</infoformat>
+    <stamp>10.0.21.141+140304213555+iMFEfs</stamp>
+    <parent>0</parent>
+    <sortorder>999</sortorder>
+    <questions>
+      <question id="1">
+        <parent>0</parent>
+        <name>Calculated Question</name>
+        <questiontext>&lt;p&gt;What is the perimeter of a square that is {A} x {B}&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>calculated</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214241+vp69DG</stamp>
+        <version>10.0.21.141+140304214241+XHDCZX</version>
+        <hidden>0</hidden>
+        <timecreated>1393969361</timecreated>
+        <timemodified>1393969361</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_calculated_question>
+          <answers>
+            <answer id="1">
+              <answertext>{A}*{B}</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>&lt;p&gt;Correct Answer Feedback&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <numerical_units>
+          </numerical_units>
+          <numerical_options>
+            <numerical_option id="1">
+              <showunits>3</showunits>
+              <unitsleft>0</unitsleft>
+              <unitgradingtype>0</unitgradingtype>
+              <unitpenalty>0.1000000</unitpenalty>
+            </numerical_option>
+          </numerical_options>
+          <dataset_definitions>
+            <dataset_definition id="1">
+              <category>0</category>
+              <name>A</name>
+              <type>1</type>
+              <options>uniform:1:10:1</options>
+              <itemcount>1</itemcount>
+              <dataset_items>
+                <dataset_item id="1">
+                  <number>1</number>
+                  <value>3.5</value>
+                </dataset_item>
+              </dataset_items>
+            </dataset_definition>
+            <dataset_definition id="2">
+              <category>0</category>
+              <name>B</name>
+              <type>1</type>
+              <options>uniform:1:10:1</options>
+              <itemcount>1</itemcount>
+              <dataset_items>
+                <dataset_item id="2">
+                  <number>1</number>
+                  <value>3.1</value>
+                </dataset_item>
+              </dataset_items>
+            </dataset_definition>
+          </dataset_definitions>
+          <calculated_records>
+            <calculated_record id="1">
+              <answer>1</answer>
+              <tolerance>0.01</tolerance>
+              <tolerancetype>1</tolerancetype>
+              <correctanswerlength>2</correctanswerlength>
+              <correctanswerformat>1</correctanswerformat>
+            </calculated_record>
+          </calculated_records>
+          <calculated_options>
+            <calculated_option id="1">
+              <synchronize>0</synchronize>
+              <single>0</single>
+              <shuffleanswers>1</shuffleanswers>
+              <correctfeedback></correctfeedback>
+              <correctfeedbackformat>0</correctfeedbackformat>
+              <partiallycorrectfeedback></partiallycorrectfeedback>
+              <partiallycorrectfeedbackformat>0</partiallycorrectfeedbackformat>
+              <incorrectfeedback></incorrectfeedback>
+              <incorrectfeedbackformat>0</incorrectfeedbackformat>
+              <answernumbering>abc</answernumbering>
+            </calculated_option>
+          </calculated_options>
+        </plugin_qtype_calculated_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="2">
+        <parent>0</parent>
+        <name>Calculated Multiple Choice</name>
+        <questiontext>&lt;p&gt;What is the Perimeter of a square that is {A} x {B}?&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>calculatedmulti</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214608+jB8GoP</stamp>
+        <version>10.0.21.141+140304214608+ud0uPZ</version>
+        <hidden>0</hidden>
+        <timecreated>1393969568</timecreated>
+        <timemodified>1393969568</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_calculatedmulti_question>
+          <answers>
+            <answer id="2">
+              <answertext>{A}*{B}</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="3">
+              <answertext>{A}+{B}</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <numerical_units>
+          </numerical_units>
+          <numerical_options>
+          </numerical_options>
+          <dataset_definitions>
+            <dataset_definition id="3">
+              <category>0</category>
+              <name>A</name>
+              <type>1</type>
+              <options>uniform:1:10:1</options>
+              <itemcount>1</itemcount>
+              <dataset_items>
+                <dataset_item id="3">
+                  <number>1</number>
+                  <value>5.1</value>
+                </dataset_item>
+              </dataset_items>
+            </dataset_definition>
+            <dataset_definition id="4">
+              <category>0</category>
+              <name>B</name>
+              <type>1</type>
+              <options>uniform:1:10:1</options>
+              <itemcount>1</itemcount>
+              <dataset_items>
+                <dataset_item id="4">
+                  <number>1</number>
+                  <value>7.1</value>
+                </dataset_item>
+              </dataset_items>
+            </dataset_definition>
+          </dataset_definitions>
+          <calculated_records>
+            <calculated_record id="2">
+              <answer>2</answer>
+              <tolerance>0.01</tolerance>
+              <tolerancetype>1</tolerancetype>
+              <correctanswerlength>2</correctanswerlength>
+              <correctanswerformat>1</correctanswerformat>
+            </calculated_record>
+            <calculated_record id="3">
+              <answer>3</answer>
+              <tolerance>0.01</tolerance>
+              <tolerancetype>1</tolerancetype>
+              <correctanswerlength>2</correctanswerlength>
+              <correctanswerformat>1</correctanswerformat>
+            </calculated_record>
+          </calculated_records>
+          <calculated_options>
+            <calculated_option id="2">
+              <synchronize>0</synchronize>
+              <single>1</single>
+              <shuffleanswers>1</shuffleanswers>
+              <correctfeedback></correctfeedback>
+              <correctfeedbackformat>1</correctfeedbackformat>
+              <partiallycorrectfeedback></partiallycorrectfeedback>
+              <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+              <incorrectfeedback></incorrectfeedback>
+              <incorrectfeedbackformat>1</incorrectfeedbackformat>
+              <answernumbering>abc</answernumbering>
+            </calculated_option>
+          </calculated_options>
+        </plugin_qtype_calculatedmulti_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="3">
+        <parent>0</parent>
+        <name>Calculated Simple</name>
+        <questiontext>&lt;p&gt;What is the area of a square with side of {A}&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;General feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>calculatedsimple</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214821+yEsaRa</stamp>
+        <version>10.0.21.141+140304214821+mnp9Yp</version>
+        <hidden>0</hidden>
+        <timecreated>1393969701</timecreated>
+        <timemodified>1393969701</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_calculatedsimple_question>
+          <answers>
+            <answer id="4">
+              <answertext>{A}*{A}</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <numerical_units>
+          </numerical_units>
+          <numerical_options>
+            <numerical_option id="2">
+              <showunits>3</showunits>
+              <unitsleft>0</unitsleft>
+              <unitgradingtype>0</unitgradingtype>
+              <unitpenalty>0.1000000</unitpenalty>
+            </numerical_option>
+          </numerical_options>
+          <dataset_definitions>
+            <dataset_definition id="5">
+              <category>0</category>
+              <name>A</name>
+              <type>1</type>
+              <options>uniform:1.0:10.0:1</options>
+              <itemcount>1</itemcount>
+              <dataset_items>
+                <dataset_item id="5">
+                  <number>1</number>
+                  <value>3.6</value>
+                </dataset_item>
+              </dataset_items>
+            </dataset_definition>
+          </dataset_definitions>
+          <calculated_records>
+            <calculated_record id="4">
+              <answer>4</answer>
+              <tolerance>0.01</tolerance>
+              <tolerancetype>1</tolerancetype>
+              <correctanswerlength>2</correctanswerlength>
+              <correctanswerformat>1</correctanswerformat>
+            </calculated_record>
+          </calculated_records>
+          <calculated_options>
+          </calculated_options>
+        </plugin_qtype_calculatedsimple_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="4">
+        <parent>0</parent>
+        <name>Embeded Answers (Cloze)</name>
+        <questiontext>&lt;pre&gt;Match the following cities with the correct state:
+* San Francisco: {#1}
+* Tucson: {#2}
+* Los Angeles: {#3}
+* Phoenix: {#4}
+The capital of France is {#5}.&lt;/pre&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>5.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>multianswer</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214936+jF8zMq</stamp>
+        <version>10.0.21.141+140304214936+fnp7LO</version>
+        <hidden>0</hidden>
+        <timecreated>1393969776</timecreated>
+        <timemodified>1393969776</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_multianswer_question>
+          <answers>
+          </answers>
+          <multianswer id="1">
+            <question>4</question>
+            <sequence>5,6,7,8,9</sequence>
+          </multianswer>
+        </plugin_qtype_multianswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="5">
+        <parent>4</parent>
+        <name>Embeded Answers (Cloze)</name>
+        <questiontext>{1:MULTICHOICE:=California#OK~Arizona#Wrong}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214936+WWVcBS</stamp>
+        <version>10.0.21.141+140304214936+iQhnFi</version>
+        <hidden>0</hidden>
+        <timecreated>1393969776</timecreated>
+        <timemodified>1393969776</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="5">
+              <answertext>California</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>OK</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="6">
+              <answertext>Arizona</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>Wrong</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="1">
+            <layout>0</layout>
+            <answers>5,6</answers>
+            <single>1</single>
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="6">
+        <parent>4</parent>
+        <name>Embeded Answers (Cloze)</name>
+        <questiontext>{1:MULTICHOICE:California#Wrong~%100%Arizona#OK}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214936+MlonL9</stamp>
+        <version>10.0.21.141+140304214936+thlZ1a</version>
+        <hidden>0</hidden>
+        <timecreated>1393969776</timecreated>
+        <timemodified>1393969776</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="7">
+              <answertext>California</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>Wrong</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="8">
+              <answertext>Arizona</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>OK</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="2">
+            <layout>0</layout>
+            <answers>7,8</answers>
+            <single>1</single>
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="7">
+        <parent>4</parent>
+        <name>Embeded Answers (Cloze)</name>
+        <questiontext>{1:MULTICHOICE:=California#OK~Arizona#Wrong}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214936+SgAcEL</stamp>
+        <version>10.0.21.141+140304214936+A1nyV3</version>
+        <hidden>0</hidden>
+        <timecreated>1393969776</timecreated>
+        <timemodified>1393969776</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="9">
+              <answertext>California</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>OK</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="10">
+              <answertext>Arizona</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>Wrong</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="3">
+            <layout>0</layout>
+            <answers>9,10</answers>
+            <single>1</single>
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="8">
+        <parent>4</parent>
+        <name>Embeded Answers (Cloze)</name>
+        <questiontext>{1:MULTICHOICE:%0%California#Wrong~=Arizona#OK}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214936+NIN2Vv</stamp>
+        <version>10.0.21.141+140304214936+B8dc9m</version>
+        <hidden>0</hidden>
+        <timecreated>1393969776</timecreated>
+        <timemodified>1393969776</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="11">
+              <answertext>California</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>Wrong</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="12">
+              <answertext>Arizona</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>OK</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="4">
+            <layout>0</layout>
+            <answers>11,12</answers>
+            <single>1</single>
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>0</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="9">
+        <parent>4</parent>
+        <name>Embeded Answers (Cloze)</name>
+        <questiontext>{1:SHORTANSWER:%100%Paris#Congratulations!
+~%50%Marseille#No, that is the second largest city in France (after
+Paris).~*#Wrong answer. The capital of France is Paris, of course.}</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304214936+uPuLIm</stamp>
+        <version>10.0.21.141+140304214936+87KWSX</version>
+        <hidden>0</hidden>
+        <timecreated>1393969776</timecreated>
+        <timemodified>1393969776</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="13">
+              <answertext>Paris</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>Congratulations!</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="14">
+              <answertext>Marseille</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.5000000</fraction>
+              <feedback>No, that is the second largest city in France (after
+Paris).</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="15">
+              <answertext>*</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>Wrong answer. The capital of France is Paris, of course.</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="1">
+            <answers>13,14,15</answers>
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="10">
+        <parent>0</parent>
+        <name>Essay Question</name>
+        <questiontext>&lt;p&gt;Essay Question Text&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>essay</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304215019+g9MVyY</stamp>
+        <version>10.0.21.141+140304215019+81m3xm</version>
+        <hidden>0</hidden>
+        <timecreated>1393969819</timecreated>
+        <timemodified>1393969819</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_essay_question>
+          <essay id="1">
+            <responseformat>editor</responseformat>
+            <responsefieldlines>15</responsefieldlines>
+            <attachments>0</attachments>
+            <graderinfo>&lt;p&gt;Graders information&lt;/p&gt;</graderinfo>
+            <graderinfoformat>1</graderinfoformat>
+          </essay>
+        </plugin_qtype_essay_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="11">
+        <parent>0</parent>
+        <name>Matching Question</name>
+        <questiontext>&lt;p&gt;Matching Question Text&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>match</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304215150+Fb2TUa</stamp>
+        <version>10.0.21.141+140304215150+faZzGF</version>
+        <hidden>0</hidden>
+        <timecreated>1393969910</timecreated>
+        <timemodified>1393969910</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_match_question>
+          <matchoptions id="1">
+            <subquestions>1,2,3</subquestions>
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback>&lt;p&gt;Correct Feedback&lt;/p&gt;</correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback>&lt;p&gt;Partially Correct Feedback&lt;/p&gt;</partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback>&lt;p&gt;Incorrect feedback&lt;/p&gt;</incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <shownumcorrect>0</shownumcorrect>
+          </matchoptions>
+          <matches>
+            <match id="1">
+              <code>434117402</code>
+              <questiontext>&lt;p&gt;Question One&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>Answer One</answertext>
+            </match>
+            <match id="2">
+              <code>643261419</code>
+              <questiontext>&lt;p&gt;Question 2&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>Answer 2</answertext>
+            </match>
+            <match id="3">
+              <code>100283645</code>
+              <questiontext>&lt;p&gt;Question 3&lt;/p&gt;</questiontext>
+              <questiontextformat>1</questiontextformat>
+              <answertext>Answer 3</answertext>
+            </match>
+          </matches>
+        </plugin_qtype_match_question>
+        <question_hints>
+          <question_hint id="1">
+            <hint>&lt;p&gt;Hint 1&lt;/p&gt;</hint>
+            <hintformat>1</hintformat>
+            <shownumcorrect>0</shownumcorrect>
+            <clearwrong>0</clearwrong>
+            <options>$@NULL@$</options>
+          </question_hint>
+          <question_hint id="2">
+            <hint>&lt;p&gt;Hint 2&lt;/p&gt;</hint>
+            <hintformat>1</hintformat>
+            <shownumcorrect>0</shownumcorrect>
+            <clearwrong>0</clearwrong>
+            <options>$@NULL@$</options>
+          </question_hint>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="12">
+        <parent>0</parent>
+        <name>Multiple Choice Question</name>
+        <questiontext>&lt;p&gt;Question Test for Multiple Choice&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;General feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>multichoice</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304215356+6fE0pi</stamp>
+        <version>10.0.21.141+140304215356+Lhpi1D</version>
+        <hidden>0</hidden>
+        <timecreated>1393970036</timecreated>
+        <timemodified>1393970036</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_multichoice_question>
+          <answers>
+            <answer id="16">
+              <answertext>&lt;p&gt;Answer 1 wrong&lt;/p&gt;</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>&lt;p&gt;answer 1 feedback&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="17">
+              <answertext>&lt;p&gt;Answer 2 wrong&lt;/p&gt;</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>&lt;p&gt;answer 2 feedback&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="18">
+              <answertext>&lt;p&gt;Answer 3 correct&lt;/p&gt;</answertext>
+              <answerformat>1</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>&lt;p&gt;answer 3 feedback&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <multichoice id="5">
+            <layout>0</layout>
+            <answers>16,17,18</answers>
+            <single>1</single>
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback>&lt;p&gt;correct feedback&lt;/p&gt;</correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback>&lt;p&gt;partial correct feedback&lt;/p&gt;</partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback>&lt;p&gt;incorrect feedback&lt;/p&gt;</incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <answernumbering>abc</answernumbering>
+            <shownumcorrect>0</shownumcorrect>
+          </multichoice>
+        </plugin_qtype_multichoice_question>
+        <question_hints>
+          <question_hint id="3">
+            <hint>&lt;p&gt;hint 1&lt;/p&gt;</hint>
+            <hintformat>1</hintformat>
+            <shownumcorrect>0</shownumcorrect>
+            <clearwrong>0</clearwrong>
+            <options>$@NULL@$</options>
+          </question_hint>
+          <question_hint id="4">
+            <hint>&lt;p&gt;hint 2&lt;/p&gt;</hint>
+            <hintformat>1</hintformat>
+            <shownumcorrect>0</shownumcorrect>
+            <clearwrong>0</clearwrong>
+            <options>$@NULL@$</options>
+          </question_hint>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="13">
+        <parent>0</parent>
+        <name>Numerical Question</name>
+        <questiontext>&lt;p&gt;Question text answer is 3&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;general feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>numerical</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304215519+Ih7PG4</stamp>
+        <version>10.0.21.141+140304215519+JC1bwO</version>
+        <hidden>0</hidden>
+        <timecreated>1393970119</timecreated>
+        <timemodified>1393970119</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_numerical_question>
+          <answers>
+            <answer id="19">
+              <answertext>3</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>&lt;p&gt;right answer&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="20">
+              <answertext>10</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>&lt;p&gt;wrong answer&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="21">
+              <answertext>1</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>&lt;p&gt;wrong answer&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <numerical_units>
+          </numerical_units>
+          <numerical_options>
+            <numerical_option id="3">
+              <showunits>3</showunits>
+              <unitsleft>0</unitsleft>
+              <unitgradingtype>0</unitgradingtype>
+              <unitpenalty>0.1000000</unitpenalty>
+            </numerical_option>
+          </numerical_options>
+          <numerical_records>
+            <numerical_record id="1">
+              <answer>19</answer>
+              <tolerance>1</tolerance>
+            </numerical_record>
+            <numerical_record id="2">
+              <answer>20</answer>
+              <tolerance>0</tolerance>
+            </numerical_record>
+            <numerical_record id="3">
+              <answer>21</answer>
+              <tolerance>0</tolerance>
+            </numerical_record>
+          </numerical_records>
+        </plugin_qtype_numerical_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="14">
+        <parent>0</parent>
+        <name>Short Answer Question</name>
+        <questiontext>&lt;p&gt;Question text&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304215722+AVR9OG</stamp>
+        <version>10.0.21.141+140304215722+kGf67d</version>
+        <hidden>0</hidden>
+        <timecreated>1393970242</timecreated>
+        <timemodified>1393970242</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="22">
+              <answertext>ping pong</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>&lt;p&gt;corrent&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="23">
+              <answertext>tennis</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="2">
+            <answers>22,23</answers>
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="15">
+        <parent>0</parent>
+        <name>True/False Question</name>
+        <questiontext>&lt;p&gt;True == True&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback>&lt;p&gt;feedback&lt;/p&gt;</generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>1.0000000</penalty>
+        <qtype>truefalse</qtype>
+        <length>1</length>
+        <stamp>10.0.21.141+140304215800+p3jSSa</stamp>
+        <version>10.0.21.141+140304215801+FQKIDE</version>
+        <hidden>0</hidden>
+        <timecreated>1393970280</timecreated>
+        <timemodified>1393970280</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_truefalse_question>
+          <answers>
+            <answer id="24">
+              <answertext>True</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback>&lt;p&gt;Correct&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="25">
+              <answertext>False</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>&lt;p&gt;False&lt;/p&gt;</feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <truefalse id="1">
+            <trueanswer>24</trueanswer>
+            <falseanswer>25</falseanswer>
+          </truefalse>
+        </plugin_qtype_truefalse_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+    </questions>
+  </question_category>
 </question_categories>

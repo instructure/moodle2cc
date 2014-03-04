@@ -6,10 +6,10 @@
     <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
     <backup_version>2012120300</backup_version>
     <backup_release>2.4</backup_release>
-    <backup_date>1393620548</backup_date>
+    <backup_date>1393970332</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
-    <original_wwwroot>https://moodle</original_wwwroot>
+    <original_wwwroot>https://10.0.21.141</original_wwwroot>
     <original_site_identifier_hash>02d8842522c216b34eea4ba8c14a9a5b</original_site_identifier_hash>
     <original_course_id>2</original_course_id>
     <original_course_fullname>Sample Course</original_course_fullname>
@@ -18,7 +18,7 @@
     <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="0abcc8597a27ae7812c85ffc302a5450">
+      <detail backup_id="78ddb57bda894b828ff31326c3b248f5">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
@@ -56,6 +56,13 @@
           <modulename>assign</modulename>
           <title>Assignment Name</title>
           <directory>activities/assign_4</directory>
+        </activity>
+        <activity>
+          <moduleid>5</moduleid>
+          <sectionid>7</sectionid>
+          <modulename>quiz</modulename>
+          <title>Quiz Name</title>
+          <directory>activities/quiz_5</directory>
         </activity>
       </activities>
       <sections>
@@ -297,6 +304,18 @@
         <level>section</level>
         <section>section_7</section>
         <name>section_7_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>quiz_5</activity>
+        <name>quiz_5_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>quiz_5</activity>
+        <name>quiz_5_userinfo</name>
         <value>0</value>
       </setting>
     </settings>

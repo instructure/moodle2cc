@@ -12,7 +12,7 @@
     <cutoffdate>1394221500</cutoffdate>
     <allowsubmissionsfromdate>1393616700</allowsubmissionsfromdate>
     <grade>100</grade>
-    <timemodified>1393620527</timemodified>
+    <timemodified>1393924398</timemodified>
     <completionsubmit>0</completionsubmit>
     <requiresubmissionstatement>0</requiresubmissionstatement>
     <teamsubmission>1</teamsubmission>
@@ -53,7 +53,7 @@
         <plugin>comments</plugin>
         <subtype>assignsubmission</subtype>
         <name>enabled</name>
-        <value>1</value>
+        <value>0</value>
       </plugin_config>
       <plugin_config id="6">
         <plugin>comments</plugin>

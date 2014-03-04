@@ -32,9 +32,9 @@
     <theme></theme>
     <timezone>99</timezone>
     <firstaccess>1392408032</firstaccess>
-    <lastaccess>1393620527</lastaccess>
-    <lastlogin>1393413390</lastlogin>
-    <currentlogin>1393616741</currentlogin>
+    <lastaccess>1393970315</lastaccess>
+    <lastlogin>1393924087</lastlogin>
+    <currentlogin>1393968375</currentlogin>
     <mailformat>1</mailformat>
     <maildigest>0</maildigest>
     <maildisplay>1</maildisplay>
@@ -55,7 +55,7 @@
       </preference>
       <preference id="2">
         <name>email_send_count</name>
-        <value>2</value>
+        <value>3</value>
       </preference>
       <preference id="3">
         <name>usemodchooser</name>
@@ -71,6 +71,10 @@
       </preference>
       <preference id="6">
         <name>mod_assign_mod_form_showadvanced</name>
+        <value>1</value>
+      </preference>
+      <preference id="7">
+        <name>quiz_qbanktool_open</name>
         <value>1</value>
       </preference>
     </preferences>

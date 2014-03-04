@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+  <event id="2">
+    <name>Quiz Name</name>
+    <description>&lt;div class="no-overflow"&gt;&lt;p&gt;Quiz Description&lt;/p&gt;&lt;/div&gt;</description>
+    <format>1</format>
+    <courseid>2</courseid>
+    <groupid>0</groupid>
+    <userid>2</userid>
+    <repeatid>0</repeatid>
+    <modulename>quiz</modulename>
+    <instance>1</instance>
+    <eventtype>open</eventtype>
+    <timestart>1393968360</timestart>
+    <timeduration>86400</timeduration>
+    <visible>1</visible>
+    <uuid></uuid>
+    <sequence>1</sequence>
+    <timemodified>1393968611</timemodified>
+  </event>
+</events>
