@@ -21,6 +21,18 @@ module Moodle2CC::CanvasCC
       assert_xml_schema(xml)
     end
 
+    it '#write' do
+      Dir.mktmpdir do |dir|
+        source_file = File.join(dir, 'sample.txt')
+        FileUtils.touch(source_file)
+        file.file_location = source_file
+        file.file_path = 'sample.txt'
+        write_xml(writer(file))
+        path = File.join(tmpdir, Model::CanvasFile::WEB_RESOURCES, 'sample.txt')
+        expect(File.exist?(path)).to be_true
+      end
+    end
+
     private
 
     def writer(file)

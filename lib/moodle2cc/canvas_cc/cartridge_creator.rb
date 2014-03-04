@@ -22,7 +22,9 @@ class Moodle2CC::CanvasCC::CartridgeCreator
     title = @course.title.gsub(/::/, '/').
       gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2').
       gsub(/([a-z\d])([A-Z])/, '\1_\2').
-      tr("- ", "_").downcase
+      gsub(/[\/|\.]/, '_').
+      tr('- ', '_').downcase.
+      gsub(/_{2,}/, '_')
     "#{title}.imscc"
   end
 

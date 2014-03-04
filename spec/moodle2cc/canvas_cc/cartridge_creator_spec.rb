@@ -36,7 +36,7 @@ module Moodle2CC::CanvasCC
     end
 
     describe 'filename' do
-      ['My Stuff', 'my/stuff', 'my.stuff' 'my-stuff'].each do |title|
+      ['My Stuff', 'my/stuff', 'my.stuff', 'my-stuff', 'my--stuff', 'my---stuff', 'my-./stuff'].each do |title|
         it "with course title: #{title}" do
           course.title = title
           expect(subject.filename).to eq('my_stuff.imscc')
