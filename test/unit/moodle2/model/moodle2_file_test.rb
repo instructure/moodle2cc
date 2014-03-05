@@ -8,7 +8,7 @@ module Moodle2
       include TestHelper
 
       def setup
-        @file = Moodle2CC::Moodle2::Model::Moodle2File.new
+        @file = Moodle2CC::Moodle2::Models::Moodle2File.new
       end
 
       def teardown

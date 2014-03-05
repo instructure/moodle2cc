@@ -9,7 +9,7 @@ module Moodle2
       include TestHelper
 
       def setup
-        @course = Moodle2CC::Moodle2::Model::Course.new
+        @course = Moodle2CC::Moodle2::Models::Course.new
       end
 
       def teardown

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Moodle2CC::Moodle2::Model::Assignment do
+describe Moodle2CC::Moodle2::Models::Assignment do
 
   it_behaves_like 'it has an attribute for', :id
   it_behaves_like 'it has an attribute for', :module_id

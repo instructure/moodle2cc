@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parser
   class CourseParser
 
     COURSE_XML_PATH = 'course/course.xml'
@@ -8,7 +8,7 @@ module Moodle2CC::Moodle2
     end
 
     def parse
-      course = Moodle2CC::Moodle2::Model::Course.new
+      course = Moodle2CC::Moodle2::Models::Course.new
       File.open(File.join(@backup_folder, COURSE_XML_PATH)) do |f|
         course_doc = Nokogiri::XML(f)
         course.course_id = course_doc.at_xpath('/course/@id').value

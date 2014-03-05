@@ -15,7 +15,7 @@ module Moodle2Converter
     end
 
     def test_moodle_2_cc_course_conversion
-      moodle_course = Moodle2CC::Moodle2::Model::Course.new
+      moodle_course = Moodle2CC::Moodle2::Models::Course.new
       moodle_course.fullname = 'Full Name'
       moodle_course.shortname = 'Short Name'
       moodle_course.startdate = Time.parse('Sat, 08 Feb 2014 16:00:00 GMT')

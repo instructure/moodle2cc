@@ -15,7 +15,7 @@ module Moodle2Converter
     end
 
     def test_conversion
-      moodle_section = Moodle2CC::Moodle2::Model::Section.new
+      moodle_section = Moodle2CC::Moodle2::Models::Section.new
       moodle_section.id = 'section_id'
       moodle_section.name = 'section_name'
       moodle_section.visible = false

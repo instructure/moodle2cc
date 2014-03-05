@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2::Model
+module Moodle2CC::Moodle2::Models
   class Moodle2File
 
     attr_accessor :id, :content_hash, :context_id, :component, :file_area, :item_id, :file_path, :file_name,

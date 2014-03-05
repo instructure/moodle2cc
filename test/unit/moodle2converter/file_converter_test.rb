@@ -15,7 +15,7 @@ class FileConverterTest < MiniTest::Unit::TestCase
 
 
   def test_conversion
-    moodle_file = Moodle2CC::Moodle2::Model::Moodle2File.new
+    moodle_file = Moodle2CC::Moodle2::Models::Moodle2File.new
     moodle_file.file_location = 'path_to_file'
     moodle_file.file_name = 'my_file_name'
     moodle_file.id = 'my_file_id'

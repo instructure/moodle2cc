@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2::Model 
+module Moodle2CC::Moodle2::Models
 class Forum
 
   attr_accessor :id, :module_id, :type, :name, :intro, :intro_format, :assessed, :assess_time_start, :assess_time_finish, :scale,

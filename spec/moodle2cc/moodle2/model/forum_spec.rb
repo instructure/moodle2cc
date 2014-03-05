@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Moodle2CC::Moodle2::Model::Forum do
+describe Moodle2CC::Moodle2::Models::Forum do
 
   it_behaves_like 'it has an attribute for', :id
   it_behaves_like 'it has an attribute for', :module_id

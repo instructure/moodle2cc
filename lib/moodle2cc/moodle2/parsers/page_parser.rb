@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parser
   class PageParser
 
     PAGE_XML = 'page.xml'
@@ -25,7 +25,7 @@ module Moodle2CC::Moodle2
     end
 
     def parse_page(page_dir)
-      page = Moodle2CC::Moodle2::Model::Page.new
+      page = Moodle2CC::Moodle2::Models::Page.new
       File.open(File.join(@backup_dir, page_dir, PAGE_XML)) do |f|
         page_xml = Nokogiri::XML(f)
         page.id = page_xml.at_xpath('/activity/page/@id').value

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Moodle2CC::Moodle2::AssignmentParser do
-  subject { Moodle2CC::Moodle2::AssignmentParser.new(fixture_path(File.join('moodle2', 'backup'))) }
+describe Moodle2CC::Moodle2::Parser::AssignmentParser do
+  subject { Moodle2CC::Moodle2::Parser::AssignmentParser.new(fixture_path(File.join('moodle2', 'backup'))) }
 
   it 'should parse and assignment' do
     assignemnts = subject.parse

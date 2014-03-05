@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Moodle2CC::Moodle2::ForumParser do
-  subject(:parser) { Moodle2CC::Moodle2::ForumParser.new(fixture_path(File.join('moodle2', 'backup')))}
+describe Moodle2CC::Moodle2::Parser::ForumParser do
+  subject(:parser) { Moodle2CC::Moodle2::Parser::ForumParser.new(fixture_path(File.join('moodle2', 'backup')))}
 
 
   it 'parses a moodle forum' do

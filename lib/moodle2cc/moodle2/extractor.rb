@@ -12,7 +12,7 @@ module Moodle2CC::Moodle2
     def extract
       Dir.mktmpdir do |work_dir|
         extract_zip(work_dir)
-        course = Moodle2CC::Moodle2::CourseParser.new(work_dir).parse
+        course = Moodle2CC::Moodle2::Parser::CourseParser.new(work_dir).parse
         parse_sections(work_dir, course)
         parse_files(work_dir, course)
         parse_pages(work_dir, course)
@@ -35,31 +35,31 @@ module Moodle2CC::Moodle2
     end
 
     def parse_sections(work_dir, course)
-      if sections = Moodle2CC::Moodle2::SectionParser.new(work_dir).parse
+      if sections = Moodle2CC::Moodle2::Parser::SectionParser.new(work_dir).parse
         course.sections += sections
       end
     end
 
     def parse_files(work_dir, course)
-      if files = Moodle2CC::Moodle2::FileParser.new(work_dir).parse
+      if files = Moodle2CC::Moodle2::Parser::FileParser.new(work_dir).parse
         course.files += files
       end
     end
 
     def parse_pages(work_dir, course)
-      if pages = Moodle2CC::Moodle2::PageParser.new(work_dir).parse
+      if pages = Moodle2CC::Moodle2::Parser::PageParser.new(work_dir).parse
         course.pages += pages
       end
     end
 
     def parse_forums(work_dir, course)
-      if forums = Moodle2CC::Moodle2::ForumParser.new(work_dir).parse
+      if forums = Moodle2CC::Moodle2::Parser::ForumParser.new(work_dir).parse
         course.forums += forums
       end
     end
 
     def parse_assignments(work_dir, course)
-      if forums = Moodle2CC::Moodle2::AssignmentParser.new(work_dir).parse
+      if forums = Moodle2CC::Moodle2::Parser::AssignmentParser.new(work_dir).parse
         course.assignments += forums
       end
     end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Moodle2CC::Moodle2Converter::AssignmentConverter do
-  let(:moodle_assign) {Moodle2CC::Moodle2::Model::Assignment.new}
+  let(:moodle_assign) {Moodle2CC::Moodle2::Models::Assignment.new}
 
   it 'converts a moodle2 assignment to a canvas assignment' do
     moodle_assign.id = 'assign id'

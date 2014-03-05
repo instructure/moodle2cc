@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parser
   class FileParser
 
     FILES_XML = 'files.xml'
@@ -14,7 +14,7 @@ module Moodle2CC::Moodle2
       file_nodes = xml./('files/file')
       files = {}
       file_nodes.each do |node|
-        file = Moodle2CC::Moodle2::Model::Moodle2File.new
+        file = Moodle2CC::Moodle2::Models::Moodle2File.new
         file.id = node.at_xpath('@id').value
         file.content_hash = parse_text(node, 'contenthash')
         file.context_id = parse_text(node, 'contextid')

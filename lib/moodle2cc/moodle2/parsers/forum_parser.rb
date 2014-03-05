@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parser
   class ForumParser
 
     FORUM_XML = 'forum.xml'
@@ -24,7 +24,7 @@ module Moodle2CC::Moodle2
     end
 
     def parse_forum(forum_dir)
-      forum = Moodle2CC::Moodle2::Model::Forum.new
+      forum = Moodle2CC::Moodle2::Models::Forum.new
       File.open(File.join(@backup_dir, forum_dir, FORUM_XML)) do |f|
         forum_xml = Nokogiri::XML(f)
         forum.id = forum_xml.at_xpath('/activity/forum/@id').value

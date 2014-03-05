@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parser
   class AssignmentParser
 
     ASSIGNMENT_XML = 'assign.xml'
@@ -24,7 +24,7 @@ module Moodle2CC::Moodle2
     end
 
     def parse_assignemnt(dir)
-      assignment = Moodle2CC::Moodle2::Model::Assignment.new
+      assignment = Moodle2CC::Moodle2::Models::Assignment.new
       File.open(File.join(@backup_dir, dir, ASSIGNMENT_XML)) do |f|
         xml = Nokogiri::XML(f)
         assignment.id = xml.at_xpath('/activity/assign/@id').value

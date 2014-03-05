@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parser
   class SectionParser
 
     SECTION_XML = 'section.xml'
@@ -15,7 +15,7 @@ module Moodle2CC::Moodle2
     private
 
     def parse_section(section_dir, i)
-      section = Moodle2CC::Moodle2::Model::Section.new
+      section = Moodle2CC::Moodle2::Models::Section.new
       File.open(File.join(@backup_dir, section_dir, SECTION_XML)) do |f|
         section_xml = Nokogiri::XML(f)
         section.position = i

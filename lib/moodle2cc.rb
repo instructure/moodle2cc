@@ -87,19 +87,23 @@ module Moodle2CC
   end
   module Moodle2
     autoload :Extractor, 'moodle2cc/moodle2/extractor'
-    autoload :CourseParser, 'moodle2cc/moodle2/course_parser'
-    autoload :SectionParser, 'moodle2cc/moodle2/section_parser'
-    autoload :FileParser, 'moodle2cc/moodle2/file_parser'
-    autoload :PageParser, 'moodle2cc/moodle2/page_parser'
-    autoload :ForumParser, 'moodle2cc/moodle2/forum_parser'
-    autoload :AssignmentParser, 'moodle2cc/moodle2/assignment_parser'
-    module Model
-      autoload :Course, 'moodle2cc/moodle2/model/course'
-      autoload :Section, 'moodle2cc/moodle2/model/section'
-      autoload :Moodle2File, 'moodle2cc/moodle2/model/moodle2_file'
-      autoload :Page, 'moodle2cc/moodle2/model/page'
-      autoload :Forum, 'moodle2cc/moodle2/model/forum'
-      autoload :Assignment, 'moodle2cc/moodle2/model/assignment'
+    module Parser
+      autoload :CourseParser, 'moodle2cc/moodle2/parsers/course_parser'
+      autoload :SectionParser, 'moodle2cc/moodle2/parsers/section_parser'
+      autoload :FileParser, 'moodle2cc/moodle2/parsers/file_parser'
+      autoload :PageParser, 'moodle2cc/moodle2/parsers/page_parser'
+      autoload :ForumParser, 'moodle2cc/moodle2/parsers/forum_parser'
+      autoload :AssignmentParser, 'moodle2cc/moodle2/parsers/assignment_parser'
+    end
+    module Models
+      autoload :Course, 'moodle2cc/moodle2/models/course'
+      autoload :Section, 'moodle2cc/moodle2/models/section'
+      autoload :Moodle2File, 'moodle2cc/moodle2/models/moodle2_file'
+      autoload :Page, 'moodle2cc/moodle2/models/page'
+      autoload :Forum, 'moodle2cc/moodle2/models/forum'
+      autoload :Assignment, 'moodle2cc/moodle2/models/assignment'
+      autoload :Book, 'moodle2cc/moodle2/models/book'
+      autoload :BookChapter, 'moodle2cc/moodle2/models/book_chapter'
     end
   end
   module Moodle2Converter

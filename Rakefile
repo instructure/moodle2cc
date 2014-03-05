@@ -11,6 +11,13 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
+Rake::TestTask.new(:moodle2_test) do |t|
+  t.libs.push "lib"
+  t.libs.push "test"
+  t.pattern = "test/unit/moodle2*/**/*_test.rb"
+  t.verbose = true
+end
+
 RSpec::Core::RakeTask.new(:spec)
 
 task :all_tests => [:test, :spec]

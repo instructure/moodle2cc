@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2::Model
+module Moodle2CC::Moodle2::Models
   class Page
 
     attr_accessor :module_id, :id, :name, :intro, :intro_format, :content, :content_format, :legacy_files,
