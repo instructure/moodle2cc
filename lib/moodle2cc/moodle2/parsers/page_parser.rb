@@ -1,4 +1,4 @@
-module Moodle2CC::Moodle2::Parser
+module Moodle2CC::Moodle2::Parsers
   class PageParser
 
     PAGE_XML = 'page.xml'

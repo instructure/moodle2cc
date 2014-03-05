@@ -7,7 +7,7 @@ module Moodle2
     include TestHelper
 
     def setup
-      @course_parser = Moodle2CC::Moodle2::Parser::CourseParser.new(fixture_path(File.join('moodle2', 'backup')))
+      @course_parser = Moodle2CC::Moodle2::Parsers::CourseParser.new(fixture_path(File.join('moodle2', 'backup')))
     end
 
     def teardown

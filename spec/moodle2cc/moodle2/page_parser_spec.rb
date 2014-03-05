@@ -1,8 +1,8 @@
 # coding: UTF-8
 require 'spec_helper'
 
-describe Moodle2CC::Moodle2::Parser::PageParser do
-  subject(:parser) {Moodle2CC::Moodle2::Parser::PageParser.new(fixture_path(File.join('moodle2', 'backup')))}
+describe Moodle2CC::Moodle2::Parsers::PageParser do
+  subject(:parser) {Moodle2CC::Moodle2::Parsers::PageParser.new(fixture_path(File.join('moodle2', 'backup')))}
 
   it 'parses a moodle2 page' do
     pages = parser.parse

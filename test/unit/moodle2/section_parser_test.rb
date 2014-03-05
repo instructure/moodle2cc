@@ -7,7 +7,7 @@ module Moodle2
     include TestHelper
 
     def setup
-      @section_parser = Moodle2CC::Moodle2::Parser::SectionParser.new(fixture_path(File.join('moodle2', 'backup')))
+      @section_parser = Moodle2CC::Moodle2::Parsers::SectionParser.new(fixture_path(File.join('moodle2', 'backup')))
     end
 
     def teardown
