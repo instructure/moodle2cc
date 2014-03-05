@@ -18,6 +18,7 @@ module Moodle2CC::Moodle2
         parse_pages(work_dir, course)
         parse_forums(work_dir, course)
         parse_assignments(work_dir, course)
+        parse_books(work_dir, course)
         yield course
       end
     end
@@ -59,8 +60,14 @@ module Moodle2CC::Moodle2
     end
 
     def parse_assignments(work_dir, course)
-      if forums = Moodle2CC::Moodle2::Parsers::AssignmentParser.new(work_dir).parse
-        course.assignments += forums
+      if assignments = Moodle2CC::Moodle2::Parsers::AssignmentParser.new(work_dir).parse
+        course.assignments += assignments
+      end
+    end
+
+    def parse_books(work_dir, course)
+      if books = Moodle2CC::Moodle2::Parsers::BookParser.new(work_dir).parse
+        course.books += books
       end
     end
 

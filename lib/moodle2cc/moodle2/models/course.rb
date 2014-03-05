@@ -1,7 +1,7 @@
 module Moodle2CC::Moodle2::Models
 class Course
   attr_accessor :id_number, :fullname, :shortname, :startdate, :summary, :course_id, :sections, :files, :pages, :forums,
-                :assignments
+                :assignments, :books
 
   def initialize
     @sections = []
@@ -9,6 +9,7 @@ class Course
     @pages = []
     @forums = []
     @assignments = []
+    @books = []
   end
 
 end

@@ -6,7 +6,8 @@ describe Moodle2CC::Moodle2::Extractor do
                         files: [], :files= => [],
                         :pages => [], :pages= => [],
                         :forums => [], :forums= => [],
-                        :assignments => [], :assignments= => []
+                        :assignments => [], :assignments= => [],
+                        :books => [], :books= => []
   )}
 
   before(:each) do
@@ -17,6 +18,7 @@ describe Moodle2CC::Moodle2::Extractor do
     Moodle2CC::Moodle2::Parsers::PageParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::Parsers::ForumParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::Parsers::AssignmentParser.any_instance.stub(:parse)
+    Moodle2CC::Moodle2::Parsers::BookParser.any_instance.stub(:parse)
     Zip::File.stub(:open).and_yield([])
   end
 
@@ -54,6 +56,12 @@ describe Moodle2CC::Moodle2::Extractor do
     Moodle2CC::Moodle2::Parsers::AssignmentParser.any_instance.stub(:parse).and_return(['assign'])
     extractor.extract {}
     expect(course).to have_received(:assignments=).with(['assign'])
+  end
+
+  it 'parses books' do
+    Moodle2CC::Moodle2::Parsers::BookParser.any_instance.stub(:parse).and_return(['book'])
+    extractor.extract {}
+    expect(course).to have_received(:books=).with(['book'])
   end
 
 end
