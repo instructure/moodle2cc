@@ -17,8 +17,9 @@ module Moodle2
 
     def test_files_parsing
       files = @file_parser.parse
-      assert_equal(1, files.count)
+      assert_equal(3, files.count)
       file = files[0]
+      require 'pry'; binding.pry
       assert_equal(file.id, '15')
       assert_equal(file.content_hash, 'a0f324310c8d8dd9c79458986c4322f5a060a1d9')
       assert_equal(file.context_id, '22')

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="6" modulename="book" contextid="25">
+  <book id="1">
+    <name>My First Book</name>
+    <intro>&lt;p&gt;Description of my book&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <numbering>0</numbering>
+    <customtitles>0</customtitles>
+    <timecreated>1394041447</timecreated>
+    <timemodified>1394041490</timemodified>
+    <chapters>
+      <chapter id="1">
+        <pagenum>1</pagenum>
+        <subchapter>0</subchapter>
+        <title>Chapter 1</title>
+        <content>&lt;p&gt;Chapter 1 content&lt;/p&gt;</content>
+        <contentformat>1</contentformat>
+        <hidden>0</hidden>
+        <timemodified>1394041463</timemodified>
+        <importsrc></importsrc>
+      </chapter>
+      <chapter id="2">
+        <pagenum>3</pagenum>
+        <subchapter>1</subchapter>
+        <title>Chapter 1 subchapter</title>
+        <content>&lt;p&gt;sub chapter description&lt;/p&gt;</content>
+        <contentformat>1</contentformat>
+        <hidden>0</hidden>
+        <timemodified>1394041582</timemodified>
+        <importsrc></importsrc>
+      </chapter>
+      <chapter id="3">
+        <pagenum>2</pagenum>
+        <subchapter>0</subchapter>
+        <title>Chapter 2</title>
+        <content>&lt;p&gt;Chapter 2 content&lt;/p&gt;</content>
+        <contentformat>1</contentformat>
+        <hidden>0</hidden>
+        <timemodified>1394041598</timemodified>
+        <importsrc></importsrc>
+      </chapter>
+    </chapters>
+  </book>
+</activity>
