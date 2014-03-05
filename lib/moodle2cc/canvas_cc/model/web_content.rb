@@ -1,5 +1,7 @@
-class Moodle2CC::CanvasCC::Model::WebContent
+module Moodle2CC::CanvasCC::Model
+  class WebContent
 
-  attr_accessor :body
+    attr_accessor :body
 
+  end
 end

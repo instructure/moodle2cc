@@ -1,5 +1,7 @@
-class Moodle2CC::CanvasCC::Model::WebLink
+module Moodle2CC::CanvasCC::Model
+  class WebLink
 
-  attr_accessor :url, :external_link, :href
+    attr_accessor :url, :external_link, :href
 
+  end
 end

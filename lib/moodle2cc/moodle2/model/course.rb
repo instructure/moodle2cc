@@ -1,4 +1,5 @@
-class Moodle2CC::Moodle2::Model::Course
+module Moodle2CC::Moodle2::Model 
+class Course
   attr_accessor :id_number, :fullname, :shortname, :startdate, :summary, :course_id, :sections, :files, :pages, :forums,
                 :assignments
 
@@ -10,4 +11,5 @@ class Moodle2CC::Moodle2::Model::Course
     @assignments = []
   end
 
+end
 end

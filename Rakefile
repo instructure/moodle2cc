@@ -13,4 +13,6 @@ end
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :test
+task :all_tests => [:test, :spec]
+
+task :default => :all_tests

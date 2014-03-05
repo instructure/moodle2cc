@@ -1,3 +1,5 @@
-class Moodle2CC::CanvasCC::Model::DiscussionTopic
-  attr_accessor :text
+module Moodle2CC::CanvasCC::Model
+  class DiscussionTopic
+    attr_accessor :text
+  end
 end
