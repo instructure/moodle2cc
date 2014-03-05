@@ -1,29 +1,22 @@
 module Moodle2CC::Moodle2::Parsers
   class AssignmentParser
+    include ParserHelper
 
     ASSIGNMENT_XML = 'assign.xml'
-    NULL_XML_VALUE = '$@NULL@$'
+    ASSIGNMENT_MODULE_NAME = 'assign'
 
     def initialize(backup_dir)
       @backup_dir = backup_dir
     end
 
     def parse
-      activity_dirs = parse_moodle_backup
-      activity_dirs.map { |dir| parse_assignemnt(dir) }
+      activity_dirs = activity_directories(@backup_dir, ASSIGNMENT_MODULE_NAME)
+      activity_dirs.map { |dir| parse_assignment(dir) }
     end
 
     private
 
-    def parse_moodle_backup
-      File.open(File.join(@backup_dir, Moodle2CC::Moodle2::Extractor::MOODLE_BACKUP_XML)) do |f|
-        moodle_backup_xml = Nokogiri::XML(f)
-        activities = moodle_backup_xml./('/moodle_backup/information/contents/activities').xpath('activity[modulename = "assign"]')
-        activities.map { |forum| forum./('directory').text }
-      end
-    end
-
-    def parse_assignemnt(dir)
+    def parse_assignment(dir)
       assignment = Moodle2CC::Moodle2::Models::Assignment.new
       File.open(File.join(@backup_dir, dir, ASSIGNMENT_XML)) do |f|
         xml = Nokogiri::XML(f)
@@ -59,13 +52,6 @@ module Moodle2CC::Moodle2::Parsers
         assignment.offline_grading_worksheet = plugins.at_xpath('plugin_config[(plugin="offline" and subtype="assignfeedback" and name="enabled")]/value').text
       end
       assignment
-    end
-
-    def parse_text(node, xpath)
-      if v_node = node.%(xpath)
-        value = v_node.text
-        value unless value == NULL_XML_VALUE
-      end
     end
 
   end

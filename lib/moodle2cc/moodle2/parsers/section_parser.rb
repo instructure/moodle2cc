@@ -1,15 +1,15 @@
 module Moodle2CC::Moodle2::Parsers
   class SectionParser
+    include ParserHelper
 
     SECTION_XML = 'section.xml'
-    NULL_XML_VALUE = '$@NULL@$'
 
     def initialize(backup_dir)
       @backup_dir = backup_dir
     end
 
     def parse
-      parse_moodle_backup.each_with_index.map { |section, i| parse_section(section, i) }
+      section_directories.each_with_index.map { |section, i| parse_section(section, i) }
     end
 
     private
@@ -36,21 +36,12 @@ module Moodle2CC::Moodle2::Parsers
 
     private
 
-    def parse_moodle_backup
+    def section_directories
       File.open(File.join(@backup_dir, Moodle2CC::Moodle2::Extractor::MOODLE_BACKUP_XML)) do |f|
         moodle_backup_xml = Nokogiri::XML(f)
         sections = moodle_backup_xml / '/moodle_backup/information/contents/sections/section'
         sections.map { |section| section./('directory').text }
       end
     end
-
-
-    def parse_text(node, xpath)
-      if v_node = node.%(xpath)
-        value = v_node.text
-        value unless value == NULL_XML_VALUE
-      end
-    end
-
   end
 end

@@ -1,28 +1,20 @@
 module Moodle2CC::Moodle2::Parsers
   class PageParser
+    include ParserHelper
 
     PAGE_XML = 'page.xml'
-    NULL_XML_VALUE = '$@NULL@$'
+    PAGE_MODULE_NAME = 'page'
 
     def initialize(backup_dir)
       @backup_dir = backup_dir
     end
 
     def parse
-      activity_dirs = parse_moodle_backup
+      activity_dirs = activity_directories(@backup_dir, PAGE_MODULE_NAME)
       activity_dirs.map { |dir| parse_page(dir) }
     end
 
-
     private
-
-    def parse_moodle_backup
-      File.open(File.join(@backup_dir, Moodle2CC::Moodle2::Extractor::MOODLE_BACKUP_XML)) do |f|
-        moodle_backup_xml = Nokogiri::XML(f)
-        activities = moodle_backup_xml./('/moodle_backup/information/contents/activities').xpath('activity[modulename = "page"]')
-        activities.map { |page| page./('directory').text }
-      end
-    end
 
     def parse_page(page_dir)
       page = Moodle2CC::Moodle2::Models::Page.new
@@ -43,13 +35,6 @@ module Moodle2CC::Moodle2::Parsers
         page.time_modified = parse_text(page_xml, '/activity/page/timemodified')
       end
       page
-    end
-
-    def parse_text(node, xpath)
-      if v_node = node.%(xpath)
-        value = v_node.text
-        value unless value == NULL_XML_VALUE
-      end
     end
 
   end

@@ -1,4 +1,3 @@
-# coding: UTF-8
 require 'spec_helper'
 
 describe Moodle2CC::Moodle2::Parsers::PageParser do

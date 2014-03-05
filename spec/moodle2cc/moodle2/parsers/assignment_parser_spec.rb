@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Moodle2CC::Moodle2::Parsers::AssignmentParser do
   subject { Moodle2CC::Moodle2::Parsers::AssignmentParser.new(fixture_path(File.join('moodle2', 'backup'))) }
 
-  it 'should parse and assignment' do
-    assignemnts = subject.parse
-    expect(assignemnts.count).to eq 1
-    assign = assignemnts.first
+  it 'should parse an assignment' do
+    assignments = subject.parse
+    expect(assignments.count).to eq 1
+    assign = assignments.first
     expect(assign.id).to eq '1'
     expect(assign.module_id).to eq '4'
     expect(assign.name).to eq 'Assignment Name'

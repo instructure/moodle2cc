@@ -1,27 +1,20 @@
 module Moodle2CC::Moodle2::Parsers
   class ForumParser
+    include ParserHelper
 
     FORUM_XML = 'forum.xml'
-    NULL_XML_VALUE = '$@NULL@$'
+    FORUM_MODULE_NAME = 'forum'
 
     def initialize(backup_dir)
       @backup_dir = backup_dir
     end
 
     def parse
-      activity_dirs = parse_moodle_backup
+      activity_dirs = activity_directories(@backup_dir, FORUM_MODULE_NAME)
       activity_dirs.map { |dir| parse_forum(dir) }
     end
 
     private
-
-    def parse_moodle_backup
-      File.open(File.join(@backup_dir, Moodle2CC::Moodle2::Extractor::MOODLE_BACKUP_XML)) do |f|
-        moodle_backup_xml = Nokogiri::XML(f)
-        activities = moodle_backup_xml./('/moodle_backup/information/contents/activities').xpath('activity[modulename = "forum"]')
-        activities.map { |forum| forum./('directory').text }
-      end
-    end
 
     def parse_forum(forum_dir)
       forum = Moodle2CC::Moodle2::Models::Forum.new
@@ -52,14 +45,6 @@ module Moodle2CC::Moodle2::Parsers
         forum.completion_posts = parse_text(forum_xml, '/activity/forum/completionposts')
       end
       forum
-    end
-
-
-    def parse_text(node, xpath)
-      if v_node = node.%(xpath)
-        value = v_node.text
-        value unless value == NULL_XML_VALUE
-      end
     end
 
   end

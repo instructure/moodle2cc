@@ -94,6 +94,8 @@ module Moodle2CC
       autoload :PageParser, 'moodle2cc/moodle2/parsers/page_parser'
       autoload :ForumParser, 'moodle2cc/moodle2/parsers/forum_parser'
       autoload :AssignmentParser, 'moodle2cc/moodle2/parsers/assignment_parser'
+      autoload :BookParser, 'moodle2cc/moodle2/parsers/book_parser'
+      autoload :ParserHelper, 'moodle2cc/moodle2/parsers/parser_helper'
     end
     module Models
       autoload :Course, 'moodle2cc/moodle2/models/course'

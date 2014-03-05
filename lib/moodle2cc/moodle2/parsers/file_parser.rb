@@ -1,5 +1,6 @@
 module Moodle2CC::Moodle2::Parsers
   class FileParser
+    include ParserHelper
 
     FILES_XML = 'files.xml'
     NULL_XML_VALUE = '$@NULL@$'
@@ -40,14 +41,6 @@ module Moodle2CC::Moodle2::Parsers
         files[file.content_hash] = file if file.file_size > 0
       end
       files.values
-    end
-
-
-    def parse_text(node, xpath)
-      if v_node = node.%(xpath)
-        value = v_node.text
-        value unless value == NULL_XML_VALUE
-      end
     end
 
   end
