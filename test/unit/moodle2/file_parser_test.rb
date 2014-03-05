@@ -18,12 +18,11 @@ module Moodle2
     def test_files_parsing
       files = @file_parser.parse
       assert_equal(3, files.count)
-      file = files[0]
-      require 'pry'; binding.pry
-      assert_equal(file.id, '15')
+      file = files.find{|f| f.id == '29'}
+      assert_equal(file.id, '29')
       assert_equal(file.content_hash, 'a0f324310c8d8dd9c79458986c4322f5a060a1d9')
-      assert_equal(file.context_id, '22')
-      assert_equal(file.component, 'mod_resource')
+      assert_equal(file.context_id, '26')
+      assert_equal(file.component, 'mod_folder')
       assert_equal(file.file_area, 'content')
       assert_equal(file.item_id, '0')
       assert_equal(file.file_path, '/')
@@ -32,12 +31,12 @@ module Moodle2
       assert_equal(file.file_size, 2444236)
       assert_equal(file.mime_type, 'image/gif')
       assert_equal(file.status, '0')
-      assert_equal(file.time_created, '1392903875')
-      assert_equal(file.time_modified, '1392903895')
-      assert_equal(file.source, 'Server files: Miscellaneous/Sample Course/My Sample Page (Page)/Page content/smaple_gif.gif')
+      assert_equal(file.time_created, '1394041688')
+      assert_equal(file.time_modified, '1394041712')
+      assert_equal(file.source, 'Server files: Miscellaneous/Sample Course/Test File (File)/Files and subfolders/smaple_gif.gif')
       assert_equal(file.author, 'Admin User')
       assert_equal(file.license, 'allrightsreserved')
-      assert_equal(file.sort_order, '1')
+      assert_equal(file.sort_order, '0')
       assert_equal(file.repository_type, nil)
       assert_equal(file.repository_id, nil)
       assert_equal(file.reference, nil)
