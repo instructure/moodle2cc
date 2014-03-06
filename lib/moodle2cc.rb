@@ -96,6 +96,7 @@ module Moodle2CC
       autoload :AssignmentParser, 'moodle2cc/moodle2/parsers/assignment_parser'
       autoload :BookParser, 'moodle2cc/moodle2/parsers/book_parser'
       autoload :ParserHelper, 'moodle2cc/moodle2/parsers/parser_helper'
+      autoload :FolderParser, 'moodle2cc/moodle2/parsers/folder_parser'
     end
     module Models
       autoload :Course, 'moodle2cc/moodle2/models/course'
@@ -106,6 +107,7 @@ module Moodle2CC
       autoload :Assignment, 'moodle2cc/moodle2/models/assignment'
       autoload :Book, 'moodle2cc/moodle2/models/book'
       autoload :BookChapter, 'moodle2cc/moodle2/models/book_chapter'
+      autoload :Folder, 'moodle2cc/moodle2/models/folder'
     end
   end
   module Moodle2Converter
