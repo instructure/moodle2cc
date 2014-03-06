@@ -4,6 +4,7 @@ module Moodle2CC::CanvasCC
   describe ModuleMetaWriter do
 
     let(:canvas_module) { Model::CanvasModule.new }
+    let(:module_item) { Model::ModuleItem.new }
     let(:tmpdir) { Dir.mktmpdir }
 
     before :each do
@@ -24,7 +25,7 @@ module Moodle2CC::CanvasCC
       assert_xml_schema(xml)
     end
 
-    it 'should have valid metadata' do
+    it 'writes out modules correctly' do
       canvas_module.identifier = 'ident'
       canvas_module.title = 'module title'
       canvas_module.workflow_state = 'active'
@@ -35,6 +36,28 @@ module Moodle2CC::CanvasCC
       expect(xml.%('modules/module/title').text).to eq('module title')
       expect(xml.%('modules/module/workflow_state').text).to eq('active')
       expect(xml.%('modules/module/position').text).to eq('0')
+    end
+
+    it 'writes out module items correctly' do
+      module_item.identifier = "some_unique_hash"
+      module_item.content_type = "ContentType"
+      module_item.workflow_state = "active"
+      module_item.title = "Item Title"
+      module_item.position = "1"
+      module_item.new_tab = nil
+      module_item.indent = "1"
+      canvas_module.module_items << module_item
+
+      xml = write_xml(canvas_module)
+
+      item_node = xml.%('modules/module/items/item')
+      expect(item_node.at_xpath('@identifier').text).to eq('some_unique_hash')
+      expect(item_node.%('content_type').text).to eq('ContentType')
+      expect(item_node.%('workflow_state').text).to eq('active')
+      expect(item_node.%('title').text).to eq('Item Title')
+      expect(item_node.%('position').text).to eq('1')
+      expect(item_node.%('new_tab')).to be_nil
+      expect(item_node.%('indent').text).to eq('1')
     end
 
     private

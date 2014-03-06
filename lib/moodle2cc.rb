@@ -80,6 +80,7 @@ module Moodle2CC
       autoload :WebLink, 'moodle2cc/canvas_cc/model/web_link'
       autoload :Resource, 'moodle2cc/canvas_cc/model/resource'
       autoload :CanvasModule, 'moodle2cc/canvas_cc/model/canvas_module'
+      autoload :ModuleItem, 'moodle2cc/canvas_cc/model/module_item'
       autoload :CanvasFile, 'moodle2cc/canvas_cc/model/canvas_file'
       autoload :Page, 'moodle2cc/canvas_cc/model/page'
       autoload :Discussion, 'moodle2cc/canvas_cc/model/discussion'

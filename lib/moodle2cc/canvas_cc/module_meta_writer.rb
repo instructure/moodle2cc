@@ -10,12 +10,11 @@ module Moodle2CC::CanvasCC
     def write
       xml = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
         xml.modules(
-          'xmlns' => 'http://canvas.instructure.com/xsd/cccv1p0',
-          'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-          'xsi:schemaLocation' => 'http://canvas.instructure.com/xsd/cccv1p0 http://canvas.instructure.com/xsd/cccv1p0.xsd'
+            'xmlns' => 'http://canvas.instructure.com/xsd/cccv1p0',
+            'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+            'xsi:schemaLocation' => 'http://canvas.instructure.com/xsd/cccv1p0 http://canvas.instructure.com/xsd/cccv1p0.xsd'
         ) { |xml|
           @canvas_modules.each { |mod| canvas_module(mod, xml) }
-
         }
       end.to_xml
       File.open(File.join(@work_dir, Moodle2CC::CanvasCC::CartridgeCreator::COURSE_SETTINGS_DIR, MODULE_META_FILE), 'w') { |f| f.write(xml) }
@@ -28,7 +27,23 @@ module Moodle2CC::CanvasCC
         xml.title mod.title
         xml.workflow_state mod.workflow_state
         xml.position mod.position if mod.position
+        xml.items { |xml|
+          add_module_items_to_xml(mod.module_items, xml)
+        }
       }
+    end
+
+    def add_module_items_to_xml(module_items, xml)
+      module_items.each do |item|
+        xml.item('identifier' => item.identifier) { |xml|
+          xml.content_type(item.content_type)
+          xml.workflow_state(item.workflow_state)
+          xml.title(item.title)
+          xml.position(item.position)
+          xml.new_tab(item.new_tab) if item.new_tab
+          xml.indent(item.indent)
+        }
+      end
     end
 
   end
