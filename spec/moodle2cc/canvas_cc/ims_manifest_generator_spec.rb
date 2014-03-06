@@ -86,8 +86,8 @@ module Moodle2CC::CanvasCC
       end
     end
 
-    describe 'organization' do
-      it 'has valid organization' do
+    describe 'organizations' do
+      it 'writes learning modules' do
         canvas_module = Model::CanvasModule.new
         canvas_module.title = 'my module title'
         canvas_module.identifier = 'my_id'
@@ -97,8 +97,26 @@ module Moodle2CC::CanvasCC
         org_node = xml.at_xpath('/xmlns:manifest/xmlns:organizations/xmlns:organization')
         expect(org_node.at_xpath('@structure').value).to eq('rooted-hierarchy')
         expect(org_node.at_xpath('@identifier').value).to eq('org_1')
-        expect(org_node.at_xpath('xmlns:item/@identifier').value).to eq('module_011ed73876357cbeeb11abdc2b7e1c0b')
+        expect(org_node.at_xpath('xmlns:item/@identifier').value).to eq('LearningModules')
+        expect(org_node.at_xpath('xmlns:item/xmlns:item/@identifier').value).to eq('module_011ed73876357cbeeb11abdc2b7e1c0b')
         expect(org_node.%('item/title').text).to eq('my module title')
+      end
+
+      it 'writes module items' do
+        canvas_module = Model::CanvasModule.new
+        module_item = Model::ModuleItem.new
+        module_item.identifier = 'module_item_unique_identifier'
+        module_item.title = 'Module Item'
+        module_item.resource_identifier = 'resource_unique_identifier'
+
+        canvas_module.module_items << module_item
+        course.canvas_modules << canvas_module
+
+        xml = write_xml(course)
+        module_node = xml.at_xpath('/xmlns:manifest').%('organizations/organization/item/item')
+        expect(module_node.at_xpath('xmlns:item/@identifier').value).to eq 'module_item_unique_identifier'
+        expect(module_node.at_xpath('xmlns:item/@identifierref').value).to eq 'resource_unique_identifier'
+        expect(module_node.%('item/title').text).to eq 'Module Item'
       end
     end
 

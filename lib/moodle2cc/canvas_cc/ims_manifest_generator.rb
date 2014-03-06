@@ -8,6 +8,7 @@ module Moodle2CC::CanvasCC
     SETTINGS_POSTFIX = '_settings'
     TYPE_LAR = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
     CANVAS_EXPORT_PATH = 'course_settings/canvas_export.txt'
+    ALL_MODULES_IDENTIFIER = 'LearningModules'
 
     def initialize(work_dir, course)
       @work_dir = work_dir
@@ -29,12 +30,12 @@ module Moodle2CC::CanvasCC
 
     def manifest(xml)
       xml.manifest(
-        "identifier" => @course.identifier,
-        "xmlns" => "http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1",
-        "xmlns:lom" => "http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource",
-        "xmlns:lomimscc" => "http://ltsc.ieee.org/xsd/imsccv1p1/LOM/manifest",
-        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-        "xsi:schemaLocation" => "http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1 http://www.imsglobal.org/profile/cc/ccv1p1/ccv1p1_imscp_v1p2_v1p0.xsd http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource http://www.imsglobal.org/profile/cc/ccv1p1/LOM/ccv1p1_lomresource_v1p0.xsd http://ltsc.ieee.org/xsd/imsccv1p1/LOM/manifest http://www.imsglobal.org/profile/cc/ccv1p1/LOM/ccv1p1_lommanifest_v1p0.xsd"
+          "identifier" => @course.identifier,
+          "xmlns" => "http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1",
+          "xmlns:lom" => "http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource",
+          "xmlns:lomimscc" => "http://ltsc.ieee.org/xsd/imsccv1p1/LOM/manifest",
+          "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:schemaLocation" => "http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1 http://www.imsglobal.org/profile/cc/ccv1p1/ccv1p1_imscp_v1p2_v1p0.xsd http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource http://www.imsglobal.org/profile/cc/ccv1p1/LOM/ccv1p1_lomresource_v1p0.xsd http://ltsc.ieee.org/xsd/imsccv1p1/LOM/manifest http://www.imsglobal.org/profile/cc/ccv1p1/LOM/ccv1p1_lommanifest_v1p0.xsd"
       ) {
         yield xml
       }
@@ -77,10 +78,17 @@ module Moodle2CC::CanvasCC
       xml.organizations { |xml|
         if canvas_modules.count > 0
           xml.organization('identifier' => 'org_1', 'structure' => 'rooted-hierarchy') { |xml|
-            canvas_modules.each do |mod|
-              xml.item('identifier' => mod.identifier) { |xml|
-                xml.title mod.title
-              }
+            xml.item('identifier' => ALL_MODULES_IDENTIFIER) do |xml|
+              canvas_modules.each do |mod|
+                xml.item('identifier' => mod.identifier) { |xml|
+                  xml.title mod.title
+                  mod.module_items.each do |module_item|
+                    xml.item('identifier' => module_item.identifier, 'identifierref' => module_item.resource_identifier ) { |xml|
+                      xml.title(module_item.title)
+                    }
+                  end
+                }
+              end
             end
           }
         end
