@@ -14,6 +14,7 @@ module Moodle2CC::Moodle2Converter
         cc_course.pages += convert_pages(moodle_course.pages)
         cc_course.discussions += convert_discussions(moodle_course.forums)
         cc_course.assignments += convert_assignments(moodle_course.assignments)
+        cc_course.pages += convert_folders(moodle_course)
         @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
       end
       @path
@@ -52,6 +53,11 @@ module Moodle2CC::Moodle2Converter
     def convert_assignments(assignments)
       assignment_converter = Moodle2CC::Moodle2Converter::AssignmentConverter.new
       assignments.map { |assignment| assignment_converter.convert(assignment) }
+    end
+
+    def convert_folders(moodle_course)
+      folder_converter = Moodle2CC::Moodle2Converter::FolderConverter.new(moodle_course)
+      moodle_course.folders.map { |folder| folder_converter.convert(folder) }
     end
 
   end

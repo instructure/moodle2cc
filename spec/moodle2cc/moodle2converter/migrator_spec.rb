@@ -19,6 +19,7 @@ module Moodle2CC
       extractor.stub(:extract).and_yield(double('moodle_course',
                                                 sections: [:section1, :section2],
                                                 files: files,
+                                                folders: [:folder1, :folder2],
                                                 pages: [:page1, :page2],
                                                 forums: [:forum1, :forum2]
                                          ))
@@ -28,6 +29,8 @@ module Moodle2CC
       Moodle2Converter::FileConverter.any_instance.stub(:convert)
       Moodle2Converter::PageConverter.any_instance.stub(:convert)
       Moodle2Converter::DiscussionConverter.any_instance.stub(:convert)
+      Moodle2Converter::AssignmentConverter.any_instance.stub(:convert)
+      Moodle2Converter::FolderConverter.any_instance.stub(:convert)
       CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
     end
 
@@ -54,7 +57,7 @@ module Moodle2CC
       it 'converts pages' do
         Moodle2Converter::PageConverter.any_instance.stub(:convert).and_return('page')
         migrator.migrate
-        expect(canvas_course.pages).to eq ['page', 'page']
+        expect(canvas_course.pages.compact).to eq ['page', 'page']
       end
 
       it 'converts discussions' do
@@ -63,6 +66,21 @@ module Moodle2CC
         expect(canvas_course.discussions).to eq ['discussion', 'discussion']
       end
 
+<<<<<<< HEAD
+=======
+      it 'converts assignments' do
+        Moodle2CC::Moodle2Converter::AssignmentConverter.any_instance.stub(:convert).and_return('assignment')
+        migrator.migrate
+        expect(canvas_course.assignments).to eq ['assignment', 'assignment']
+      end
+
+      it 'converts folders' do
+        Moodle2CC::Moodle2Converter::FolderConverter.any_instance.stub(:convert).and_return('folder')
+        migrator.migrate
+        expect(canvas_course.pages.compact).to eq ['folder', 'folder']
+      end
+
+>>>>>>> Added folder converter with specs and added to migrator
     end
 
     it 'sets the imscc_path' do
