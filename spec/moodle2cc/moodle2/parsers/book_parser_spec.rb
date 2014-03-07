@@ -16,10 +16,16 @@ describe Moodle2CC::Moodle2::Parsers::BookParser do
 
     expect(chapter.id).to eq "1"
     expect(chapter.pagenum).to eq "1"
-    expect(chapter.subchapter).to eq "0"
+    expect(chapter.subchapter).to be_false
     expect(chapter.title).to eq "Chapter 1"
     expect(chapter.content).to eq "<p>Chapter 1 content</p>"
     expect(chapter.content_format).to eq "1"
     expect(chapter.hidden).to be_false
+  end
+
+  it "sets subchapter to true for subchapters" do
+    book = subject.parse.first
+    chapter = book.chapters[1]
+    expect(chapter.subchapter).to be_true
   end
 end

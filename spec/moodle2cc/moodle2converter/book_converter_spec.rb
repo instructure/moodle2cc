@@ -9,33 +9,9 @@ module Moodle2CC
       end
     }
 
-    let(:moodle2_chapter) {
-      Moodle2::Models::BookChapter.new.tap do |book_chapter|
-        book_chapter.title = 'Chapter Title'
-        book_chapter.content = 'chapter content'
-        book_chapter.hidden = false
-      end
-    }
-
-    let(:moodle2_hidden_chapter) {
-      Moodle2::Models::BookChapter.new.tap do |book_chapter|
-        book_chapter.title = 'hidden chapter title'
-        book_chapter.content = 'hidden chapter content'
-        book_chapter.hidden = true
-      end
-    }
-
-    let(:moodle2_subchapter) {
-      Moodle2::Models::BookChapter.new.tap do |book_chapter|
-        book_chapter.title = 'sub chapter title'
-        book_chapter.content = 'sub chapter content'
-        book_chapter.hidden = true
-      end
-    }
-
     describe '#convert' do
       before(:each) do
-        SecureRandom.stub(:uuid) { 'some_unique_uuid' }
+        subject.stub(:generate_unique_identifier) { 'some_unique_uuid' }
       end
 
       it 'converts a moodle2 book into a canvas module' do
@@ -64,9 +40,7 @@ module Moodle2CC
       end
 
       it 'adds moodle2 chapters as module items to canvas modules' do
-        moodle2_book.chapters << moodle2_chapter
-        moodle2_book.chapters << moodle2_hidden_chapter
-        moodle2_book.chapters << moodle2_subchapter
+        3.times { moodle2_book.chapters << Moodle2::Models::BookChapter.new }
         canvas_module = subject.convert(moodle2_book)
         module_items = canvas_module.module_items
 
@@ -77,7 +51,12 @@ module Moodle2CC
       end
 
       it 'converts a moodle2 chapter to a module item' do
-        moodle2_book.chapters << moodle2_chapter
+        chapter = Moodle2::Models::BookChapter.new
+        chapter.title = 'Chapter Title'
+        chapter.content = 'chapter content'
+        chapter.hidden = false
+
+        moodle2_book.chapters << chapter
         canvas_module = subject.convert(moodle2_book)
         module_item = canvas_module.module_items.last
         resource = module_item.resource
@@ -94,6 +73,29 @@ module Moodle2CC
         expect(resource.files.size).to eq 1
         expect(resource.files.first).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
       end
+
+      it 'hides model items that come from hidden chapters' do
+        chapter = Moodle2::Models::BookChapter.new
+        chapter.hidden = true
+
+        moodle2_book.chapters << chapter
+        canvas_module = subject.convert(moodle2_book)
+        module_item = canvas_module.module_items.last
+
+        expect(module_item.workflow_state).to eq 'unpublished'
+      end
+
+      it 'sets indent to 2 for subchapters' do
+        chapter = Moodle2::Models::BookChapter.new
+        chapter.subchapter = true
+
+        moodle2_book.chapters << chapter
+        canvas_module = subject.convert(moodle2_book)
+        module_item = canvas_module.module_items.last
+
+        expect(module_item.indent).to eq '2'
+      end
+
     end
   end
 end

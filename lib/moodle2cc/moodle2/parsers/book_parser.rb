@@ -37,7 +37,7 @@ module Moodle2CC::Moodle2::Parsers
       chapter = Moodle2CC::Moodle2::Models::BookChapter.new
       chapter.id = node.at_xpath('@id').value
       chapter.pagenum = parse_text(node, 'pagenum')
-      chapter.subchapter = parse_text(node, 'subchapter')
+      chapter.subchapter = parse_text(node, 'subchapter') == '1' ? true : false
       chapter.title = parse_text(node, 'title')
       chapter.content = parse_text(node, 'content')
       chapter.content_format = parse_text(node, 'contentformat')
