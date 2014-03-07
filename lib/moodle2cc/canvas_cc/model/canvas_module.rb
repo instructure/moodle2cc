@@ -1,7 +1,7 @@
 module Moodle2CC::CanvasCC::Model
   class CanvasModule
 
-    attr_accessor :identifier, :title, :workflow_state, :position, :module_items
+    attr_accessor :identifier, :title, :workflow_state, :module_items
 
     def initialize
       @module_items = []

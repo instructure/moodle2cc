@@ -83,7 +83,7 @@ module Moodle2CC::CanvasCC
                 xml.item('identifier' => mod.identifier) { |xml|
                   xml.title mod.title
                   mod.module_items.each do |module_item|
-                    xml.item('identifier' => module_item.identifier, 'identifierref' => module_item.resource_identifier ) { |xml|
+                    xml.item('identifier' => module_item.identifier, 'identifierref' => module_item.resource.identifier ) { |xml|
                       xml.title(module_item.title)
                     }
                   end

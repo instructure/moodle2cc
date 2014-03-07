@@ -41,7 +41,7 @@ module Moodle2CC::Moodle2::Parsers
       chapter.title = parse_text(node, 'title')
       chapter.content = parse_text(node, 'content')
       chapter.content_format = parse_text(node, 'contentformat')
-      chapter.hidden = parse_text(node, 'hidden')
+      chapter.hidden = parse_text(node, 'hidden') == '1' ? true : false
       chapter
     end
   end

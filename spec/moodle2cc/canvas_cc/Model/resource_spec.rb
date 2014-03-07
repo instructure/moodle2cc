@@ -4,7 +4,7 @@ module Moodle2CC::CanvasCC::Model
   describe Resource do
     it_behaves_like 'it has an attribute for', :href
     it_behaves_like 'it has an attribute for', :type
-    it_behaves_like 'it has an attribute for', :ident_postfix
+    it_behaves_like 'it has an attribute for', :ident_postfix, ''
 
     it 'adds MD5 to identifier on #identifier=' do
       subject.identifier = 'foo_bar'

@@ -14,7 +14,7 @@ module Moodle2CC::CanvasCC
             'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:schemaLocation' => 'http://canvas.instructure.com/xsd/cccv1p0 http://canvas.instructure.com/xsd/cccv1p0.xsd'
         ) { |xml|
-          @canvas_modules.each { |mod| canvas_module(mod, xml) }
+          @canvas_modules.each_with_index { |mod, position| canvas_module(mod, xml, position) }
         }
       end.to_xml
       File.open(File.join(@work_dir, Moodle2CC::CanvasCC::CartridgeCreator::COURSE_SETTINGS_DIR, MODULE_META_FILE), 'w') { |f| f.write(xml) }
@@ -22,11 +22,11 @@ module Moodle2CC::CanvasCC
 
     private
 
-    def canvas_module(mod, xml)
+    def canvas_module(mod, xml, position)
       xml.module('identifier' => mod.identifier) {
         xml.title mod.title
         xml.workflow_state mod.workflow_state
-        xml.position mod.position if mod.position
+        xml.position(position)
         xml.items { |xml|
           add_module_items_to_xml(mod.module_items, xml)
         }
@@ -34,12 +34,12 @@ module Moodle2CC::CanvasCC
     end
 
     def add_module_items_to_xml(module_items, xml)
-      module_items.each do |item|
+      module_items.each_with_index do |item, position|
         xml.item('identifier' => item.identifier) { |xml|
           xml.content_type(item.content_type)
           xml.workflow_state(item.workflow_state)
           xml.title(item.title)
-          xml.position(item.position)
+          xml.position(position)
           xml.new_tab(item.new_tab) if item.new_tab
           xml.indent(item.indent)
         }

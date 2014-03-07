@@ -20,6 +20,6 @@ describe Moodle2CC::Moodle2::Parsers::BookParser do
     expect(chapter.title).to eq "Chapter 1"
     expect(chapter.content).to eq "<p>Chapter 1 content</p>"
     expect(chapter.content_format).to eq "1"
-    expect(chapter.hidden).to eq "0"
+    expect(chapter.hidden).to be_false
   end
 end

@@ -13,7 +13,6 @@ module Moodle2CC
       expect(canvas_module.identifier).to eq('module_730f6511535a1e4cf13e886e52b21dc9')
       expect(canvas_module.title).to eq('section_name')
       expect(canvas_module.workflow_state).to eq('unpublished')
-      expect(canvas_module.position).to eq(1)
     end
 
   end

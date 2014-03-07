@@ -5,10 +5,10 @@ module Moodle2CC::CanvasCC::Model
 
     attr_accessor :files, :href, :type, :dependencies, :ident_postfix
 
-
     def initialize
       @files = []
       @dependencies = []
+      @ident_postfix = ''
     end
 
     def identifier=(ident)
