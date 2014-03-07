@@ -4,6 +4,8 @@ module Moodle2CC::CanvasCC::Model
     PAGE_ID_POSTFIX = '_PAGE'
     WIKI_CONTENT = 'wiki_content'
 
+    EDITING_ROLE_TEACHER = 'teachers'
+
     attr_accessor :workflow_state, :editing_roles, :body, :title
 
     def initialize

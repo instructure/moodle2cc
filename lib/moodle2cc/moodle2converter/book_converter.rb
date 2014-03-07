@@ -4,7 +4,7 @@ module Moodle2CC
 
     def convert(moodle_book)
       canvas_module = convert_moodle_book(moodle_book)
-      canvas_module.module_items << convert_moodle_introduction(moodle_book)
+      canvas_module.module_items << convert_moodle_introduction(moodle_book) if moodle_book.intro && moodle_book.intro.strip != ''
       moodle_book.chapters.each do |chapter|
         canvas_module.module_items << convert_moodle_chapter(chapter)
       end
@@ -26,7 +26,9 @@ module Moodle2CC
       module_item.title = moodle_book.name
       module_item.indent = "0"
 
-      module_item.resource = create_resource_for_module_item(module_item)
+      page = create_page_for_module_item(module_item)
+      page.body = moodle_book.intro
+      module_item.resource = page
 
       module_item
     end
@@ -36,7 +38,10 @@ module Moodle2CC
       module_item.title = moodle_chapter.title
       module_item.indent = moodle_chapter.subchapter ? '2' : '1'
       module_item.workflow_state = CanvasCC::Model::WorkflowState::UNPUBLISHED if moodle_chapter.hidden
-      module_item.resource = create_resource_for_module_item(module_item)
+
+      page = create_page_for_module_item(module_item)
+      page.body = moodle_chapter.content
+      module_item.resource = page
 
       module_item
       #canvas_module.workflow_state = moodle_book.hidden ? CanvasCC::Model::WorkflowState::ACTIVE : CanvasCC::Model::WorkflowState::UNPUBLISHED
@@ -52,13 +57,16 @@ module Moodle2CC
       module_item
     end
 
-    def create_resource_for_module_item(module_item)
-      resource = CanvasCC::Model::Resource.new
-      resource.identifier = generate_unique_identifier()
-      resource.type = CanvasCC::Model::Resource::WEB_CONTENT_TYPE
-      resource.href = generate_unique_resource_path(CanvasCC::Model::Page::WIKI_CONTENT, module_item.title, 'html' )
-      resource.files = [resource.href]
-      resource
+    def create_page_for_module_item(module_item)
+      page = CanvasCC::Model::Page.new
+      page.identifier = generate_unique_identifier()
+      page.type = CanvasCC::Model::Resource::WEB_CONTENT_TYPE
+      page.href = generate_unique_resource_path(CanvasCC::Model::Page::WIKI_CONTENT, module_item.title, 'html' )
+      page.files = [page.href]
+      page.title = module_item.title
+      page.workflow_state = module_item.workflow_state
+      page.editing_roles = CanvasCC::Model::Page::EDITING_ROLE_TEACHER
+      page
     end
   end
 end
