@@ -7,7 +7,7 @@ module Moodle2CC::CanvasCC
     end
 
     def generate_unique_identifier
-      "CC-" + SecureRandom.uuid
+      "cc_" + SecureRandom.uuid.gsub('-', '_')
     end
   end
 end

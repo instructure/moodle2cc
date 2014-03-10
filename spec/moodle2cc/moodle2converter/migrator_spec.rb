@@ -21,7 +21,9 @@ module Moodle2CC
                                                 files: files,
                                                 folders: [:folder1, :folder2],
                                                 pages: [:page1, :page2],
-                                                forums: [:forum1, :forum2]
+                                                forums: [:forum1, :forum2],
+                                                assignments: [:assignment1, :assignment2],
+                                                books: [:book1, :book2]
                                          ))
       Moodle2::Extractor.stub(:new).and_return(extractor)
       Moodle2Converter::CourseConverter.any_instance.stub(:convert).and_return(canvas_course)
@@ -31,6 +33,7 @@ module Moodle2CC
       Moodle2Converter::DiscussionConverter.any_instance.stub(:convert)
       Moodle2Converter::AssignmentConverter.any_instance.stub(:convert)
       Moodle2Converter::FolderConverter.any_instance.stub(:convert)
+      Moodle2Converter::BookConverter.any_instance.stub(:convert)
       CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
     end
 
@@ -80,7 +83,26 @@ module Moodle2CC
         expect(canvas_course.pages.compact).to eq ['folder', 'folder']
       end
 
+<<<<<<< HEAD
 >>>>>>> Added folder converter with specs and added to migrator
+=======
+      it 'converts books' do
+        canvas_module = Moodle2CC::CanvasCC::Model::CanvasModule.new
+        module_item = Moodle2CC::CanvasCC::Model::ModuleItem.new
+        page = Moodle2CC::CanvasCC::Model::Page.new
+
+        module_item.resource = page
+        canvas_module.module_items << module_item
+
+        Moodle2CC::Moodle2Converter::BookConverter.any_instance.stub(:convert).and_return(canvas_module)
+
+        migrator.migrate
+
+        expect(canvas_course.canvas_modules.compact).to eq [canvas_module, canvas_module]
+        expect(canvas_course.pages.compact).to eq [page, page]
+      end
+
+>>>>>>> fix module items for books
     end
 
     it 'sets the imscc_path' do

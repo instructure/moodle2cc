@@ -9,12 +9,19 @@ module Moodle2CC::Moodle2Converter
     def migrate
       @extractor.extract do |moodle_course|
         cc_course = convert_course(moodle_course)
-        cc_course.canvas_modules += convert_sections(moodle_course.sections)
         cc_course.files += convert_files(moodle_course.files)
         cc_course.pages += convert_pages(moodle_course.pages)
         cc_course.discussions += convert_discussions(moodle_course.forums)
         cc_course.assignments += convert_assignments(moodle_course.assignments)
         cc_course.pages += convert_folders(moodle_course)
+        cc_course.canvas_modules += convert_sections(moodle_course.sections)
+
+        book_modules = convert_books(moodle_course)
+        book_pages = book_modules.map(&:module_items).flatten.map(&:resource).compact
+
+        cc_course.canvas_modules += book_modules
+        cc_course.pages += book_pages
+
         @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
       end
       @path
@@ -37,7 +44,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert_files(files)
       file_converter = Moodle2CC::Moodle2Converter::FileConverter.new
-      files.uniq! {|f| f.content_hash }.map { |file| file_converter.convert(file) }
+      files.uniq! { |f| f.content_hash }.map { |file| file_converter.convert(file) }
     end
 
     def convert_pages(pages)
@@ -58,6 +65,11 @@ module Moodle2CC::Moodle2Converter
     def convert_folders(moodle_course)
       folder_converter = Moodle2CC::Moodle2Converter::FolderConverter.new(moodle_course)
       moodle_course.folders.map { |folder| folder_converter.convert(folder) }
+    end
+
+    def convert_books(moodle_course)
+      book_converter = Moodle2CC::Moodle2Converter::BookConverter.new
+      moodle_course.books.map { |book| book_converter.convert(book) }
     end
 
   end

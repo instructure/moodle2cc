@@ -2,13 +2,7 @@ require 'spec_helper'
 
 describe Moodle2CC::Moodle2::Extractor do
   subject(:extractor) { Moodle2CC::Moodle2::Extractor.new('path_to_zip') }
-  let(:course) { double(sections: [], :sections= => [],
-                        files: [], :files= => [],
-                        :pages => [], :pages= => [],
-                        :forums => [], :forums= => [],
-                        :assignments => [], :assignments= => [],
-                        :books => [], :books= => []
-  )}
+  let(:course) { Moodle2CC::Moodle2::Models::Course.new }
 
   before(:each) do
     Dir.stub(:mktmpdir).and_yield('work_dir')
@@ -19,6 +13,7 @@ describe Moodle2CC::Moodle2::Extractor do
     Moodle2CC::Moodle2::Parsers::ForumParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::Parsers::AssignmentParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::Parsers::BookParser.any_instance.stub(:parse)
+    Moodle2CC::Moodle2::Parsers::FolderParser.any_instance.stub(:parse)
     Zip::File.stub(:open).and_yield([])
   end
 
@@ -31,37 +26,43 @@ describe Moodle2CC::Moodle2::Extractor do
   it 'parses sections' do
     Moodle2CC::Moodle2::Parsers::SectionParser.any_instance.stub(:parse).and_return(['module'])
     extractor.extract {}
-    expect(course).to have_received(:sections=).with(['module'])
+    expect(course.sections).to eq ['module']
   end
 
   it 'parses files' do
     Moodle2CC::Moodle2::Parsers::FileParser.any_instance.stub(:parse).and_return(['file'])
     extractor.extract {}
-    expect(course).to have_received(:files=).with(['file'])
+    expect(course.files).to eq ['file']
   end
 
   it 'parsed pages' do
     Moodle2CC::Moodle2::Parsers::PageParser.any_instance.stub(:parse).and_return(['page'])
     extractor.extract {}
-    expect(course).to have_received(:pages=).with(['page'])
+    expect(course.pages).to eq ['page']
   end
 
   it 'parsed forums' do
     Moodle2CC::Moodle2::Parsers::ForumParser.any_instance.stub(:parse).and_return(['forum'])
     extractor.extract {}
-    expect(course).to have_received(:forums=).with(['forum'])
+    expect(course.forums).to eq ['forum']
   end
 
   it 'parsed assignments' do
     Moodle2CC::Moodle2::Parsers::AssignmentParser.any_instance.stub(:parse).and_return(['assign'])
     extractor.extract {}
-    expect(course).to have_received(:assignments=).with(['assign'])
+    expect(course.assignments).to eq ['assign']
   end
 
   it 'parses books' do
     Moodle2CC::Moodle2::Parsers::BookParser.any_instance.stub(:parse).and_return(['book'])
     extractor.extract {}
-    expect(course).to have_received(:books=).with(['book'])
+    expect(course.books).to eq ['book']
+  end
+
+  it 'parses folders' do
+    Moodle2CC::Moodle2::Parsers::FolderParser.any_instance.stub(:parse).and_return(['folder'])
+    extractor.extract {}
+    expect(course.folders).to eq ['folder']
   end
 
 end

@@ -49,6 +49,11 @@ module Moodle2CC::CanvasCC
       module_item.title = "Item Title"
       module_item.new_tab = nil
       module_item.indent = "1"
+
+      resource = Model::Resource.new
+      resource.identifier = 'some id'
+      module_item.resource = resource
+
       canvas_module.module_items << module_item
 
       xml = write_xml(canvas_module)
@@ -61,6 +66,7 @@ module Moodle2CC::CanvasCC
       expect(item_node.%('position').text).to eq('0')
       expect(item_node.%('new_tab')).to be_nil
       expect(item_node.%('indent').text).to eq('1')
+      expect(item_node.%('identifierref').text).to eq('CC_b1b2e7006be3e87195eb4f9d98c80014')
     end
 
     it 'increments the position for each module item that is written in a module' do
