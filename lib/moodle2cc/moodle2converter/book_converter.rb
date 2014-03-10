@@ -1,10 +1,10 @@
 module Moodle2CC
   class Moodle2Converter::BookConverter
     include CanvasCC::FormatHelper
+    include Moodle2Converter::ConverterHelper
 
     def convert(moodle_book)
       canvas_module = convert_moodle_book(moodle_book)
-      canvas_module.module_items << convert_moodle_introduction(moodle_book) if moodle_book.intro && moodle_book.intro.strip != ''
       moodle_book.chapters.each do |chapter|
         canvas_module.module_items << convert_moodle_chapter(chapter)
       end
@@ -40,7 +40,7 @@ module Moodle2CC
       module_item.workflow_state = CanvasCC::Model::WorkflowState::UNPUBLISHED if moodle_chapter.hidden
 
       page = create_page_for_module_item(module_item)
-      page.body = moodle_chapter.content
+      page.body = update_links(moodle_chapter.content)
       module_item.resource = page
 
       module_item

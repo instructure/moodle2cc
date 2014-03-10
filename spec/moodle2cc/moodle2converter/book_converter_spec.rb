@@ -20,34 +20,6 @@ module Moodle2CC
         expect(canvas_module.workflow_state).to eq 'active'
       end
 
-      it 'adds a module item with intro content' do
-        moodle2_book.intro = '<p>intro</p>'
-        canvas_module = subject.convert(moodle2_book)
-        module_item = canvas_module.module_items.first
-        resource = module_item.resource
-
-        expect(module_item.identifier).to eq 'some_unique_uuid'
-        expect(module_item.content_type).to eq 'WikiPage'
-        expect(module_item.workflow_state).to eq 'active'
-        expect(module_item.title).to eq 'Book Name'
-        expect(module_item.indent).to eq '0'
-
-        expect(resource).to be_a CanvasCC::Model::Page
-        expect(resource.identifier).to eq 'CC_d22dda77ebaaa68dcc0f1cab8516bb2b_PAGE'
-        expect(resource.type).to eq 'webcontent'
-        expect(resource.href).to eq 'wiki_content/some_unique_uuid-book-name.html'
-        expect(resource.files.size).to eq 1
-        expect(resource.files.first).to eq 'wiki_content/some_unique_uuid-book-name.html'
-
-        expect(resource.title).to eq 'Book Name'
-        expect(resource.workflow_state).to eq 'active'
-        expect(resource.editing_roles).to eq 'teachers'
-        expect(resource.body).to eq '<p>intro</p>'
-
-        #TODO: Do we need to update links for book pages?
-        #canvas_page.body = update_links(moodle_page.content)
-      end
-
       it 'does not add the intro content if there is no intro' do
         canvas_module = subject.convert(moodle2_book)
         expect(canvas_module.module_items.size).to eq 0
@@ -109,6 +81,19 @@ module Moodle2CC
         module_item = canvas_module.module_items.first
 
         expect(module_item.indent).to eq '2'
+      end
+
+      it 'converts links in book content' do
+        subject.stub(:update_links)
+
+        chapter = Moodle2::Models::BookChapter.new
+        chapter.content = 'html'
+        moodle2_book.chapters << chapter
+
+        subject.convert(moodle2_book)
+
+        expect(subject).to have_received(:update_links).once.with('html')
+
       end
 
     end

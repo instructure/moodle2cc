@@ -124,5 +124,6 @@ module Moodle2CC
     autoload :AssignmentConverter, 'moodle2cc/moodle2converter/assignment_converter'
     autoload :FolderConverter, 'moodle2cc/moodle2converter/folder_converter'
     autoload :BookConverter, 'moodle2cc/moodle2converter/book_converter'
+    autoload :ConverterHelper, 'moodle2cc/moodle2converter/converter_helper'
   end
 end
