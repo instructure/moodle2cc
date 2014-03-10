@@ -44,7 +44,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert_files(files)
       file_converter = Moodle2CC::Moodle2Converter::FileConverter.new
-      files.uniq! { |f| f.content_hash }.map { |file| file_converter.convert(file) }
+      Array.new(files.uniq { |f| f.content_hash }).map { |file| file_converter.convert(file) }
     end
 
     def convert_pages(pages)

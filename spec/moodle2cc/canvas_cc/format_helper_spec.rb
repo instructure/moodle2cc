@@ -35,7 +35,7 @@ module Moodle2CC::CanvasCC
     describe '#generate_unique_identifier' do
       it 'generates a uuid prefixed with CC-' do
         SecureRandom.stub(:uuid) {'unique-id'}
-        expect(subject.generate_unique_identifier).to eq 'CC-unique-id'
+        expect(subject.generate_unique_identifier).to eq 'cc_unique_id'
       end
     end
   end

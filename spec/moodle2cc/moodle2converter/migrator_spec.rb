@@ -13,18 +13,13 @@ module Moodle2CC
         double('file_1', content_hash: 'a'),
         double('file_1', content_hash: 'b')
     ] }
+    let(:moodle_course) { Moodle2CC::Moodle2::Models::Course.new }
 
     before(:each) do
       extractor = double('extractor', extract: nil)
-      extractor.stub(:extract).and_yield(double('moodle_course',
-                                                sections: [:section1, :section2],
-                                                files: files,
-                                                folders: [:folder1, :folder2],
-                                                pages: [:page1, :page2],
-                                                forums: [:forum1, :forum2],
-                                                assignments: [:assignment1, :assignment2],
-                                                books: [:book1, :book2]
-                                         ))
+
+      extractor.stub(:extract).and_yield(moodle_course)
+
       Moodle2::Extractor.stub(:new).and_return(extractor)
       Moodle2Converter::CourseConverter.any_instance.stub(:convert).and_return(canvas_course)
       Moodle2Converter::SectionConverter.any_instance.stub(:convert)
@@ -46,47 +41,55 @@ module Moodle2CC
       end
 
       it 'converts modules' do
+        moodle_course.sections = [:section1, :section2]
         Moodle2Converter::SectionConverter.any_instance.stub(:convert).and_return('module')
         migrator.migrate
         expect(canvas_course.canvas_modules).to eq ['module', 'module']
       end
 
       it 'converts files' do
+        files = [
+            double('file_1', content_hash: 'a'),
+            double('file_1', content_hash: 'a'),
+            double('file_1', content_hash: 'b')
+        ]
+        moodle_course.files = files
         Moodle2Converter::FileConverter.any_instance.stub(:convert).and_return('file')
         migrator.migrate
         expect(canvas_course.files).to eq ['file', 'file']
       end
 
       it 'converts pages' do
+        moodle_course.pages = [:page1, :page2]
         Moodle2Converter::PageConverter.any_instance.stub(:convert).and_return('page')
         migrator.migrate
         expect(canvas_course.pages.compact).to eq ['page', 'page']
       end
 
       it 'converts discussions' do
+        moodle_course.forums = [:discussion1, :discussion2]
         Moodle2Converter::DiscussionConverter.any_instance.stub(:convert).and_return('discussion')
         migrator.migrate
         expect(canvas_course.discussions).to eq ['discussion', 'discussion']
       end
 
-<<<<<<< HEAD
-=======
       it 'converts assignments' do
+        moodle_course.assignments = [:assign1, :assign2]
         Moodle2CC::Moodle2Converter::AssignmentConverter.any_instance.stub(:convert).and_return('assignment')
         migrator.migrate
         expect(canvas_course.assignments).to eq ['assignment', 'assignment']
       end
 
       it 'converts folders' do
+        moodle_course.folders = [:folder1, :folder2]
         Moodle2CC::Moodle2Converter::FolderConverter.any_instance.stub(:convert).and_return('folder')
         migrator.migrate
         expect(canvas_course.pages.compact).to eq ['folder', 'folder']
       end
 
-<<<<<<< HEAD
->>>>>>> Added folder converter with specs and added to migrator
-=======
       it 'converts books' do
+        moodle_course.books = [:book1, :book2]
+
         canvas_module = Moodle2CC::CanvasCC::Model::CanvasModule.new
         module_item = Moodle2CC::CanvasCC::Model::ModuleItem.new
         page = Moodle2CC::CanvasCC::Model::Page.new
@@ -102,7 +105,6 @@ module Moodle2CC
         expect(canvas_course.pages.compact).to eq [page, page]
       end
 
->>>>>>> fix module items for books
     end
 
     it 'sets the imscc_path' do

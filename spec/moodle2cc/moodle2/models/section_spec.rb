@@ -15,5 +15,6 @@ describe Moodle2CC::Moodle2::Model::Section do
   it_behaves_like 'it has an attribute for', :show_availability
   it_behaves_like 'it has an attribute for', :grouping_id
   it_behaves_like 'it has an attribute for', :position
+  it_behaves_like 'it has an attribute for', :activities, []
 
 end

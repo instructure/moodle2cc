@@ -13,7 +13,7 @@ module Moodle2CC::Moodle2
       expect(section.name).to be_nil
       expect(section.summary).to eq('<p>This is the General Summary</p>')
       expect(section.summary_format).to eq('1')
-      expect(section.sequence).to eq('1')
+      expect(section.sequence).to eq(['1'])
       expect(section.visible).to be_true
       expect(section.available_from).to eq('0')
       expect(section.available_until).to eq('0')

@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Moodle2CC::Moodle2::Extractor do
   subject(:extractor) { Moodle2CC::Moodle2::Extractor.new('path_to_zip') }
   let(:course) { Moodle2CC::Moodle2::Models::Course.new }
+  let(:section) { Moodle2CC::Moodle2::Models::Section.new }
+  let(:book) { Moodle2CC::Moodle2::Models::Book.new }
 
   before(:each) do
     Dir.stub(:mktmpdir).and_yield('work_dir')
@@ -24,9 +26,11 @@ describe Moodle2CC::Moodle2::Extractor do
   end
 
   it 'parses sections' do
-    Moodle2CC::Moodle2::Parsers::SectionParser.any_instance.stub(:parse).and_return(['module'])
+    section.sequence = [1, 2]
+    Moodle2CC::Moodle2::Parsers::SectionParser.any_instance.stub(:parse).and_return([section])
     extractor.extract {}
-    expect(course.sections).to eq ['module']
+
+    expect(course.sections).to eq [section]
   end
 
   it 'parses files' do
