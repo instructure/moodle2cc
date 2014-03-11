@@ -20,6 +20,7 @@ module Moodle2CC::Moodle2
         parse_assignments(work_dir, course)
         parse_books(work_dir, course)
         parse_folders(work_dir, course)
+        collect_activities_for_sections(course.sections, course.activities)
         yield course
       end
     end
@@ -75,6 +76,14 @@ module Moodle2CC::Moodle2
     def parse_folders(work_dir, course)
       if folders = Moodle2CC::Moodle2::Parsers::FolderParser.new(work_dir).parse
         course.folders += folders
+      end
+    end
+
+    def collect_activities_for_sections(sections, activities)
+      activities_hash = {}
+      activities.each {|activity| activities_hash[activity.id.to_s] = activity}
+      sections.each do |section|
+        section.activities = section.sequence.map { |activity_id| activities_hash[activity_id.to_s]}
       end
     end
 

@@ -13,5 +13,9 @@ module Moodle2CC::Moodle2::Models
       @folders = []
     end
 
+    def activities
+      pages + forums + assignments + books + folders
+    end
+
   end
 end

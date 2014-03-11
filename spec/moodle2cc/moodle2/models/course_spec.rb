@@ -11,6 +11,32 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :course_id
     it_behaves_like 'it has an attribute for', :folders, []
 
+    describe '#activities' do
+      it 'collects pages' do
+        subject.pages << :page
+        expect(subject.activities).to eq [:page]
+      end
+
+      it 'collects forums' do
+        subject.forums << :forums
+        expect(subject.activities).to eq [:forums]
+      end
+
+      it 'collects assignments' do
+        subject.assignments << :assignment
+        expect(subject.activities).to eq [:assignment]
+      end
+
+      it 'collects books' do
+        subject.books << :book
+        expect(subject.activities).to eq [:book]
+      end
+
+      it 'collects folders' do
+        subject.folders << :folder
+        expect(subject.activities).to eq [:folder]
+      end
+    end
   end
 end
 

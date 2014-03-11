@@ -4,6 +4,7 @@ module Moodle2CC::Moodle2::Models
                   :release_code, :show_availability, :grouping_id, :position, :activities
 
     def initialize
+      @sequence = []
       @activities = []
     end
   end
