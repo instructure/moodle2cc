@@ -22,14 +22,26 @@ module Moodle2CC::Moodle2Converter
     end
 
     def generate_body(moodle_folder)
-      files = parse_files_from_course(moodle_folder)
+      files = sort_files(parse_files_from_course(moodle_folder))
       html = "<ul>\n"
       files.each do |f|
-        link = "<a href=\"%IMS_CC_FILEBASE%/#{f.file_name}\">#{f.file_path}</a>"
+        link = "<a href=\"%24IMS_CC_FILEBASE%24/#{f.file_name}\">#{f.file_path[1..-1]}#{f.file_name}</a>"
         html += "<li><p>#{link}</p></li>\n"
       end
       html += "</ul>\n"
       html.strip
+    end
+
+    def sort_files(files)
+      files.sort do |a, b|
+        a_depth = a.file_path.scan(/\//).count
+        b_depth = b.file_path.scan(/\//).count
+        if a_depth == b_depth
+          "#{a.file_path[1..-1]}#{a.file_name}" <=> "#{b.file_path[1..-1]}#{b.file_name}"
+        else
+          a_depth <=> b_depth
+        end
+      end
     end
 
   end

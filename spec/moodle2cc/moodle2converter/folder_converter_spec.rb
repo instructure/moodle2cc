@@ -11,11 +11,11 @@ module Moodle2CC
         f = Moodle2::Models::Moodle2File.new
         f.id = "#{i+1}"
         f.file_name = "file#{i+1}.txt"
-        f.file_path = "file#{i+1}.txt"
+        f.file_path = "/"
         f
       end
-      files[2].file_path = 'subfolder1/file3.txt'
-      files[3].file_path = 'subfolder1/subfolder2/file4.txt'
+      files[2].file_path = '/subfolder1/subfolder2/'
+      files[3].file_path = '/subfolder1/'
       moodle2_folder.file_ids = ['1', '2', '3', '4']
       moodle2_course.files += files
     end
@@ -31,10 +31,10 @@ module Moodle2CC
       expect(canvas_page.workflow_state).to eq('active')
       expect(canvas_page.editing_roles).to eq('teachers')
       expect(canvas_page.body).to include('ul')
-      expect(canvas_page.body).to include('<li><p><a href="%IMS_CC_FILEBASE%/file1.txt">file1.txt</a></p></li>')
-      expect(canvas_page.body).to include('<li><p><a href="%IMS_CC_FILEBASE%/file2.txt">file2.txt</a></p></li>')
-      expect(canvas_page.body).to include('<li><p><a href="%IMS_CC_FILEBASE%/file3.txt">subfolder1/file3.txt</a></p></li>')
-      expect(canvas_page.body).to include('<li><p><a href="%IMS_CC_FILEBASE%/file4.txt">subfolder1/subfolder2/file4.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file1.txt">file1.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file2.txt">file2.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file4.txt">subfolder1/file4.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file3.txt">subfolder1/subfolder2/file3.txt</a></p></li>')
     end
     #
     #it 'replaces moodle links with canvas links' do
