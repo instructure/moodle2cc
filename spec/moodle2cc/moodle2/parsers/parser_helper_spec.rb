@@ -42,6 +42,47 @@ describe Moodle2CC::Moodle2::Parsers::ParserHelper do
       child_node.stub(:text) { Moodle2CC::Moodle2::Parsers::ParserHelper::XML_NULL_VALUE }
       expect(subject.parse_text(parent_node, 'path')).to eq nil
     end
+
+  end
+
+  describe "#parse_boolean" do
+    let(:child_node) {
+      double.tap do |double|
+        double.stub(:text) { 'value' }
+      end
+    }
+
+    let(:parent_node) {
+      double.tap do |double|
+        double.stub(:%) { child_node }
+      end
+    }
+
+    it "parses 1 as boolean true" do
+      child_node.stub(:text) { '1' }
+      expect(subject.parse_boolean(parent_node, 'path')).to eq true
+    end
+
+    it "parses 0 as boolean false" do
+      child_node.stub(:text) { '0' }
+      expect(subject.parse_boolean(parent_node, 'path')).to eq false
+    end
+
+    it "parses 'false' as boolean false" do
+      child_node.stub(:text) { 'false' }
+      expect(subject.parse_boolean(parent_node, 'path')).to eq false
+    end
+
+    it "parses 'true' as boolean true" do
+      child_node.stub(:text) { 'true' }
+      expect(subject.parse_boolean(parent_node, 'path')).to eq true
+    end
+
+    it "parses nil as boolean false" do
+      child_node.stub(:text) { nil }
+      expect(subject.parse_boolean(parent_node, 'path')).to eq false
+    end
+
   end
 
 end

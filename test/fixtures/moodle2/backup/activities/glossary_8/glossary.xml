@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="8" modulename="glossary" contextid="27">
+  <glossary id="1">
+    <name>Glossary Name</name>
+    <intro>&lt;p&gt;The glossary description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <allowduplicatedentries>0</allowduplicatedentries>
+    <displayformat>dictionary</displayformat>
+    <mainglossary>0</mainglossary>
+    <showspecial>1</showspecial>
+    <showalphabet>1</showalphabet>
+    <showall>1</showall>
+    <allowcomments>0</allowcomments>
+    <allowprintview>1</allowprintview>
+    <usedynalink>0</usedynalink>
+    <defaultapproval>0</defaultapproval>
+    <globalglossary>0</globalglossary>
+    <entbypage>10</entbypage>
+    <editalways>0</editalways>
+    <rsstype>0</rsstype>
+    <rssarticles>0</rssarticles>
+    <assessed>0</assessed>
+    <assesstimestart>0</assesstimestart>
+    <assesstimefinish>0</assesstimefinish>
+    <scale>0</scale>
+    <timecreated>1394071169</timecreated>
+    <timemodified>1394071189</timemodified>
+    <completionentries>0</completionentries>
+    <entries>
+    </entries>
+    <categories>
+      <category id="1">
+        <name>Category1</name>
+        <usedynalink>1</usedynalink>
+        <category_entries>
+        </category_entries>
+      </category>
+    </categories>
+  </glossary>
+</activity>

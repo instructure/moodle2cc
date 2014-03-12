@@ -18,5 +18,10 @@ module Moodle2CC::Moodle2::Parsers
       end
     end
 
+    def parse_boolean(node, xpath)
+      value = parse_text(node, xpath)
+      value && (value == '1' || value.downcase == 'true') ? true : false
+    end
+
   end
 end

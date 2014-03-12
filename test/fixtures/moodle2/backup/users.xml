@@ -32,9 +32,9 @@
     <theme></theme>
     <timezone>99</timezone>
     <firstaccess>1392408032</firstaccess>
-    <lastaccess>1394041722</lastaccess>
-    <lastlogin>1393978074</lastlogin>
-    <currentlogin>1394041252</currentlogin>
+    <lastaccess>1394502380</lastaccess>
+    <lastlogin>1394486006</lastlogin>
+    <currentlogin>1394502177</currentlogin>
     <mailformat>1</mailformat>
     <maildigest>0</maildigest>
     <maildisplay>1</maildisplay>
@@ -55,7 +55,7 @@
       </preference>
       <preference id="2">
         <name>email_send_count</name>
-        <value>3</value>
+        <value>4</value>
       </preference>
       <preference id="3">
         <name>usemodchooser</name>

@@ -6,7 +6,7 @@
     <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
     <backup_version>2012120300</backup_version>
     <backup_release>2.4</backup_release>
-    <backup_date>1394041734</backup_date>
+    <backup_date>1394502437</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
     <original_wwwroot>https://moodle</original_wwwroot>
@@ -18,7 +18,7 @@
     <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="1ce6cb5415ed5d59d723ac24b36bce4b">
+      <detail backup_id="3faddd1ec0f7954b04219d3c0faa9fe1">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
@@ -49,6 +49,13 @@
           <modulename>folder</modulename>
           <title>Folder Name</title>
           <directory>activities/folder_7</directory>
+        </activity>
+        <activity>
+          <moduleid>8</moduleid>
+          <sectionid>4</sectionid>
+          <modulename>glossary</modulename>
+          <title>Glossary Name</title>
+          <directory>activities/glossary_8</directory>
         </activity>
         <activity>
           <moduleid>2</moduleid>
@@ -258,6 +265,18 @@
         <level>activity</level>
         <activity>folder_7</activity>
         <name>folder_7_userinfo</name>
+        <value>0</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>glossary_8</activity>
+        <name>glossary_8_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>glossary_8</activity>
+        <name>glossary_8_userinfo</name>
         <value>0</value>
       </setting>
       <setting>

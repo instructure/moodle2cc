@@ -14,6 +14,8 @@ require 'moodle2cc/error'
 require 'moodle2cc/logger'
 require 'moodle2cc/migrator'
 
+require 'moodle2cc/moodle2'
+
 module Moodle2CC
   class OpenStruct < ::OpenStruct
     if defined? id
@@ -87,31 +89,6 @@ module Moodle2CC
       autoload :Page, 'moodle2cc/canvas_cc/model/page'
       autoload :Discussion, 'moodle2cc/canvas_cc/model/discussion'
       autoload :WorkflowState, 'moodle2cc/canvas_cc/model/workflow_state'
-    end
-  end
-  module Moodle2
-    autoload :Extractor, 'moodle2cc/moodle2/extractor'
-    module Parsers
-      autoload :CourseParser, 'moodle2cc/moodle2/parsers/course_parser'
-      autoload :SectionParser, 'moodle2cc/moodle2/parsers/section_parser'
-      autoload :FileParser, 'moodle2cc/moodle2/parsers/file_parser'
-      autoload :PageParser, 'moodle2cc/moodle2/parsers/page_parser'
-      autoload :ForumParser, 'moodle2cc/moodle2/parsers/forum_parser'
-      autoload :AssignmentParser, 'moodle2cc/moodle2/parsers/assignment_parser'
-      autoload :BookParser, 'moodle2cc/moodle2/parsers/book_parser'
-      autoload :ParserHelper, 'moodle2cc/moodle2/parsers/parser_helper'
-      autoload :FolderParser, 'moodle2cc/moodle2/parsers/folder_parser'
-    end
-    module Models
-      autoload :Course, 'moodle2cc/moodle2/models/course'
-      autoload :Section, 'moodle2cc/moodle2/models/section'
-      autoload :Moodle2File, 'moodle2cc/moodle2/models/moodle2_file'
-      autoload :Page, 'moodle2cc/moodle2/models/page'
-      autoload :Forum, 'moodle2cc/moodle2/models/forum'
-      autoload :Assignment, 'moodle2cc/moodle2/models/assignment'
-      autoload :Book, 'moodle2cc/moodle2/models/book'
-      autoload :BookChapter, 'moodle2cc/moodle2/models/book_chapter'
-      autoload :Folder, 'moodle2cc/moodle2/models/folder'
     end
   end
   module Moodle2Converter
