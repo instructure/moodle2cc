@@ -1,7 +1,7 @@
 module Moodle2CC::Moodle2::Models
   class Course
     attr_accessor :id_number, :fullname, :shortname, :startdate, :summary, :course_id, :sections, :files, :pages, :forums,
-                  :assignments, :books, :folders
+                  :assignments, :books, :folders, :question_categories
 
     def initialize
       @sections = []
@@ -11,6 +11,7 @@ module Moodle2CC::Moodle2::Models
       @assignments = []
       @books = []
       @folders = []
+      @question_categories = []
     end
 
     def activities

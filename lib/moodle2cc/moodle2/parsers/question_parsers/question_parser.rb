@@ -1,5 +1,6 @@
-module Moodle2CC::Moodle2::Parsers::QuestionParsers
-  class QuestionParser
+module Moodle2CC::Moodle2
+  class Parsers::QuestionParsers::QuestionParser
+    include Parsers::ParserHelper
 
     @@subclasses = {}
 
@@ -16,8 +17,29 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
       @@subclasses[name] = self
     end
 
-    def parse_common_question_attributes(node, question)
+    def parse_question(node)
+      begin
+        question_type = parse_text(node, 'qtype')
+        question = Models::Quizzes::Question.create question_type
 
+        question.id = node.at_xpath('@id').value
+        question.parent = parse_text(node, 'parent')
+        question.name = parse_text(node, 'name')
+        question.question_text = parse_text(node, 'questiontext')
+        question.question_text_format = parse_text(node, 'questiontextformat')
+        question.general_feedback = parse_text(node, 'generalfeedback')
+        question.default_mark = parse_text(node, 'defaultmark')
+        question.penalty = parse_text(node, 'penalty')
+        question.qtype = question_type
+        question.length = parse_text(node, 'length')
+        question.stamp = parse_text(node, 'stamp')
+        question.version = parse_text(node, 'version')
+        question.hidden = parse_boolean(node, 'hidden')
+
+        question
+      rescue Exception => e
+        puts e.message
+      end
     end
 
 

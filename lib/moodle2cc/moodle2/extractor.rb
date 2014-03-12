@@ -20,6 +20,7 @@ module Moodle2CC::Moodle2
         parse_assignments(work_dir, course)
         parse_books(work_dir, course)
         parse_folders(work_dir, course)
+        parse_question_categories(work_dir, course)
         collect_activities_for_sections(course.sections, course.activities)
         yield course
       end
@@ -76,6 +77,12 @@ module Moodle2CC::Moodle2
     def parse_folders(work_dir, course)
       if folders = Moodle2CC::Moodle2::Parsers::FolderParser.new(work_dir).parse
         course.folders += folders
+      end
+    end
+
+    def parse_question_categories(work_dir, course)
+      if question_categories = Moodle2CC::Moodle2::Parsers::QuestionCategoryParser.new(work_dir).parse
+        course.question_categories += question_categories
       end
     end
 
