@@ -6,10 +6,10 @@
     <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
     <backup_version>2012120300</backup_version>
     <backup_release>2.4</backup_release>
-    <backup_date>1394502437</backup_date>
+    <backup_date>1394656186</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
-    <original_wwwroot>https://moodle</original_wwwroot>
+    <original_wwwroot>https://10.0.10.247</original_wwwroot>
     <original_site_identifier_hash>02d8842522c216b34eea4ba8c14a9a5b</original_site_identifier_hash>
     <original_course_id>2</original_course_id>
     <original_course_fullname>Sample Course</original_course_fullname>
@@ -18,7 +18,7 @@
     <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="3faddd1ec0f7954b04219d3c0faa9fe1">
+      <detail backup_id="bb90743f27e4583506ecbb7a0094563c">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
