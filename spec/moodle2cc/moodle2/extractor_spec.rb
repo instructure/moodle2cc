@@ -15,6 +15,7 @@ describe Moodle2CC::Moodle2::Extractor do
     Moodle2CC::Moodle2::Parsers::BookParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::Parsers::FolderParser.any_instance.stub(:parse)
     Moodle2CC::Moodle2::Parsers::QuestionCategoryParser.any_instance.stub(:parse)
+    Moodle2CC::Moodle2::Parsers::QuizParser.any_instance.stub(:parse)
     Zip::File.stub(:open).and_yield([])
   end
 
@@ -95,6 +96,13 @@ describe Moodle2CC::Moodle2::Extractor do
     Moodle2CC::Moodle2::Parsers::QuestionCategoryParser.any_instance.stub(:parse).and_return([question_category])
     extractor.extract {}
     expect(course.question_categories).to eq [question_category]
+  end
+
+  it 'parses quizzes' do
+    quiz = Moodle2CC::Moodle2::Models::Quizzes::Quiz.new
+    Moodle2CC::Moodle2::Parsers::QuizParser.any_instance.stub(:parse).and_return([quiz])
+    extractor.extract {}
+    expect(course.quizzes).to eq [quiz]
   end
 
 end

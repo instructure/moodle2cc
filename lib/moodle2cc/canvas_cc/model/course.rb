@@ -2,7 +2,7 @@ module Moodle2CC::CanvasCC::Model
   class Course
 
     attr_accessor :format, :identifier, :copyright, :settings, :resources, :canvas_modules, :files, :pages, :discussions,
-                  :assignments
+                  :assignments, :assessments
 
     def initialize
       @settings = {}

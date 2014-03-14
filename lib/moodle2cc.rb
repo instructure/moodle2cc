@@ -78,6 +78,7 @@ module Moodle2CC
     module Model
       autoload :Course, 'moodle2cc/canvas_cc/model/course'
       autoload :Assignment, 'moodle2cc/canvas_cc/model/assignment'
+      autoload :Assessment, 'moodle2cc/canvas_cc/model/assessment'
       autoload :DiscussionTopic, 'moodle2cc/canvas_cc/model/discussion_topic'
       autoload :Question, 'moodle2cc/canvas_cc/model/question'
       autoload :WebContent, 'moodle2cc/canvas_cc/model/web_content'
@@ -99,6 +100,7 @@ module Moodle2CC
     autoload :PageConverter, 'moodle2cc/moodle2converter/page_converter'
     autoload :DiscussionConverter, 'moodle2cc/moodle2converter/discussion_converter'
     autoload :AssignmentConverter, 'moodle2cc/moodle2converter/assignment_converter'
+    autoload :AssessmentConverter, 'moodle2cc/moodle2converter/assessment_converter'
     autoload :FolderConverter, 'moodle2cc/moodle2converter/folder_converter'
     autoload :BookConverter, 'moodle2cc/moodle2converter/book_converter'
     autoload :ConverterHelper, 'moodle2cc/moodle2converter/converter_helper'
