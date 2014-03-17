@@ -4,7 +4,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert(moodle_page)
       canvas_page = Moodle2CC::CanvasCC::Model::Page.new
-      canvas_page.identifier = moodle_page.id
+      canvas_page.identifier = generate_unique_identifier_for(moodle_page.id) + PAGE_SUFFIX
       canvas_page.page_name = moodle_page.name
       canvas_page.workflow_state = 'active'
       canvas_page.editing_roles = 'teachers'

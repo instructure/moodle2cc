@@ -9,7 +9,7 @@ module Moodle2CC
       moodle_page.name = 'Page Name'
       moodle_page.content = '<h2>Page Content</h2>'
       canvas_page = subject.convert(moodle_page)
-      expect(canvas_page.identifier).to eq 'CC_1a63c8004d716c8b91f5b7af780555b9_PAGE'
+      expect(canvas_page.identifier).to eq 'm21a63c8004d716c8b91f5b7af780555b9_page'
       expect(canvas_page.title).to eq 'Page Name'
       expect(canvas_page.workflow_state).to eq 'active'
       expect(canvas_page.editing_roles).to eq 'teachers'

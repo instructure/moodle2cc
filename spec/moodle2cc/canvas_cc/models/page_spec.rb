@@ -15,7 +15,7 @@ module Moodle2CC::CanvasCC::Model
 
     it "hashes the identifier" do
       page.identifier = 3
-      expect(page.identifier).to eq 'CC_eccbc87e4b5ce2fe28308fd9f2a7baf3_PAGE'
+      expect(page.identifier).to eq 3
     end
 
     it "sets the wiki_dir, and title" do

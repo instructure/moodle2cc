@@ -41,9 +41,22 @@ module Moodle2CC
     end
 
     describe '#generate_unique_identifier' do
-      it 'generates a uuid prefixed with CC-' do
+      it 'generates a uuid prefixed with m2' do
         SecureRandom.stub(:uuid) {'unique-id'}
         expect(subject.generate_unique_identifier).to eq 'm2uniqueid'
+      end
+    end
+
+    describe '#generate_unique_identifier_for' do
+      before(:each) {Digest::MD5.stub(:hexdigest) {'hash'}}
+      it 'hashes an id prefixed with m2' do
+        expect(subject.generate_unique_identifier_for('some_id')).to eq 'm2hash'
+        expect(Digest::MD5).to have_received(:hexdigest).with('some_id')
+      end
+
+      it 'accepts a suffix' do
+        expect(subject.generate_unique_identifier_for('some_id', 'suffix')).to eq 'm2hashsuffix'
+        expect(Digest::MD5).to have_received(:hexdigest).with('some_id')
       end
     end
 

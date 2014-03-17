@@ -1,5 +1,6 @@
 module Moodle2CC::Moodle2Converter
   class FolderConverter
+    include ConverterHelper
 
     def initialize(moodle_course)
       @moodle_course = moodle_course
@@ -7,7 +8,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert(moodle_folder)
       canvas_page = Moodle2CC::CanvasCC::Model::Page.new
-      canvas_page.identifier = "folder-#{moodle_folder.id}"
+      canvas_page.identifier = generate_unique_identifier_for(moodle_folder.id) + FOLDER_SUFFIX
       canvas_page.page_name = moodle_folder.name
       canvas_page.workflow_state = 'active'
       canvas_page.editing_roles = 'teachers'

@@ -14,7 +14,11 @@ module Moodle2CC::CanvasCC::Model
     end
 
     def identifier=(identifier)
-      @identifier = super(identifier) + PAGE_ID_POSTFIX
+      @identifier = identifier
+    end
+
+    def identifier
+      @identifier
     end
 
     def page_name= name

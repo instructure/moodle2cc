@@ -26,7 +26,7 @@ module Moodle2CC
       moodle2_folder.id = '3'
       moodle2_folder.name = 'Folder Name'
       canvas_page = subject.convert(moodle2_folder)
-      expect(canvas_page.identifier).to eq 'CC_5d283f767ea6b623a67bb225a9e8b78d_PAGE'
+      expect(canvas_page.identifier).to eq 'm2eccbc87e4b5ce2fe28308fd9f2a7baf3_folder'
       expect(canvas_page.title).to eq 'Folder Name'
       expect(canvas_page.workflow_state).to eq('active')
       expect(canvas_page.editing_roles).to eq('teachers')

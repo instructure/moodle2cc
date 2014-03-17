@@ -1,7 +1,5 @@
 module Moodle2CC
   class Moodle2Converter::BookConverter
-    INTRO_SUFFIX = '_book_intro'
-    CHAPTER_SUFFIX = '_chapter'
     include Moodle2Converter::ConverterHelper
 
     def convert(moodle_book)

@@ -1,5 +1,10 @@
 module Moodle2CC
   module Moodle2Converter::ConverterHelper
+    INTRO_SUFFIX    = '_book_intro'
+    CHAPTER_SUFFIX  = '_chapter'
+    FOLDER_SUFFIX   = '_folder'
+    PAGE_SUFFIX     = '_page'
+
     def update_links(content)
       return unless content
       content.gsub('@@PLUGINFILE@@', '%24IMS_CC_FILEBASE%24')
@@ -11,8 +16,8 @@ module Moodle2CC
       File.join(base_path, "#{generate_unique_identifier}#{file_name_suffix}#{ext}")
     end
 
-    def generate_unique_identifier_for(id)
-      "m2#{Digest::MD5.hexdigest(id.to_s)}"
+    def generate_unique_identifier_for(id, suffix = nil)
+      "m2#{Digest::MD5.hexdigest(id.to_s)}#{suffix}"
     end
 
     def generate_unique_identifier

@@ -19,7 +19,7 @@ describe Moodle2CC::CanvasCC::PageWriter do
     html = Nokogiri::HTML(File.read(File.join(work_dir, page.href)))
     expect(html.at_css('meta[http-equiv]')[:'http-equiv']).to eq 'Content-Type'
     expect(html.at_css('meta[http-equiv]')[:content]).to eq 'text/html; charset=utf-8'
-    expect(html.at_css('meta[name=identifier]')[:content]).to eq 'CC_011ed73876357cbeeb11abdc2b7e1c0b_PAGE'
+    expect(html.at_css('meta[name=identifier]')[:content]).to eq 'my_id'
     expect(html.at_css('meta[name=editing_roles]')[:content]).to eq 'teachers'
     expect(html.at_css('meta[name=workflow_state]')[:content]).to eq 'active'
     expect(html.at_css('title').text).to eq 'My Page Title'
