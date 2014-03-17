@@ -1,7 +1,7 @@
 module Moodle2CC::Moodle2Converter
   class QuestionBankConverter
     def convert(moodle_category)
-      canvas_bank = Moodle2CC::CanvasCC::Model::QuestionBank.new
+      canvas_bank = Moodle2CC::CanvasCC::Models::QuestionBank.new
 
       canvas_bank.identifier = moodle_category.id
       canvas_bank.title = moodle_category.name

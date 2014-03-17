@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   describe Page do
     subject(:page) { Page.new }
 
-    it_behaves_like 'a Moodle2CC::CanvasCC::Model::Resource'
+    it_behaves_like 'a Moodle2CC::CanvasCC::Models::Resource'
 
     it_behaves_like 'it has an attribute for', :workflow_state
     it_behaves_like 'it has an attribute for', :editing_roles

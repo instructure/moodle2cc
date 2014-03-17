@@ -3,16 +3,8 @@ require 'spec_helper'
 module Moodle2CC
   describe Moodle2Converter::Migrator do
     subject(:migrator) { Moodle2Converter::Migrator.new('src_dir', 'out_dir') }
-    let(:canvas_course) { CanvasCC::Model::Course.new }
-    let(:canvas_module) { CanvasCC::Model::CanvasModule.new }
-    let(:canvas_file) { CanvasCC::Model::CanvasFile.new }
-    let(:canvas_page) { CanvasCC::Model::Page.new }
-    let(:canvas_discussion) { CanvasCC::Assignment.new }
-    let(:files) { [
-        double('file_1', content_hash: 'a'),
-        double('file_1', content_hash: 'a'),
-        double('file_1', content_hash: 'b')
-    ] }
+    let(:canvas_course) { CanvasCC::Models::Course.new }
+
     let(:moodle_course) { Moodle2CC::Moodle2::Models::Course.new }
 
     before(:each) do
@@ -90,9 +82,9 @@ module Moodle2CC
       it 'converts books' do
         moodle_course.books = [:book1, :book2]
 
-        canvas_module = Moodle2CC::CanvasCC::Model::CanvasModule.new
-        module_item = Moodle2CC::CanvasCC::Model::ModuleItem.new
-        page = Moodle2CC::CanvasCC::Model::Page.new
+        canvas_module = Moodle2CC::CanvasCC::Models::CanvasModule.new
+        module_item = Moodle2CC::CanvasCC::Models::ModuleItem.new
+        page = Moodle2CC::CanvasCC::Models::Page.new
 
         module_item.resource = page
         canvas_module.module_items << module_item

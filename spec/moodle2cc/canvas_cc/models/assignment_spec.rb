@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Moodle2CC::CanvasCC::Model::Assignment do
+describe Moodle2CC::CanvasCC::Models::Assignment do
 
   it_behaves_like 'it has an attribute for', :title
   it_behaves_like 'it has an attribute for', :body
@@ -33,7 +33,7 @@ describe Moodle2CC::CanvasCC::Model::Assignment do
     subject.title = 'My Assignment'
 
     resource = subject.assignment_resource
-    expect(resource).to be_a_kind_of Moodle2CC::CanvasCC::Model::Resource
+    expect(resource).to be_a_kind_of Moodle2CC::CanvasCC::Models::Resource
     expect(resource.files.count).to eq 2
     expect(resource.identifier).to eq 'CC_eccbc87e4b5ce2fe28308fd9f2a7baf3_ASSIGNMENT'
     expect(resource.type).to eq 'associatedcontent/imscc_xmlv1p1/learning-application-resource'

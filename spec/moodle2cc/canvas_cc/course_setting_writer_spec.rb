@@ -3,7 +3,7 @@ require 'spec_helper'
 module Moodle2CC::CanvasCC
   describe CourseSettingWriter do
 
-    let(:course) { Moodle2CC::CanvasCC::Model::Course.new }
+    let(:course) { Moodle2CC::CanvasCC::Models::Course.new }
     let(:tmpdir) { Dir.mktmpdir }
 
     before :each do

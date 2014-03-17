@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   class Assessment
 
     attr_accessor :identifier, :title, :description, :lock_at, :unlock_at, :allowed_attempts,
@@ -14,7 +14,7 @@ module Moodle2CC::CanvasCC::Model
     end
 
     def assessment_resource
-      resource = Moodle2CC::CanvasCC::Model::Resource.new
+      resource = Moodle2CC::CanvasCC::Models::Resource.new
       resource.identifier = @identifier
       resource.ident_postfix = ASSESSMENT_ID_POSTFIX
       resource.href = "#{resource.identifier}/assessment_meta.xml"

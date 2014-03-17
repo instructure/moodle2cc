@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   class Question
 
     attr_accessor :id, :title, :identifier, :type

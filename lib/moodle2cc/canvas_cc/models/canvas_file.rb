@@ -1,5 +1,5 @@
-module Moodle2CC::CanvasCC::Model
-  class CanvasFile < Moodle2CC::CanvasCC::Model::Resource
+module Moodle2CC::CanvasCC::Models
+  class CanvasFile < Moodle2CC::CanvasCC::Models::Resource
 
     WEB_RESOURCES = 'web_resources'
     FILE_ID_POSTFIX = '_FILE'

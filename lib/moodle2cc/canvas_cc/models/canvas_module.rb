@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   class CanvasModule
 
     attr_accessor :identifier, :title, :workflow_state, :module_items

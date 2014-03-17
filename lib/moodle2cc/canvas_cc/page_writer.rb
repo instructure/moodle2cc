@@ -7,7 +7,7 @@ module Moodle2CC::CanvasCC
     end
 
     def write
-      Dir.mkdir(File.join(@work_dir, Moodle2CC::CanvasCC::Model::Page::WIKI_CONTENT))
+      Dir.mkdir(File.join(@work_dir, Moodle2CC::CanvasCC::Models::Page::WIKI_CONTENT))
       @pages.each { |page| write_html(page) }
     end
 

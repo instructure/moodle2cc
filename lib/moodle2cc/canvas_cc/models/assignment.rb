@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   class Assignment
     attr_accessor :identifier, :title, :body, :due_at, :lock_at, :unlock_at, :all_day_date, :peer_reviews_due_at,
                   :assignment_group_identifier_ref, :workflow_state, :points_possible, :grading_type, :all_day,
@@ -18,7 +18,7 @@ module Moodle2CC::CanvasCC::Model
     end
 
     def assignment_resource
-      resource = Moodle2CC::CanvasCC::Model::Resource.new
+      resource = Moodle2CC::CanvasCC::Models::Resource.new
       resource.identifier = @identifier
       resource.ident_postfix = ASSIGNMENT_ID_POSTFIX
       resource.href = "#{resource.identifier}/assignment-#{title.downcase.gsub(/\s/, '-')}.html"

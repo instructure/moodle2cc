@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Moodle2CC::CanvasCC::DiscussionWriter do
   subject(:writer) { Moodle2CC::CanvasCC::DiscussionWriter.new(work_dir, discussion) }
   let(:work_dir) { Dir.mktmpdir }
-  let(:discussion) {Moodle2CC::CanvasCC::Model::Discussion.new}
+  let(:discussion) {Moodle2CC::CanvasCC::Models::Discussion.new}
 
   after(:each) do
     FileUtils.rm_r work_dir

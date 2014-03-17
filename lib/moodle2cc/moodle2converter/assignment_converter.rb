@@ -2,7 +2,7 @@ module Moodle2CC::Moodle2Converter
   class AssignmentConverter
 
     def convert(moodle_assignment)
-      canvas_assignment = Moodle2CC::CanvasCC::Model::Assignment.new
+      canvas_assignment = Moodle2CC::CanvasCC::Models::Assignment.new
       canvas_assignment.identifier = moodle_assignment.id
       canvas_assignment.title = moodle_assignment.name
       canvas_assignment.body = moodle_assignment.intro

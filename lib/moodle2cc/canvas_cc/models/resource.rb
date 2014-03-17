@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   class Resource
 
     WEB_CONTENT_TYPE = 'webcontent'

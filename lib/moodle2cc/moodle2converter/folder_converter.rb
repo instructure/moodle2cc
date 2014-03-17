@@ -7,7 +7,7 @@ module Moodle2CC::Moodle2Converter
     end
 
     def convert(moodle_folder)
-      canvas_page = Moodle2CC::CanvasCC::Model::Page.new
+      canvas_page = Moodle2CC::CanvasCC::Models::Page.new
       canvas_page.identifier = generate_unique_identifier_for(moodle_folder.id) + FOLDER_SUFFIX
       canvas_page.page_name = moodle_folder.name
       canvas_page.workflow_state = 'active'

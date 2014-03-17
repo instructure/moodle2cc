@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   module WorkflowState
     ACTIVE = 'active'
     UNPUBLISHED = 'unpublished'

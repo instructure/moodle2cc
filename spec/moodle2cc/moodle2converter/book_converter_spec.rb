@@ -32,7 +32,7 @@ module Moodle2CC
 
         expect(module_items.size).to eq 3
         module_items.each_with_index do |item, index|
-          expect(item).to be_a CanvasCC::Model::ModuleItem
+          expect(item).to be_a CanvasCC::Models::ModuleItem
         end
       end
 
@@ -53,7 +53,7 @@ module Moodle2CC
         expect(module_item.title).to eq 'Chapter Title'
         expect(module_item.indent).to eq '1'
 
-        expect(resource).to be_a CanvasCC::Model::Page
+        expect(resource).to be_a CanvasCC::Models::Page
         expect(resource.identifier).to eq 'm2b14a7b8059d9c055954c92674ce60032_chapter'
         expect(resource.type).to eq 'webcontent'
         expect(resource.href).to eq 'wiki_content/some_unique_uuid-chapter-title.html'

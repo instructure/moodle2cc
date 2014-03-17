@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   describe Resource do
     it_behaves_like 'it has an attribute for', :href
     it_behaves_like 'it has an attribute for', :type

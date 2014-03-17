@@ -44,7 +44,7 @@ module Moodle2CC::CanvasCC
           xml.grade_group_students_individually assignment.grade_group_students_individually unless assignment.grade_group_students_individually.nil?
         }
       end.to_xml
-      File.open(File.join(assignment_dir, Moodle2CC::CanvasCC::Model::Assignment::ASSIGNMENT_SETTINGS_FILE), 'w') { |f| f.write(xml) }
+      File.open(File.join(assignment_dir, Moodle2CC::CanvasCC::Models::Assignment::ASSIGNMENT_SETTINGS_FILE), 'w') { |f| f.write(xml) }
     end
 
 

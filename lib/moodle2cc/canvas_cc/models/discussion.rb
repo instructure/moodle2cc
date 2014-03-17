@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   class Discussion
     attr_accessor :identifier, :title, :text, :discussion_type
     DISCUSSION_ID_POSTFIX = '_DISCUSSION'
@@ -12,7 +12,7 @@ module Moodle2CC::CanvasCC::Model
     end
 
     def discussion_resource
-      resource = Moodle2CC::CanvasCC::Model::Resource.new
+      resource = Moodle2CC::CanvasCC::Models::Resource.new
       resource.identifier = @identifier
       resource.ident_postfix = DISCUSSION_ID_POSTFIX
       resource.dependencies << resource.identifier + DISCUSSION_META_POSTFIX
@@ -23,7 +23,7 @@ module Moodle2CC::CanvasCC::Model
     end
 
     def meta_resource
-      resource = Moodle2CC::CanvasCC::Model::Resource.new
+      resource = Moodle2CC::CanvasCC::Models::Resource.new
       resource.identifier = @identifier
       resource.ident_postfix = DISCUSSION_ID_POSTFIX + DISCUSSION_META_POSTFIX
       resource.type = LAR_TYPE

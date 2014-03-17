@@ -16,7 +16,7 @@ module Moodle2CC::CanvasCC
     private
 
     def copy_files
-      Dir.mkdir(File.join(@work_dir, Moodle2CC::CanvasCC::Model::CanvasFile::WEB_RESOURCES))
+      Dir.mkdir(File.join(@work_dir, Moodle2CC::CanvasCC::Models::CanvasFile::WEB_RESOURCES))
       @canvas_files.each { |canvas_file| FileUtils.cp(canvas_file.file_location, File.join(@work_dir, canvas_file.href)) }
     end
 

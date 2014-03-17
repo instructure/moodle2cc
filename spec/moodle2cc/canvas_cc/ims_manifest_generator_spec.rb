@@ -3,7 +3,7 @@ require 'spec_helper'
 module Moodle2CC::CanvasCC
   describe ImsManifestGenerator do
 
-    let(:course) { Model::Course.new }
+    let(:course) { Models::Course.new }
     let(:tmpdir) { Dir.mktmpdir }
 
     before :each do
@@ -53,7 +53,7 @@ module Moodle2CC::CanvasCC
 
     describe 'resources' do
       it 'has valid resource settings' do
-        course.canvas_modules << Model::CanvasModule.new
+        course.canvas_modules << Models::CanvasModule.new
         xml = write_xml(course)
 
         resources_node = xml.%('manifest/resources')
@@ -67,7 +67,7 @@ module Moodle2CC::CanvasCC
       end
 
       it 'has valid resource' do
-        resource = Model::Resource.new
+        resource = Models::Resource.new
         resource.identifier = 'resource_identifier'
         resource.type = 'resource_type'
         resource.href = 'resource_href'
@@ -88,7 +88,7 @@ module Moodle2CC::CanvasCC
 
     describe 'organizations' do
       it 'writes learning modules' do
-        canvas_module = Model::CanvasModule.new
+        canvas_module = Models::CanvasModule.new
         canvas_module.title = 'my module title'
         canvas_module.identifier = 'my_id'
         course.canvas_modules << canvas_module
@@ -103,13 +103,13 @@ module Moodle2CC::CanvasCC
       end
 
       it 'writes module items' do
-        canvas_module = Model::CanvasModule.new
+        canvas_module = Models::CanvasModule.new
 
-        module_item = Model::ModuleItem.new
+        module_item = Models::ModuleItem.new
         module_item.identifier = 'module_item_unique_identifier'
         module_item.title = 'Module Item'
 
-        resource = Model::Resource.new
+        resource = Models::Resource.new
         resource.identifier = 'resource_unique_identifier'
 
         module_item.resource = resource

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   describe CanvasFile do
 
-    it_behaves_like 'a Moodle2CC::CanvasCC::Model::Resource'
+    it_behaves_like 'a Moodle2CC::CanvasCC::Models::Resource'
     it_behaves_like 'it has an attribute for', :file_location
 
     it 'has a type to webcontent' do

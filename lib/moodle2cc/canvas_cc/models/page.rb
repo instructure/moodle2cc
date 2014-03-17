@@ -1,5 +1,5 @@
-module Moodle2CC::CanvasCC::Model
-  class Page < Moodle2CC::CanvasCC::Model::Resource
+module Moodle2CC::CanvasCC::Models
+  class Page < Moodle2CC::CanvasCC::Models::Resource
 
     PAGE_ID_POSTFIX = '_PAGE'
     WIKI_CONTENT = 'wiki_content'

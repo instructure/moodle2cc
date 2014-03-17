@@ -3,7 +3,7 @@ require 'spec_helper'
 module Moodle2CC::CanvasCC
   describe FileMetaWriter do
 
-    let(:file) { Model::CanvasFile.new }
+    let(:file) { Models::CanvasFile.new }
     let(:tmpdir) { Dir.mktmpdir }
 
     before :each do
@@ -28,7 +28,7 @@ module Moodle2CC::CanvasCC
         file.file_location = source_file
         file.file_path = 'sample.txt'
         write_xml(writer(file))
-        path = File.join(tmpdir, Model::CanvasFile::WEB_RESOURCES, 'sample.txt')
+        path = File.join(tmpdir, Models::CanvasFile::WEB_RESOURCES, 'sample.txt')
         expect(File.exist?(path)).to be_true
       end
     end

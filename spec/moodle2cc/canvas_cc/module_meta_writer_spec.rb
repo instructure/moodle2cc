@@ -3,8 +3,8 @@ require 'spec_helper'
 module Moodle2CC::CanvasCC
   describe ModuleMetaWriter do
 
-    let(:canvas_module) { Model::CanvasModule.new }
-    let(:module_item) { Model::ModuleItem.new }
+    let(:canvas_module) { Models::CanvasModule.new }
+    let(:module_item) { Models::ModuleItem.new }
     let(:tmpdir) { Dir.mktmpdir }
 
     before :each do
@@ -37,7 +37,7 @@ module Moodle2CC::CanvasCC
     end
 
     it 'increments the position for each module that is written' do
-      xml = write_xml(Model::CanvasModule.new, Model::CanvasModule.new)
+      xml = write_xml(Models::CanvasModule.new, Models::CanvasModule.new)
       expect(xml.%('modules/module/position').text).to eq('0')
       expect(xml.%('modules/module[last()]/position').text).to eq('1')
     end
@@ -50,7 +50,7 @@ module Moodle2CC::CanvasCC
       module_item.new_tab = nil
       module_item.indent = "1"
 
-      resource = Model::Resource.new
+      resource = Models::Resource.new
       resource.identifier = 'some id'
       module_item.resource = resource
 
@@ -70,8 +70,8 @@ module Moodle2CC::CanvasCC
     end
 
     it 'increments the position for each module item that is written in a module' do
-      canvas_module.module_items << Model::ModuleItem.new
-      canvas_module.module_items << Model::ModuleItem.new
+      canvas_module.module_items << Models::ModuleItem.new
+      canvas_module.module_items << Models::ModuleItem.new
 
       xml = write_xml(canvas_module)
 

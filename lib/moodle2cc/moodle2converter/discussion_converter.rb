@@ -3,7 +3,7 @@ module Moodle2CC::Moodle2Converter
 
 
     def convert(forum)
-      discussion = Moodle2CC::CanvasCC::Model::Discussion.new
+      discussion = Moodle2CC::CanvasCC::Models::Discussion.new
       discussion.identifier = forum.id
       discussion.title = forum.name
       discussion.text = forum.intro

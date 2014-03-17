@@ -7,9 +7,9 @@ shared_examples 'it has an attribute for' do |attribute, default_value = nil|
   end
 end
 
-shared_examples 'a Moodle2CC::CanvasCC::Model::Resource' do
-  it "by inheriting Moodle2CC::CanvasCC::Model::Resource" do
-    expect(described_class.ancestors).to include Moodle2CC::CanvasCC::Model::Resource
+shared_examples 'a Moodle2CC::CanvasCC::Models::Resource' do
+  it "by inheriting Moodle2CC::CanvasCC::Models::Resource" do
+    expect(described_class.ancestors).to include Moodle2CC::CanvasCC::Models::Resource
   end
 end
 

@@ -5,12 +5,12 @@ module Moodle2CC::CanvasCC
     subject { CartridgeCreator.new(course) }
 
     let(:tmpdir) { Dir.mktmpdir }
-    let(:course) { Model::Course.new }
+    let(:course) { Models::Course.new }
 
     before :each do
       course.identifier = 'setting'
       course.title = 'My Course'
-      course.canvas_modules << Model::CanvasModule.new
+      course.canvas_modules << Models::CanvasModule.new
 
       CanvasExportWriter.any_instance.stub(:write)
       CourseSettingWriter.any_instance.stub(:write)

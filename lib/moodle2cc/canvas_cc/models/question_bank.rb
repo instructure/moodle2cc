@@ -1,4 +1,4 @@
-module Moodle2CC::CanvasCC::Model
+module Moodle2CC::CanvasCC::Models
   class QuestionBank
 
     attr_accessor :identifier, :title, :questions
