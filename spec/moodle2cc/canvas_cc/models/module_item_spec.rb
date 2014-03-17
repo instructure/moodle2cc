@@ -9,5 +9,6 @@ module Moodle2CC::CanvasCC::Models
     it_behaves_like 'it has an attribute for', :new_tab
     it_behaves_like 'it has an attribute for', :indent
     it_behaves_like 'it has an attribute for', :resource
+    it_behaves_like 'it has an attribute for', :identifierref
   end
 end

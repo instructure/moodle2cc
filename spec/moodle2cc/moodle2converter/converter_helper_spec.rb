@@ -60,5 +60,17 @@ module Moodle2CC
       end
     end
 
+    describe '#generate_unique_identifier_for_activity' do
+      it 'generates a unique identifier for a page' do
+        subject.stub(:generate_unique_identifier_for)
+        page = Moodle2CC::Moodle2::Models::Page.new
+        page.id = 'id'
+
+        subject.generate_unique_identifier_for_activity(page)
+
+        expect(subject).to have_received(:generate_unique_identifier_for).with('id', '_page')
+      end
+    end
+
   end
 end
