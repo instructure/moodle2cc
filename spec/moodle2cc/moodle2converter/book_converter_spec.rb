@@ -54,7 +54,7 @@ module Moodle2CC
         expect(module_item.indent).to eq '1'
 
         expect(resource).to be_a CanvasCC::Model::Page
-        expect(resource.identifier).to eq 'CC_d22dda77ebaaa68dcc0f1cab8516bb2b_PAGE'
+        expect(resource.identifier).to eq 'CC_2940404f7e7f06647c75439a0042010e_PAGE'
         expect(resource.type).to eq 'webcontent'
         expect(resource.href).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
         expect(resource.files.size).to eq 1

@@ -74,7 +74,6 @@ module Moodle2CC
     autoload :PageWriter, 'moodle2cc/canvas_cc/page_writer'
     autoload :DiscussionWriter, 'moodle2cc/canvas_cc/discussion_writer'
     autoload :AssignmentWriter, 'moodle2cc/canvas_cc/assignment_writer'
-    autoload :FormatHelper, 'moodle2cc/canvas_cc/format_helper'
     module Model
       autoload :Course, 'moodle2cc/canvas_cc/model/course'
       autoload :Assignment, 'moodle2cc/canvas_cc/model/assignment'
