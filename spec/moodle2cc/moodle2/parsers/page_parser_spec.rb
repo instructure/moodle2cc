@@ -5,7 +5,7 @@ describe Moodle2CC::Moodle2::Parsers::PageParser do
 
   it 'parses a moodle2 page' do
     pages = parser.parse
-    expect(pages.count).to eq 1
+    expect(pages.count).to eq 2
     page = pages.first
     expect(page.module_id).to eq '2'
     expect(page.id).to eq '1'

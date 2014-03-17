@@ -27,12 +27,87 @@
     <timemodified>1394071189</timemodified>
     <completionentries>0</completionentries>
     <entries>
+      <entry id="1">
+        <userid>2</userid>
+        <concept>Glossary Concept</concept>
+        <definition>&lt;p&gt;Definition of concept&lt;/p&gt;</definition>
+        <definitionformat>1</definitionformat>
+        <definitiontrust>0</definitiontrust>
+        <attachment>1</attachment>
+        <timecreated>1394071265</timecreated>
+        <timemodified>1394071265</timemodified>
+        <teacherentry>1</teacherentry>
+        <sourceglossaryid>0</sourceglossaryid>
+        <usedynalink>0</usedynalink>
+        <casesensitive>0</casesensitive>
+        <fullmatch>0</fullmatch>
+        <approved>1</approved>
+        <aliases>
+          <alias id="1">
+            <alias_text>keywords for glossary</alias_text>
+          </alias>
+        </aliases>
+        <ratings>
+        </ratings>
+      </entry>
+      <entry id="2">
+        <userid>2</userid>
+        <concept>File Concept</concept>
+        <definition>&lt;p&gt;This is a file concept definition&lt;/p&gt;</definition>
+        <definitionformat>1</definitionformat>
+        <definitiontrust>0</definitiontrust>
+        <attachment>1</attachment>
+        <timecreated>1394502232</timecreated>
+        <timemodified>1394502232</timemodified>
+        <teacherentry>1</teacherentry>
+        <sourceglossaryid>0</sourceglossaryid>
+        <usedynalink>0</usedynalink>
+        <casesensitive>0</casesensitive>
+        <fullmatch>0</fullmatch>
+        <approved>1</approved>
+        <aliases>
+          <alias id="2">
+            <alias_text>keywords</alias_text>
+          </alias>
+        </aliases>
+        <ratings>
+        </ratings>
+      </entry>
+      <entry id="3">
+        <userid>2</userid>
+        <concept>categorized concept</concept>
+        <definition>&lt;p&gt;this is a definition for a concept belonging to a category&lt;/p&gt;</definition>
+        <definitionformat>1</definitionformat>
+        <definitiontrust>0</definitiontrust>
+        <attachment></attachment>
+        <timecreated>1394502319</timecreated>
+        <timemodified>1394502319</timemodified>
+        <teacherentry>1</teacherentry>
+        <sourceglossaryid>0</sourceglossaryid>
+        <usedynalink>0</usedynalink>
+        <casesensitive>0</casesensitive>
+        <fullmatch>0</fullmatch>
+        <approved>1</approved>
+        <aliases>
+          <alias id="3">
+            <alias_text>keyword1</alias_text>
+          </alias>
+          <alias id="4">
+            <alias_text>keyword2</alias_text>
+          </alias>
+        </aliases>
+        <ratings>
+        </ratings>
+      </entry>
     </entries>
     <categories>
       <category id="1">
         <name>Category1</name>
         <usedynalink>1</usedynalink>
         <category_entries>
+          <category_entry id="1">
+            <entryid>3</entryid>
+          </category_entry>
         </category_entries>
       </category>
     </categories>

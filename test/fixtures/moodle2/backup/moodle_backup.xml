@@ -6,7 +6,7 @@
     <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
     <backup_version>2012120300</backup_version>
     <backup_release>2.4</backup_release>
-    <backup_date>1395074709</backup_date>
+    <backup_date>1395093402</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
     <original_wwwroot>https://10.0.21.141</original_wwwroot>
@@ -18,7 +18,7 @@
     <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="3f0a012346e29cbee3c80adc2aed0aa3">
+      <detail backup_id="c2b4b17ece48bae7db3794583cdeff2a">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
@@ -70,6 +70,13 @@
           <modulename>resource</modulename>
           <title>Test File</title>
           <directory>activities/resource_3</directory>
+        </activity>
+        <activity>
+          <moduleid>10</moduleid>
+          <sectionid>5</sectionid>
+          <modulename>page</modulename>
+          <title>My Second Page</title>
+          <directory>activities/page_10</directory>
         </activity>
         <activity>
           <moduleid>4</moduleid>
@@ -212,7 +219,7 @@
         <level>section</level>
         <section>section_1</section>
         <name>section_1_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -224,7 +231,7 @@
         <level>activity</level>
         <activity>forum_1</activity>
         <name>forum_1_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>section</level>
@@ -236,7 +243,7 @@
         <level>section</level>
         <section>section_2</section>
         <name>section_2_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>section</level>
@@ -248,7 +255,7 @@
         <level>section</level>
         <section>section_4</section>
         <name>section_4_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -260,7 +267,7 @@
         <level>activity</level>
         <activity>book_6</activity>
         <name>book_6_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -272,7 +279,7 @@
         <level>activity</level>
         <activity>folder_7</activity>
         <name>folder_7_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -284,7 +291,7 @@
         <level>activity</level>
         <activity>glossary_8</activity>
         <name>glossary_8_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>section</level>
@@ -296,7 +303,7 @@
         <level>section</level>
         <section>section_3</section>
         <name>section_3_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -308,7 +315,7 @@
         <level>activity</level>
         <activity>page_2</activity>
         <name>page_2_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>section</level>
@@ -320,7 +327,7 @@
         <level>section</level>
         <section>section_5</section>
         <name>section_5_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -332,7 +339,19 @@
         <level>activity</level>
         <activity>resource_3</activity>
         <name>resource_3_userinfo</name>
-        <value>0</value>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>page_10</activity>
+        <name>page_10_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>page_10</activity>
+        <name>page_10_userinfo</name>
+        <value>1</value>
       </setting>
       <setting>
         <level>section</level>
@@ -344,7 +363,7 @@
         <level>section</level>
         <section>section_6</section>
         <name>section_6_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -356,7 +375,7 @@
         <level>activity</level>
         <activity>assign_4</activity>
         <name>assign_4_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>section</level>
@@ -368,7 +387,7 @@
         <level>section</level>
         <section>section_7</section>
         <name>section_7_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -380,7 +399,7 @@
         <level>activity</level>
         <activity>quiz_5</activity>
         <name>quiz_5_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
@@ -392,7 +411,7 @@
         <level>activity</level>
         <activity>questionnaire_9</activity>
         <name>questionnaire_9_userinfo</name>
-        <value>0</value>
+        <value>1</value>
       </setting>
     </settings>
   </information>

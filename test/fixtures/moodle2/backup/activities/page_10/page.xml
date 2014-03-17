@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="2" moduleid="10" modulename="page" contextid="29">
+  <page id="2">
+    <name>My Second Page</name>
+    <intro>&lt;p&gt;Description of page&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <content>&lt;p&gt;The page Content is Here&lt;/p&gt;</content>
+    <contentformat>1</contentformat>
+    <legacyfiles>0</legacyfiles>
+    <legacyfileslast>$@NULL@$</legacyfileslast>
+    <display>5</display>
+    <displayoptions>a:2:{s:12:"printheading";s:1:"1";s:10:"printintro";s:1:"0";}</displayoptions>
+    <revision>1</revision>
+    <timemodified>1395093378</timemodified>
+  </page>
+</activity>

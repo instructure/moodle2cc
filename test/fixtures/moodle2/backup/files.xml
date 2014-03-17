@@ -198,4 +198,92 @@
     <repositoryid>$@NULL@$</repositoryid>
     <reference>$@NULL@$</reference>
   </file>
+  <file id="37">
+    <contenthash>a0f324310c8d8dd9c79458986c4322f5a060a1d9</contenthash>
+    <contextid>27</contextid>
+    <component>mod_glossary</component>
+    <filearea>attachment</filearea>
+    <itemid>1</itemid>
+    <filepath>/</filepath>
+    <filename>smaple_gif.gif</filename>
+    <userid>2</userid>
+    <filesize>2444236</filesize>
+    <mimetype>image/gif</mimetype>
+    <status>0</status>
+    <timecreated>1394071263</timecreated>
+    <timemodified>1394071265</timemodified>
+    <source>Server files: Miscellaneous/Sample Course/Folder Name (Folder)/Files and subfolders/smaple_gif.gif</source>
+    <author>Admin User</author>
+    <license>allrightsreserved</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="38">
+    <contenthash>da39a3ee5e6b4b0d3255bfef95601890afd80709</contenthash>
+    <contextid>27</contextid>
+    <component>mod_glossary</component>
+    <filearea>attachment</filearea>
+    <itemid>1</itemid>
+    <filepath>/</filepath>
+    <filename>.</filename>
+    <userid>2</userid>
+    <filesize>0</filesize>
+    <mimetype>$@NULL@$</mimetype>
+    <status>0</status>
+    <timecreated>1394071265</timecreated>
+    <timemodified>1394071265</timemodified>
+    <source>$@NULL@$</source>
+    <author>$@NULL@$</author>
+    <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="43">
+    <contenthash>a0f324310c8d8dd9c79458986c4322f5a060a1d9</contenthash>
+    <contextid>27</contextid>
+    <component>mod_glossary</component>
+    <filearea>attachment</filearea>
+    <itemid>2</itemid>
+    <filepath>/</filepath>
+    <filename>smaple_gif.gif</filename>
+    <userid>2</userid>
+    <filesize>2444236</filesize>
+    <mimetype>image/gif</mimetype>
+    <status>0</status>
+    <timecreated>1394502224</timecreated>
+    <timemodified>1394502232</timemodified>
+    <source>Server files: Miscellaneous/Sample Course/Glossary Name (Glossary)/Attachments/Glossary Concept/smaple_gif.gif</source>
+    <author>Admin User</author>
+    <license>allrightsreserved</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="44">
+    <contenthash>da39a3ee5e6b4b0d3255bfef95601890afd80709</contenthash>
+    <contextid>27</contextid>
+    <component>mod_glossary</component>
+    <filearea>attachment</filearea>
+    <itemid>2</itemid>
+    <filepath>/</filepath>
+    <filename>.</filename>
+    <userid>2</userid>
+    <filesize>0</filesize>
+    <mimetype>$@NULL@$</mimetype>
+    <status>0</status>
+    <timecreated>1394502232</timecreated>
+    <timemodified>1394502232</timemodified>
+    <source>$@NULL@$</source>
+    <author>$@NULL@$</author>
+    <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
 </files>
