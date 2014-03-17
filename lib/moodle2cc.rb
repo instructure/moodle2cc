@@ -81,6 +81,7 @@ module Moodle2CC
       autoload :Assessment, 'moodle2cc/canvas_cc/model/assessment'
       autoload :DiscussionTopic, 'moodle2cc/canvas_cc/model/discussion_topic'
       autoload :Question, 'moodle2cc/canvas_cc/model/question'
+      autoload :QuestionBank, 'moodle2cc/canvas_cc/model/question_bank'
       autoload :WebContent, 'moodle2cc/canvas_cc/model/web_content'
       autoload :WebLink, 'moodle2cc/canvas_cc/model/web_link'
       autoload :Resource, 'moodle2cc/canvas_cc/model/resource'
@@ -95,6 +96,8 @@ module Moodle2CC
   module Moodle2Converter
     autoload :Migrator, 'moodle2cc/moodle2converter/migrator'
     autoload :CourseConverter, 'moodle2cc/moodle2converter/course_converter'
+    autoload :QuestionConverters, 'moodle2cc/moodle2converter/question_converters'
+    autoload :QuestionBankConverter, 'moodle2cc/moodle2converter/question_bank_converter'
     autoload :SectionConverter, 'moodle2cc/moodle2converter/section_converter'
     autoload :FileConverter, 'moodle2cc/moodle2converter/file_converter'
     autoload :PageConverter, 'moodle2cc/moodle2converter/page_converter'

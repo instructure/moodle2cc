@@ -2,7 +2,7 @@ module Moodle2CC::CanvasCC::Model
   class Course
 
     attr_accessor :format, :identifier, :copyright, :settings, :resources, :canvas_modules, :files, :pages, :discussions,
-                  :assignments, :assessments
+                  :assignments, :assessments, :question_banks
 
     def initialize
       @settings = {}
@@ -12,6 +12,8 @@ module Moodle2CC::CanvasCC::Model
       @pages = []
       @discussions = []
       @assignments = []
+      @assessments = []
+      @question_banks = []
     end
 
     def start_at

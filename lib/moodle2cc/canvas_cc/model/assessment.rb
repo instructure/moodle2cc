@@ -2,7 +2,8 @@ module Moodle2CC::CanvasCC::Model
   class Assessment
 
     attr_accessor :identifier, :title, :description, :lock_at, :unlock_at, :allowed_attempts,
-                   :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit, :quiz_type
+                   :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit, :quiz_type,
+                   :question_references
 
     ASSESSMENT_ID_POSTFIX = '_ASSESSMENT'
     LAR_TYPE = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'

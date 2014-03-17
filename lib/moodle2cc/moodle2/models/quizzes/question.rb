@@ -5,7 +5,9 @@ module Moodle2CC::Moodle2::Models::Quizzes
 
     def self.create(type)
       if c = @@subclasses[type]
-        c.new
+        q = c.new
+        q.type = type
+        q
       else
         raise "Unknown question type: #{type}"
       end
@@ -16,7 +18,7 @@ module Moodle2CC::Moodle2::Models::Quizzes
     end
 
     attr_accessor :id, :parent, :name, :question_text, :question_text_format, :general_feedback, :default_mark,
-                  :penalty, :qtype, :length, :stamp, :version, :hidden, :answers
+                  :penalty, :qtype, :length, :stamp, :version, :hidden, :answers, :type
 
     def initialize
       @answers = []

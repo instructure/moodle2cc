@@ -13,6 +13,10 @@ module Moodle2CC::Moodle2Converter
         cc_course.pages += convert_pages(moodle_course.pages)
         cc_course.discussions += convert_discussions(moodle_course.forums)
         cc_course.assignments += convert_assignments(moodle_course.assignments)
+
+        cc_course.assessments += convert_assessments(moodle_course.quizzes)
+        cc_course.question_banks += convert_question_banks(moodle_course.question_categories)
+
         cc_course.pages += convert_folders(moodle_course)
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
 
@@ -71,6 +75,19 @@ module Moodle2CC::Moodle2Converter
       book_converter = Moodle2CC::Moodle2Converter::BookConverter.new
       moodle_course.books.map { |book| book_converter.convert(book) }
     end
+
+    # convert quizzes to assessments
+    def convert_assessments(quizzes)
+      assessment_converter = Moodle2CC::Moodle2Converter::AssessmentConverter.new
+      quizzes.map { |quiz| assessment_converter.convert(quiz) }
+    end
+
+    # convert question categories to question banks
+    def convert_question_banks(question_categories)
+      bank_converter = Moodle2CC::Moodle2Converter::QuestionBankConverter.new
+      question_categories.map { |category| bank_converter.convert(category) }
+    end
+
 
   end
 end

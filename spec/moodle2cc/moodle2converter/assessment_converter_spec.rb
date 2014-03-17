@@ -34,6 +34,7 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     expect(canvas_assessment.shuffle_answers).to eq moodle_quiz.shuffle_answers
     expect(canvas_assessment.time_limit).to eq 100
     expect(canvas_assessment.quiz_type).to eq 'practice_quiz'
+    expect(canvas_assessment.question_references).to eq moodle_quiz.question_instances
 
     moodle_quiz.attempts_number = 0 # Infinite attempts
     moodle_quiz.grade_method = 4

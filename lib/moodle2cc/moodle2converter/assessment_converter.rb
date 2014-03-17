@@ -20,6 +20,8 @@ module Moodle2CC::Moodle2Converter
       canvas_assessment.time_limit = Integer(moodle_quiz.time_limit) if moodle_quiz.time_limit
       canvas_assessment.quiz_type = 'practice_quiz'
 
+      canvas_assessment.question_references = moodle_quiz.question_instances
+
       canvas_assessment
     end
 
