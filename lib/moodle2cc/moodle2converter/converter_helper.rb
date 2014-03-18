@@ -20,9 +20,10 @@ module Moodle2CC
       Moodle2CC::Moodle2::Models::Quizzes::Quiz => {suffix: ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ}
     }
 
-    def update_links(content)
+    def format_html(content)
       return unless content
-      content.gsub('@@PLUGINFILE@@', '%24IMS_CC_FILEBASE%24')
+      content.gsub('id="main"', '').
+              gsub('@@PLUGINFILE@@', '%24IMS_CC_FILEBASE%24')
     end
 
     def generate_unique_resource_path(base_path, readable_name = nil, file_extension = nil)

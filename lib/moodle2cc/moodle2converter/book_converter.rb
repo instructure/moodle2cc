@@ -41,7 +41,7 @@ module Moodle2CC
 
       page = create_page_for_module_item(module_item)
       page.identifier = generate_unique_identifier_for("#{moodle_book.id}_#{moodle_chapter.id}") + CHAPTER_SUFFIX
-      page.body = update_links(moodle_chapter.content)
+      page.body = format_html(moodle_chapter.content)
       module_item.resource = page
 
       module_item

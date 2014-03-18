@@ -84,7 +84,7 @@ module Moodle2CC
       end
 
       it 'converts links in book content' do
-        subject.stub(:update_links)
+        subject.stub(:format_html)
 
         chapter = Moodle2::Models::BookChapter.new
         chapter.content = 'html'
@@ -92,7 +92,7 @@ module Moodle2CC
 
         subject.convert(moodle2_book)
 
-        expect(subject).to have_received(:update_links).once.with('html')
+        expect(subject).to have_received(:format_html).once.with('html')
 
       end
 
