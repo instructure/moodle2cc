@@ -10,6 +10,7 @@ module Moodle2CC::Moodle2::Parsers
       expect(folders.count).to eq(1)
 
       folder = folders.first
+      expect(folder.module_id).to eq('7')
       expect(folder.id).to eq('1')
       expect(folder.name).to eq('Folder Name')
       expect(folder.intro).to eq('<p>Folder Description</p>')

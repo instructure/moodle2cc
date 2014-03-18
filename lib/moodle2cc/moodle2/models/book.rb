@@ -1,6 +1,6 @@
 module Moodle2CC::Moodle2::Models
   class Book
-    attr_accessor :id, :name, :intro, :numbering, :custom_titles, :chapters, :intro_format
+    attr_accessor :id, :module_id, :name, :intro, :numbering, :custom_titles, :chapters, :intro_format
 
     def initialize
       @chapters = []

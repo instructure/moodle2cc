@@ -19,6 +19,7 @@ module Moodle2CC::Moodle2::Parsers
       book = Moodle2CC::Moodle2::Models::Book.new
       File.open(File.join(@backup_dir, dir, BOOK_XML)) do |f|
         xml = Nokogiri::XML(f)
+        book.module_id = xml.at_xpath('/activity/@moduleid').value
         book.id = xml.at_xpath('/activity/book/@id').value
         book.name = parse_text(xml, '/activity/book/name')
         book.intro = parse_text(xml, '/activity/book/intro')

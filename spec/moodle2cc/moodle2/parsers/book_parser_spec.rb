@@ -7,6 +7,8 @@ describe Moodle2CC::Moodle2::Parsers::BookParser do
     book = subject.parse().first
     chapter = book.chapters.first
 
+    expect(book.id).to eq "1"
+    expect(book.module_id).to eq "6"
     expect(book.name).to eq "My First Book"
     expect(book.intro).to eq "<p>Description of my book</p>"
     expect(book.intro_format).to eq "1"

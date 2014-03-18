@@ -21,6 +21,7 @@ module Moodle2CC::Moodle2::Parsers
       folder = Moodle2CC::Moodle2::Models::Folder.new
       File.open(File.join(@backup_dir, dir, FOLDER_XML)) do |f|
         xml = Nokogiri::XML(f)
+        folder.module_id = xml.at_xpath('/activity/@moduleid').value
         folder.id = xml.at_xpath('/activity/folder/@id').value
         folder.name = parse_text(xml, '/activity/folder/name')
         folder.intro = parse_text(xml, '/activity/folder/intro')
