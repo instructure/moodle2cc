@@ -11,8 +11,8 @@ module Moodle2CC::Moodle2::Parsers
       end
     end
 
-    def parse_text(node, xpath)
-      if v_node = node.%(xpath)
+    def parse_text(node, xpath, use_xpath=false)
+      if v_node = (use_xpath && node.at_xpath(xpath)) || (!use_xpath && node.%(xpath))
         value = v_node.text
         value unless value == XML_NULL_VALUE
       end

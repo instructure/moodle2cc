@@ -42,14 +42,14 @@ module Moodle2CC::Moodle2::Parsers
         assignment.blind_marking = parse_text(xml, '/activity/assign/blindmarking')
         assignment.reveal_identities = parse_text(xml, '/activity/assign/revealidentities')
         plugins = xml.at_xpath('/activity/assign/plugin_configs')
-        assignment.online_text_submission = plugins.at_xpath('plugin_config[(plugin="onlinetext" and subtype="assignsubmission" and name="enabled")]/value').text
-        assignment.file_submission = plugins.at_xpath('plugin_config[(plugin="file" and subtype="assignsubmission" and name="enabled")]/value').text
-        assignment.max_files_submission = plugins.at_xpath('plugin_config[(plugin="file" and subtype="assignsubmission" and name="maxfilesubmissions")]/value').text
-        assignment.max_file_size_submission = plugins.at_xpath('plugin_config[(plugin="file" and subtype="assignsubmission" and name="maxsubmissionsizebytes")]/value').text
-        assignment.submission_comments = plugins.at_xpath('plugin_config[(plugin="comments" and subtype="assignsubmission" and name="enabled")]/value').text
-        assignment.feedback_comments = plugins.at_xpath('plugin_config[(plugin="comments" and subtype="assignfeedback" and name="enabled")]/value').text
-        assignment.feedback_files = plugins.at_xpath('plugin_config[(plugin="file" and subtype="assignfeedback" and name="enabled")]/value').text
-        assignment.offline_grading_worksheet = plugins.at_xpath('plugin_config[(plugin="offline" and subtype="assignfeedback" and name="enabled")]/value').text
+        assignment.online_text_submission = parse_text(plugins, 'plugin_config[(plugin="onlinetext" and subtype="assignsubmission" and name="enabled")]/value', true)
+        assignment.file_submission = parse_text(plugins, 'plugin_config[(plugin="file" and subtype="assignsubmission" and name="enabled")]/value', true)
+        assignment.max_files_submission = parse_text(plugins, 'plugin_config[(plugin="file" and subtype="assignsubmission" and name="maxfilesubmissions")]/value', true)
+        assignment.max_file_size_submission = parse_text(plugins, 'plugin_config[(plugin="file" and subtype="assignsubmission" and name="maxsubmissionsizebytes")]/value', true)
+        assignment.submission_comments = parse_text(plugins, 'plugin_config[(plugin="comments" and subtype="assignsubmission" and name="enabled")]/value', true)
+        assignment.feedback_comments = parse_text(plugins, 'plugin_config[(plugin="comments" and subtype="assignfeedback" and name="enabled")]/value', true)
+        assignment.feedback_files = parse_text(plugins, 'plugin_config[(plugin="file" and subtype="assignfeedback" and name="enabled")]/value', true)
+        assignment.offline_grading_worksheet = parse_text(plugins, 'plugin_config[(plugin="offline" and subtype="assignfeedback" and name="enabled")]/value', true)
       end
       assignment
     end

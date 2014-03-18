@@ -25,6 +25,7 @@ describe Moodle2CC::Moodle2::Parsers::ParserHelper do
     let(:parent_node) {
       double.tap do |double|
         double.stub(:%) { child_node }
+        double.stub(:at_xpath) { child_node}
       end
     }
 
@@ -41,6 +42,11 @@ describe Moodle2CC::Moodle2::Parsers::ParserHelper do
     it "replaces the XML_NULL_VALUE with nil" do
       child_node.stub(:text) { Moodle2CC::Moodle2::Parsers::ParserHelper::XML_NULL_VALUE }
       expect(subject.parse_text(parent_node, 'path')).to eq nil
+    end
+
+    it "uses #at_xpath when ns is true" do
+      expect(subject.parse_text(parent_node, 'path', true)).to eq 'value'
+      expect(parent_node).to have_received(:at_xpath).with('path')
     end
 
   end
