@@ -42,41 +42,49 @@ module Moodle2CC::CanvasCC
       expect(xml.%('modules/module[last()]/position').text).to eq('1')
     end
 
-    it 'writes out module items correctly' do
-      module_item.identifier = "some_unique_hash"
-      module_item.content_type = "ContentType"
-      module_item.workflow_state = "active"
-      module_item.title = "Item Title"
-      module_item.new_tab = nil
-      module_item.indent = "1"
+    context 'module items' do
+      it 'writes out module items correctly' do
+        module_item.identifier = "some_unique_hash"
+        module_item.content_type = "ContentType"
+        module_item.workflow_state = "active"
+        module_item.title = "Item Title"
+        module_item.new_tab = nil
+        module_item.indent = "1"
 
-      resource = Models::Resource.new
-      resource.identifier = 'some_id'
-      module_item.resource = resource
+        module_item.identifierref = 'resource_id'
 
-      canvas_module.module_items << module_item
+        canvas_module.module_items << module_item
 
-      xml = write_xml(canvas_module)
+        xml = write_xml(canvas_module)
 
-      item_node = xml.%('modules/module/items/item')
-      expect(item_node.at_xpath('@identifier').text).to eq('some_unique_hash')
-      expect(item_node.%('content_type').text).to eq('ContentType')
-      expect(item_node.%('workflow_state').text).to eq('active')
-      expect(item_node.%('title').text).to eq('Item Title')
-      expect(item_node.%('position').text).to eq('0')
-      expect(item_node.%('new_tab')).to be_nil
-      expect(item_node.%('indent').text).to eq('1')
-      expect(item_node.%('identifierref').text).to eq('some_id')
-    end
+        item_node = xml.%('modules/module/items/item')
+        expect(item_node.at_xpath('@identifier').text).to eq('some_unique_hash')
+        expect(item_node.%('content_type').text).to eq('ContentType')
+        expect(item_node.%('workflow_state').text).to eq('active')
+        expect(item_node.%('title').text).to eq('Item Title')
+        expect(item_node.%('position').text).to eq('0')
+        expect(item_node.%('new_tab')).to be_nil
+        expect(item_node.%('indent').text).to eq('1')
+        expect(item_node.%('identifierref').text).to eq('resource_id')
+      end
 
-    it 'increments the position for each module item that is written in a module' do
-      canvas_module.module_items << Models::ModuleItem.new
-      canvas_module.module_items << Models::ModuleItem.new
+      it 'does not write the identifierref if it is not provided' do
+        canvas_module.module_items << module_item
 
-      xml = write_xml(canvas_module)
+        xml = write_xml(canvas_module)
 
-      expect(xml.%('modules/module/items/item/position').text).to eq('0')
-      expect(xml.%('modules/module/items/item[last()]/position').text).to eq('1')
+        expect(xml.%('modules/module/items/item/identifierref')).to be_nil
+      end
+
+      it 'increments the position for each module item that is written in a module' do
+        canvas_module.module_items << Models::ModuleItem.new
+        canvas_module.module_items << Models::ModuleItem.new
+
+        xml = write_xml(canvas_module)
+
+        expect(xml.%('modules/module/items/item/position').text).to eq('0')
+        expect(xml.%('modules/module/items/item[last()]/position').text).to eq('1')
+      end
     end
 
     private

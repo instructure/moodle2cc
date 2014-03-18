@@ -42,7 +42,7 @@ module Moodle2CC::CanvasCC
           xml.position(position)
           xml.new_tab(item.new_tab) if item.new_tab
           xml.indent(item.indent)
-          xml.identifierref(item.resource.identifier) if item.resource
+          xml.identifierref(item.identifierref) if item.identifierref
         }
       end
     end
