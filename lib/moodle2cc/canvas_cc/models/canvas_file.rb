@@ -12,7 +12,7 @@ module Moodle2CC::CanvasCC::Models
     end
 
     def file_path=(file_path)
-      @href = "#{WEB_RESOURCES}/#{file_path}"
+      @href = File.join(WEB_RESOURCES, file_path)
       @files << self.href
       @file_path = file_path
     end

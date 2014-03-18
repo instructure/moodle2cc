@@ -16,8 +16,11 @@ module Moodle2CC::CanvasCC
     private
 
     def copy_files
-      Dir.mkdir(File.join(@work_dir, Moodle2CC::CanvasCC::Models::CanvasFile::WEB_RESOURCES))
-      @canvas_files.each { |canvas_file| FileUtils.cp(canvas_file.file_location, File.join(@work_dir, canvas_file.href)) }
+
+      @canvas_files.each do |canvas_file|
+        FileUtils.mkdir_p(File.dirname(File.join(@work_dir, canvas_file.href)))
+        FileUtils.cp(canvas_file.file_location, File.join(@work_dir, canvas_file.href))
+      end
     end
 
     def write_xml
