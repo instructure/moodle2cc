@@ -15,7 +15,7 @@ module Moodle2CC
 
       it 'converts a moodle2 book into a canvas module' do
         canvas_module = subject.convert(moodle2_book)
-        expect(canvas_module.identifier).to eq 'module_d22dda77ebaaa68dcc0f1cab8516bb2b'
+        expect(canvas_module.identifier).to eq 'some_unique_uuid'
         expect(canvas_module.title).to eq 'Book Name'
         expect(canvas_module.workflow_state).to eq 'active'
       end

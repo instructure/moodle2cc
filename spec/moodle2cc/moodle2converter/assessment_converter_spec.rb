@@ -20,7 +20,7 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
 
     canvas_assessment = subject.convert(moodle_quiz)
 
-    expect(canvas_assessment.identifier).to eq moodle_quiz.id
+    expect(canvas_assessment.identifier).to eq 'm2d1dcd9630366a2c923c30734423c3fe8_assessment'
     expect(canvas_assessment.title).to eq moodle_quiz.name
     expect(canvas_assessment.description).to eq moodle_quiz.intro
 

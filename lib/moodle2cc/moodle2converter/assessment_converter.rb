@@ -1,9 +1,10 @@
 module Moodle2CC::Moodle2Converter
   class AssessmentConverter
+    include ConverterHelper
 
     def convert(moodle_quiz)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
-      canvas_assessment.identifier = moodle_quiz.id
+      canvas_assessment.identifier = generate_unique_identifier_for(moodle_quiz.id, ASSESSMENT_SUFFIX)
       canvas_assessment.title = moodle_quiz.name
       canvas_assessment.description = moodle_quiz.intro
 

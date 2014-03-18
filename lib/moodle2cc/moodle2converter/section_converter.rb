@@ -5,7 +5,7 @@ module Moodle2CC
 
     def convert(moodle_section)
       canvas_module = CanvasCC::Models::CanvasModule.new
-      canvas_module.identifier = moodle_section.id
+      canvas_module.identifier = generate_unique_identifier_for(moodle_section.id, MODULE_SUFFIX)
       canvas_module.title = moodle_section.name
       canvas_module.workflow_state = moodle_section.visible ? CanvasCC::Models::WorkflowState::ACTIVE : CanvasCC::Models::WorkflowState::UNPUBLISHED
       canvas_module.module_items = moodle_section.activities.map{|a| convert_activity(a)}

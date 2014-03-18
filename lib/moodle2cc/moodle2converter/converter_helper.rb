@@ -4,6 +4,13 @@ module Moodle2CC
     CHAPTER_SUFFIX  = '_chapter'
     FOLDER_SUFFIX   = '_folder'
     PAGE_SUFFIX     = '_page'
+    ASSESSMENT_SUFFIX = '_assessment'
+    ASSIGNMENT_SUFFIX = '_assignment'
+    COURSE_SUFFIX = '_course'
+    DISCUSSION_SUFFIX = '_discussion'
+    FILE_SUFFIX = '_file'
+    QUESTION_BANK_SUFFIX = '_question_bank'
+    MODULE_SUFFIX = '_module'
 
     ID_SUFFIXES = {
         Moodle2CC::Moodle2::Models::Page => PAGE_SUFFIX

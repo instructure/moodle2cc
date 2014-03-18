@@ -59,7 +59,7 @@ module Moodle2CC::CanvasCC
         resources_node = xml.%('manifest/resources')
         expect(resources_node.at_xpath('xmlns:resource/@href').value).to eq('course_settings/canvas_export.txt')
         expect(resources_node.at_xpath('xmlns:resource/@type').value).to eq('associatedcontent/imscc_xmlv1p1/learning-application-resource')
-        expect(resources_node.at_xpath('xmlns:resource/@identifier').value).to eq('CC_a3fb2739667c53b95ec26fe321a70f59_settings')
+        expect(resources_node.at_xpath('xmlns:resource/@identifier').value).to eq('manifest_identifier_settings')
 
         files = resources_node.xpath('xmlns:resource/xmlns:file/@href').map(&:value)
         expect(files).to include('course_settings/course_settings.xml')
@@ -77,7 +77,7 @@ module Moodle2CC::CanvasCC
         course.resources << resource
         xml = write_xml(course)
 
-        base_node = xml.at_xpath("/xmlns:manifest/xmlns:resources/xmlns:resource[@identifier='CC_bfb11a99f5f71d2e1f51844f43402df3']")
+        base_node = xml.at_xpath("/xmlns:manifest/xmlns:resources/xmlns:resource[@identifier='resource_identifier']")
         expect(base_node.at_xpath('@type').value).to eq('resource_type')
         expect(base_node.at_xpath('@href').value).to eq('resource_href')
         expect(base_node.xpath("xmlns:file[@href='file_1']").count).to eq(1)
@@ -98,7 +98,7 @@ module Moodle2CC::CanvasCC
         expect(org_node.at_xpath('@structure').value).to eq('rooted-hierarchy')
         expect(org_node.at_xpath('@identifier').value).to eq('org_1')
         expect(org_node.at_xpath('xmlns:item/@identifier').value).to eq('LearningModules')
-        expect(org_node.at_xpath('xmlns:item/xmlns:item/@identifier').value).to eq('module_011ed73876357cbeeb11abdc2b7e1c0b')
+        expect(org_node.at_xpath('xmlns:item/xmlns:item/@identifier').value).to eq('my_id')
         expect(org_node.%('item/title').text).to eq('my module title')
       end
 

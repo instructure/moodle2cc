@@ -28,7 +28,7 @@ module Moodle2CC::CanvasCC
       course.course_code = 'course code'
       course.identifier = 'settings_id'
       xml = write_xml(course)
-      expect(xml.at_xpath('/xmlns:course/@identifier').text).to eq('CC_5ffb5df5a69b977df90452a3b5b420c3_settings')
+      expect(xml.at_xpath('/xmlns:course/@identifier').text).to eq('settings_id_settings')
       expect(xml.at_xpath('/xmlns:course/xmlns:title').text).to eq(course.title)
       expect(xml.at_xpath('/xmlns:course/xmlns:course_code').text).to eq(course.course_code)
     end

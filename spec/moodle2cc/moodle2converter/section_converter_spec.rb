@@ -10,7 +10,7 @@ module Moodle2CC
       moodle_section.visible = false
       moodle_section.position = 1
       canvas_module = subject.convert(moodle_section)
-      expect(canvas_module.identifier).to eq('module_730f6511535a1e4cf13e886e52b21dc9')
+      expect(canvas_module.identifier).to eq('m2730f6511535a1e4cf13e886e52b21dc9_module')
       expect(canvas_module.title).to eq('section_name')
       expect(canvas_module.workflow_state).to eq('unpublished')
     end

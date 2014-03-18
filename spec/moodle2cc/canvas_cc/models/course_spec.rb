@@ -14,11 +14,6 @@ module Moodle2CC::CanvasCC::Models
     it_behaves_like 'it has an attribute for', :discussions, []
     it_behaves_like 'it has an attribute for', :assignments, []
 
-    it 'hashes the identifier' do
-      course.identifier = 'course_id'
-      expect(course.identifier).to eq 'CC_ea134da7ce0152b54fb73853f6d62644'
-    end
-
     it 'formats date strings' do
       course.start_at = Time.parse('Sat, 08 Feb 2014 16:00:00 GMT')
       course.conclude_at = Time.parse('Sat, 10 Feb 2014 16:00:00 GMT')

@@ -19,10 +19,5 @@ module Moodle2CC::CanvasCC::Models
       expect(subject.files.first).to eq('web_resources/myfile.txt')
     end
 
-    it 'adds a postfix to the identifier on #identifier=' do
-      subject.identifier = 'foo_bar'
-      expect(subject.attributes[:identifier]).to eq('CC_5c7d96a3dd7a87850a2ef34087565a6e_FILE')
-    end
-
   end
 end

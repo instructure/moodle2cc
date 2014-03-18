@@ -16,7 +16,7 @@ module Moodle2CC::CanvasCC
     end
 
     it 'should have a valid schema' do
-      canvas_module.identifier = 'module identifier'
+      canvas_module.identifier = 'module_identifier'
       canvas_module.title = 'test_title'
       canvas_module.workflow_state = 'active'
       xml = write_xml(canvas_module)
@@ -30,7 +30,7 @@ module Moodle2CC::CanvasCC
       canvas_module.workflow_state = 'active'
       xml = write_xml(canvas_module)
 
-      expect(xml.at_xpath('xmlns:modules/xmlns:module/@identifier').text).to eq('module_67217d8b401cf5e72bbf5103d60f3e97')
+      expect(xml.at_xpath('xmlns:modules/xmlns:module/@identifier').text).to eq('ident')
       expect(xml.%('modules/module/title').text).to eq('module title')
       expect(xml.%('modules/module/workflow_state').text).to eq('active')
       expect(xml.%('modules/module/position').text).to eq('0')
@@ -51,7 +51,7 @@ module Moodle2CC::CanvasCC
       module_item.indent = "1"
 
       resource = Models::Resource.new
-      resource.identifier = 'some id'
+      resource.identifier = 'some_id'
       module_item.resource = resource
 
       canvas_module.module_items << module_item
@@ -66,7 +66,7 @@ module Moodle2CC::CanvasCC
       expect(item_node.%('position').text).to eq('0')
       expect(item_node.%('new_tab')).to be_nil
       expect(item_node.%('indent').text).to eq('1')
-      expect(item_node.%('identifierref').text).to eq('CC_b1b2e7006be3e87195eb4f9d98c80014')
+      expect(item_node.%('identifierref').text).to eq('some_id')
     end
 
     it 'increments the position for each module item that is written in a module' do

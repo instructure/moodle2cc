@@ -32,7 +32,7 @@ describe Moodle2CC::CanvasCC::AssignmentWriter do
 
     subject.write
     xml = Nokogiri::XML(File.read(File.join(work_dir, assignment.assignment_resource.files.select{ |f| f.split(//).last(4).join("").to_s == '.xml'}.first)))
-    expect(xml.at_xpath('xmlns:assignment/@identifier').value).to eq('CC_93c4899b7130afeb278ae72c2e3b9d97_ASSIGNMENT')
+    expect(xml.at_xpath('xmlns:assignment/@identifier').value).to eq('assignment_id')
     expect(xml.%('assignment/title').text).to eq 'Assignment Title'
     expect(xml.%('assignment/due_at').text).to eq '2014-02-08T16:00:00'
     expect(xml.%('assignment/lock_at').text).to eq '2014-02-08T17:00:00'

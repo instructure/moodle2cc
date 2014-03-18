@@ -25,10 +25,6 @@ module Moodle2CC::CanvasCC::Models
       Moodle2CC::CC::CCHelper.ims_datetime(@settings[:conclude_at]) if @settings[:conclude_at]
     end
 
-    def identifier=(identifier)
-      @identifier = "CC_#{Digest::MD5.hexdigest(identifier.to_s)}"
-    end
-
     def all_resources
       @resources + @files + @pages + @discussions.map(&:resources).flatten + @assignments.map(&:resources).flatten
     end

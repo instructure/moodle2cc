@@ -5,7 +5,6 @@ module Moodle2CC::CanvasCC::Models
                   :submission_types, :position, :peer_review_count, :peer_reviews_assigned, :peer_reviews,
                   :automatic_peer_reviews, :grade_group_students_individually
 
-    ASSIGNMENT_ID_POSTFIX = '_ASSIGNMENT'
     LAR_TYPE = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
     ASSIGNMENT_SETTINGS_FILE = 'assignment_settings.xml'
 
@@ -20,7 +19,6 @@ module Moodle2CC::CanvasCC::Models
     def assignment_resource
       resource = Moodle2CC::CanvasCC::Models::Resource.new
       resource.identifier = @identifier
-      resource.ident_postfix = ASSIGNMENT_ID_POSTFIX
       resource.href = "#{resource.identifier}/assignment-#{title.downcase.gsub(/\s/, '-')}.html"
       resource.type = LAR_TYPE
       resource.files = [resource.href, "#{resource.identifier}/#{ASSIGNMENT_SETTINGS_FILE}"]

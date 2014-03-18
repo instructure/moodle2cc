@@ -11,7 +11,7 @@ module Moodle2CC
 
       discussion = subject.convert(forum)
 
-      expect(discussion.identifier).to eq '3'
+      expect(discussion.identifier).to eq 'm2eccbc87e4b5ce2fe28308fd9f2a7baf3_discussion'
       expect(discussion.title).to eq 'Forum Name'
       expect(discussion.text).to eq 'Forum Introduction'
       expect(discussion.discussion_type).to eq 'threaded'

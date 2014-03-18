@@ -29,17 +29,17 @@ describe Moodle2CC::CanvasCC::Models::Assignment do
   end
 
   it 'generates an assignment resource' do
-    subject.identifier = 3
+    subject.identifier = 'assignment_id'
     subject.title = 'My Assignment'
 
     resource = subject.assignment_resource
     expect(resource).to be_a_kind_of Moodle2CC::CanvasCC::Models::Resource
     expect(resource.files.count).to eq 2
-    expect(resource.identifier).to eq 'CC_eccbc87e4b5ce2fe28308fd9f2a7baf3_ASSIGNMENT'
+    expect(resource.identifier).to eq 'assignment_id'
     expect(resource.type).to eq 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
-    expect(resource.href).to eq 'CC_eccbc87e4b5ce2fe28308fd9f2a7baf3_ASSIGNMENT/assignment-my-assignment.html'
-    expect(resource.files).to include 'CC_eccbc87e4b5ce2fe28308fd9f2a7baf3_ASSIGNMENT/assignment-my-assignment.html'
-    expect(resource.files).to include 'CC_eccbc87e4b5ce2fe28308fd9f2a7baf3_ASSIGNMENT/assignment_settings.xml'
+    expect(resource.href).to eq 'assignment_id/assignment-my-assignment.html'
+    expect(resource.files).to include 'assignment_id/assignment-my-assignment.html'
+    expect(resource.files).to include 'assignment_id/assignment_settings.xml'
   end
 
 end

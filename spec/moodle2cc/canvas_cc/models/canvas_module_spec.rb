@@ -9,7 +9,7 @@ module Moodle2CC::CanvasCC::Models
 
     it 'adds MD5 to identifier on #identifier=' do
       subject.identifier = 'foo_bar'
-      expect(subject.identifier).to eq('module_5c7d96a3dd7a87850a2ef34087565a6e')
+      expect(subject.identifier).to eq('foo_bar')
     end
 
   end

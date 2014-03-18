@@ -9,7 +9,7 @@ describe Moodle2CC::Moodle2Converter::QuestionBankConverter do
 
     canvas_bank = subject.convert(moodle_category)
 
-    expect(canvas_bank.identifier).to eq moodle_category.id
+    expect(canvas_bank.identifier).to eq 'm223458e5bf21c734dcbf0b582c2efd2a0_question_bank'
     expect(canvas_bank.title).to eq moodle_category.name
   end
 
