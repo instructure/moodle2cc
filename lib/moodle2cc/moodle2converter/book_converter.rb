@@ -10,6 +10,24 @@ module Moodle2CC
       canvas_module
     end
 
+    def convert_to_pages(moodle_book)
+      pages = moodle_book.chapters.map do |moodle_chapter|
+        page = create_page(moodle_chapter.title)
+        page.identifier = generate_unique_identifier_for_activity(moodle_chapter)
+        page.body = format_html(moodle_chapter.content)
+        page
+      end
+
+      if moodle_book.intro
+        page = create_page(moodle_book.name)
+        page.identifier = generate_unique_identifier_for_book_intro(moodle_book)
+        page.body = moodle_book.intro
+        pages.unshift(page)
+      end
+
+      pages
+    end
+
     private
 
     def convert_moodle_book(moodle_book)
@@ -38,17 +56,10 @@ module Moodle2CC
       module_item.title = moodle_chapter.title
       module_item.indent = moodle_chapter.subchapter ? '2' : '1'
       module_item.workflow_state = CanvasCC::Models::WorkflowState::UNPUBLISHED if moodle_chapter.hidden
-
-      page = create_page_for_module_item(module_item)
-      page.identifier = generate_unique_identifier_for("#{moodle_book.id}_#{moodle_chapter.id}") + CHAPTER_SUFFIX
-      page.body = format_html(moodle_chapter.content)
-      module_item.resource = page
+      module_item.identifierref = generate_unique_identifier_for_activity(moodle_chapter)
 
       module_item
-      #canvas_module.workflow_state = moodle_book.hidden ? CanvasCC::Models::WorkflowState::ACTIVE : CanvasCC::Models::WorkflowState::UNPUBLISHED
     end
-
-    private
 
     def create_module_item_with_defaults
       module_item = CanvasCC::Models::ModuleItem.new
@@ -58,15 +69,19 @@ module Moodle2CC
       module_item
     end
 
-    def create_page_for_module_item(module_item)
+    def create_page(title)
       page = CanvasCC::Models::Page.new
       page.type = CanvasCC::Models::Resource::WEB_CONTENT_TYPE
-      page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT, module_item.title, 'html' )
+      page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT, title, 'html')
       page.files = [page.href]
-      page.title = module_item.title
-      page.workflow_state = module_item.workflow_state
+      page.title = title
+      page.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
       page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
       page
+    end
+
+    def generate_unique_identifier_for_book_intro(moodle_book)
+      generate_unique_identifier_for(moodle_book.id, INTRO_SUFFIX)
     end
   end
 end

@@ -8,11 +8,71 @@ module Moodle2CC
       end
     }
 
-    describe '#convert' do
-      before(:each) do
-        subject.stub(:generate_unique_identifier) { 'some_unique_uuid' }
+    before(:each) do
+      subject.stub(:generate_unique_identifier) { 'some_unique_uuid' }
+    end
+
+    describe '#convert_to_pages' do
+      it 'converts a moodle2 book into an array of canvas pages' do
+        3.times { moodle2_book.chapters << Moodle2::Models::BookChapter.new }
+        canvas_pages = subject.convert_to_pages(moodle2_book)
+
+        expect(canvas_pages.size).to eq 3
+
+        canvas_pages.each do |item|
+          expect(item).to be_a CanvasCC::Models::Page
+        end
       end
 
+      it 'converts moodle chapters into canvas pages' do
+        chapter = Moodle2::Models::BookChapter.new
+        chapter.title = 'Chapter Title'
+        chapter.content = 'chapter content'
+        chapter.hidden = false
+
+        moodle2_book.chapters << chapter
+        canvas_pages = subject.convert_to_pages(moodle2_book)
+
+        page = canvas_pages.first
+        expect(page).to be_a CanvasCC::Models::Page
+        expect(page.identifier).to eq 'm2d41d8cd98f00b204e9800998ecf8427e_chapter'
+        expect(page.type).to eq 'webcontent'
+        expect(page.title).to eq 'Chapter Title'
+        expect(page.href).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
+        expect(page.files.size).to eq 1
+        expect(page.files.first).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
+      end
+
+      it 'creates a page for intro content' do
+        moodle2_book.intro = 'intro html'
+
+        canvas_pages = subject.convert_to_pages(moodle2_book)
+
+        expect(canvas_pages.size).to eq 1
+        page = canvas_pages.first
+        expect(page).to be_a CanvasCC::Models::Page
+        expect(page.identifier).to eq 'm2d41d8cd98f00b204e9800998ecf8427e_book_intro'
+        expect(page.type).to eq 'webcontent'
+        expect(page.title).to eq 'Book Name'
+        expect(page.href).to eq 'wiki_content/some_unique_uuid-book-name.html'
+        expect(page.files.size).to eq 1
+        expect(page.files.first).to eq 'wiki_content/some_unique_uuid-book-name.html'
+      end
+
+      it 'converts links in book content' do
+        subject.stub(:format_html)
+
+        chapter = Moodle2::Models::BookChapter.new
+        chapter.content = 'html'
+        moodle2_book.chapters << chapter
+
+        subject.convert_to_pages(moodle2_book)
+
+        expect(subject).to have_received(:format_html).once.with('html')
+      end
+    end
+
+    describe '#convert' do
       it 'converts a moodle2 book into a canvas module' do
         canvas_module = subject.convert(moodle2_book)
         expect(canvas_module.identifier).to eq 'some_unique_uuid'
@@ -52,13 +112,7 @@ module Moodle2CC
         expect(module_item.workflow_state).to eq 'active'
         expect(module_item.title).to eq 'Chapter Title'
         expect(module_item.indent).to eq '1'
-
-        expect(resource).to be_a CanvasCC::Models::Page
-        expect(resource.identifier).to eq 'm2b14a7b8059d9c055954c92674ce60032_chapter'
-        expect(resource.type).to eq 'webcontent'
-        expect(resource.href).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
-        expect(resource.files.size).to eq 1
-        expect(resource.files.first).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
+        expect(module_item.identifierref).to eq 'm2d41d8cd98f00b204e9800998ecf8427e_chapter'
       end
 
       it 'hides model items that come from hidden chapters' do
@@ -82,20 +136,6 @@ module Moodle2CC
 
         expect(module_item.indent).to eq '2'
       end
-
-      it 'converts links in book content' do
-        subject.stub(:format_html)
-
-        chapter = Moodle2::Models::BookChapter.new
-        chapter.content = 'html'
-        moodle2_book.chapters << chapter
-
-        subject.convert(moodle2_book)
-
-        expect(subject).to have_received(:format_html).once.with('html')
-
-      end
-
     end
   end
 end
