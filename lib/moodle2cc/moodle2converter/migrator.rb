@@ -18,13 +18,8 @@ module Moodle2CC::Moodle2Converter
         cc_course.question_banks += convert_question_banks(moodle_course.question_categories)
 
         cc_course.pages += convert_folders(moodle_course)
+        cc_course.pages += convert_books(moodle_course)
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
-
-        book_modules = convert_books(moodle_course)
-        book_pages = book_modules.map(&:module_items).flatten.map(&:resource).compact
-
-        cc_course.canvas_modules += book_modules
-        cc_course.pages += book_pages
 
         @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
       end
@@ -73,7 +68,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert_books(moodle_course)
       book_converter = Moodle2CC::Moodle2Converter::BookConverter.new
-      moodle_course.books.map { |book| book_converter.convert(book) }
+      moodle_course.books.map { |book| book_converter.convert_to_pages(book) }.flatten
     end
 
     # convert quizzes to assessments
