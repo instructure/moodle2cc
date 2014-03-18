@@ -108,18 +108,15 @@ module Moodle2CC::CanvasCC
         module_item = Models::ModuleItem.new
         module_item.identifier = 'module_item_unique_identifier'
         module_item.title = 'Module Item'
+        module_item.identifierref = 'resource_unique_identifier'
 
-        resource = Models::Resource.new
-        resource.identifier = 'resource_unique_identifier'
-
-        module_item.resource = resource
         canvas_module.module_items << module_item
         course.canvas_modules << canvas_module
 
         xml = write_xml(course)
         module_node = xml.at_xpath('/xmlns:manifest').%('organizations/organization/item/item')
         expect(module_node.at_xpath('xmlns:item/@identifier').value).to eq 'module_item_unique_identifier'
-        expect(module_node.at_xpath('xmlns:item/@identifierref').value).to eq 'CC_3ab200629274e4f16320fba3f96f4a5c'
+        expect(module_node.at_xpath('xmlns:item/@identifierref').value).to eq 'resource_unique_identifier'
         expect(module_node.%('item/title').text).to eq 'Module Item'
       end
     end

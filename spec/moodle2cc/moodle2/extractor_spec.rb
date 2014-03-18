@@ -38,9 +38,9 @@ describe Moodle2CC::Moodle2::Extractor do
     section.sequence = [2, 1]
     Moodle2CC::Moodle2::Parsers::SectionParser.any_instance.stub(:parse).and_return([section])
 
-    activity1 = double(id: '1')
-    activity2 = double(id: '2')
-    activity3 = double(id: '3')
+    activity1 = double(module_id: '1')
+    activity2 = double(module_id: '2')
+    activity3 = double(module_id: '3')
     course.stub(:activities).and_return([activity1, activity2, activity3])
 
     extractor.extract {}

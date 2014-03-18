@@ -95,9 +95,9 @@ module Moodle2CC::Moodle2
 
     def collect_activities_for_sections(sections, activities)
       activities_hash = {}
-      activities.each {|activity| activities_hash[activity.id.to_s] = activity}
+      activities.each {|activity| activities_hash[activity.module_id.to_s] = activity}
       sections.each do |section|
-        section.activities = section.sequence.map { |activity_id| activities_hash[activity_id.to_s]}
+        section.activities = section.sequence.map { |module_id| activities_hash[module_id.to_s] }.compact
       end
     end
 
