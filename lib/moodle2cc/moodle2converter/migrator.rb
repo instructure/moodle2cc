@@ -21,7 +21,7 @@ module Moodle2CC::Moodle2Converter
         cc_course.pages += convert_books(moodle_course)
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
 
-        convert_html!(cc_course, moodle_course.files)
+        convert_html!(cc_course, moodle_course)
 
         @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
       end
