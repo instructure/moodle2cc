@@ -8,19 +8,6 @@ module Moodle2CC
   describe Moodle2Converter::ConverterHelper do
     subject { DummyClass.new }
 
-    describe '#format_html' do
-      it 'removes id="main" attributes'do
-        html = '<div id="main">Some Content</div>'
-        expect(subject.format_html(html)).to_not include('id="main"')
-      end
-
-      it 'replaces moodle links with canvas links' do
-        content = '&lt;p&gt;a link to &lt;img src="@@PLUGINFILE@@/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
-        expect(subject.format_html(content)).to eq '&lt;p&gt;a link to &lt;img src="%24IMS_CC_FILEBASE%24/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
-      end
-
-    end
-
     describe '#generate_unique_resource_path' do
       before(:each) do
         subject.stub(:generate_unique_identifier) { 'some_unique_hash' }

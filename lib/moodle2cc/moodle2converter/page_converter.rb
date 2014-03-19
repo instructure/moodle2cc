@@ -8,7 +8,7 @@ module Moodle2CC::Moodle2Converter
       canvas_page.page_name = moodle_page.name
       canvas_page.workflow_state = 'active'
       canvas_page.editing_roles = 'teachers'
-      canvas_page.body = format_html(moodle_page.content)
+      canvas_page.body = moodle_page.content
       canvas_page
     end
 

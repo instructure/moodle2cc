@@ -106,5 +106,6 @@ module Moodle2CC
     autoload :FolderConverter, 'moodle2cc/moodle2converter/folder_converter'
     autoload :BookConverter, 'moodle2cc/moodle2converter/book_converter'
     autoload :ConverterHelper, 'moodle2cc/moodle2converter/converter_helper'
+    autoload :HtmlConverter, 'moodle2cc/moodle2converter/html_converter'
   end
 end

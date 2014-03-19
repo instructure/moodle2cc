@@ -14,7 +14,7 @@ module Moodle2CC
       pages = moodle_book.chapters.map do |moodle_chapter|
         page = create_page(moodle_chapter.title)
         page.identifier = generate_unique_identifier_for_activity(moodle_chapter)
-        page.body = format_html(moodle_chapter.content)
+        page.body = moodle_chapter.content
         page
       end
 

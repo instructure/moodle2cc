@@ -41,6 +41,7 @@ module Moodle2CC
         expect(page.href).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
         expect(page.files.size).to eq 1
         expect(page.files.first).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
+        expect(page.body).to eq 'chapter content'
       end
 
       it 'creates a page for intro content' do
@@ -57,19 +58,9 @@ module Moodle2CC
         expect(page.href).to eq 'wiki_content/some_unique_uuid-book-name.html'
         expect(page.files.size).to eq 1
         expect(page.files.first).to eq 'wiki_content/some_unique_uuid-book-name.html'
+        expect(page.body).to eq 'intro html'
       end
 
-      it 'converts links in book content' do
-        subject.stub(:format_html)
-
-        chapter = Moodle2::Models::BookChapter.new
-        chapter.content = 'html'
-        moodle2_book.chapters << chapter
-
-        subject.convert_to_pages(moodle2_book)
-
-        expect(subject).to have_received(:format_html).once.with('html')
-      end
     end
 
     describe '#convert' do

@@ -17,10 +17,10 @@ module Moodle2CC
     end
 
     it 'replaces moodle links with canvas links' do
-      moodle_page.content = '&lt;p&gt;a link to &lt;img src="@@PLUGINFILE@@/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
+      moodle_page.content = 'page content'
       moodle_page.name = 'Page Name'
       canvas_page = subject.convert(moodle_page)
-      expect(canvas_page.body).to eq '&lt;p&gt;a link to &lt;img src="%24IMS_CC_FILEBASE%24/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
+      expect(canvas_page.body).to eq 'page content'
     end
 
   end

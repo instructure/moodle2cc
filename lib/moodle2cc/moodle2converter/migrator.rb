@@ -21,6 +21,8 @@ module Moodle2CC::Moodle2Converter
         cc_course.pages += convert_books(moodle_course)
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
 
+        convert_html!(cc_course, moodle_course.files)
+
         @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
       end
       @path
@@ -83,6 +85,13 @@ module Moodle2CC::Moodle2Converter
       question_categories.map { |category| bank_converter.convert(category) }
     end
 
+    def convert_html!(cc_course, moodle_files)
+      html_converter = HtmlConverter.new(cc_course, moodle_files)
+      cc_course.pages.each {|page| page.body = html_converter.convert(page.body)}
+      cc_course.discussions.each {|discussion| discussion.text = html_converter.convert(discussion.text)}
+      cc_course.assignments.each {|assignment| assignment.body = html_converter.convert(assignment.body)}
+      cc_course.assessments.each {|assessment| assessment.description = html_converter.convert(assessment.description)}
+    end
 
   end
 end
