@@ -109,5 +109,13 @@ module Moodle2CC
       expect(html.css('a[href]').first.attr('href')).to eq '%24CANVAS_OBJECT_REFERENCE%24/assignments/m2c98831cde22c0529955a2218a2ed66bc_assignment'
     end
 
+    it 'returns the original url if a matching moodle activity is not found' do
+      content = '<p>a link to <a href="http://moodle.install.edu/mod/assignment/view.php?id=56439"></a></p>'
+
+      html = Nokogiri::HTML.fragment(subject.convert(content))
+
+      expect(html.css('a[href]').first.attr('href')).to eq 'http://moodle.install.edu/mod/assignment/view.php?id=56439'
+    end
+
   end
 end

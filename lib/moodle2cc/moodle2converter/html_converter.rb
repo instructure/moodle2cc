@@ -35,7 +35,7 @@ module Moodle2CC::Moodle2Converter
       if cc_file = lookup_cc_file(link)
         "#{WEB_CONTENT_TOKEN}#{cc_file.file_path}"
       elsif match = link.match(/\/mod\/(page|forum|assignment)\/view\.php\?.*id=(\d*)(#.*)?/)
-        lookup_cc_link(match.captures[0], match.captures[1], match.captures[2])
+        lookup_cc_link(match.captures[0], match.captures[1], match.captures[2]) || link
       else
         link
       end
