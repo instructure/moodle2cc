@@ -28,35 +28,43 @@ module Moodle2CC
       pages
     end
 
-    private
-
-    def convert_moodle_book(moodle_book)
-      canvas_module = CanvasCC::Models::CanvasModule.new
-      canvas_module.identifier = generate_unique_identifier()
-      canvas_module.title = moodle_book.name
-      canvas_module.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
-      canvas_module
+    def convert_to_module_items(moodle_book)
+      module_items = []
+      module_items << create_title(moodle_book)
+      module_items << create_introduction(moodle_book) if moodle_book.intro
+      module_items += moodle_book.chapters.map { |chapter| create_chapter(chapter) }
+      module_items
     end
 
-    def convert_moodle_introduction(moodle_book)
+    private
+
+    def create_title(moodle_book)
       module_item = create_module_item_with_defaults()
+      module_item.content_type = Moodle2CC::CanvasCC::Models::ModuleItem::CONTENT_TYPE_CONTEXT_MODULE_SUB_HEADER
       module_item.title = moodle_book.name
       module_item.indent = "0"
-
-      page = create_page_for_module_item(module_item)
-      page.identifier = generate_unique_identifier_for(moodle_book.id) + INTRO_SUFFIX
-      page.body = moodle_book.intro
-      module_item.resource = page
+      module_item.identifier = generate_unique_identifier()
 
       module_item
     end
 
-    def convert_moodle_chapter(moodle_book, moodle_chapter)
+    def create_introduction(moodle_book)
+      module_item = create_module_item_with_defaults()
+      module_item.title = 'Introduction'
+      module_item.indent = '1'
+      module_item.identifier = generate_unique_identifier()
+      module_item.identifierref = generate_unique_identifier_for_book_intro(moodle_book)
+
+      module_item
+    end
+
+    def create_chapter(moodle_chapter)
       module_item = create_module_item_with_defaults()
       module_item.title = moodle_chapter.title
-      module_item.indent = moodle_chapter.subchapter ? '2' : '1'
-      module_item.workflow_state = CanvasCC::Models::WorkflowState::UNPUBLISHED if moodle_chapter.hidden
+      module_item.indent = moodle_chapter.subchapter ? "2" : "1"
+      module_item.identifier = generate_unique_identifier()
       module_item.identifierref = generate_unique_identifier_for_activity(moodle_chapter)
+      module_item.workflow_state = CanvasCC::Models::WorkflowState::UNPUBLISHED if moodle_chapter.hidden
 
       module_item
     end
