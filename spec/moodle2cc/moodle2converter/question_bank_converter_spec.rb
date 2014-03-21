@@ -19,6 +19,6 @@ describe Moodle2CC::Moodle2Converter::QuestionBankConverter do
     canvas_bank = subject.convert(moodle_category)
 
     expect(canvas_bank.questions.length).to eq 1
-    expect(canvas_bank.questions.first.type).to eq 'true_false_question'
+    expect(canvas_bank.questions.first.question_type).to eq 'true_false_question'
   end
 end

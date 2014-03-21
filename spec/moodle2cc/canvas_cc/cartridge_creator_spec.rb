@@ -20,6 +20,7 @@ module Moodle2CC::CanvasCC
       PageWriter.any_instance.stub(:write)
       DiscussionWriter.any_instance.stub(:write)
       AssignmentWriter.any_instance.stub(:write)
+      QuestionBankWriter.any_instance.stub(:write)
     end
 
     after :each do
@@ -27,7 +28,7 @@ module Moodle2CC::CanvasCC
     end
 
     [CanvasExportWriter, CourseSettingWriter, ModuleMetaWriter, ImsManifestGenerator,
-     FileMetaWriter, PageWriter, DiscussionWriter, AssignmentWriter].each do |klass|
+     FileMetaWriter, PageWriter, DiscussionWriter, AssignmentWriter, QuestionBankWriter].each do |klass|
       it "writes #{klass}" do
         writer_double = double(write: nil)
         klass.stub(:new).and_return(writer_double)

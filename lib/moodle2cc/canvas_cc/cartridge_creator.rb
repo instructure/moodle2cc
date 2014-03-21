@@ -41,6 +41,7 @@ module Moodle2CC::CanvasCC
       Moodle2CC::CanvasCC::PageWriter.new(dir, *@course.pages).write
       Moodle2CC::CanvasCC::DiscussionWriter.new(dir, *@course.discussions).write
       Moodle2CC::CanvasCC::AssignmentWriter.new(dir, *@course.assignments).write
+      Moodle2CC::CanvasCC::QuestionBankWriter.new(dir, *@course.question_banks).write
     end
 
     def zip_dir(out_file, dir)

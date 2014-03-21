@@ -74,6 +74,8 @@ module Moodle2CC
     autoload :PageWriter, 'moodle2cc/canvas_cc/page_writer'
     autoload :DiscussionWriter, 'moodle2cc/canvas_cc/discussion_writer'
     autoload :AssignmentWriter, 'moodle2cc/canvas_cc/assignment_writer'
+    autoload :QuestionWriter, 'moodle2cc/canvas_cc/question_writer'
+    autoload :QuestionBankWriter, 'moodle2cc/canvas_cc/question_bank_writer'
     module Models
       autoload :Course, 'moodle2cc/canvas_cc/models/course'
       autoload :Assignment, 'moodle2cc/canvas_cc/models/assignment'

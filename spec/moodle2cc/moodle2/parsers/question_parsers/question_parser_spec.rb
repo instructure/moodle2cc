@@ -6,7 +6,6 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
     class FooBarParser < QuestionParser
     end
 
-
     it 'registers a question type for object creation' do
       node = Nokogiri::XML('<question><qtype>foobar</qtype></question>')
       parser = FooBarParser.new
