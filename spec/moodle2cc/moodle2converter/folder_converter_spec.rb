@@ -36,13 +36,6 @@ module Moodle2CC
       expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file4.txt">subfolder1/file4.txt</a></p></li>')
       expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file3.txt">subfolder1/subfolder2/file3.txt</a></p></li>')
     end
-    #
-    #it 'replaces moodle links with canvas links' do
-    #  moodle_page.content = '&lt;p&gt;a link to &lt;img src="@@PLUGINFILE@@/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
-    #  moodle_page.name = 'Page Name'
-    #  canvas_page = subject.convert(moodle_page)
-    #  expect(canvas_page.body).to eq '&lt;p&gt;a link to &lt;img src="%24IMS_CC_FILEBASE%24/smaple_gif.gif" alt="Image Description" /&gt;&lt;/p&gt;'
-    #end
 
   end
 end

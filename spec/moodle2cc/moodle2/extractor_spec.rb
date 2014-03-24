@@ -110,7 +110,7 @@ describe Moodle2CC::Moodle2::Extractor do
     glossary = Moodle2CC::Moodle2::Models::Glossary.new
     Moodle2CC::Moodle2::Parsers::GlossaryParser.any_instance.stub(:parse).and_return([glossary])
     extractor.extract {}
-    expect(course.pages).to eq [glossary]
+    expect(course.glossaries).to eq [glossary]
   end
 
 end

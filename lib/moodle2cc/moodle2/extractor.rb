@@ -96,7 +96,7 @@ module Moodle2CC::Moodle2
 
     def parse_glossaries(work_dir, course)
       if glossaries = Moodle2CC::Moodle2::Parsers::GlossaryParser.new(work_dir).parse
-        course.pages += glossaries
+        course.glossaries += glossaries
       end
     end
 

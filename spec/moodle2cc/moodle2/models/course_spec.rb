@@ -10,6 +10,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :summary
     it_behaves_like 'it has an attribute for', :course_id
     it_behaves_like 'it has an attribute for', :folders, []
+    it_behaves_like 'it has an attribute for', :glossaries, []
     it_behaves_like 'it has an attribute for', :question_categories, []
 
     describe '#activities' do

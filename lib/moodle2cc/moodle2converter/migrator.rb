@@ -19,6 +19,7 @@ module Moodle2CC::Moodle2Converter
 
         cc_course.pages += convert_folders(moodle_course)
         cc_course.pages += convert_books(moodle_course)
+        cc_course.pages += convert_glossaries(moodle_course)
 
         first_section = moodle_course.sections.shift
         cc_course.pages << convert_homepage(first_section) if first_section
@@ -79,6 +80,11 @@ module Moodle2CC::Moodle2Converter
     def convert_books(moodle_course)
       book_converter = Moodle2CC::Moodle2Converter::BookConverter.new
       moodle_course.books.map { |book| book_converter.convert_to_pages(book) }.flatten
+    end
+
+    def convert_glossaries(moodle_course)
+      glossary_converter = Moodle2CC::Moodle2Converter::GlossaryConverter.new(moodle_course)
+      moodle_course.glossaries.map { |glossary| glossary_converter.convert(glossary) }
     end
 
     # convert quizzes to assessments

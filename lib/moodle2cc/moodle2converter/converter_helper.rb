@@ -11,6 +11,7 @@ module Moodle2CC
     FILE_SUFFIX = '_file'
     QUESTION_BANK_SUFFIX = '_question_bank'
     MODULE_SUFFIX = '_module'
+    GLOSSARY_SUFFIX = '_glossary'
 
     ACTIVITY_LOOKUP = {
       Moodle2CC::Moodle2::Models::Page => {suffix: PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},

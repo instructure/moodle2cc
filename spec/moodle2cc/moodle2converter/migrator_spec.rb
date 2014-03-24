@@ -27,6 +27,7 @@ module Moodle2CC
       Moodle2Converter::FolderConverter.any_instance.stub(:convert)
       Moodle2Converter::BookConverter.any_instance.stub(:convert_to_pages)
       Moodle2Converter::HtmlConverter.stub(:new) { double('html_converter', convert: true) }
+      Moodle2Converter::GlossaryConverter.any_instance.stub(:convert)
       CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
     end
 
@@ -105,6 +106,14 @@ module Moodle2CC
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
       end
 
+      it 'converts glossaries' do
+        moodle_course.glossaries = [:glossary1, :glossary1]
+        Moodle2CC::Moodle2Converter::GlossaryConverter.any_instance.stub(:convert).and_return(canvas_page)
+        migrator.migrate
+        expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
+      end
+
+
       context "html conversion" do
         let(:converter){double('invitation', :convert => 'converted_html')}
 
@@ -126,7 +135,7 @@ module Moodle2CC
           canvas_course.discussions.each{|discussion| expect(discussion.text).to eq 'converted_html'}
         end
 
-        it 'converts discussions' do
+        it 'converts assignments' do
           canvas_course.assignments = [Moodle2CC::CanvasCC::Models::Assignment.new, Moodle2CC::CanvasCC::Models::Assignment.new]
           migrator.migrate
           expect(converter).to have_received(:convert).exactly(2)
