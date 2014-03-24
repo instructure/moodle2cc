@@ -81,7 +81,6 @@ module Moodle2CC
       page = CanvasCC::Models::Page.new
       page.type = CanvasCC::Models::Resource::WEB_CONTENT_TYPE
       page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT, title, 'html')
-      page.files = [page.href]
       page.title = title
       page.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
       page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER

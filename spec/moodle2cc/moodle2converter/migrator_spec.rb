@@ -18,6 +18,7 @@ module Moodle2CC
 
       Moodle2::Extractor.stub(:new).and_return(extractor)
       Moodle2Converter::CourseConverter.any_instance.stub(:convert).and_return(canvas_course)
+      Moodle2Converter::HomepageConverter.any_instance.stub(:convert).and_return(canvas_page)
       Moodle2Converter::SectionConverter.any_instance.stub(:convert)
       Moodle2Converter::FileConverter.any_instance.stub(:convert)
       Moodle2Converter::PageConverter.any_instance.stub(:convert)
@@ -37,10 +38,22 @@ module Moodle2CC
         expect(converter).to have_received(:convert)
       end
 
-      it 'converts modules' do
+      it 'converts course home page' do
         moodle_course.sections = [:section1, :section2]
+        converter_mock = double(convert: canvas_page)
+        Moodle2Converter::HomepageConverter.stub(:new).and_return(converter_mock)
+
+        migrator.migrate
+
+        expect(converter_mock).to have_received(:convert).with(:section1)
+        expect(canvas_course.pages).to eq [canvas_page]
+      end
+
+      it 'converts all but the first section into modules' do
+        moodle_course.sections = [:section1, :section2, :section3]
         Moodle2Converter::SectionConverter.any_instance.stub(:convert).and_return('module')
         migrator.migrate
+
         expect(canvas_course.canvas_modules).to eq ['module', 'module']
       end
 

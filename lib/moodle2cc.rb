@@ -109,5 +109,6 @@ module Moodle2CC
     autoload :BookConverter, 'moodle2cc/moodle2converter/book_converter'
     autoload :ConverterHelper, 'moodle2cc/moodle2converter/converter_helper'
     autoload :HtmlConverter, 'moodle2cc/moodle2converter/html_converter'
+    autoload :HomepageConverter, 'moodle2cc/moodle2converter/homepage_converter'
   end
 end

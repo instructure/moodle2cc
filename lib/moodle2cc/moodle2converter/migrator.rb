@@ -19,6 +19,10 @@ module Moodle2CC::Moodle2Converter
 
         cc_course.pages += convert_folders(moodle_course)
         cc_course.pages += convert_books(moodle_course)
+
+        first_section = moodle_course.sections.shift
+        cc_course.pages << convert_homepage(first_section) if first_section
+
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
 
         convert_html!(cc_course, moodle_course)
@@ -36,6 +40,10 @@ module Moodle2CC::Moodle2Converter
 
     def convert_course(moodle_course)
       Moodle2CC::Moodle2Converter::CourseConverter.new.convert(moodle_course)
+    end
+
+    def convert_homepage(moodle_section)
+      Moodle2CC::Moodle2Converter::HomepageConverter.new.convert(moodle_section)
     end
 
     def convert_sections(sections)

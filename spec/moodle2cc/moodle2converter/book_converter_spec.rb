@@ -39,8 +39,6 @@ module Moodle2CC
         expect(page.type).to eq 'webcontent'
         expect(page.title).to eq 'Chapter Title'
         expect(page.href).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
-        expect(page.files.size).to eq 1
-        expect(page.files.first).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
         expect(page.body).to eq 'chapter content'
       end
 
@@ -56,8 +54,6 @@ module Moodle2CC
         expect(page.type).to eq 'webcontent'
         expect(page.title).to eq 'Book Name'
         expect(page.href).to eq 'wiki_content/some_unique_uuid-book-name.html'
-        expect(page.files.size).to eq 1
-        expect(page.files.first).to eq 'wiki_content/some_unique_uuid-book-name.html'
         expect(page.body).to eq 'intro html'
       end
 
