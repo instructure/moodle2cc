@@ -3,6 +3,7 @@ module Moodle2CC::CanvasCC::Models
 
     PAGE_ID_POSTFIX = '_PAGE'
     WIKI_CONTENT = 'wiki_content'
+    BOOK_PATH = WIKI_CONTENT + '/books'
 
     EDITING_ROLE_TEACHER = 'teachers'
 

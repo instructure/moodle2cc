@@ -14,21 +14,21 @@ module Moodle2CC
       end
 
       it 'generates a unique resource path' do
-        path = subject.generate_unique_resource_path('my/base/path')
+        path = subject.generate_unique_resource_path('my/base/path', 'name')
 
-        expect(path).to eq 'my/base/path/some_unique_hash'
+        expect(path).to eq 'my/base/path/some_unique_hash/name'
       end
 
       it 'uses the readable name' do
         path = subject.generate_unique_resource_path('my/base/path', 'A Readable Name')
 
-        expect(path).to eq 'my/base/path/some_unique_hash-a-readable-name'
+        expect(path).to eq 'my/base/path/some_unique_hash/a-readable-name'
       end
 
       it 'appends the file extension' do
-        path = subject.generate_unique_resource_path('my/base/path', nil, 'html')
+        path = subject.generate_unique_resource_path('my/base/path', 'name', 'html')
 
-        expect(path).to eq 'my/base/path/some_unique_hash.html'
+        expect(path).to eq 'my/base/path/some_unique_hash/name.html'
       end
     end
 

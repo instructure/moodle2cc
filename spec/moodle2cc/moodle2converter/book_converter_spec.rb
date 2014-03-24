@@ -38,7 +38,7 @@ module Moodle2CC
         expect(page.identifier).to eq 'm2d41d8cd98f00b204e9800998ecf8427e_chapter'
         expect(page.type).to eq 'webcontent'
         expect(page.title).to eq 'Chapter Title'
-        expect(page.href).to eq 'wiki_content/some_unique_uuid-chapter-title.html'
+        expect(page.href).to eq 'wiki_content/books/some_unique_uuid/chapter-title.html'
         expect(page.body).to eq 'chapter content'
       end
 
@@ -53,7 +53,7 @@ module Moodle2CC
         expect(page.identifier).to eq 'm2d41d8cd98f00b204e9800998ecf8427e_book_intro'
         expect(page.type).to eq 'webcontent'
         expect(page.title).to eq 'Book Name'
-        expect(page.href).to eq 'wiki_content/some_unique_uuid-book-name.html'
+        expect(page.href).to eq 'wiki_content/books/some_unique_uuid/book-name.html'
         expect(page.body).to eq 'intro html'
       end
 

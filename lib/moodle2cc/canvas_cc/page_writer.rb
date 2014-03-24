@@ -29,7 +29,9 @@ module Moodle2CC::CanvasCC
           }
         }
       end
-      File.open(File.join(@work_dir, page.href), 'w') { |f| f.write(builder.to_html) }
+      file = File.join(@work_dir, page.href)
+      FileUtils.mkdir_p(File.dirname(file))
+      File.open(file, 'w') { |f| f.write(builder.to_html) }
     end
 
   end
