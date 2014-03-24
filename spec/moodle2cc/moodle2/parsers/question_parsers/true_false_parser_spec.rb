@@ -7,7 +7,6 @@ module Moodle2CC::Moodle2
     end
 
     it 'parses a true false question' do
-
       question = subject.parse_question(node)
 
       expect(question.true_false_id).to eq '1'
@@ -19,6 +18,5 @@ module Moodle2CC::Moodle2
       question = subject.parse_question(node)
       expect(question.answers.count).to eq 2
     end
-
   end
 end

@@ -116,4 +116,5 @@ module Moodle2CC::CanvasCC
   end
 end
 
+require_relative 'calculated_question_writer'
 require_relative 'true_false_question_writer'

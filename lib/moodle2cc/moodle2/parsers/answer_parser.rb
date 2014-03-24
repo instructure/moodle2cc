@@ -6,7 +6,7 @@ module Moodle2CC::Moodle2
       answer = Models::Quizzes::Answer.new
       answer.id = node.at_xpath('@id').value
       answer.answer_text = parse_text(node, 'answertext')
-      answer.fraction = parse_text(node, 'fraction')
+      answer.fraction = parse_text(node, 'fraction').to_r
       answer.feedback = parse_text(node, 'feedback')
       answer.feedback_format = parse_text(node, 'feedbackformat')
 

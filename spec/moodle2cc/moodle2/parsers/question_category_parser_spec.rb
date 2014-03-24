@@ -20,7 +20,7 @@ module Moodle2CC::Moodle2
       expect(category.parent).to eq '0'
       expect(category.sort_order).to eq '999'
 
-      expect(category.questions.count).to eq 1
+      expect(category.questions.count).to eq 4
 
     end
 

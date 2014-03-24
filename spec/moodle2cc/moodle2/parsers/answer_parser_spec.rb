@@ -9,7 +9,7 @@ module Moodle2CC::Moodle2::Parsers
       answer = subject.parse(node)
       expect(answer.id).to eq '24'
       expect(answer.answer_text).to eq 'True'
-      expect(answer.fraction).to eq '1.0000000'
+      expect(answer.fraction).to eq 1
       expect(answer.feedback).to eq '<p>Correct</p>'
       expect(answer.feedback_format).to eq '1'
     end

@@ -17,9 +17,9 @@ module Moodle2CC::Moodle2
       @@subclasses[name] = self
     end
 
-    def parse_question(node)
+    def parse_question(node, question_type = nil)
       begin
-        question_type = parse_text(node, 'qtype')
+        question_type ||= parse_text(node, 'qtype')
         question = Models::Quizzes::Question.create question_type
 
         question.id = node.at_xpath('@id').value
@@ -30,7 +30,7 @@ module Moodle2CC::Moodle2
         question.general_feedback = parse_text(node, 'generalfeedback')
         question.default_mark = parse_text(node, 'defaultmark')
         question.penalty = parse_text(node, 'penalty')
-        question.qtype = question_type
+        question.qtype = parse_text(node, 'qtype')
         question.length = parse_text(node, 'length')
         question.stamp = parse_text(node, 'stamp')
         question.version = parse_text(node, 'version')

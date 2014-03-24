@@ -1,8 +1,11 @@
 module Moodle2CC::Moodle2Converter
   module QuestionConverters
     class QuestionConverter
-      @@subclasses = {}
+      class << self
+        attr_accessor :canvas_question_type
+      end
 
+      @@subclasses = {}
       def self.register_converter_type(name)
         @@subclasses[name] = self
       end
@@ -34,7 +37,8 @@ module Moodle2CC::Moodle2Converter
       end
 
       def create_canvas_question
-        raise 'implement in question converter subclasses'
+        raise 'set canvas_question_type in question converter subclasses' unless self.class.canvas_question_type
+        Moodle2CC::CanvasCC::Models::Question.create(self.class.canvas_question_type)
       end
     end
   end

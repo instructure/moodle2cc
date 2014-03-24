@@ -28,3 +28,5 @@ module Moodle2CC::CanvasCC::Models
     end
   end
 end
+
+require_relative 'calculated_question'
