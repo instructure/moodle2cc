@@ -22,6 +22,7 @@ module Moodle2CC::Moodle2
         parse_folders(work_dir, course)
         parse_question_categories(work_dir, course)
         parse_quizzes(work_dir, course)
+        parse_glossaries(work_dir, course)
         collect_activities_for_sections(course.sections, course.activities)
         yield course
       end
@@ -93,9 +94,15 @@ module Moodle2CC::Moodle2
       end
     end
 
+    def parse_glossaries(work_dir, course)
+      if glossaries = Moodle2CC::Moodle2::Parsers::GlossaryParser.new(work_dir).parse
+        course.pages += glossaries
+      end
+    end
+
     def collect_activities_for_sections(sections, activities)
       activities_hash = {}
-      activities.each {|activity| activities_hash[activity.module_id.to_s] = activity}
+      activities.each { |activity| activities_hash[activity.module_id.to_s] = activity }
       sections.each do |section|
         section.activities = section.sequence.map { |module_id| activities_hash[module_id.to_s] }.compact
       end

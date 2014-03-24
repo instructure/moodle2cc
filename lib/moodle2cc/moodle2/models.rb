@@ -9,4 +9,6 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/moodle2_file'
   require_relative 'models/page'
   require_relative 'models/section'
+  require_relative 'models/glossary'
+  require_relative 'models/glossary_entry'
 end
