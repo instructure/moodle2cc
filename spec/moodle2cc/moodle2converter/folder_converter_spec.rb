@@ -31,10 +31,10 @@ module Moodle2CC
       expect(canvas_page.workflow_state).to eq('active')
       expect(canvas_page.editing_roles).to eq('teachers')
       expect(canvas_page.body).to include('ul')
-      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file1.txt">file1.txt</a></p></li>')
-      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file2.txt">file2.txt</a></p></li>')
-      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file4.txt">subfolder1/file4.txt</a></p></li>')
-      expect(canvas_page.body).to include('<li><p><a href="%24IMS_CC_FILEBASE%24/file3.txt">subfolder1/subfolder2/file3.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="@@PLUGINFILE@@/file1.txt">file1.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="@@PLUGINFILE@@/file2.txt">file2.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="@@PLUGINFILE@@/subfolder1/file4.txt">subfolder1/file4.txt</a></p></li>')
+      expect(canvas_page.body).to include('<li><p><a href="@@PLUGINFILE@@/subfolder1/subfolder2/file3.txt">subfolder1/subfolder2/file3.txt</a></p></li>')
     end
 
   end
