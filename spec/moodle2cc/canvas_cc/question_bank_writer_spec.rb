@@ -25,6 +25,10 @@ module Moodle2CC::CanvasCC
       subject.write
       xml = Nokogiri::XML(File.read(File.join(work_dir, question_bank.question_bank_resource.href)))
 
+      expect(xml.root.attributes['schemaLocation'].value).to eq "http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/xsd/ims_qtiasiv1p2p1.xsd"
+      expect(xml.namespaces['xmlns:xsi']).to eq "http://www.w3.org/2001/XMLSchema-instance"
+      expect(xml.namespaces['xmlns']).to eq "http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
+
       root = xml.at_xpath('xmlns:questestinterop')
       expect(root).to_not be_nil
       expect(root.%('objectbank').attributes['ident'].value).to eq question_bank.identifier

@@ -16,6 +16,7 @@ module Moodle2CC::Moodle2Converter
 
         cc_course.assessments += convert_assessments(moodle_course.quizzes)
         cc_course.question_banks += convert_question_banks(moodle_course.question_categories)
+        cc_course.resolve_question_references
 
         cc_course.pages += convert_folders(moodle_course)
         cc_course.pages += convert_books(moodle_course)

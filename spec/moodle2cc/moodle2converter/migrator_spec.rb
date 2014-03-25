@@ -26,6 +26,7 @@ module Moodle2CC
       Moodle2Converter::AssignmentConverter.any_instance.stub(:convert)
       Moodle2Converter::FolderConverter.any_instance.stub(:convert)
       Moodle2Converter::BookConverter.any_instance.stub(:convert_to_pages)
+      Moodle2CC::CanvasCC::Models::Assessment.any_instance.stub(:resolve_question_references)
       Moodle2Converter::HtmlConverter.stub(:new) { double('html_converter', convert: true) }
       Moodle2Converter::GlossaryConverter.any_instance.stub(:convert)
       CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
@@ -146,7 +147,10 @@ module Moodle2CC
           canvas_course.assessments = [Moodle2CC::CanvasCC::Models::Assessment.new, Moodle2CC::CanvasCC::Models::Assessment.new]
           migrator.migrate
           expect(converter).to have_received(:convert).exactly(2)
-          canvas_course.assessments.each{|assessment| expect(assessment.description).to eq 'converted_html'}
+          canvas_course.assessments.each do |assessment|
+            expect(assessment).to have_received(:resolve_question_references).exactly(1)
+            expect(assessment.description).to eq 'converted_html'
+          end
         end
 
       end
