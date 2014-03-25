@@ -7,10 +7,8 @@ module Moodle2CC::Moodle2Converter
     WIKI_TOKEN = "$WIKI_REFERENCE$"
     WEB_CONTENT_TOKEN = "$IMS_CC_FILEBASE$"
 
-    def initialize(canvas_course, moodle_course)
-      @canvas_course = canvas_course
+    def initialize(canvas_files, moodle_course)
       @moodle_course = moodle_course
-      canvas_files = @canvas_course.files
       @file_index = {}
       @moodle_course.files.each do |f|
         @file_index[f.file_path + f.file_name] = canvas_files.find { |cc_f| cc_f.identifier == f.content_hash }

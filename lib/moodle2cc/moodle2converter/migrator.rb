@@ -100,8 +100,8 @@ module Moodle2CC::Moodle2Converter
       question_categories.map { |category| bank_converter.convert(category) }
     end
 
-    def convert_html!(cc_course, moodle_files)
-      html_converter = HtmlConverter.new(cc_course, moodle_files)
+    def convert_html!(cc_course, moodle_course)
+      html_converter = HtmlConverter.new(cc_course.files, moodle_course)
       cc_course.pages.each {|page| page.body = html_converter.convert(page.body)}
       cc_course.discussions.each {|discussion| discussion.text = html_converter.convert(discussion.text)}
       cc_course.assignments.each {|assignment| assignment.body = html_converter.convert(assignment.body)}

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Moodle2CC
   describe Moodle2Converter::HtmlConverter do
-    subject { Moodle2Converter::HtmlConverter.new(canvas_course, moodle_course) }
+    subject { Moodle2Converter::HtmlConverter.new(canvas_course.files, moodle_course) }
     let(:canvas_course) do
       course = CanvasCC::Models::Course.new
       course.files = ('a'..'c').map do |id|
