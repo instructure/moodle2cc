@@ -62,5 +62,15 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       expect(converted_question.material).to eq expected_text
     end
 
+    it 'converts standard questions' do
+      converter = QuestionConverter.new
+
+      converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create('essay'))
+      expect(converted_question.question_type).to eq 'essay_question'
+
+      converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create('shortanswer'))
+      expect(converted_question.question_type).to eq 'short_answer_question'
+    end
+
   end
 end

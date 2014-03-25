@@ -28,5 +28,8 @@ module Moodle2CC::Moodle2::Models::Quizzes
       expect { Question.create('non_existing_question_type') }.to raise_exception
     end
 
+    it 'creates a standard question for essay questions' do
+      expect(Question.create('essay')).to be_instance_of Question
+    end
   end
 end

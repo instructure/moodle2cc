@@ -3,9 +3,15 @@ module Moodle2CC::Moodle2::Models::Quizzes
 
     @@subclasses = {}
 
+    STANDARD_TYPES = ['essay', 'shortanswer']
+
     def self.create(type)
       if c = @@subclasses[type]
         q = c.new
+        q.type = type
+        q
+      elsif STANDARD_TYPES.include?(type)
+        q = self.new
         q.type = type
         q
       else

@@ -74,9 +74,13 @@ module Moodle2CC
     autoload :PageWriter, 'moodle2cc/canvas_cc/page_writer'
     autoload :DiscussionWriter, 'moodle2cc/canvas_cc/discussion_writer'
     autoload :AssignmentWriter, 'moodle2cc/canvas_cc/assignment_writer'
+
     autoload :QuestionWriter, 'moodle2cc/canvas_cc/question_writer'
-    autoload :TrueFalseQuestionWriter, 'moodle2cc/canvas_cc/true_false_question_writer'
     autoload :CalculatedQuestionWriter, 'moodle2cc/canvas_cc/calculated_question_writer'
+    autoload :EssayQuestionWriter, 'moodle2cc/canvas_cc/essay_question_writer'
+    autoload :ShortAnswerQuestionWriter, 'moodle2cc/canvas_cc/short_answer_question_writer'
+    autoload :TrueFalseQuestionWriter, 'moodle2cc/canvas_cc/true_false_question_writer'
+
     autoload :QuestionBankWriter, 'moodle2cc/canvas_cc/question_bank_writer'
     autoload :AssessmentWriter, 'moodle2cc/canvas_cc/assessment_writer'
     module Models

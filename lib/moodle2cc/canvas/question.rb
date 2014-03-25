@@ -378,7 +378,7 @@ module Moodle2CC::Canvas
           end
         end
       when 'short_answer_question'
-        # Feeback
+        # Feedback
         @answers.each do |answer|
           next unless answer.feedback && answer.feedback.strip.length > 0
           processing_node.respcondition(:continue => 'Yes') do |condition_node|

@@ -39,9 +39,15 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
       expect(question.length).to eq '1'
       expect(question.stamp).to eq '10.0.21.141+140304215800+p3jSSa'
       expect(question.version).to eq '10.0.21.141+140304215801+FQKIDE'
-
     end
 
+    it 'parses essay questions as standard questions' do
+      xml = Nokogiri::XML(File.read(fixture_path(File.join('moodle2', 'backup', 'questions.xml'))))
+      node = xml.at_xpath('/question_categories/question_category[@id = "2"]/questions/question[@id = "10"]')
+      question = subject.parse_question(node)
 
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::Question)).to be_true
+      expect(question.type).to eq 'essay'
+    end
   end
 end

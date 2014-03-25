@@ -17,6 +17,9 @@ module Moodle2CC::Moodle2
       @@subclasses[name] = self
     end
 
+    # simple question types
+    register_parser_type('essay')
+
     def parse_question(node, question_type = nil)
       begin
         question_type ||= parse_text(node, 'qtype')
