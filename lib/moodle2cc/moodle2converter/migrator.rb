@@ -44,7 +44,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert_sections(sections)
       section_converter = Moodle2CC::Moodle2Converter::SectionConverter.new
-      sections.map { |section| section_converter.convert(section) }
+      sections.map { |section| section_converter.convert(section) if !section.empty? }.compact
     end
 
     def convert_files(files)
@@ -69,7 +69,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert_sections_to_pages(sections)
       converter = Moodle2CC::Moodle2Converter::SectionConverter.new
-      sections.map{|s| converter.convert_to_summary_page(s) if s.summary && !s.summary.strip.empty?}.compact
+      sections.map{|s| converter.convert_to_summary_page(s) if s.summary?}.compact
     end
 
     def convert_folders(moodle_course)

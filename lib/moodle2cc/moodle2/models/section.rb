@@ -7,5 +7,13 @@ module Moodle2CC::Moodle2::Models
       @sequence = []
       @activities = []
     end
+
+    def empty?
+      !(summary? || activities.size > 0)
+    end
+
+    def summary?
+      !!(summary && !summary.strip.empty?)
+    end
   end
 end
