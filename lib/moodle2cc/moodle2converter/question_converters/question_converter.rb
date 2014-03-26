@@ -10,7 +10,11 @@ module Moodle2CC::Moodle2Converter
         @@subclasses[name] = self
       end
 
-      STANDARD_CONVERSIONS = {'essay' => 'essay_question', 'shortanswer' => 'short_answer_question'}
+      STANDARD_CONVERSIONS = {
+        'essay' => 'essay_question',
+        'multichoice' => 'multiple_choice_question',
+        'shortanswer' => 'short_answer_question'
+      }
 
       def convert(moodle_question)
         type = moodle_question.type
