@@ -943,6 +943,245 @@ Paris).</feedback>
         <tags>
         </tags>
       </question>
+      <question id="16">
+        <parent>0</parent>
+        <name>Second Short Answer</name>
+        <questiontext>&lt;p&gt;Second short anwser question&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>shortanswer</qtype>
+        <length>1</length>
+        <stamp>moodle+140326221101+OL94UN</stamp>
+        <version>moodle+140326221101+q5QPGe</version>
+        <hidden>0</hidden>
+        <timecreated>1395871861</timecreated>
+        <timemodified>1395871861</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_shortanswer_question>
+          <answers>
+            <answer id="26">
+              <answertext>Answer 1 text</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="27">
+              <answertext>Answer 2 Text</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <shortanswer id="3">
+            <answers>26,27</answers>
+            <usecase>0</usecase>
+          </shortanswer>
+        </plugin_qtype_shortanswer_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="17">
+        <parent>0</parent>
+        <name>[[randomsamatch]]</name>
+        <questiontext>&lt;p&gt;Random Short Answer Question&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>randomsamatch</qtype>
+        <length>1</length>
+        <stamp>moodle+140326221131+pX0JyV</stamp>
+        <version>moodle+140326221131+VSHsis</version>
+        <hidden>0</hidden>
+        <timecreated>1395871891</timecreated>
+        <timemodified>1395871891</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_randomsamatch_question>
+          <randomsamatch id="1">
+            <choose>2</choose>
+          </randomsamatch>
+        </plugin_qtype_randomsamatch_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="18">
+        <parent>0</parent>
+        <name>Description Type Question</name>
+        <questiontext>&lt;p&gt;Description type question&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>0.0000000</defaultmark>
+        <penalty>0.0000000</penalty>
+        <qtype>description</qtype>
+        <length>0</length>
+        <stamp>moodle+140326221220+KHZJnv</stamp>
+        <version>moodle+140326221220+GcQTpK</version>
+        <hidden>0</hidden>
+        <timecreated>1395871940</timecreated>
+        <timemodified>1395871940</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="19">
+        <parent>0</parent>
+        <name>Drag and drop into image</name>
+        <questiontext>&lt;p&gt;Drag and drop onto image text&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>ddimageortext</qtype>
+        <length>1</length>
+        <stamp>moodle+140326223042+uJicMJ</stamp>
+        <version>moodle+140326223042+iC2ftY</version>
+        <hidden>0</hidden>
+        <timecreated>1395873042</timecreated>
+        <timemodified>1395873042</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_ddimageortext_question>
+          <ddimageortext id="1">
+            <shuffleanswers>0</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <shownumcorrect>0</shownumcorrect>
+          </ddimageortext>
+          <drags>
+            <drag id="1">
+              <no>1</no>
+              <draggroup>1</draggroup>
+              <infinite>0</infinite>
+              <label></label>
+            </drag>
+            <drag id="2">
+              <no>2</no>
+              <draggroup>1</draggroup>
+              <infinite>0</infinite>
+              <label></label>
+            </drag>
+            <drag id="3">
+              <no>3</no>
+              <draggroup>1</draggroup>
+              <infinite>0</infinite>
+              <label></label>
+            </drag>
+          </drags>
+          <drops>
+            <drop id="1">
+              <no>1</no>
+              <xleft>0</xleft>
+              <ytop>98</ytop>
+              <choice>1</choice>
+              <label>drop zone 1</label>
+            </drop>
+            <drop id="2">
+              <no>2</no>
+              <xleft>250</xleft>
+              <ytop>0</ytop>
+              <choice>2</choice>
+              <label>drop zone 2</label>
+            </drop>
+            <drop id="3">
+              <no>3</no>
+              <xleft>0</xleft>
+              <ytop>0</ytop>
+              <choice>3</choice>
+              <label>drop zone 3</label>
+            </drop>
+          </drops>
+        </plugin_qtype_ddimageortext_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="20">
+        <parent>0</parent>
+        <name>Drag and Drop onto text</name>
+        <questiontext>&lt;p&gt;Drag and drop onto text question text [[1]], [[2]]&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>0.3333333</penalty>
+        <qtype>ddwtos</qtype>
+        <length>1</length>
+        <stamp>moodle+140326223205+RRgk54</stamp>
+        <version>moodle+140326223205+LjvDMm</version>
+        <hidden>0</hidden>
+        <timecreated>1395873125</timecreated>
+        <timemodified>1395873125</timemodified>
+        <createdby>2</createdby>
+        <modifiedby>2</modifiedby>
+        <plugin_qtype_ddwtos_question>
+          <answers>
+            <answer id="28">
+              <answertext>Choice 1</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="29">
+              <answertext>Choice 2</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"1";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="30">
+              <answertext>Choice 3</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+            <answer id="31">
+              <answertext>Choice 4</answertext>
+              <answerformat>1</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback>O:8:"stdClass":2:{s:9:"draggroup";s:1:"2";s:8:"infinite";b:0;}</feedback>
+              <feedbackformat>0</feedbackformat>
+            </answer>
+          </answers>
+          <ddwtos id="1">
+            <shuffleanswers>1</shuffleanswers>
+            <correctfeedback></correctfeedback>
+            <correctfeedbackformat>1</correctfeedbackformat>
+            <partiallycorrectfeedback></partiallycorrectfeedback>
+            <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+            <incorrectfeedback></incorrectfeedback>
+            <incorrectfeedbackformat>1</incorrectfeedbackformat>
+            <shownumcorrect>0</shownumcorrect>
+          </ddwtos>
+        </plugin_qtype_ddwtos_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
     </questions>
   </question_category>
 </question_categories>
