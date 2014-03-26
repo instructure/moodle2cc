@@ -104,7 +104,7 @@ module Moodle2CC::CanvasCC
     end
 
     it 'writes standard answer feedback if called' do
-      answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
+      answer = Moodle2CC::CanvasCC::Models::Answer.new
       answer.id = 'an_id'
       answer.feedback = 'much feedback'
       question.answers = [answer]

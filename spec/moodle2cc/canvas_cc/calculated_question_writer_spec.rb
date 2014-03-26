@@ -15,7 +15,7 @@ module Moodle2CC::CanvasCC
       question.correct_answer_length = '2'
       question.tolerance = '0.01'
 
-      answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
+      answer = Moodle2CC::CanvasCC::Models::Answer.new
       answer.answer_text = '{A}*{B}'
       answer.fraction = 1
       question.answers = [answer]

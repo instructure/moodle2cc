@@ -86,6 +86,7 @@ module Moodle2CC::Moodle2
       if question_categories = Moodle2CC::Moodle2::Parsers::QuestionCategoryParser.new(work_dir).parse
         course.question_categories += question_categories
       end
+      course.question_categories.each{|qc| qc.resolve_embedded_question_references(question_categories)}
     end
 
     def parse_quizzes(work_dir, course)

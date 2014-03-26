@@ -93,10 +93,12 @@ describe Moodle2CC::Moodle2::Extractor do
   end
 
   it 'parses quiz questions' do
+    Moodle2CC::Moodle2::Models::Quizzes::QuestionCategory.any_instance.stub(:resolve_embedded_question_references)
     question_category = Moodle2CC::Moodle2::Models::Quizzes::QuestionCategory.new
     Moodle2CC::Moodle2::Parsers::QuestionCategoryParser.any_instance.stub(:parse).and_return([question_category])
     extractor.extract {}
     expect(course.question_categories).to eq [question_category]
+    expect(question_category).to have_received(:resolve_embedded_question_references).exactly(1)
   end
 
   it 'parses quizzes' do

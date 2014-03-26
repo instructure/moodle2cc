@@ -11,7 +11,7 @@ module Moodle2CC::CanvasCC
       question.general_feedback = 'more constructive feedback'
       question.material = 'materials galore'
 
-      answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
+      answer = Moodle2CC::CanvasCC::Models::Answer.new
       answer.id = 'answe_id'
       answer.answer_text = 'the answer'
       answer.feedback = 'so much feedback'

@@ -11,12 +11,12 @@ module Moodle2CC::CanvasCC
       question.general_feedback = 'unconstructive feedback'
       question.material = 'materia'
 
-      true_answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
+      true_answer = Moodle2CC::CanvasCC::Models::Answer.new
       true_answer.id = 'tr00'
       true_answer.fraction = 1.0
       true_answer.answer_text = 'so true'
       true_answer.feedback = 'was there ever any doubt?'
-      false_answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
+      false_answer = Moodle2CC::CanvasCC::Models::Answer.new
       false_answer.id = 'furse'
       false_answer.fraction = 0.0
       false_answer.answer_text = 'falrse'
