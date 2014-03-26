@@ -10,6 +10,7 @@ module Moodle2CC::Moodle2Converter
       cc_course.identifier = generate_unique_identifier_for(moodle_course.course_id, COURSE_SUFFIX)
       cc_course.allow_student_discussion_topics = false
       cc_course.allow_student_wiki_edits = false
+      cc_course.default_view = 'modules'
       cc_course
     end
 

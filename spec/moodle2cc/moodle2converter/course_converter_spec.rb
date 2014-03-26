@@ -17,6 +17,7 @@ module Moodle2CC
       expect(cc_course.identifier).to eq('m2ea134da7ce0152b54fb73853f6d62644_course')
       expect(cc_course.allow_student_discussion_topics).to be_false
       expect(cc_course.allow_student_wiki_edits).to be_false
+      expect(cc_course.default_view).to eq 'modules'
     end
 
   end
