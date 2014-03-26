@@ -34,6 +34,8 @@ module Moodle2CC::Moodle2Converter
         "#{WEB_CONTENT_TOKEN}#{cc_file.file_path}"
       elsif match = link.match(/\/mod\/(page|forum|assignment)\/view\.php\?.*id=(\d*)(#.*)?/)
         lookup_cc_link(match.captures[0], match.captures[1], match.captures[2]) || link
+      elsif match = CGI::unescape(link).match(/\$\@ASSIGNVIEWBYID\*(\d*)@\$/)
+        lookup_cc_link('assignment', match.captures[0], nil) || link
       else
         link
       end
