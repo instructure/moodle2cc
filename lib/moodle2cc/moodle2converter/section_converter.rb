@@ -30,7 +30,7 @@ module Moodle2CC
       canvas_page.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
       canvas_page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
       canvas_page.body = moodle_section.summary
-      canvas_page.href = File.join(CanvasCC::Models::Page::WIKI_CONTENT, 'front-page.html')
+      canvas_page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT, "#{moodle_section.name} summary")
 
       canvas_page
     end

@@ -109,12 +109,15 @@ module Moodle2CC
         end
 
         it 'converts sections to modules' do
-          section = Moodle2CC::Moodle2::Models::Section.new
+          section1 = Moodle2CC::Moodle2::Models::Section.new
+          section1.summary = 'summary'
+          section2 = Moodle2CC::Moodle2::Models::Section.new
+          section2.summary = '  '
           Moodle2CC::Moodle2Converter::SectionConverter.any_instance.stub(:convert).and_return(:canvas_module)
-          moodle_course.sections = [section, section]
+          moodle_course.sections = [section1, section2]
           migrator.migrate
 
-          expect(canvas_course.canvas_modules.compact).to eq [:canvas_module, :canvas_module]
+          expect(canvas_course.canvas_modules.compact).to eq [:canvas_module]
         end
       end
 

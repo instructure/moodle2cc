@@ -24,7 +24,7 @@ module Moodle2CC
       Moodle2CC::Moodle2::Models::Section => {suffix: SUMMARY_PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE}
     }
 
-    def generate_unique_resource_path(base_path, readable_name, file_extension = nil)
+    def generate_unique_resource_path(base_path, readable_name, file_extension = 'html')
       file_name_suffix = readable_name ? readable_name.downcase.gsub(/\s/, '-') : ''
       ext = file_extension ? ".#{file_extension}" : ''
       File.join(base_path, generate_unique_identifier(),"#{file_name_suffix}#{ext}")

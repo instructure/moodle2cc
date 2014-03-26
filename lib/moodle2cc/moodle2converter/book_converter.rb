@@ -80,7 +80,7 @@ module Moodle2CC
     def create_page(title)
       page = CanvasCC::Models::Page.new
       page.type = CanvasCC::Models::Resource::WEB_CONTENT_TYPE
-      page.href = generate_unique_resource_path(CanvasCC::Models::Page::BOOK_PATH, title, 'html')
+      page.href = generate_unique_resource_path(CanvasCC::Models::Page::BOOK_PATH, title)
       page.title = title
       page.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
       page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
