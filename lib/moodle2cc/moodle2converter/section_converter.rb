@@ -15,9 +15,24 @@ module Moodle2CC
       canvas_module.identifier = generate_unique_identifier_for(moodle_section.id, MODULE_SUFFIX)
       canvas_module.title = moodle_section.name
       canvas_module.workflow_state = moodle_section.visible ? CanvasCC::Models::WorkflowState::ACTIVE : CanvasCC::Models::WorkflowState::UNPUBLISHED
-      canvas_module.module_items += moodle_section.activities.map { |a| convert_activity(a) }.flatten.compact
+
+      canvas_module.module_items += convert_activity(moodle_section) if moodle_section.summary && !moodle_section.summary.strip.empty?
+      canvas_module.module_items += moodle_section.activities.map { |a| convert_activity(a) }
+      canvas_module.module_items = canvas_module.module_items.flatten.compact
 
       canvas_module
+    end
+
+    def convert_to_summary_page(moodle_section)
+      canvas_page = CanvasCC::Models::Page.new
+      canvas_page.identifier = generate_unique_identifier_for_activity(moodle_section)
+      canvas_page.title = moodle_section.name
+      canvas_page.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
+      canvas_page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
+      canvas_page.body = moodle_section.summary
+      canvas_page.href = File.join(CanvasCC::Models::Page::WIKI_CONTENT, 'front-page.html')
+
+      canvas_page
     end
 
     def convert_activity(moodle_activity)

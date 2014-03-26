@@ -18,7 +18,6 @@ module Moodle2CC
 
       Moodle2::Extractor.stub(:new).and_return(extractor)
       Moodle2Converter::CourseConverter.any_instance.stub(:convert).and_return(canvas_course)
-      Moodle2Converter::HomepageConverter.any_instance.stub(:convert).and_return(canvas_page)
       Moodle2Converter::SectionConverter.any_instance.stub(:convert)
       Moodle2Converter::FileConverter.any_instance.stub(:convert)
       Moodle2Converter::PageConverter.any_instance.stub(:convert)
@@ -38,25 +37,6 @@ module Moodle2CC
         Moodle2Converter::CourseConverter.stub(:new).and_return(converter)
         migrator.migrate
         expect(converter).to have_received(:convert)
-      end
-
-      it 'converts course home page' do
-        moodle_course.sections = [:section1, :section2]
-        converter_mock = double(convert: canvas_page)
-        Moodle2Converter::HomepageConverter.stub(:new).and_return(converter_mock)
-
-        migrator.migrate
-
-        expect(converter_mock).to have_received(:convert).with(:section1)
-        expect(canvas_course.pages).to eq [canvas_page]
-      end
-
-      it 'converts all but the first section into modules' do
-        moodle_course.sections = [:section1, :section2, :section3]
-        Moodle2Converter::SectionConverter.any_instance.stub(:convert).and_return('module')
-        migrator.migrate
-
-        expect(canvas_course.canvas_modules).to eq ['module', 'module']
       end
 
       it 'converts files' do
@@ -111,7 +91,31 @@ module Moodle2CC
         moodle_course.glossaries = [:glossary1, :glossary1]
         Moodle2CC::Moodle2Converter::GlossaryConverter.any_instance.stub(:convert).and_return(canvas_page)
         migrator.migrate
+
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
+      end
+
+      context 'sections' do
+        it 'converts sections with summaries to pages' do
+          Moodle2CC::Moodle2Converter::SectionConverter.any_instance.stub(:convert_to_summary_page).and_return(canvas_page)
+          section1 = Moodle2CC::Moodle2::Models::Section.new
+          section1.summary = 'summary'
+          section2 = Moodle2CC::Moodle2::Models::Section.new
+          section2.summary = '  '
+          moodle_course.sections = [section1, section2]
+          migrator.migrate
+
+          expect(canvas_course.pages.compact).to eq [canvas_page]
+        end
+
+        it 'converts sections to modules' do
+          section = Moodle2CC::Moodle2::Models::Section.new
+          Moodle2CC::Moodle2Converter::SectionConverter.any_instance.stub(:convert).and_return(:canvas_module)
+          moodle_course.sections = [section, section]
+          migrator.migrate
+
+          expect(canvas_course.canvas_modules.compact).to eq [:canvas_module, :canvas_module]
+        end
       end
 
 

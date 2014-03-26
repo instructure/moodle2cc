@@ -18,12 +18,10 @@ module Moodle2CC::Moodle2Converter
         cc_course.question_banks += convert_question_banks(moodle_course.question_categories)
         cc_course.resolve_question_references
 
+        cc_course.pages += convert_sections_to_pages(moodle_course.sections)
         cc_course.pages += convert_folders(moodle_course)
-        cc_course.pages += convert_books(moodle_course)
+        cc_course.pages += convert_books(moodle_course.books)
         cc_course.pages += convert_glossaries(moodle_course)
-
-        first_section = moodle_course.sections.shift
-        cc_course.pages << convert_homepage(first_section) if first_section
 
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
 
@@ -42,10 +40,6 @@ module Moodle2CC::Moodle2Converter
 
     def convert_course(moodle_course)
       Moodle2CC::Moodle2Converter::CourseConverter.new.convert(moodle_course)
-    end
-
-    def convert_homepage(moodle_section)
-      Moodle2CC::Moodle2Converter::HomepageConverter.new.convert(moodle_section)
     end
 
     def convert_sections(sections)
@@ -73,14 +67,19 @@ module Moodle2CC::Moodle2Converter
       assignments.map { |assignment| assignment_converter.convert(assignment) }
     end
 
+    def convert_sections_to_pages(sections)
+      converter = Moodle2CC::Moodle2Converter::SectionConverter.new
+      sections.map{|s| converter.convert_to_summary_page(s) if s.summary && !s.summary.strip.empty?}.compact
+    end
+
     def convert_folders(moodle_course)
       folder_converter = Moodle2CC::Moodle2Converter::FolderConverter.new(moodle_course)
       moodle_course.folders.map { |folder| folder_converter.convert(folder) }
     end
 
-    def convert_books(moodle_course)
+    def convert_books(books)
       book_converter = Moodle2CC::Moodle2Converter::BookConverter.new
-      moodle_course.books.map { |book| book_converter.convert_to_pages(book) }.flatten
+      books.map { |book| book_converter.convert_to_pages(book) }.flatten
     end
 
     def convert_glossaries(moodle_course)

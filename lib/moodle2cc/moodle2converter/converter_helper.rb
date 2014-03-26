@@ -12,6 +12,7 @@ module Moodle2CC
     QUESTION_BANK_SUFFIX = '_question_bank'
     MODULE_SUFFIX = '_module'
     GLOSSARY_SUFFIX = '_glossary'
+    SUMMARY_PAGE_SUFFIX = '_summary_page'
 
     ACTIVITY_LOOKUP = {
       Moodle2CC::Moodle2::Models::Page => {suffix: PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
@@ -19,7 +20,8 @@ module Moodle2CC
       Moodle2CC::Moodle2::Models::Folder => {suffix: FOLDER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
       Moodle2CC::Moodle2::Models::Forum => {suffix: DISCUSSION_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_DISCUSSION_TOPIC},
       Moodle2CC::Moodle2::Models::BookChapter => {suffix: CHAPTER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
-      Moodle2CC::Moodle2::Models::Quizzes::Quiz => {suffix: ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ}
+      Moodle2CC::Moodle2::Models::Quizzes::Quiz => {suffix: ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
+      Moodle2CC::Moodle2::Models::Section => {suffix: SUMMARY_PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE}
     }
 
     def generate_unique_resource_path(base_path, readable_name, file_extension = nil)
