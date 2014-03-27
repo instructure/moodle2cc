@@ -120,6 +120,27 @@ module Moodle2CC
         expect(module_item.content_type).to eq 'WikiPage'
         expect(module_item.indent).to eq '0'
       end
+
+      it 'converts a moodle label to a title module item' do
+        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+
+        moodle_label = Moodle2::Models::Label.new
+        moodle_label.id = '1'
+        moodle_label.name = 'label title'
+
+        module_items = subject.convert_to_module_items(moodle_label)
+        expect(module_items.size).to eq 1
+
+        module_item = module_items.first
+
+        expect(module_item.identifier).to eq 'some_random_id'
+        expect(module_item.workflow_state).to eq 'active'
+        expect(module_item.title).to eq 'label title'
+        expect(module_item.identifierref).to be_nil
+        expect(module_item.content_type).to eq 'ContextModuleSubHeader'
+        expect(module_item.indent).to eq '0'
+      end
+
     end
   end
 end

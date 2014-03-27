@@ -48,7 +48,7 @@ module Moodle2CC
       module_item.identifier = generate_unique_identifier
       module_item.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
       module_item.title = moodle_activity.name
-      module_item.identifierref = generate_unique_identifier_for_activity(moodle_activity)
+      module_item.identifierref = generate_unique_identifier_for_activity(moodle_activity) unless moodle_activity.is_a? Moodle2::Models::Label
       module_item.content_type = activity_content_type(moodle_activity)
       module_item.indent = '0'
 
