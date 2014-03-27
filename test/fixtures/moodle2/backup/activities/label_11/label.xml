@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="11" modulename="label" contextid="30">
+  <label id="1">
+    <name>This is some label text</name>
+    <intro>&lt;p&gt;This is some label text&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <timemodified>1395884565</timemodified>
+  </label>
+</activity>

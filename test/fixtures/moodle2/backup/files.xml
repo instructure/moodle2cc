@@ -32,10 +32,10 @@
     <filename>.</filename>
     <userid>2</userid>
     <filesize>0</filesize>
-    <mimetype>$@NULL@$</mimetype>
+    <mimetype>document/unknown</mimetype>
     <status>0</status>
     <timecreated>1392877532</timecreated>
-    <timemodified>1392877562</timemodified>
+    <timemodified>1395885016</timemodified>
     <source>$@NULL@$</source>
     <author>$@NULL@$</author>
     <license>$@NULL@$</license>
@@ -457,6 +457,28 @@
     <source>$@NULL@$</source>
     <author>$@NULL@$</author>
     <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="81">
+    <contenthash>67859b142e5ba020a84c3166f09d59ef992379a4</contenthash>
+    <contextid>21</contextid>
+    <component>mod_page</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>Allegro from Duet in C Major.mp3</filename>
+    <userid>2</userid>
+    <filesize>1430174</filesize>
+    <mimetype>audio/mp3</mimetype>
+    <status>0</status>
+    <timecreated>1395885050</timecreated>
+    <timemodified>1395885057</timemodified>
+    <source>Allegro from Duet in C Major.mp3</source>
+    <author>Admin User</author>
+    <license>allrightsreserved</license>
     <sortorder>0</sortorder>
     <repositorytype>$@NULL@$</repositorytype>
     <repositoryid>$@NULL@$</repositoryid>

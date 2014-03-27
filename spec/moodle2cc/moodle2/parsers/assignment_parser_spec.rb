@@ -20,7 +20,6 @@ describe Moodle2CC::Moodle2::Parsers::AssignmentParser do
     expect(assign.cut_off_date).to eq '1394221500'
     expect(assign.allow_submissions_from_date).to eq '1393616700'
     expect(assign.grade).to eq '100'
-    expect(assign.time_modified).to eq '1393924398'
     expect(assign.completion_submit).to eq '0'
     expect(assign.require_submission_statement).to eq '0'
     expect(assign.team_submission).to eq '1'

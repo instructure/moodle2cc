@@ -4,7 +4,7 @@
   <name>$@NULL@$</name>
   <summary>&lt;p&gt;This is the General Summary&lt;/p&gt;</summary>
   <summaryformat>1</summaryformat>
-  <sequence>1</sequence>
+  <sequence>1,11</sequence>
   <visible>1</visible>
   <availablefrom>0</availablefrom>
   <availableuntil>0</availableuntil>
