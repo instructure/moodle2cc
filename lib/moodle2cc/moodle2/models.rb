@@ -11,4 +11,5 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/section'
   require_relative 'models/glossary'
   require_relative 'models/glossary_entry'
+  require_relative 'models/label'
 end
