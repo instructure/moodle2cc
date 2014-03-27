@@ -39,6 +39,12 @@ module Moodle2CC::Moodle2::Models
         subject.folders << :folder
         expect(subject.activities).to eq [:folder]
       end
+
+      it 'collect labels' do
+        subject.labels << :labels
+        expect(subject.activities).to eq [:labels]
+      end
+
     end
   end
 end

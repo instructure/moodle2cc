@@ -18,7 +18,7 @@ module Moodle2CC::Moodle2::Models
     end
 
     def activities
-      pages + forums + assignments + books + folders + quizzes
+      pages + forums + assignments + books + folders + quizzes + labels
     end
 
   end
