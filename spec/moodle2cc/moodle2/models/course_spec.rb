@@ -12,6 +12,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :folders, []
     it_behaves_like 'it has an attribute for', :glossaries, []
     it_behaves_like 'it has an attribute for', :question_categories, []
+    it_behaves_like 'it has an attribute for', :labels, []
 
     describe '#activities' do
       it 'collects pages' do
