@@ -15,6 +15,7 @@ describe Moodle2CC::Moodle2::Parsers::BookParser do
     expect(book.numbering).to eq "0"
     expect(book.custom_titles).to eq "0"
     expect(book.chapters.size).to eq 3
+    expect(book.visible).to eq true
 
     expect(chapter.id).to eq "1"
     expect(chapter.pagenum).to eq "1"
@@ -23,6 +24,7 @@ describe Moodle2CC::Moodle2::Parsers::BookParser do
     expect(chapter.content).to eq "<p>Chapter 1 content</p>"
     expect(chapter.content_format).to eq "1"
     expect(chapter.hidden).to be_false
+
   end
 
   it "sets subchapter to true for subchapters" do

@@ -17,6 +17,7 @@ module Moodle2CC::Moodle2::Parsers
       expect(folder.intro_format).to eq('1')
       expect(folder.revision).to eq('1')
       expect(folder.file_ids).to eq(['29', '30', '31', '32', '33'])
+      expect(folder.visible).to eq true
     end
 
   end

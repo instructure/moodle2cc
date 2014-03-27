@@ -10,7 +10,7 @@ describe Moodle2CC::Moodle2::Parsers::ParserHelper do
   describe "#activity_directories" do
     it "returns a list of directories associated with an activity type" do
       dirs = subject.activity_directories(moodle2_backup_dir, 'forum')
-      expect(dirs.size).to eq 1
+      expect(dirs.size).to eq 2
       expect(dirs.first).to eq 'activities/forum_1'
     end
   end

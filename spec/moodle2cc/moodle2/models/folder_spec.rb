@@ -9,6 +9,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :intro
     it_behaves_like 'it has an attribute for', :intro_format
     it_behaves_like 'it has an attribute for', :revision
+    it_behaves_like 'it has an attribute for', :visible
     it_behaves_like 'it has an attribute for', :file_ids, []
 
   end

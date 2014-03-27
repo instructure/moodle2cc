@@ -32,6 +32,7 @@ module Moodle2CC::Moodle2::Parsers
       expect(glossary.assess_time_finish).to eq '0'
       expect(glossary.scale).to eq '0'
       expect(glossary.completion_entries).to eq '0'
+      expect(glossary.visible).to eq true
     end
 
     it 'parses glossary entries' do

@@ -18,7 +18,8 @@ module Moodle2CC::Moodle2::Parsers
 
     def parse_forum(forum_dir)
       forum = Moodle2CC::Moodle2::Models::Forum.new
-      File.open(File.join(@backup_dir, forum_dir, FORUM_XML)) do |f|
+      activity_dir = File.join(@backup_dir, forum_dir)
+      File.open(File.join(activity_dir, FORUM_XML)) do |f|
         forum_xml = Nokogiri::XML(f)
         forum.id = forum_xml.at_xpath('/activity/forum/@id').value
         forum.module_id = forum_xml.at_xpath('/activity/@moduleid').value
@@ -44,6 +45,7 @@ module Moodle2CC::Moodle2::Parsers
         forum.completion_replies = parse_text(forum_xml, '/activity/forum/completionreplies')
         forum.completion_posts = parse_text(forum_xml, '/activity/forum/completionposts')
       end
+      parse_module(activity_dir, forum)
       forum
     end
 

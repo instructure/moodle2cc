@@ -6,7 +6,7 @@
     <moodle_release>2.4.6+ (Build: 20131011)</moodle_release>
     <backup_version>2012120300</backup_version>
     <backup_release>2.4</backup_release>
-    <backup_date>1395890234</backup_date>
+    <backup_date>1395900599</backup_date>
     <mnet_remoteusers>0</mnet_remoteusers>
     <include_file_references_to_external_content>0</include_file_references_to_external_content>
     <original_wwwroot>https://moodle</original_wwwroot>
@@ -18,7 +18,7 @@
     <original_course_contextid>15</original_course_contextid>
     <original_system_contextid>1</original_system_contextid>
     <details>
-      <detail backup_id="2864501218b426fd1ec999ee58536edc">
+      <detail backup_id="21eedaa2185e61abbf435b689f95a7bd">
         <type>course</type>
         <format>moodle2</format>
         <interactive>1</interactive>
@@ -93,6 +93,13 @@
           <directory>activities/assign_4</directory>
         </activity>
         <activity>
+          <moduleid>13</moduleid>
+          <sectionid>6</sectionid>
+          <modulename>forum</modulename>
+          <title>Hidden Forum</title>
+          <directory>activities/forum_13</directory>
+        </activity>
+        <activity>
           <moduleid>5</moduleid>
           <sectionid>7</sectionid>
           <modulename>quiz</modulename>
@@ -105,6 +112,13 @@
           <modulename>questionnaire</modulename>
           <title>Questionnaire Name</title>
           <directory>activities/questionnaire_9</directory>
+        </activity>
+        <activity>
+          <moduleid>12</moduleid>
+          <sectionid>10</sectionid>
+          <modulename>assign</modulename>
+          <title>Hidden Assignmnet</title>
+          <directory>activities/assign_12</directory>
         </activity>
       </activities>
       <sections>
@@ -142,6 +156,11 @@
           <sectionid>7</sectionid>
           <title>6</title>
           <directory>sections/section_7</directory>
+        </section>
+        <section>
+          <sectionid>10</sectionid>
+          <title>Hidden Section</title>
+          <directory>sections/section_10</directory>
         </section>
       </sections>
       <course>
@@ -397,6 +416,18 @@
         <value>1</value>
       </setting>
       <setting>
+        <level>activity</level>
+        <activity>forum_13</activity>
+        <name>forum_13_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>forum_13</activity>
+        <name>forum_13_userinfo</name>
+        <value>1</value>
+      </setting>
+      <setting>
         <level>section</level>
         <section>section_7</section>
         <name>section_7_included</name>
@@ -430,6 +461,30 @@
         <level>activity</level>
         <activity>questionnaire_9</activity>
         <name>questionnaire_9_userinfo</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_10</section>
+        <name>section_10_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>section</level>
+        <section>section_10</section>
+        <name>section_10_userinfo</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>assign_12</activity>
+        <name>assign_12_included</name>
+        <value>1</value>
+      </setting>
+      <setting>
+        <level>activity</level>
+        <activity>assign_12</activity>
+        <name>assign_12_userinfo</name>
         <value>1</value>
       </setting>
     </settings>

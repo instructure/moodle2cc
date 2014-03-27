@@ -16,9 +16,10 @@ module Moodle2CC::Moodle2
 
     private
 
-    def parse_label(glossary_dir)
+    def parse_label(dir)
       label = Models::Label.new
-      File.open(File.join(@backup_dir, glossary_dir, LABEL_XML)) do |f|
+      activity_dir = File.join(@backup_dir, dir)
+      File.open(File.join(activity_dir, LABEL_XML)) do |f|
         label_xml = Nokogiri::XML(f)
         label.id = label_xml.at_xpath('/activity/label/@id').value
         label.module_id = label_xml.at_xpath('/activity/@moduleid').value
@@ -26,6 +27,7 @@ module Moodle2CC::Moodle2
         label.intro = parse_text(label_xml, '/activity/label/intro')
         label.intro_format = parse_text(label_xml, '/activity/label/introformat')
       end
+      parse_module(activity_dir, label)
       label
     end
 

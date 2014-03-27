@@ -18,7 +18,8 @@ module Moodle2CC::Moodle2::Parsers
 
     def parse_assignment(dir)
       assignment = Moodle2CC::Moodle2::Models::Assignment.new
-      File.open(File.join(@backup_dir, dir, ASSIGNMENT_XML)) do |f|
+      activity_dir = File.join(@backup_dir, dir)
+      File.open(File.join(activity_dir, ASSIGNMENT_XML)) do |f|
         xml = Nokogiri::XML(f)
         assignment.id = xml.at_xpath('/activity/assign/@id').value
         assignment.module_id = xml.at_xpath('/activity/@moduleid').value
@@ -51,6 +52,8 @@ module Moodle2CC::Moodle2::Parsers
         assignment.feedback_files = parse_text(plugins, 'plugin_config[(plugin="file" and subtype="assignfeedback" and name="enabled")]/value', true)
         assignment.offline_grading_worksheet = parse_text(plugins, 'plugin_config[(plugin="offline" and subtype="assignfeedback" and name="enabled")]/value', true)
       end
+      parse_module(activity_dir,assignment)
+
       assignment
     end
 

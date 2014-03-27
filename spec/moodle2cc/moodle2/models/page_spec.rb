@@ -15,6 +15,7 @@ describe Moodle2CC::Moodle2::Models::Page do
   it_behaves_like 'it has an attribute for', :display_options
   it_behaves_like 'it has an attribute for', :revision
   it_behaves_like 'it has an attribute for', :time_modified
+  it_behaves_like 'it has an attribute for', :visible
 
 
 

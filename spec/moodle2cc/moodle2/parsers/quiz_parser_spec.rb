@@ -49,6 +49,7 @@ describe Moodle2CC::Moodle2::Parsers::QuizParser do
     expect(quiz.delay2).to eq '0'
     expect(quiz.show_user_picture).to eq '0'
     expect(quiz.show_blocks).to eq '0'
+    expect(quiz.visible).to eq true
 
     expect(quiz.question_instances.map{|q| q[:question]}).to eq (
       ['1', '2', '3', '4', '10', '11', '12', '13', '14', '15']

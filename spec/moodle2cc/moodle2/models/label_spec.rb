@@ -7,6 +7,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :name
     it_behaves_like 'it has an attribute for', :intro
     it_behaves_like 'it has an attribute for', :intro_format
+    it_behaves_like 'it has an attribute for', :visible
 
   end
 end

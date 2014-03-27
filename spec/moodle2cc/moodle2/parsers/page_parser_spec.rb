@@ -19,6 +19,7 @@ describe Moodle2CC::Moodle2::Parsers::PageParser do
     expect(page.display).to eq '0'
     expect(page.display_options).to eq 'a:2:{s:12:"printheading";s:1:"0";s:10:"printintro";s:1:"0";}'
     expect(page.revision).to eq '3'
+    expect(page.visible).to eq true
   end
 
 end

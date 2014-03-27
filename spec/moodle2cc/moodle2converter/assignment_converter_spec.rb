@@ -13,6 +13,7 @@ describe Moodle2CC::Moodle2Converter::AssignmentConverter do
     moodle_assign.grade = '30'
     moodle_assign.online_text_submission = '1'
     moodle_assign.file_submission = '1'
+    moodle_assign.visible = 1
 
     canvas_assign = subject.convert(moodle_assign)
 

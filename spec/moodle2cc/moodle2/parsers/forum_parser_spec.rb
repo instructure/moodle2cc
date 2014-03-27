@@ -6,7 +6,7 @@ describe Moodle2CC::Moodle2::Parsers::ForumParser do
 
   it 'parses a moodle forum' do
     forums = parser.parse
-    expect(forums.count).to eq 1
+    expect(forums.count).to eq 2
     forum = forums.first
     expect(forum.id).to eq '1'
     expect(forum.module_id).to eq '1'
@@ -31,6 +31,7 @@ describe Moodle2CC::Moodle2::Parsers::ForumParser do
     expect(forum.completion_discussions).to eq '0'
     expect(forum.completion_replies).to eq '0'
     expect(forum.completion_posts).to eq '0'
+    expect(forum.visible).to eq true
   end
 
 

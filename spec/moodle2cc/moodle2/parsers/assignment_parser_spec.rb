@@ -5,7 +5,7 @@ describe Moodle2CC::Moodle2::Parsers::AssignmentParser do
 
   it 'should parse an assignment' do
     assignments = subject.parse
-    expect(assignments.count).to eq 1
+    expect(assignments.count).to eq 2
     assign = assignments.first
     expect(assign.id).to eq '1'
     expect(assign.module_id).to eq '4'
@@ -35,6 +35,7 @@ describe Moodle2CC::Moodle2::Parsers::AssignmentParser do
     expect(assign.feedback_comments).to eq '1'
     expect(assign.feedback_files).to eq '1'
     expect(assign.offline_grading_worksheet).to eq '1'
+    expect(assign.visible).to eq true
 
   end
 

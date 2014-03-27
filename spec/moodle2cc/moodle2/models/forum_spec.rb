@@ -25,5 +25,6 @@ describe Moodle2CC::Moodle2::Models::Forum do
   it_behaves_like 'it has an attribute for', :completion_discussions
   it_behaves_like 'it has an attribute for', :completion_replies
   it_behaves_like 'it has an attribute for', :completion_posts
+  it_behaves_like 'it has an attribute for', :visible
 
 end

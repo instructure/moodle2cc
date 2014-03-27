@@ -17,7 +17,8 @@ module Moodle2CC::Moodle2::Parsers
     private
     def parse_book(dir)
       book = Moodle2CC::Moodle2::Models::Book.new
-      File.open(File.join(@backup_dir, dir, BOOK_XML)) do |f|
+      activity_dir = File.join(@backup_dir, dir)
+      File.open(File.join(activity_dir, BOOK_XML)) do |f|
         xml = Nokogiri::XML(f)
         book.module_id = xml.at_xpath('/activity/@moduleid').value
         book.id = xml.at_xpath('/activity/book/@id').value
@@ -31,6 +32,8 @@ module Moodle2CC::Moodle2::Parsers
           book.chapters << parse_chapter(node)
         end
       end
+      parse_module(activity_dir, book)
+
       book
     end
 

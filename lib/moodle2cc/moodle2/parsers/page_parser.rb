@@ -16,9 +16,10 @@ module Moodle2CC::Moodle2::Parsers
 
     private
 
-    def parse_page(page_dir)
+    def parse_page(dir)
       page = Moodle2CC::Moodle2::Models::Page.new
-      File.open(File.join(@backup_dir, page_dir, PAGE_XML)) do |f|
+      activity_dir = File.join(@backup_dir, dir)
+      File.open(File.join(activity_dir, PAGE_XML)) do |f|
         page_xml = Nokogiri::XML(f)
         page.id = page_xml.at_xpath('/activity/page/@id').value
         page.module_id = page_xml.at_xpath('/activity/@moduleid').value
@@ -34,6 +35,8 @@ module Moodle2CC::Moodle2::Parsers
         page.revision = parse_text(page_xml, '/activity/page/revision')
         page.time_modified = parse_text(page_xml, '/activity/page/timemodified')
       end
+      parse_module(activity_dir, page)
+
       page
     end
 

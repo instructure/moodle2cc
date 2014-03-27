@@ -10,7 +10,7 @@ module Moodle2CC::Moodle2::Models::Quizzes
                   :nav_method, :shuffle_questions, :shuffle_answers, :sum_grades,
                   :grade, :time_created, :time_modified, :password, :subnet,
                   :browser_security, :delay1, :delay2, :show_user_picture, :show_blocks,
-                  :question_instances, :feedbacks
+                  :question_instances, :feedbacks, :visible
 
     def initialize
       @question_instances = []

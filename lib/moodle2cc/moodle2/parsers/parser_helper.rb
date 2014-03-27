@@ -2,6 +2,7 @@ module Moodle2CC::Moodle2::Parsers
   module ParserHelper
 
     XML_NULL_VALUE = '$@NULL@$'
+    MODULE_XML = 'module.xml'
 
     def activity_directories(work_dir, activity_types)
       File.open(File.join(work_dir, Moodle2CC::Moodle2::Extractor::MOODLE_BACKUP_XML)) do |f|
@@ -21,6 +22,14 @@ module Moodle2CC::Moodle2::Parsers
     def parse_boolean(node, xpath)
       value = parse_text(node, xpath)
       value && (value == '1' || value.downcase == 'true') ? true : false
+    end
+
+    def parse_module(activity_dir, activity)
+      File.open(File.join(activity_dir, MODULE_XML)) do |f|
+        xml = Nokogiri::XML(f)
+        activity.visible = parse_boolean(xml, '/module/visible')
+      end
+      activity
     end
 
   end

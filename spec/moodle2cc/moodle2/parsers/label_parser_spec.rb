@@ -14,6 +14,7 @@ module Moodle2CC::Moodle2
       expect(label.intro).to eq  '<p>This is some label text</p>'
       expect(label.intro_format).to eq '1'
       expect(label.module_id).to eq '11'
+      expect(label.visible).to eq true
     end
 
   end

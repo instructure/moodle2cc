@@ -28,6 +28,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :scale
     it_behaves_like 'it has an attribute for', :completion_entries
     it_behaves_like 'it has an attribute for', :module_id
+    it_behaves_like 'it has an attribute for', :visible
     it_behaves_like 'it has an attribute for', :entries, []
 
   end

@@ -16,9 +16,10 @@ module Moodle2CC::Moodle2::Parsers
 
     private
 
-    def parse_glossary(glossary_dir)
+    def parse_glossary(dir)
       glossary = Moodle2CC::Moodle2::Models::Glossary.new
-      File.open(File.join(@backup_dir, glossary_dir, GLOSSARY_XML)) do |f|
+      activity_dir = File.join(@backup_dir, dir)
+      File.open(File.join(activity_dir, GLOSSARY_XML)) do |f|
         glossary_xml = Nokogiri::XML(f)
         glossary.id = glossary_xml.at_xpath('/activity/glossary/@id').value
         glossary.module_id = glossary_xml.at_xpath('/activity/@moduleid').value
@@ -47,6 +48,8 @@ module Moodle2CC::Moodle2::Parsers
         glossary.completion_entries = parse_text(glossary_xml, '/activity/glossary/completionentries')
         glossary.entries += parse_glossary_entry(glossary_xml.search('/activity/glossary/entries/entry'))
       end
+      parse_module(activity_dir, glossary)
+
       glossary
     end
 

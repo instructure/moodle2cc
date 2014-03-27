@@ -31,5 +31,6 @@ describe Moodle2CC::Moodle2::Models::Assignment do
   it_behaves_like 'it has an attribute for', :feedback_comments
   it_behaves_like 'it has an attribute for', :feedback_files
   it_behaves_like 'it has an attribute for', :offline_grading_worksheet
+  it_behaves_like 'it has an attribute for', :visible
 
 end

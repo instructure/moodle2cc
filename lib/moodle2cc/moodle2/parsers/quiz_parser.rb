@@ -18,8 +18,8 @@ module Moodle2CC::Moodle2::Parsers
 
     def parse_quiz(dir)
       quiz = Moodle2CC::Moodle2::Models::Quizzes::Quiz.new
-
-      File.open(File.join(@backup_dir, dir, QUIZ_XML)) do |f|
+      activity_dir = File.join(@backup_dir, dir)
+      File.open(File.join(activity_dir, QUIZ_XML)) do |f|
         xml = Nokogiri::XML(f)
         quiz.id = xml.at_xpath('/activity/quiz/@id').value
         quiz.module_id = xml.at_xpath('/activity/@moduleid').value
@@ -78,6 +78,8 @@ module Moodle2CC::Moodle2::Parsers
           }
         end
       end
+      parse_module(activity_dir, quiz)
+
       quiz
     end
 
