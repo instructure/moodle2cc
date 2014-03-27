@@ -81,6 +81,7 @@ module Moodle2CC
     autoload :MultipleBlanksQuestionWriter, 'moodle2cc/canvas_cc/multiple_blanks_question_writer'
     autoload :MultipleChoiceQuestionWriter, 'moodle2cc/canvas_cc/multiple_choice_question_writer'
     autoload :ShortAnswerQuestionWriter, 'moodle2cc/canvas_cc/short_answer_question_writer'
+    autoload :TextOnlyQuestionWriter, 'moodle2cc/canvas_cc/text_only_question_writer'
     autoload :TrueFalseQuestionWriter, 'moodle2cc/canvas_cc/true_false_question_writer'
 
     autoload :QuestionBankWriter, 'moodle2cc/canvas_cc/question_bank_writer'

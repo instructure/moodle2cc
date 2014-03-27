@@ -18,6 +18,7 @@ module Moodle2CC::Moodle2
     end
 
     # simple question types
+    register_parser_type('description')
     register_parser_type('essay')
 
     def parse_question(node, question_type = nil)
