@@ -4,7 +4,7 @@ module Moodle2CC
   describe Moodle2Converter::CourseConverter do
 
     it 'should convert a moodle course to a canvas course' do
-      moodle_course = Moodle2::Model::Course.new
+      moodle_course = Moodle2::Models::Course.new
       moodle_course.fullname = 'Full Name'
       moodle_course.shortname = 'Short Name'
       moodle_course.startdate = Time.parse('Sat, 08 Feb 2014 16:00:00 GMT')

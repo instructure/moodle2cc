@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Moodle2CC::Moodle2::Model::Section do
+describe Moodle2CC::Moodle2::Models::Section do
 
   it_behaves_like 'it has an attribute for', :id
   it_behaves_like 'it has an attribute for', :number

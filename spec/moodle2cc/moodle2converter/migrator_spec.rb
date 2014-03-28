@@ -169,11 +169,5 @@ module Moodle2CC
       migrator.imscc_path.should == 'out_dir'
     end
 
-    it 'converts assignments' do
-      Moodle2CC::Moodle2Converter::AssignmentConverter.any_instance.stub(:convert).and_return('assignment')
-      migrator.migrate
-      expect(canvas_course.assignments).to eq ['assignment', 'assignment']
-    end
-
   end
 end

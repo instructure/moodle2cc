@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parsers
   describe CourseParser do
 
     it 'should parse a course' do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Moodle2CC::Moodle2
+module Moodle2CC::Moodle2::Parsers
   describe SectionParser do
 
     it 'should parse sections' do

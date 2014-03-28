@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Moodle2CC::Moodle2::Model::Moodle2File do
+describe Moodle2CC::Moodle2::Models::Moodle2File do
 
   it_behaves_like 'it has an attribute for', :id
   it_behaves_like 'it has an attribute for', :content_hash

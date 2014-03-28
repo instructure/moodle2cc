@@ -4,7 +4,6 @@ module Moodle2CC
   describe Moodle2Converter::FileConverter do
 
     it 'should convert a moodle file to a canvas file' do
-      moodle_file = Moodle2::Model::Moodle2File.new
       moodle_file = Moodle2::Models::Moodle2File.new
       moodle_file.content_hash = 'abcde'
       moodle_file.file_location = 'path_to_file'
