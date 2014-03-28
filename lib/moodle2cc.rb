@@ -80,6 +80,7 @@ module Moodle2CC
     autoload :EssayQuestionWriter, 'moodle2cc/canvas_cc/essay_question_writer'
     autoload :MultipleBlanksQuestionWriter, 'moodle2cc/canvas_cc/multiple_blanks_question_writer'
     autoload :MultipleChoiceQuestionWriter, 'moodle2cc/canvas_cc/multiple_choice_question_writer'
+    autoload :NumericalQuestionWriter, 'moodle2cc/canvas_cc/numerical_question_writer'
     autoload :ShortAnswerQuestionWriter, 'moodle2cc/canvas_cc/short_answer_question_writer'
     autoload :TextOnlyQuestionWriter, 'moodle2cc/canvas_cc/text_only_question_writer'
     autoload :TrueFalseQuestionWriter, 'moodle2cc/canvas_cc/true_false_question_writer'
