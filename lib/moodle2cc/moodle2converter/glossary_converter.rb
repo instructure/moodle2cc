@@ -13,6 +13,7 @@ module Moodle2CC::Moodle2Converter
       canvas_page.workflow_state = 'active'
       canvas_page.editing_roles = 'teachers,students'
       canvas_page.body = generate_body(moodle_glossary)
+      canvas_page.workflow_state = workflow_state(moodle_glossary.visible)
       canvas_page
     end
 

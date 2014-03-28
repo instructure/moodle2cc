@@ -14,6 +14,7 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
   it_behaves_like 'it has an attribute for', :shuffle_answers
   it_behaves_like 'it has an attribute for', :time_limit
   it_behaves_like 'it has an attribute for', :quiz_type
+  it_behaves_like 'it has an attribute for', :workflow_state
 
   it_behaves_like 'it has an attribute for', :question_references, []
   it_behaves_like 'it has an attribute for', :questions

@@ -5,6 +5,7 @@ module Moodle2CC
     let(:moodle2_book) {
       Moodle2::Models::Book.new.tap do |moodle2_book|
         moodle2_book.name = 'Book Name'
+        moodle2_book.visible = false
       end
     }
 
@@ -21,6 +22,7 @@ module Moodle2CC
 
         canvas_pages.each do |item|
           expect(item).to be_a CanvasCC::Models::Page
+          expect(item.workflow_state).to eq 'unpublished'
         end
       end
 
@@ -65,7 +67,7 @@ module Moodle2CC
         label = module_items.first
 
         expect(label.content_type).to eq 'ContextModuleSubHeader'
-        expect(label.workflow_state).to eq 'active'
+        expect(label.workflow_state).to eq 'unpublished'
         expect(label.title).to eq 'Book Name'
         expect(label.indent).to eq '0'
         expect(label.identifier).to eq 'some_unique_uuid'
@@ -77,7 +79,7 @@ module Moodle2CC
         intro = module_items.last
 
         expect(intro.content_type).to eq 'WikiPage'
-        expect(intro.workflow_state).to eq 'active'
+        expect(intro.workflow_state).to eq 'unpublished'
         expect(intro.title).to eq 'Introduction'
         expect(intro.identifier).to eq 'some_unique_uuid'
         expect(intro.identifierref).to eq 'm2d41d8cd98f00b204e9800998ecf8427e_book_intro'

@@ -7,6 +7,7 @@ module Moodle2CC::Moodle2Converter
       canvas_assessment.identifier = generate_unique_identifier_for(moodle_quiz.id, ASSESSMENT_SUFFIX)
       canvas_assessment.title = moodle_quiz.name
       canvas_assessment.description = moodle_quiz.intro
+      canvas_assessment.workflow_state = workflow_state(moodle_quiz.visible)
 
       canvas_assessment.lock_at = Time.at(Integer(moodle_quiz.time_close)) if moodle_quiz.time_close
       canvas_assessment.unlock_at = Time.at(Integer(moodle_quiz.time_open)) if moodle_quiz.time_open

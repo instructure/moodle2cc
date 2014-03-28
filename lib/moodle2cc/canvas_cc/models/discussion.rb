@@ -1,6 +1,6 @@
 module Moodle2CC::CanvasCC::Models
   class Discussion
-    attr_accessor :identifier, :title, :text, :discussion_type
+    attr_accessor :identifier, :title, :text, :discussion_type, :workflow_state
     DISCUSSION_ID_POSTFIX = '_DISCUSSION'
     DISCUSSION_META_POSTFIX = '_meta'
     IMSDT_TYPE = 'imsdt_xmlv1p1'

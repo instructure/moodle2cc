@@ -8,6 +8,7 @@ module Moodle2CC
     let(:moodle_glossary) do
       glossary = Moodle2::Models::Glossary.new
       glossary.name = 'Glossary Name'
+      glossary.visible = false
       glossary.id = '1'
       2.times do |i|
         entry = Moodle2::Models::GlossaryEntry.new
@@ -23,7 +24,7 @@ module Moodle2CC
       canvas_page = subject.convert(moodle_glossary)
       expect(canvas_page.identifier).to eq 'm2c4ca4238a0b923820dcc509a6f75849b_glossary'
       expect(canvas_page.title).to eq 'Glossary Name'
-      expect(canvas_page.workflow_state).to eq('active')
+      expect(canvas_page.workflow_state).to eq('unpublished')
       expect(canvas_page.editing_roles).to eq('teachers,students')
 
       expect(canvas_page.body).to include('<h2>Glossary Name</h2>')

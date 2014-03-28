@@ -8,6 +8,7 @@ module Moodle2CC
       forum.id = '3'
       forum.name = 'Forum Name'
       forum.intro = 'Forum Introduction'
+      forum.visible = false
 
       discussion = subject.convert(forum)
 
@@ -15,6 +16,7 @@ module Moodle2CC
       expect(discussion.title).to eq 'Forum Name'
       expect(discussion.text).to eq 'Forum Introduction'
       expect(discussion.discussion_type).to eq 'threaded'
+      expect(discussion.workflow_state).to eq 'unpublished'
 
     end
   end

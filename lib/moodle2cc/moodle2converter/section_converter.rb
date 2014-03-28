@@ -14,7 +14,7 @@ module Moodle2CC
       canvas_module = CanvasCC::Models::CanvasModule.new
       canvas_module.identifier = generate_unique_identifier_for(moodle_section.id, MODULE_SUFFIX)
       canvas_module.title = moodle_section.name
-      canvas_module.workflow_state = moodle_section.visible ? CanvasCC::Models::WorkflowState::ACTIVE : CanvasCC::Models::WorkflowState::UNPUBLISHED
+      canvas_module.workflow_state = workflow_state(moodle_section.visible)
 
       canvas_module.module_items += convert_activity(moodle_section) if moodle_section.summary && !moodle_section.summary.strip.empty?
       canvas_module.module_items += moodle_section.activities.map { |a| convert_activity(a) }
@@ -27,7 +27,7 @@ module Moodle2CC
       canvas_page = CanvasCC::Models::Page.new
       canvas_page.identifier = generate_unique_identifier_for_activity(moodle_section)
       canvas_page.title = moodle_section.name
-      canvas_page.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
+      canvas_page.workflow_state = workflow_state(moodle_section.visible)
       canvas_page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
       canvas_page.body = moodle_section.summary
       canvas_page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT, "#{moodle_section.name} summary")
@@ -46,7 +46,7 @@ module Moodle2CC
     def convert_to_module_items(moodle_activity)
       module_item = CanvasCC::Models::ModuleItem.new
       module_item.identifier = generate_unique_identifier
-      module_item.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
+      module_item.workflow_state = workflow_state(moodle_activity.visible)
       module_item.title = moodle_activity.name
       module_item.identifierref = generate_unique_identifier_for_activity(moodle_activity) unless moodle_activity.is_a? Moodle2::Models::Label
       module_item.content_type = activity_content_type(moodle_activity)

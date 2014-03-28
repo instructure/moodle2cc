@@ -25,6 +25,7 @@ module Moodle2CC
     it 'converts a moodle folder to a canvas page' do
       moodle2_folder.id = '3'
       moodle2_folder.name = 'Folder Name'
+      moodle2_folder.visible = true
       canvas_page = subject.convert(moodle2_folder)
       expect(canvas_page.identifier).to eq 'm2eccbc87e4b5ce2fe28308fd9f2a7baf3_folder'
       expect(canvas_page.title).to eq 'Folder Name'

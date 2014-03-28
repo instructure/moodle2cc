@@ -126,6 +126,18 @@ module Moodle2CC
       end
     end
 
+    describe '#workflow_state' do
+
+      it 'returns "active" for true' do
+        expect(subject.workflow_state(true)).to eq 'active'
+      end
+
+      it 'returns "unpublished" for false' do
+        expect(subject.workflow_state(false)).to eq 'unpublished'
+      end
+
+    end
+
 
   end
 end

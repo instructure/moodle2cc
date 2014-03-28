@@ -7,7 +7,7 @@ module Moodle2CC::CanvasCC::Models
     LAR_TYPE = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
     ASSESSMENT_NON_CC_FOLDER = 'non_cc_assessments'
 
-    attr_accessor :identifier, :question_references, :questions, *META_ATTRIBUTES, *DATETIME_ATTRIBUTES
+    attr_accessor :identifier, :workflow_state, :question_references, :questions, *META_ATTRIBUTES, *DATETIME_ATTRIBUTES
 
     def initialize
       @question_references = []

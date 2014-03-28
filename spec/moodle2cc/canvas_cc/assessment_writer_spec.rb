@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Moodle2CC::CanvasCC
-  describe AssignmentWriter do
+  describe AssessmentWriter do
     subject { Moodle2CC::CanvasCC::AssessmentWriter.new(work_dir, assessment) }
     let(:work_dir) { Dir.mktmpdir }
     let(:assessment) { Moodle2CC::CanvasCC::Models::Assessment.new }

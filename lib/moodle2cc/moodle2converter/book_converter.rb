@@ -15,6 +15,7 @@ module Moodle2CC
         page = create_page(moodle_chapter.title)
         page.identifier = generate_unique_identifier_for_activity(moodle_chapter)
         page.body = moodle_chapter.content
+        page.workflow_state = workflow_state(moodle_book.visible)
         page
       end
 
@@ -44,6 +45,7 @@ module Moodle2CC
       module_item.title = moodle_book.name
       module_item.indent = "0"
       module_item.identifier = generate_unique_identifier()
+      module_item.workflow_state = workflow_state(moodle_book.visible)
 
       module_item
     end
@@ -54,6 +56,7 @@ module Moodle2CC
       module_item.indent = '1'
       module_item.identifier = generate_unique_identifier()
       module_item.identifierref = generate_unique_identifier_for_book_intro(moodle_book)
+      module_item.workflow_state = workflow_state(moodle_book.visible)
 
       module_item
     end

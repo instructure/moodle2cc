@@ -7,6 +7,7 @@ module Moodle2CC::CanvasCC::Models
     it_behaves_like 'it has an attribute for', :text
     it_behaves_like 'it has an attribute for', :discussion_type
     it_behaves_like 'it has an attribute for', :identifier
+    it_behaves_like 'it has an attribute for', :workflow_state
 
     it 'creates resource' do
       subject.stub(:discussion_resource) { :discussion_resource }

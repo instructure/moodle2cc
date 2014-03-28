@@ -17,6 +17,7 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     moodle_quiz.subnet = "255.255.255.0"
     moodle_quiz.shuffle_answers = false
     moodle_quiz.time_limit = "100"
+    moodle_quiz.visible = false
 
     canvas_assessment = subject.convert(moodle_quiz)
 
@@ -35,6 +36,7 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     expect(canvas_assessment.time_limit).to eq 100
     expect(canvas_assessment.quiz_type).to eq 'practice_quiz'
     expect(canvas_assessment.question_references).to eq moodle_quiz.question_instances
+    expect(canvas_assessment.workflow_state).to eq Moodle2CC::CanvasCC::Models::WorkflowState::UNPUBLISHED
 
     moodle_quiz.attempts_number = 0 # Infinite attempts
     moodle_quiz.grade_method = 4

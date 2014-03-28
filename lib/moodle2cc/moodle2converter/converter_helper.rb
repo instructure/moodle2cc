@@ -55,5 +55,10 @@ module Moodle2CC
       end
     end
 
+    def workflow_state(moodle_visibility)
+      moodle_visibility ? CanvasCC::Models::WorkflowState::ACTIVE : CanvasCC::Models::WorkflowState::UNPUBLISHED
+    end
+
+
   end
 end

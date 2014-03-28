@@ -45,6 +45,7 @@ module Moodle2CC
         subject.stub(:generate_unique_identifier).and_return('some_random_id')
         moodle_section.name = 'Name'
         moodle_section.summary = 'Summary Content'
+        moodle_section.visible = true
 
         page = subject.convert_to_summary_page(moodle_section)
 
@@ -88,6 +89,7 @@ module Moodle2CC
         moodle_page = Moodle2::Models::Page.new
         moodle_page.id = '1'
         moodle_page.name = 'page title'
+        moodle_page.visible = true
 
         module_items = subject.convert_to_module_items(moodle_page)
         expect(module_items.size).to eq 1
@@ -107,6 +109,7 @@ module Moodle2CC
 
         moodle_section.id = '1'
         moodle_section.name = 'page title'
+        moodle_section.visible = false
 
         module_items = subject.convert_to_module_items(moodle_section)
         expect(module_items.size).to eq 1
@@ -114,7 +117,7 @@ module Moodle2CC
         module_item = module_items.first
 
         expect(module_item.identifier).to eq 'some_random_id'
-        expect(module_item.workflow_state).to eq 'active'
+        expect(module_item.workflow_state).to eq 'unpublished'
         expect(module_item.title).to eq 'page title'
         expect(module_item.identifierref).to eq 'm2c4ca4238a0b923820dcc509a6f75849b_summary_page'
         expect(module_item.content_type).to eq 'WikiPage'
@@ -127,6 +130,7 @@ module Moodle2CC
         moodle_label = Moodle2::Models::Label.new
         moodle_label.id = '1'
         moodle_label.name = 'label title'
+        moodle_label.visible = true
 
         module_items = subject.convert_to_module_items(moodle_label)
         expect(module_items.size).to eq 1

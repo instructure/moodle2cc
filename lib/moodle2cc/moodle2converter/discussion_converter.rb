@@ -9,6 +9,7 @@ module Moodle2CC::Moodle2Converter
       discussion.title = forum.name
       discussion.text = forum.intro
       discussion.discussion_type = 'threaded'
+      discussion.workflow_state = workflow_state(forum.visible)
 
       discussion
     end
