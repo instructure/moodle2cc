@@ -37,7 +37,7 @@ module Moodle2CC::Moodle2Converter
       if tag.name == 'a'
         href = tag['href']
         match = href.match(/\.([A-z0-9]+)?/)
-        if(match && MEDIA_TYPES.key?(match.captures[0]))
+        if (match && MEDIA_TYPES.key?(match.captures[0]))
           html = tag.to_s
           tag.delete('href')
           tag.name = 'audio'
@@ -48,12 +48,14 @@ module Moodle2CC::Moodle2Converter
     end
 
     def update_url(link)
-      if cc_file = lookup_cc_file(link)
-        "#{WEB_CONTENT_TOKEN}#{cc_file.file_path}"
+      if canvas_link = lookup_cc_file(link)
+        canvas_link
       elsif match = link.match(/\/mod\/(page|forum|assignment)\/view\.php\?.*id=(\d*)(#.*)?/)
         lookup_cc_link(match.captures[0], match.captures[1], match.captures[2]) || link
       elsif match = CGI::unescape(link).match(/\$\@ASSIGNVIEWBYID\*(\d*)@\$/)
         lookup_cc_link('assignment', match.captures[0], nil) || link
+      elsif match = link.match(/file.php\/\d*(\/.*)/)
+        file_link(match.captures.first) || link
       else
         link
       end
@@ -61,7 +63,13 @@ module Moodle2CC::Moodle2Converter
 
     def lookup_cc_file(link)
       if match = link.match(/@@PLUGINFILE@@(.*)/)
-        @file_index[CGI::unescape(match.captures.first)]
+        file_link(match.captures.first) || link
+      end
+    end
+
+    def file_link(moodle_path)
+      if cc_file = @file_index[CGI::unescape(moodle_path)]
+        "#{WEB_CONTENT_TOKEN}#{cc_file.file_path}"
       end
     end
 

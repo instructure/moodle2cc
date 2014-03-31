@@ -109,7 +109,7 @@ module Moodle2CC
       expect(html.css('a[href]').first.attr('href')).to eq '%24CANVAS_OBJECT_REFERENCE%24/assignments/m2c98831cde22c0529955a2218a2ed66bc_assignment'
     end
 
-    it 'repaces @assignview links with canvas links' do
+    it 'replaces @assignview links with canvas links' do
       assignment = Moodle2::Models::Assignment.new
       assignment.id = '56439'
       assignment.name = 'my_page_name'
@@ -127,6 +127,26 @@ module Moodle2CC
       html = Nokogiri::HTML.fragment(subject.convert(content))
 
       expect(html.css('a[href]').first.attr('href')).to eq 'http://moodle.install.edu/mod/assignment/view.php?id=56439'
+    end
+
+    it 'replaces moodle file urls' do
+      file = CanvasCC::Models::CanvasFile.new
+      file.identifier = 'content_hash'
+      file.file_path = '/graphics/'+ 'arrow.JPG'
+      file
+      canvas_course.files << file
+
+      file = Moodle2::Models::Moodle2File.new
+      file.id = 'moodle_file_id'
+      file.content_hash = 'content_hash'
+      file.file_name = 'arrow.JPG'
+      file.file_path = '/graphics/'
+      moodle_course.files << file
+
+      content = '<p> a link to <a href="http://moodle.extn.washington.edu/file.php/908/graphics/arrow.JPG">link</a></p>'
+      html = Nokogiri::HTML.fragment(subject.convert(content))
+      expect(html.css('a[href]').first.attr('href')).to eq '%24IMS_CC_FILEBASE%24/graphics/arrow.JPG'
+
     end
 
     context 'audio link conversion' do
