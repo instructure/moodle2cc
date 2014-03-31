@@ -6,6 +6,7 @@ module Moodle2CC::Moodle2Converter
     COURSE_TOKEN = "$CANVAS_COURSE_REFERENCE$"
     WIKI_TOKEN = "$WIKI_REFERENCE$"
     WEB_CONTENT_TOKEN = "$IMS_CC_FILEBASE$"
+    MEDIA_TYPES = {'mp3' => 'audio/mp3', 'wav' => 'audio/wav', 'mp4' => 'video/mp4', 'webm' => 'video/webm'}
 
     def initialize(canvas_files, moodle_course)
       @moodle_course = moodle_course
@@ -24,9 +25,26 @@ module Moodle2CC::Moodle2Converter
     def update_links(content)
       html = Nokogiri::HTML.fragment(content)
       html.css('img').each { |img| img['src'] = update_url(img.attr('src')) }
-      html.css('a[href]').each { |tag| tag['href'] = update_url(tag.attr('href')) }
+      html.css('a[href]').each do |tag|
+        tag['href'] = update_url(tag.attr('href'))
+        replace_media_anchor(tag)
+      end
       html.css('link[href]').each { |tag| tag.remove }
       html.to_s
+    end
+
+    def replace_media_anchor(tag)
+      if tag.name == 'a'
+        href = tag['href']
+        match = href.match(/\.([A-z0-9]+)?/)
+        if(match && MEDIA_TYPES.key?(match.captures[0]))
+          html = tag.to_s
+          tag.delete('href')
+          tag.name = 'audio'
+          tag['controls'] = 'controls'
+          tag.children = "<source src=\"#{href}\" type=\"#{MEDIA_TYPES[match.captures[0]]}\"></source>#{html.to_s}"
+        end
+      end
     end
 
     def update_url(link)

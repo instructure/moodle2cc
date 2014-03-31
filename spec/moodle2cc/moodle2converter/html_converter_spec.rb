@@ -129,5 +129,38 @@ module Moodle2CC
       expect(html.css('a[href]').first.attr('href')).to eq 'http://moodle.install.edu/mod/assignment/view.php?id=56439'
     end
 
+    context 'audio link conversion' do
+      it 'converts mp3 links to html5 audio tags' do
+        content = '<a href="/some/path/to/music.mp3">My Music</a>'
+        html = subject.convert(content)
+
+        expect(html).to eq '<audio controls="controls"><source src="/some/path/to/music.mp3" type="audio/mp3"></source><a href="/some/path/to/music.mp3">My Music</a></audio>'
+      end
+
+      it 'converts wav links to html5 audio tags' do
+        content = '<a href="/some/path/to/music.wav">My Music</a>'
+        html = subject.convert(content)
+
+        expect(html).to eq '<audio controls="controls"><source src="/some/path/to/music.wav" type="audio/wav"></source><a href="/some/path/to/music.wav">My Music</a></audio>'
+      end
+    end
+
+    context 'video link conversion' do
+      it 'converts mp4 links to html5 video tags' do
+        content = '<a href="/some/path/to/video.mp4">My Video</a>'
+        html = subject.convert(content)
+
+        expect(html).to eq '<audio controls="controls"><source src="/some/path/to/video.mp4" type="video/mp4"></source><a href="/some/path/to/video.mp4">My Video</a></audio>'
+      end
+
+      it 'converts webm links to html5 video tags' do
+        content = '<a href="/some/path/to/video.webm">My Video</a>'
+        html = subject.convert(content)
+
+        expect(html).to eq '<audio controls="controls"><source src="/some/path/to/video.webm" type="video/webm"></source><a href="/some/path/to/video.webm">My Video</a></audio>'
+      end
+   end
+
+
   end
 end
