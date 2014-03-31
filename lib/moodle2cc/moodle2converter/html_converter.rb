@@ -12,7 +12,7 @@ module Moodle2CC::Moodle2Converter
       @moodle_course = moodle_course
       @file_index = {}
       @moodle_course.files.each do |f|
-        @file_index[f.file_path + f.file_name] = canvas_files.find { |cc_f| cc_f.identifier == f.content_hash }
+        @file_index[f.file_path.downcase + f.file_name.downcase] = canvas_files.find { |cc_f| cc_f.identifier == f.content_hash }
       end
     end
 
@@ -68,7 +68,7 @@ module Moodle2CC::Moodle2Converter
     end
 
     def file_link(moodle_path)
-      if cc_file = @file_index[CGI::unescape(moodle_path)]
+      if cc_file = @file_index[CGI::unescape(moodle_path).downcase]
         "#{WEB_CONTENT_TOKEN}#{cc_file.file_path}"
       end
     end
