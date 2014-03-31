@@ -42,7 +42,7 @@ module Moodle2CC::CanvasCC
     end
 
     def write_assessment_non_cc_qti_xml(assessment)
-      raise "need to resolve questions references" if assessment.questions.nil?
+      raise "need to resolve questions references" if assessment.items.nil?
 
       xml = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
         xml.questestinterop("xmlns" => "http://www.imsglobal.org/xsd/ims_qtiasiv1p2",
@@ -61,8 +61,13 @@ module Moodle2CC::CanvasCC
               end
             end
             assessment_node.section(:ident => 'root_section') do |section_node|
-              assessment.questions.each do |question|
-                Moodle2CC::CanvasCC::QuestionWriter.write_question(section_node, question)
+              assessment.items.each do |item|
+                case item
+                when Moodle2CC::CanvasCC::Models::Question
+                  Moodle2CC::CanvasCC::QuestionWriter.write_question(section_node, item)
+                when Moodle2CC::CanvasCC::Models::QuestionGroup
+                  Moodle2CC::CanvasCC::QuestionGroupWriter.write_question_group(section_node, item)
+                end
               end
             end
           end

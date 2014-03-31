@@ -29,7 +29,7 @@ module Moodle2CC::CanvasCC
       assessment.shuffle_answers = "every day i'm shuffling answers"
       assessment.quiz_type = 'the best kind of quiz'
 
-      assessment.questions = []
+      assessment.items = []
       subject.write
 
       xml = Nokogiri::XML(File.read(File.join(work_dir, assessment.meta_file_path)))
@@ -61,7 +61,7 @@ module Moodle2CC::CanvasCC
 
       question = Moodle2CC::CanvasCC::Models::Question.new
       question.identifier = 42
-      assessment.questions = [question]
+      assessment.items = [question]
 
       QuestionWriter.register_writer_type(nil)
       QuestionWriter.stub(:write_responses)

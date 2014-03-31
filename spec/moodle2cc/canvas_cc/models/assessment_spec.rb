@@ -17,7 +17,7 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
   it_behaves_like 'it has an attribute for', :workflow_state
 
   it_behaves_like 'it has an attribute for', :question_references, []
-  it_behaves_like 'it has an attribute for', :questions
+  it_behaves_like 'it has an attribute for', :items
 
   it 'creates a resource' do
     subject.stub(:assessment_resource) {:assessment_resource}
@@ -43,6 +43,7 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
       {:question => '1', :grade => '2'},
       {:question => '2', :grade => '3'},
       {:question => '3', :grade => '5'},
+      {:question => 'grouppy', :grade => '8.0'},
       {:question => 'nonexistent', :grade => '4'}
     ]
 
@@ -58,12 +59,19 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
     q3.identifier = '2'
     qb2.questions = [q3]
 
+    group = Moodle2CC::CanvasCC::Models::QuestionGroup.new
+    group.selection_number = 4
+    group.identifier = 'grouppy'
+    group.questions = [q2]
+    qb2.question_groups = [group]
+
     subject.resolve_question_references([qb1, qb2])
 
-    expect(subject.questions.count).to eq 3
-    expect(subject.questions.detect{|q| q.identifier == '1'}.points_possible).to eq '2'
-    expect(subject.questions.detect{|q| q.identifier == '2'}.points_possible).to eq '3'
-    expect(subject.questions.detect{|q| q.identifier == '3'}.points_possible).to eq '5'
+    expect(subject.items.count).to eq 3
+    expect(subject.items.detect{|q| q.identifier == '1'}.points_possible).to eq '2'
+    expect(subject.items.detect{|q| q.identifier == '2'}.points_possible).to eq '3'
+    # should not include q2 because it's already part of the group
+    expect(subject.items.detect{|q| q.identifier == group.identifier}.points_per_item).to eq 2
   end
 
 

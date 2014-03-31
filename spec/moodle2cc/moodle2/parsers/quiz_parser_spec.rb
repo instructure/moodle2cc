@@ -38,7 +38,7 @@ describe Moodle2CC::Moodle2::Parsers::QuizParser do
     expect(quiz.shuffle_questions).to eq false
     expect(quiz.shuffle_answers).to eq false
 
-    expect(quiz.sum_grades).to eq '14.00000'
+    expect(quiz.sum_grades).to eq '15.00000'
     expect(quiz.grade).to eq '100.00000'
     expect(quiz.time_created).to eq '0'
     expect(quiz.time_modified).to eq '1394656152'
@@ -52,11 +52,11 @@ describe Moodle2CC::Moodle2::Parsers::QuizParser do
     expect(quiz.visible).to eq true
 
     expect(quiz.question_instances.map{|q| q[:question]}).to eq (
-      ['1', '2', '3', '4', '10', '11', '12', '13', '14', '15']
+      ['1', '2', '3', '4', '10', '11', '12', '13', '14', '15', '17']
     )
     expect(quiz.question_instances.map{|q| q[:grade]}).to eq (
       ["1.0000000", "1.0000000", "1.0000000", "5.0000000", "1.0000000",
-       "1.0000000", "1.0000000", "1.0000000", "1.0000000", "1.0000000"]
+       "1.0000000", "1.0000000", "1.0000000", "1.0000000", "1.0000000", "1.0000000"]
     )
 
     expect(quiz.feedbacks.map{|f| f[:text]}).to eq ['<p>100% feedback</p>', '<p>50% feedback</p>']

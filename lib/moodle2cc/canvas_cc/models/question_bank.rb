@@ -1,10 +1,11 @@
 module Moodle2CC::CanvasCC::Models
   class QuestionBank
 
-    attr_accessor :identifier, :title, :questions
+    attr_accessor :identifier, :title, :questions, :question_groups
 
     def initialize
       @questions = []
+      @question_groups = []
     end
 
     LAR_TYPE = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
