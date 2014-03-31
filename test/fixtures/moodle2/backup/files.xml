@@ -484,4 +484,48 @@
     <repositoryid>$@NULL@$</repositoryid>
     <reference>$@NULL@$</reference>
   </file>
+  <file id="86">
+    <contenthash>67859b142e5ba020a84c3166f09d59ef992379a4</contenthash>
+    <contextid>33</contextid>
+    <component>mod_resource</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>Allegro from Duet in C Major.mp3</filename>
+    <userid>2</userid>
+    <filesize>1430174</filesize>
+    <mimetype>audio/mp3</mimetype>
+    <status>0</status>
+    <timecreated>1395924904</timecreated>
+    <timemodified>1395924919</timemodified>
+    <source>Server files: Miscellaneous/Sample Course/My Sample Page (Page)/Page content/Allegro from Duet in C Major.mp3</source>
+    <author>Admin User</author>
+    <license>allrightsreserved</license>
+    <sortorder>1</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
+  <file id="87">
+    <contenthash>da39a3ee5e6b4b0d3255bfef95601890afd80709</contenthash>
+    <contextid>33</contextid>
+    <component>mod_resource</component>
+    <filearea>content</filearea>
+    <itemid>0</itemid>
+    <filepath>/</filepath>
+    <filename>.</filename>
+    <userid>2</userid>
+    <filesize>0</filesize>
+    <mimetype>$@NULL@$</mimetype>
+    <status>0</status>
+    <timecreated>1395924904</timecreated>
+    <timemodified>1395924919</timemodified>
+    <source>$@NULL@$</source>
+    <author>$@NULL@$</author>
+    <license>$@NULL@$</license>
+    <sortorder>0</sortorder>
+    <repositorytype>$@NULL@$</repositorytype>
+    <repositoryid>$@NULL@$</repositoryid>
+    <reference>$@NULL@$</reference>
+  </file>
 </files>

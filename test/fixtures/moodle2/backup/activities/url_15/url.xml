@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="15" modulename="url" contextid="34">
+  <url id="1">
+    <name>my sample url</name>
+    <intro>&lt;p&gt;Sample url description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <externalurl>http://www.youtube.com/v/F7qKiVjCfuM#Monkey Island 2 Special Edition Funny Moments</externalurl>
+    <display>0</display>
+    <displayoptions>a:2:{s:12:"printheading";i:0;s:10:"printintro";i:1;}</displayoptions>
+    <parameters>a:0:{}</parameters>
+    <timemodified>1395925051</timemodified>
+  </url>
+</activity>

@@ -26,8 +26,8 @@
     <navmethod>free</navmethod>
     <shufflequestions>0</shufflequestions>
     <shuffleanswers>0</shuffleanswers>
-    <questions>1,2,3,4,10,11,12,13,14,15,0</questions>
-    <sumgrades>14.00000</sumgrades>
+    <questions>1,2,3,4,10,11,12,13,14,15,17,0</questions>
+    <sumgrades>15.00000</sumgrades>
     <grade>100.00000</grade>
     <timecreated>0</timecreated>
     <timemodified>1394656152</timemodified>
@@ -77,6 +77,10 @@
       </question_instance>
       <question_instance id="10">
         <question>15</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="11">
+        <question>17</question>
         <grade>1.0000000</grade>
       </question_instance>
     </question_instances>
