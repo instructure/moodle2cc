@@ -4,7 +4,6 @@ module Moodle2CC::Moodle2::Parsers
 
     FOLDER_MODULE_NAME = 'folder'
     FOLDER_XML = 'folder.xml'
-    FILES_XML = 'inforef.xml'
 
     def initialize(backup_dir)
       @backup_dir = backup_dir

@@ -20,6 +20,7 @@ module Moodle2CC::Moodle2::Parsers
       expect(resource.display_options).to eq 'a:2:{s:12:"printheading";i:0;s:10:"printintro";i:0;}'
       expect(resource.filter_files).to eq "0"
       expect(resource.visible).to eq true
+      expect(resource.file_ids).to eq(['15', '16'])
     end
 
   end

@@ -32,8 +32,20 @@ module Moodle2CC::Moodle2::Parsers
         resource.filter_files = parse_text(resource_xml, 'filterfiles')
       end
       parse_module(activity_dir, resource)
-
+      resource.file_ids += parse_files(dir)
       resource
+    end
+
+
+    def parse_files(dir)
+      files = []
+      File.open(File.join(@backup_dir, dir, FILES_XML)) do |f|
+        xml = Nokogiri::XML(f)
+        xml.search('/inforef/fileref/file').each do |node|
+          files << parse_text(node, 'id')
+        end
+      end
+      files
     end
 
   end

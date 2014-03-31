@@ -1,6 +1,7 @@
 module Moodle2CC::Moodle2::Parsers
   module ParserHelper
 
+    FILES_XML = 'inforef.xml'
     XML_NULL_VALUE = '$@NULL@$'
     MODULE_XML = 'module.xml'
 
