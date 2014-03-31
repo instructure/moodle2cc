@@ -19,6 +19,7 @@ module Moodle2CC::Moodle2
       Parsers::QuizParser.any_instance.stub(:parse)
       Parsers::GlossaryParser.any_instance.stub(:parse)
       Parsers::LabelParser.any_instance.stub(:parse)
+      Parsers::ExternalUrlParser.any_instance.stub(:parse)
       Zip::File.stub(:open).and_yield([])
     end
 
@@ -118,10 +119,17 @@ module Moodle2CC::Moodle2
     end
 
     it 'parses labels' do
-      label = Models::Label.new
-      Parsers::LabelParser.any_instance.stub(:parse).and_return([label])
+      external_url = Models::Label.new
+      Parsers::LabelParser.any_instance.stub(:parse).and_return([external_url])
       extractor.extract {}
-      expect(course.labels).to eq [label]
+      expect(course.labels).to eq [external_url]
+    end
+
+    it 'parses external_urls' do
+      external_url = Models::ExternalUrl.new
+      Parsers::ExternalUrlParser.any_instance.stub(:parse).and_return([external_url])
+      extractor.extract {}
+      expect(course.external_urls).to eq [external_url]
     end
 
   end

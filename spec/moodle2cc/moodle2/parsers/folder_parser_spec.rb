@@ -5,7 +5,7 @@ module Moodle2CC::Moodle2::Parsers
 
     subject { FolderParser.new(fixture_path(File.join('moodle2', 'backup'))) }
 
-    it 'parses books' do
+    it 'parses folders' do
       folders = subject.parse
       expect(folders.count).to eq(1)
 

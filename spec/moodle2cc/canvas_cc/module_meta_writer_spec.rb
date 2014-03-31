@@ -50,6 +50,7 @@ module Moodle2CC::CanvasCC
         module_item.title = "Item Title"
         module_item.new_tab = nil
         module_item.indent = "1"
+        module_item.url = 'http://example.com'
 
         module_item.identifierref = 'resource_id'
 
@@ -66,6 +67,7 @@ module Moodle2CC::CanvasCC
         expect(item_node.%('new_tab')).to be_nil
         expect(item_node.%('indent').text).to eq('1')
         expect(item_node.%('identifierref').text).to eq('resource_id')
+        expect(item_node.%('url').text).to eq('http://example.com')
       end
 
       it 'does not write the identifierref if it is not provided' do
@@ -74,6 +76,14 @@ module Moodle2CC::CanvasCC
         xml = write_xml(canvas_module)
 
         expect(xml.%('modules/module/items/item/identifierref')).to be_nil
+      end
+
+      it 'does not write the url if it is not provided' do
+        canvas_module.module_items << module_item
+
+        xml = write_xml(canvas_module)
+
+        expect(xml.%('modules/module/items/item/url')).to be_nil
       end
 
       it 'increments the position for each module item that is written in a module' do

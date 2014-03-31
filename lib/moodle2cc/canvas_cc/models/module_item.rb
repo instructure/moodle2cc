@@ -1,7 +1,7 @@
 module Moodle2CC::CanvasCC::Models
   class ModuleItem
     attr_accessor :identifier, :content_type, :workflow_state, :title,
-                  :new_tab, :indent, :resource, :identifierref
+                  :new_tab, :indent, :resource, :identifierref, :url
 
     CONTENT_TYPE_WIKI_PAGE = 'WikiPage'
     CONTENT_TYPE_ATTACHMENT = 'Attachment'
@@ -10,6 +10,7 @@ module Moodle2CC::CanvasCC::Models
     CONTENT_TYPE_ASSIGNMENT = 'Assignment'
     CONTENT_TYPE_CONTEXT_EXTERNAL_TOOL = 'ContextExternalTool'
     CONTENT_TYPE_QUIZ = 'Quizzes::Quiz'
+    CONTENT_TYPE_EXTERNAL_URL = 'ExternalUrl'
 
   end
 end

@@ -3,7 +3,7 @@ module Moodle2CC
     include Moodle2Converter::ConverterHelper
 
     ACTIVITY_CONVERTERS = {
-        Moodle2::Models::Book => Moodle2Converter::BookConverter
+      Moodle2::Models::Book => Moodle2Converter::BookConverter
     }
 
     def initialize
@@ -48,7 +48,14 @@ module Moodle2CC
       module_item.identifier = generate_unique_identifier
       module_item.workflow_state = workflow_state(moodle_activity.visible)
       module_item.title = moodle_activity.name
-      module_item.identifierref = generate_unique_identifier_for_activity(moodle_activity) unless moodle_activity.is_a? Moodle2::Models::Label
+      unless moodle_activity.is_a? Moodle2::Models::Label
+        if  moodle_activity.is_a? Moodle2::Models::ExternalUrl
+          module_item.identifierref = module_item.identifier
+          module_item.url = moodle_activity.external_url.gsub(/\s/, '%20')
+        else
+          module_item.identifierref = generate_unique_identifier_for_activity(moodle_activity)
+        end
+      end
       module_item.content_type = activity_content_type(moodle_activity)
       module_item.indent = '0'
 

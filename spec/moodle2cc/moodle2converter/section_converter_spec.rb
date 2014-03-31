@@ -145,6 +145,29 @@ module Moodle2CC
         expect(module_item.indent).to eq '0'
       end
 
+      it 'converts a moodle external url to a external url module item' do
+        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+
+        moodle_url = Moodle2::Models::ExternalUrl.new
+        moodle_url.id = '1'
+        moodle_url.name = 'url title'
+        moodle_url.visible = true
+        moodle_url.external_url = 'http://example.com'
+
+        module_items = subject.convert_to_module_items(moodle_url)
+        expect(module_items.size).to eq 1
+
+        module_item = module_items.first
+
+        expect(module_item.identifier).to eq 'some_random_id'
+        expect(module_item.workflow_state).to eq 'active'
+        expect(module_item.title).to eq 'url title'
+        expect(module_item.identifierref).to eq 'some_random_id'
+        expect(module_item.content_type).to eq 'ExternalUrl'
+        expect(module_item.url).to eq 'http://example.com'
+        expect(module_item.indent).to eq '0'
+      end
+
     end
   end
 end

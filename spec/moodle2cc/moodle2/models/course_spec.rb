@@ -13,6 +13,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :glossaries, []
     it_behaves_like 'it has an attribute for', :question_categories, []
     it_behaves_like 'it has an attribute for', :labels, []
+    it_behaves_like 'it has an attribute for', :external_urls, []
 
     describe '#activities' do
       it 'collects pages' do
@@ -43,6 +44,16 @@ module Moodle2CC::Moodle2::Models
       it 'collect labels' do
         subject.labels << :labels
         expect(subject.activities).to eq [:labels]
+      end
+
+      it 'collect glossaries' do
+        subject.glossaries << :glossaries
+        expect(subject.activities).to eq [:glossaries]
+      end
+
+      it 'collect external_urls' do
+        subject.external_urls << :external_urls
+        expect(subject.activities).to eq [:external_urls]
       end
 
     end

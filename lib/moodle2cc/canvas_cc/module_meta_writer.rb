@@ -43,6 +43,7 @@ module Moodle2CC::CanvasCC
           xml.new_tab(item.new_tab) if item.new_tab
           xml.indent(item.indent)
           xml.identifierref(item.identifierref) if item.identifierref
+          xml.url(item.url) if item.url
         }
       end
     end

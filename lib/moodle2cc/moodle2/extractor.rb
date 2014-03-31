@@ -24,6 +24,7 @@ module Moodle2CC::Moodle2
         parse_quizzes(work_dir, course)
         parse_glossaries(work_dir, course)
         parse_labels(work_dir, course)
+        parse_external_urls(work_dir, course)
         collect_activities_for_sections(course.sections, course.activities)
         yield course
       end
@@ -105,6 +106,12 @@ module Moodle2CC::Moodle2
     def parse_labels(work_dir, course)
       if labels = Parsers::LabelParser.new(work_dir).parse
         course.labels += labels
+      end
+    end
+
+    def parse_external_urls(work_dir, course)
+      if external_urls = Parsers::ExternalUrlParser.new(work_dir).parse
+        course.external_urls += external_urls
       end
     end
 
