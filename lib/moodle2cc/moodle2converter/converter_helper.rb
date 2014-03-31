@@ -15,20 +15,21 @@ module Moodle2CC
     SUMMARY_PAGE_SUFFIX = '_summary_page'
 
     ACTIVITY_LOOKUP = {
-     Moodle2::Models::Page => {suffix: PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
-     Moodle2::Models::Assignment => {suffix: ASSIGNMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_ASSIGNMENT},
-     Moodle2::Models::Folder => {suffix: FOLDER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
-     Moodle2::Models::Forum => {suffix: DISCUSSION_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_DISCUSSION_TOPIC},
-     Moodle2::Models::BookChapter => {suffix: CHAPTER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
-     Moodle2::Models::Quizzes::Quiz => {suffix: ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
-     Moodle2::Models::Section => {suffix: SUMMARY_PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
-     Moodle2::Models::Label => {suffix: nil, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_CONTEXT_MODULE_SUB_HEADER}
+      Moodle2::Models::Page => {suffix: PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
+      Moodle2::Models::Assignment => {suffix: ASSIGNMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_ASSIGNMENT},
+      Moodle2::Models::Folder => {suffix: FOLDER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
+      Moodle2::Models::Forum => {suffix: DISCUSSION_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_DISCUSSION_TOPIC},
+      Moodle2::Models::BookChapter => {suffix: CHAPTER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
+      Moodle2::Models::Quizzes::Quiz => {suffix: ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
+      Moodle2::Models::Section => {suffix: SUMMARY_PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
+      Moodle2::Models::Label => {suffix: nil, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_CONTEXT_MODULE_SUB_HEADER},
+      Moodle2::Models::Glossary => {suffix: GLOSSARY_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE}
     }
 
     def generate_unique_resource_path(base_path, readable_name, file_extension = 'html')
       file_name_suffix = readable_name ? readable_name.downcase.strip.gsub(/\s/, '-') : ''
       ext = file_extension ? ".#{file_extension}" : ''
-      File.join(base_path, generate_unique_identifier(),"#{file_name_suffix}#{ext}")
+      File.join(base_path, generate_unique_identifier(), "#{file_name_suffix}#{ext}")
     end
 
     def generate_unique_identifier
