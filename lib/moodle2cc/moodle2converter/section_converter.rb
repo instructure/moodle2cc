@@ -52,6 +52,8 @@ module Moodle2CC
         if  moodle_activity.is_a? Moodle2::Models::ExternalUrl
           module_item.identifierref = module_item.identifier
           module_item.url = moodle_activity.external_url.gsub(/\s/, '%20')
+        elsif moodle_activity.is_a? Moodle2::Models::Resource
+          module_item.identifierref = moodle_activity.file.content_hash
         else
           module_item.identifierref = generate_unique_identifier_for_activity(moodle_activity)
         end

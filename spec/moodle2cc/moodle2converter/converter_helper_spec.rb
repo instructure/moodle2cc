@@ -121,6 +121,12 @@ module Moodle2CC
         forum = Moodle2CC::Moodle2::Models::Forum.new
         expect(subject.activity_content_type(forum)).to eq CanvasCC::Models::ModuleItem::CONTENT_TYPE_DISCUSSION_TOPIC
       end
+
+      it 'looks up the content type for a Resource' do
+        resource = Moodle2CC::Moodle2::Models::Resource.new
+        expect(subject.activity_content_type(resource)).to eq CanvasCC::Models::ModuleItem::CONTENT_TYPE_ATTACHMENT
+      end
+
       it 'raises an exception for unknown activity types' do
         expect { subject.activity_content_type(nil) }.to raise_exception
       end

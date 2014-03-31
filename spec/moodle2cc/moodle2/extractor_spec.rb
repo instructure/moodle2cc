@@ -55,10 +55,42 @@ module Moodle2CC::Moodle2
       expect(section.activities[1]).to eq activity1
     end
 
-    it 'parses files' do
-      Parsers::FileParser.any_instance.stub(:parse).and_return(['file'])
+    it 'associates activities with sections based on their sequence' do
+      section = Models::Section.new
+      section.sequence = [2, 1]
+      Parsers::SectionParser.any_instance.stub(:parse).and_return([section])
+
+      activity1 = double(module_id: '1')
+      activity2 = double(module_id: '2')
+      activity3 = double(module_id: '3')
+      course.stub(:activities).and_return([activity1, activity2, activity3])
+
       extractor.extract {}
-      expect(course.files).to eq ['file']
+
+      expect(section.activities.size).to eq 2
+      expect(section.activities[0]).to eq activity2
+      expect(section.activities[1]).to eq activity1
+    end
+
+    it 'associates resources with their files' do
+      resource = Models::Resource.new
+      resource.file_ids = [1,3]
+      Parsers::ResourceParser.any_instance.stub(:parse).and_return([resource])
+
+      file = Models::Moodle2File.new
+      file.id = 3
+      course.stub(:files).and_return([file])
+
+      extractor.extract {}
+
+      expect(resource.file).to eq file
+    end
+
+    it 'parses files' do
+      file = Models::Moodle2File.new
+      Parsers::FileParser.any_instance.stub(:parse).and_return([file])
+      extractor.extract {}
+      expect(course.files).to eq [file]
     end
 
     it 'parses pages' do

@@ -16,6 +16,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :filter_files
     it_behaves_like 'it has an attribute for', :visible
     it_behaves_like 'it has an attribute for', :file_ids, []
+    it_behaves_like 'it has an attribute for', :file
 
   end
 end

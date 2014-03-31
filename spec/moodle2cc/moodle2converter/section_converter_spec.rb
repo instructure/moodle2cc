@@ -168,6 +168,20 @@ module Moodle2CC
         expect(module_item.indent).to eq '0'
       end
 
+      it 'converts a moodle external url to a external url module item' do
+        moodle_resource = Moodle2::Models::Resource.new
+        moodle_file = Moodle2::Models::Moodle2File.new
+        moodle_file.content_hash = 'some_id'
+        moodle_resource.file = moodle_file
+
+        module_items = subject.convert_to_module_items(moodle_resource)
+        expect(module_items.size).to eq 1
+
+        module_item = module_items.first
+
+        expect(module_item.identifierref).to eq 'some_id'
+      end
+
     end
   end
 end

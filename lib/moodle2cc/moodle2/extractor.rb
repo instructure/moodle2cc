@@ -26,6 +26,7 @@ module Moodle2CC::Moodle2
         parse_labels(work_dir, course)
         parse_external_urls(work_dir, course)
         parse_resources(work_dir, course)
+        collect_files_for_resources(course.files, course.resources)
         collect_activities_for_sections(course.sections, course.activities)
         yield course
       end
@@ -119,6 +120,15 @@ module Moodle2CC::Moodle2
     def parse_resources(work_dir, course)
       if resources = Parsers::ResourceParser.new(work_dir).parse
         course.resources += resources
+      end
+    end
+
+    def collect_files_for_resources(files, resources)
+      files_hash = {}
+      files.each{ |file| files_hash[file.id] = file }
+      resources.each do |resource|
+        file_id = resource.file_ids.find{|id| files_hash.key?(id)}
+        resource.file = files_hash[file_id]
       end
     end
 
