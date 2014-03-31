@@ -12,4 +12,6 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/glossary'
   require_relative 'models/glossary_entry'
   require_relative 'models/label'
+  require_relative 'models/resource'
+  require_relative 'models/external_url'
 end
