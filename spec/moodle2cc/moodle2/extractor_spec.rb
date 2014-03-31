@@ -20,6 +20,7 @@ module Moodle2CC::Moodle2
       Parsers::GlossaryParser.any_instance.stub(:parse)
       Parsers::LabelParser.any_instance.stub(:parse)
       Parsers::ExternalUrlParser.any_instance.stub(:parse)
+      Parsers::ResourceParser.any_instance.stub(:parse)
       Zip::File.stub(:open).and_yield([])
     end
 
@@ -132,5 +133,11 @@ module Moodle2CC::Moodle2
       expect(course.external_urls).to eq [external_url]
     end
 
+    it 'parses resources' do
+      resource = Models::Resource.new
+      Parsers::ResourceParser.any_instance.stub(:parse).and_return([resource])
+      extractor.extract {}
+      expect(course.resources).to eq [resource]
+    end
   end
 end

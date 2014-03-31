@@ -14,6 +14,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :question_categories, []
     it_behaves_like 'it has an attribute for', :labels, []
     it_behaves_like 'it has an attribute for', :external_urls, []
+    it_behaves_like 'it has an attribute for', :resources, []
 
     describe '#activities' do
       it 'collects pages' do
@@ -41,7 +42,7 @@ module Moodle2CC::Moodle2::Models
         expect(subject.activities).to eq [:folder]
       end
 
-      it 'collect labels' do
+      it 'collects labels' do
         subject.labels << :labels
         expect(subject.activities).to eq [:labels]
       end
@@ -56,6 +57,10 @@ module Moodle2CC::Moodle2::Models
         expect(subject.activities).to eq [:external_urls]
       end
 
+      it 'collects resources' do
+        subject.resources << :resources
+        expect(subject.activities).to eq [:resources]
+      end
     end
   end
 end

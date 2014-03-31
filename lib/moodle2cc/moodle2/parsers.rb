@@ -15,4 +15,5 @@ module Moodle2CC::Moodle2::Parsers
   require_relative 'parsers/glossary_parser'
   require_relative 'parsers/label_parser'
   require_relative 'parsers/external_url_parser'
+  require_relative 'parsers/resource_parser'
 end
