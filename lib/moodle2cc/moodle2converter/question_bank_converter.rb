@@ -10,7 +10,19 @@ module Moodle2CC::Moodle2Converter
 
       question_converter = Moodle2CC::Moodle2Converter::QuestionConverters::QuestionConverter.new
       moodle_category.questions.each do |moodle_question|
-        canvas_bank.questions << question_converter.convert(moodle_question)
+        item = question_converter.convert(moodle_question)
+        case item
+        when Moodle2CC::CanvasCC::Models::Question
+          canvas_bank.questions << item
+        when Moodle2CC::CanvasCC::Models::QuestionGroup
+          canvas_bank.question_groups << item
+        end
+      end
+
+      canvas_bank.question_groups.each do |question_group|
+        if question_group.group_type == 'random_short_answer'
+          question_group.questions = canvas_bank.questions.select{|q| q.question_type == 'short_answer_question'}
+        end
       end
 
       canvas_bank

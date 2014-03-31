@@ -7,7 +7,7 @@ module Moodle2CC::CanvasCC::Models
     LAR_TYPE = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
     ASSESSMENT_NON_CC_FOLDER = 'non_cc_assessments'
 
-    attr_accessor :identifier, :workflow_state, :question_references, :questions, *META_ATTRIBUTES, *DATETIME_ATTRIBUTES
+    attr_accessor :identifier, :workflow_state, :question_references, :items, *META_ATTRIBUTES, *DATETIME_ATTRIBUTES
 
     def initialize
       @question_references = []
@@ -35,18 +35,32 @@ module Moodle2CC::CanvasCC::Models
     end
 
     def resolve_question_references(question_banks)
-      @questions ||= []
+      @items ||= []
       @question_references.each do |ref|
         question = nil
+        group = nil
         question_banks.each do |bank|
-          break if question = bank.questions.detect{|q| q.identifier.to_s == ref[:question]}
+          break if (question = bank.questions.detect{|q| q.identifier.to_s == ref[:question]}) ||
+            (group = bank.question_groups.detect{|g| g.identifier.to_s == ref[:question]})
         end
 
         if question
           question.assessment_question_identifierref ||= "question_#{question.identifier}"
           copy = question.dup
           copy.points_possible = ref[:grade] if ref[:grade]
-          @questions << copy
+          @items << copy
+        elsif group
+          copy = group.dup
+          if ref[:grade] && copy.selection_number.to_i != 0
+            copy.points_per_item = ref[:grade].to_f / copy.selection_number.to_i
+          end
+          @items << copy
+        end
+      end
+
+      @items.select{|i| i.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup)}.each do |group|
+        group.questions.each do |q|
+          @items.delete_if{|i| i.identifier.to_s == q.identifier}
         end
       end
     end

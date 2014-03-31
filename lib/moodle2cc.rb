@@ -86,6 +86,7 @@ module Moodle2CC
     autoload :TrueFalseQuestionWriter, 'moodle2cc/canvas_cc/true_false_question_writer'
 
     autoload :QuestionBankWriter, 'moodle2cc/canvas_cc/question_bank_writer'
+    autoload :QuestionGroupWriter, 'moodle2cc/canvas_cc/question_group_writer'
     autoload :AssessmentWriter, 'moodle2cc/canvas_cc/assessment_writer'
     module Models
       autoload :Course, 'moodle2cc/canvas_cc/models/course'
@@ -95,6 +96,7 @@ module Moodle2CC
       autoload :Question, 'moodle2cc/canvas_cc/models/question'
       autoload :Answer, 'moodle2cc/canvas_cc/models/answer'
       autoload :QuestionBank, 'moodle2cc/canvas_cc/models/question_bank'
+      autoload :QuestionGroup, 'moodle2cc/canvas_cc/models/question_group'
       autoload :WebContent, 'moodle2cc/canvas_cc/models/web_content'
       autoload :WebLink, 'moodle2cc/canvas_cc/models/web_link'
       autoload :Resource, 'moodle2cc/canvas_cc/models/resource'
