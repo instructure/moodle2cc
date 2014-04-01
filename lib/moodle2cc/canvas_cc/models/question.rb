@@ -32,4 +32,5 @@ module Moodle2CC::CanvasCC::Models
 end
 
 require_relative 'calculated_question'
+require_relative 'matching_question'
 require_relative 'numerical_question'

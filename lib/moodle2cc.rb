@@ -78,6 +78,7 @@ module Moodle2CC
     autoload :QuestionWriter, 'moodle2cc/canvas_cc/question_writer'
     autoload :CalculatedQuestionWriter, 'moodle2cc/canvas_cc/calculated_question_writer'
     autoload :EssayQuestionWriter, 'moodle2cc/canvas_cc/essay_question_writer'
+    autoload :MatchingQuestionWriter, 'moodle2cc/canvas_cc/matching_question_writer'
     autoload :MultipleBlanksQuestionWriter, 'moodle2cc/canvas_cc/multiple_blanks_question_writer'
     autoload :MultipleChoiceQuestionWriter, 'moodle2cc/canvas_cc/multiple_choice_question_writer'
     autoload :NumericalQuestionWriter, 'moodle2cc/canvas_cc/numerical_question_writer'
