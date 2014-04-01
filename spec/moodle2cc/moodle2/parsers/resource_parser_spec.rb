@@ -11,6 +11,8 @@ module Moodle2CC::Moodle2::Parsers
       resource = resources.first
       expect(resource).to be_a Moodle2CC::Moodle2::Models::Resource
       expect(resource.id).to eq "1"
+      expect(resource.name).to eq "Test File"
+      expect(resource.module_id).to eq "3"
       expect(resource.intro).to eq ""
       expect(resource.intro_format).to eq "1"
       expect(resource.to_be_migrated).to eq "0"
