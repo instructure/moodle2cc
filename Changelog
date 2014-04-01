@@ -1,3 +1,8 @@
+2014-04-01 Version 0.2.0
+    * Add support for converting Moodle 2 exports to canvas
+		  flavored common cartridge
+		* TODO of adding better plain CC support for Moodle 2 conversions
+
 2014-01-21 Version 0.1.11
     * files with associated text/html content are now made into
 		  html pages with that text and a link to the file

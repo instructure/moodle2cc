@@ -5,8 +5,9 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Christopher Durtschi", "Kevin Carter", "Instructure"]
   gem.email         = ["christopher.durtschi@gmail.com", "cartkev@gmail.com", "eng@instructure.com"]
   gem.description   = %q{Migrates Moodle backup ZIP to IMS Common Cartridge package}
-  gem.summary       = %q{Migrates Moodle backup ZIP to IMS Common Cartridge package}
+  gem.summary   = %q{Migrates Moodle backup ZIP to IMS Common Cartridge package}
   gem.homepage      = "https://github.com/instructure/moodle2cc"
+	gem.license = 'AGPLv3'
 
   gem.add_runtime_dependency "rubyzip", '>=1.0.0'
   gem.add_runtime_dependency "happymapper"
