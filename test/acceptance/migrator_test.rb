@@ -1,5 +1,6 @@
+puts $LOAD_PATH
 require 'minitest/autorun'
-require 'test/test_helper'
+require 'test_helper'
 require 'moodle2cc'
 
 class TestAcceptanceMigrator < MiniTest::Unit::TestCase

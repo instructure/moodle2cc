@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gradebook>
+  <grade_categories>
+    <grade_category id="1">
+      <parent>$@NULL@$</parent>
+      <depth>1</depth>
+      <path>/1/</path>
+      <fullname>?</fullname>
+      <aggregation>11</aggregation>
+      <keephigh>0</keephigh>
+      <droplow>0</droplow>
+      <aggregateonlygraded>1</aggregateonlygraded>
+      <aggregateoutcomes>0</aggregateoutcomes>
+      <aggregatesubcats>0</aggregatesubcats>
+      <timecreated>1392877562</timecreated>
+      <timemodified>1395900518</timemodified>
+      <hidden>0</hidden>
+    </grade_category>
+  </grade_categories>
+  <grade_items>
+    <grade_item id="1">
+      <categoryid>$@NULL@$</categoryid>
+      <itemname>$@NULL@$</itemname>
+      <itemtype>course</itemtype>
+      <itemmodule>$@NULL@$</itemmodule>
+      <iteminstance>1</iteminstance>
+      <itemnumber>$@NULL@$</itemnumber>
+      <iteminfo>$@NULL@$</iteminfo>
+      <idnumber>$@NULL@$</idnumber>
+      <calculation>$@NULL@$</calculation>
+      <gradetype>1</gradetype>
+      <grademax>100.00000</grademax>
+      <grademin>0.00000</grademin>
+      <scaleid>$@NULL@$</scaleid>
+      <outcomeid>$@NULL@$</outcomeid>
+      <gradepass>0.00000</gradepass>
+      <multfactor>1.00000</multfactor>
+      <plusfactor>0.00000</plusfactor>
+      <aggregationcoef>0.00000</aggregationcoef>
+      <sortorder>1</sortorder>
+      <display>0</display>
+      <decimals>$@NULL@$</decimals>
+      <hidden>0</hidden>
+      <locked>0</locked>
+      <locktime>0</locktime>
+      <needsupdate>0</needsupdate>
+      <timecreated>1392877562</timecreated>
+      <timemodified>1395900518</timemodified>
+      <grade_grades>
+      </grade_grades>
+    </grade_item>
+  </grade_items>
+  <grade_letters>
+  </grade_letters>
+  <grade_settings>
+  </grade_settings>
+</gradebook>

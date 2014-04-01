@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="5" modulename="quiz" contextid="24">
+  <quiz id="1">
+    <name>Quiz Name</name>
+    <intro>&lt;p&gt;Quiz Description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <timeopen>1393968360</timeopen>
+    <timeclose>1394054760</timeclose>
+    <timelimit>300</timelimit>
+    <overduehandling>autosubmit</overduehandling>
+    <graceperiod>0</graceperiod>
+    <preferredbehaviour>deferredfeedback</preferredbehaviour>
+    <attempts_number>7</attempts_number>
+    <attemptonlast>0</attemptonlast>
+    <grademethod>1</grademethod>
+    <decimalpoints>0</decimalpoints>
+    <questiondecimalpoints>-1</questiondecimalpoints>
+    <reviewattempt>65552</reviewattempt>
+    <reviewcorrectness>0</reviewcorrectness>
+    <reviewmarks>4112</reviewmarks>
+    <reviewspecificfeedback>0</reviewspecificfeedback>
+    <reviewgeneralfeedback>0</reviewgeneralfeedback>
+    <reviewrightanswer>0</reviewrightanswer>
+    <reviewoverallfeedback>16</reviewoverallfeedback>
+    <questionsperpage>0</questionsperpage>
+    <navmethod>free</navmethod>
+    <shufflequestions>0</shufflequestions>
+    <shuffleanswers>0</shuffleanswers>
+    <questions>1,2,3,4,10,11,12,13,14,15,17,0</questions>
+    <sumgrades>15.00000</sumgrades>
+    <grade>100.00000</grade>
+    <timecreated>0</timecreated>
+    <timemodified>1394656152</timemodified>
+    <password>quiz_password</password>
+    <subnet></subnet>
+    <browsersecurity>-</browsersecurity>
+    <delay1>0</delay1>
+    <delay2>0</delay2>
+    <showuserpicture>0</showuserpicture>
+    <showblocks>0</showblocks>
+    <question_instances>
+      <question_instance id="1">
+        <question>1</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="2">
+        <question>2</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="3">
+        <question>3</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="4">
+        <question>4</question>
+        <grade>5.0000000</grade>
+      </question_instance>
+      <question_instance id="5">
+        <question>10</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="6">
+        <question>11</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="7">
+        <question>12</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="8">
+        <question>13</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="9">
+        <question>14</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="10">
+        <question>15</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+      <question_instance id="11">
+        <question>17</question>
+        <grade>1.0000000</grade>
+      </question_instance>
+    </question_instances>
+    <feedbacks>
+      <feedback id="2">
+        <feedbacktext>&lt;p&gt;100% feedback&lt;/p&gt;</feedbacktext>
+        <feedbacktextformat>1</feedbacktextformat>
+        <mingrade>50.00000</mingrade>
+        <maxgrade>101.00000</maxgrade>
+      </feedback>
+      <feedback id="3">
+        <feedbacktext>&lt;p&gt;50% feedback&lt;/p&gt;</feedbacktext>
+        <feedbacktextformat>1</feedbacktextformat>
+        <mingrade>0.00000</mingrade>
+        <maxgrade>50.00000</maxgrade>
+      </feedback>
+    </feedbacks>
+    <overrides>
+    </overrides>
+    <grades>
+    </grades>
+    <attempts>
+    </attempts>
+  </quiz>
+</activity>

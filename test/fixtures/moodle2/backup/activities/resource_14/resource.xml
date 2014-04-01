@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="2" moduleid="14" modulename="resource" contextid="33">
+  <resource id="2">
+    <name>Sample File</name>
+    <intro>&lt;p&gt;sample description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <tobemigrated>0</tobemigrated>
+    <legacyfiles>0</legacyfiles>
+    <legacyfileslast>$@NULL@$</legacyfileslast>
+    <display>0</display>
+    <displayoptions>a:2:{s:12:"printheading";i:0;s:10:"printintro";i:1;}</displayoptions>
+    <filterfiles>0</filterfiles>
+    <revision>1</revision>
+    <timemodified>1395924919</timemodified>
+  </resource>
+</activity>

@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'minitest/autorun'
-require 'test/test_helper'
-require 'test/test_question_helper'
+require 'test_helper'
+require 'test_question_helper'
 require 'moodle2cc'
 
 class TestUnitCCQuestion < MiniTest::Unit::TestCase

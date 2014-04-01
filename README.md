@@ -36,7 +36,7 @@ Require the library in your project and use the migrator:
 
 ```ruby
 require 'moodle2cc'
-migrator = Moodle2CC::Migrator.new moodle_zip_path, destination_bath
+migrator = Moodle2CC::Migrator.new moodle_zip_path, destination_path
 migrator.migrate
 ```
 

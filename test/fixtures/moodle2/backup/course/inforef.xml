@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inforef>
+  <roleref>
+    <role>
+      <id>5</id>
+    </role>
+  </roleref>
+  <question_categoryref>
+    <question_category>
+      <id>2</id>
+    </question_category>
+  </question_categoryref>
+</inforef>

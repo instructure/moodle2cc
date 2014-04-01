@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="10">
+  <number>7</number>
+  <name>Hidden Section</name>
+  <summary>&lt;p&gt;This is a Hidden Section, with hidden items&lt;/p&gt;</summary>
+  <summaryformat>1</summaryformat>
+  <sequence>12</sequence>
+  <visible>0</visible>
+  <availablefrom>0</availablefrom>
+  <availableuntil>0</availableuntil>
+  <showavailability>0</showavailability>
+  <groupingid>0</groupingid>
+</section>

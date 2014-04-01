@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require 'test/test_helper'
+require 'test_helper'
 require 'moodle2cc'
 
 class TestUnitMigrator < MiniTest::Unit::TestCase
@@ -53,4 +53,15 @@ class TestUnitMigrator < MiniTest::Unit::TestCase
     imscc_file = File.join(@valid_destination, "my-course.imscc")
     assert File.exists?(imscc_file), "#{imscc_file} does not exist"
   end
+
+  def test_it_detects_moodle2_package
+    migrator = Moodle2CC::Migrator.new(fixture_path(File.join('moodle2', 'moodle2_shell.mbz')), @valid_destination)
+    expect(migrator, :migrate_moodle_2) { migrator.migrate }
+  end
+
+  def test_it_detects_moodle_1_9_package
+    migrator = Moodle2CC::Migrator.new(@valid_source, @valid_destination)
+    expect(migrator, :migrate_moodle_1_9) { migrator.migrate }
+  end
+
 end

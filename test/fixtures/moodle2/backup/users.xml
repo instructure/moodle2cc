@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user id="2" contextid="5">
+    <username>admin</username>
+    <idnumber></idnumber>
+    <firstname>Admin</firstname>
+    <lastname>User</lastname>
+    <email>nathanm@foo.bar</email>
+    <icq></icq>
+    <skype></skype>
+    <yahoo></yahoo>
+    <aim></aim>
+    <msn></msn>
+    <phone1></phone1>
+    <phone2></phone2>
+    <institution></institution>
+    <department></department>
+    <address></address>
+    <city>nowhere</city>
+    <country>US</country>
+    <lastip>10.0.20.188</lastip>
+    <picture>0</picture>
+    <url></url>
+    <description>$@NULL@$</description>
+    <descriptionformat>0</descriptionformat>
+    <imagealt></imagealt>
+    <auth>manual</auth>
+    <confirmed>1</confirmed>
+    <policyagreed>0</policyagreed>
+    <deleted>0</deleted>
+    <lang>en</lang>
+    <theme></theme>
+    <timezone>99</timezone>
+    <firstaccess>1392408032</firstaccess>
+    <lastaccess>1396276895</lastaccess>
+    <lastlogin>1396276493</lastlogin>
+    <currentlogin>1396276558</currentlogin>
+    <mailformat>1</mailformat>
+    <maildigest>0</maildigest>
+    <maildisplay>1</maildisplay>
+    <htmleditor>1</htmleditor>
+    <autosubscribe>1</autosubscribe>
+    <trackforums>0</trackforums>
+    <timecreated>0</timecreated>
+    <timemodified>1392409268</timemodified>
+    <trustbitmask>0</trustbitmask>
+    <custom_fields>
+    </custom_fields>
+    <tags>
+    </tags>
+    <preferences>
+      <preference id="1">
+        <name>email_bounce_count</name>
+        <value>1</value>
+      </preference>
+      <preference id="2">
+        <name>email_send_count</name>
+        <value>5</value>
+      </preference>
+      <preference id="3">
+        <name>usemodchooser</name>
+        <value>1</value>
+      </preference>
+      <preference id="4">
+        <name>filepicker_recentrepository</name>
+        <value>7</value>
+      </preference>
+      <preference id="5">
+        <name>filepicker_recentlicense</name>
+        <value>allrightsreserved</value>
+      </preference>
+      <preference id="6">
+        <name>mod_assign_mod_form_showadvanced</name>
+        <value>1</value>
+      </preference>
+      <preference id="7">
+        <name>quiz_qbanktool_open</name>
+        <value>1</value>
+      </preference>
+      <preference id="8">
+        <name>mod_quiz_mod_form_showadvanced</name>
+        <value>1</value>
+      </preference>
+      <preference id="9">
+        <name>question_bank_recurse</name>
+        <value>1</value>
+      </preference>
+      <preference id="10">
+        <name>question_bank_showhidden</name>
+        <value>0</value>
+      </preference>
+      <preference id="11">
+        <name>question_bank_qbshowtext</name>
+        <value>0</value>
+      </preference>
+    </preferences>
+    <roles>
+      <role_overrides>
+      </role_overrides>
+      <role_assignments>
+      </role_assignments>
+    </roles>
+  </user>
+</users>

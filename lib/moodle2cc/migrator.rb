@@ -1,5 +1,11 @@
+require 'zip'
+
 module Moodle2CC
   class Migrator
+
+    MOODLE_1_9 = '1.9'
+    MOODLE_2 = '2'
+
     def initialize(source, destination, options={})
       @source = source
       @destination = destination
@@ -12,9 +18,12 @@ module Moodle2CC
     end
 
     def migrate
-      backup = Moodle2CC::Moodle::Backup.read @source
-      @converter = @converter_class.new backup, @destination
-      @converter.convert
+      case moodle_version
+        when MOODLE_1_9
+          migrate_moodle_1_9
+        when MOODLE_2
+          migrate_moodle_2
+      end
     rescue StandardError => error
       Moodle2CC::Logger.add_warning 'error migrating content', error
     end
@@ -22,5 +31,29 @@ module Moodle2CC
     def imscc_path
       @converter.imscc_path
     end
+
+    def migrate_moodle_1_9
+      backup = Moodle2CC::Moodle::Backup.read @source
+      @converter = @converter_class.new backup, @destination
+      @converter.convert
+    end
+
+    def migrate_moodle_2
+      @converter = Moodle2CC::Moodle2Converter::Migrator.new(@source, @destination)
+      @converter.migrate
+    end
+
+    private
+
+    def moodle_version
+      Zip::File.open(@source) do |zipfile|
+        if zipfile.find_entry('moodle_backup.xml')
+          MOODLE_2
+        elsif zipfile.find_entry('moodle.xml')
+          MOODLE_1_9
+        end
+      end
+    end
+
   end
 end

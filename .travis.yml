@@ -1,4 +1,7 @@
-nguage: ruby
+language: ruby
+branches:
+  only:
+    - moodle2
 rvm:
   - "1.9.3"
   - "2.0.0"

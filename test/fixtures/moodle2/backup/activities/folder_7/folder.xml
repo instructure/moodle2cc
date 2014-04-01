@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="7" modulename="folder" contextid="26">
+  <folder id="1">
+    <name>Folder Name</name>
+    <intro>&lt;p&gt;Folder Description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <revision>1</revision>
+    <timemodified>1394041712</timemodified>
+  </folder>
+</activity>
