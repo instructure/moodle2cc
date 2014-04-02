@@ -18,8 +18,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       converted_question = QuestionConverter.new.convert(moodle_question)
 
       expect(converted_question.identifier).to eq moodle_question.id
-      expect(converted_question.answers.detect{|a| a.id == true_answer.id}.fraction).to eq 1.0
-      expect(converted_question.answers.detect{|a| a.id == false_answer.id}.fraction).to eq 0.0
+      expect(converted_question.answers.count).to eq 2
     end
 
   end
