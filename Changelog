@@ -1,3 +1,6 @@
+2014-04-02 Version 0.2.1
+    * Fixed true/false questions conversion for moodle 2
+
 2014-04-01 Version 0.2.0
     * Add support for converting Moodle 2 exports to canvas
 		  flavored common cartridge
