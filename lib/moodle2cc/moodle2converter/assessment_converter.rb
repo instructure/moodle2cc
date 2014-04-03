@@ -12,7 +12,7 @@ module Moodle2CC::Moodle2Converter
       canvas_assessment.lock_at = Time.at(Integer(moodle_quiz.time_close)) if moodle_quiz.time_close
       canvas_assessment.unlock_at = Time.at(Integer(moodle_quiz.time_open)) if moodle_quiz.time_open
 
-      canvas_assessment.allowed_attempts = Integer(moodle_quiz.attempts_number)
+      canvas_assessment.allowed_attempts = Integer(moodle_quiz.attempts_number) if moodle_quiz.attempts_number
       canvas_assessment.allowed_attempts = -1 if canvas_assessment.allowed_attempts == 0
 
       canvas_assessment.scoring_policy = moodle_quiz.grade_method == 4 ? 'keep_latest' : 'keep_highest'

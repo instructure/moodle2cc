@@ -6,7 +6,7 @@ module Moodle2CC::Moodle2::Models
                   :license, :sort_order, :repository_type, :repository_id, :reference, :file_location
 
     def file_size=(size)
-      @file_size = Integer(size)
+      @file_size = Integer(size) if size
     end
 
   end
