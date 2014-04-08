@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<activity id="1" moduleid="1" modulename="forum" contextid="20">
-  <forum id="1">
+<activity id="1" moduleid="1" modulename="hsuforum" contextid="20">
+  <hsuforum id="1">
     <type>news</type>
     <name>News forum</name>
     <intro>General news and announcements</intro>
@@ -30,5 +30,5 @@
     </readposts>
     <trackedprefs>
     </trackedprefs>
-  </forum>
+  </hsuforum>
 </activity>

@@ -2,48 +2,49 @@ module Moodle2CC::Moodle2::Parsers
   class ForumParser
     include ParserHelper
 
-    FORUM_XML = 'forum.xml'
     FORUM_MODULE_NAME = 'forum'
+    HSU_MODULE_NAME = 'hsuforum'
 
     def initialize(backup_dir)
       @backup_dir = backup_dir
     end
 
     def parse
-      activity_dirs = activity_directories(@backup_dir, FORUM_MODULE_NAME)
-      activity_dirs.map { |dir| parse_forum(dir) }
+      activity_directories(@backup_dir, FORUM_MODULE_NAME).map { |dir| parse_forum(dir, FORUM_MODULE_NAME) } +
+        activity_directories(@backup_dir, HSU_MODULE_NAME).map { |dir| parse_forum(dir, HSU_MODULE_NAME) }
     end
 
     private
 
-    def parse_forum(forum_dir)
+    def parse_forum(forum_dir, module_name)
+      xml_file = "#{module_name}.xml"
       forum = Moodle2CC::Moodle2::Models::Forum.new
       activity_dir = File.join(@backup_dir, forum_dir)
-      File.open(File.join(activity_dir, FORUM_XML)) do |f|
+      File.open(File.join(activity_dir, xml_file)) do |f|
         forum_xml = Nokogiri::XML(f)
-        forum.id = forum_xml.at_xpath('/activity/forum/@id').value
-        forum.module_id = forum_xml.at_xpath('/activity/@moduleid').value
-        forum.name = parse_text(forum_xml, '/activity/forum/name')
-        forum.type = parse_text(forum_xml, '/activity/forum/type')
-        forum.intro = parse_text(forum_xml, '/activity/forum/intro')
-        forum.intro_format = parse_text(forum_xml, '/activity/forum/introformat')
-        forum.assessed = parse_text(forum_xml, '/activity/forum/assessed')
-        forum.assess_time_start = parse_text(forum_xml, '/activity/forum/assesstimestart')
-        forum.assess_time_finish = parse_text(forum_xml, '/activity/forum/assesstimefinish')
-        forum.scale = parse_text(forum_xml, '/activity/forum/scale')
-        forum.max_bytes = parse_text(forum_xml, '/activity/forum/maxbytes')
-        forum.max_attachments = parse_text(forum_xml, '/activity/forum/maxattachments')
-        forum.force_subsscribe = parse_text(forum_xml, '/activity/forum/forcesubscribe')
-        forum.tracking_type = parse_text(forum_xml, '/activity/forum/trackingtype')
-        forum.rss_type = parse_text(forum_xml, '/activity/forum/rsstype')
-        forum.rss_articles = parse_text(forum_xml, '/activity/forum/rssarticles')
-        forum.time_modified = parse_text(forum_xml, '/activity/forum/timemodified')
-        forum.warn_after = parse_text(forum_xml, '/activity/forum/warnafter')
-        forum.block_after = parse_text(forum_xml, '/activity/forum/blockafter')
-        forum.block_period = parse_text(forum_xml, '/activity/forum/blockperiod')
-        forum.completion_discussions = parse_text(forum_xml, '/activity/forum/completiondiscussions')
-        forum.completion_replies = parse_text(forum_xml, '/activity/forum/completionreplies')
-        forum.completion_posts = parse_text(forum_xml, '/activity/forum/completionposts')
+        forum.id = forum_xml.at_xpath("/activity/#{module_name}/@id").value
+        forum.module_id = forum_xml.at_xpath("/activity/@moduleid").value
+        forum.name = parse_text(forum_xml, "/activity/#{module_name}/name")
+        forum.type = parse_text(forum_xml, "/activity/#{module_name}/type")
+        forum.intro = parse_text(forum_xml, "/activity/#{module_name}/intro")
+        forum.intro_format = parse_text(forum_xml, "/activity/#{module_name}/introformat")
+        forum.assessed = parse_text(forum_xml, "/activity/#{module_name}/assessed")
+        forum.assess_time_start = parse_text(forum_xml, "/activity/#{module_name}/assesstimestart")
+        forum.assess_time_finish = parse_text(forum_xml, "/activity/#{module_name}/assesstimefinish")
+        forum.scale = parse_text(forum_xml, "/activity/#{module_name}/scale")
+        forum.max_bytes = parse_text(forum_xml, "/activity/#{module_name}/maxbytes")
+        forum.max_attachments = parse_text(forum_xml, "/activity/#{module_name}/maxattachments")
+        forum.force_subsscribe = parse_text(forum_xml, "/activity/#{module_name}/forcesubscribe")
+        forum.tracking_type = parse_text(forum_xml, "/activity/#{module_name}/trackingtype")
+        forum.rss_type = parse_text(forum_xml, "/activity/#{module_name}/rsstype")
+        forum.rss_articles = parse_text(forum_xml, "/activity/#{module_name}/rssarticles")
+        forum.time_modified = parse_text(forum_xml, "/activity/#{module_name}/timemodified")
+        forum.warn_after = parse_text(forum_xml, "/activity/#{module_name}/warnafter")
+        forum.block_after = parse_text(forum_xml, "/activity/#{module_name}/blockafter")
+        forum.block_period = parse_text(forum_xml, "/activity/#{module_name}/blockperiod")
+        forum.completion_discussions = parse_text(forum_xml, "/activity/#{module_name}/completiondiscussions")
+        forum.completion_replies = parse_text(forum_xml, "/activity/#{module_name}/completionreplies")
+        forum.completion_posts = parse_text(forum_xml, "/activity/#{module_name}/completionposts")
       end
       parse_module(activity_dir, forum)
       forum

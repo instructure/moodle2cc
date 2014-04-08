@@ -32,9 +32,9 @@
         <activity>
           <moduleid>1</moduleid>
           <sectionid>1</sectionid>
-          <modulename>forum</modulename>
+          <modulename>hsuforum</modulename>
           <title>News forum</title>
-          <directory>activities/forum_1</directory>
+          <directory>activities/hsuforum_1</directory>
         </activity>
         <activity>
           <moduleid>11</moduleid>
@@ -263,14 +263,14 @@
       </setting>
       <setting>
         <level>activity</level>
-        <activity>forum_1</activity>
-        <name>forum_1_included</name>
+        <activity>hsuforum_1</activity>
+        <name>hsuforum_1_included</name>
         <value>1</value>
       </setting>
       <setting>
         <level>activity</level>
-        <activity>forum_1</activity>
-        <name>forum_1_userinfo</name>
+        <activity>hsuforum_1</activity>
+        <name>hsuforum_1_userinfo</name>
         <value>1</value>
       </setting>
       <setting>
