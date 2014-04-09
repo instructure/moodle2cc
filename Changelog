@@ -1,3 +1,6 @@
+2014-04-09 Version 0.2.3
+    * Add converting of HSU forums
+
 2014-04-03 Version 0.2.2
     * Fixed parse exception for quizzes with no configures attempt count
 
