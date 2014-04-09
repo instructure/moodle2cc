@@ -7,7 +7,7 @@ describe Moodle2CC::Moodle2::Parsers::ForumParser do
   it 'parses a moodle forum' do
     forums = parser.parse
     expect(forums.count).to eq 2
-    forum = forums.first
+    forum = forums.last
     expect(forum.id).to eq '1'
     expect(forum.module_id).to eq '1'
     expect(forum.type).to eq 'news'
