@@ -34,6 +34,7 @@ module Moodle2CC::Moodle2::Parsers
       end
       parse_module(activity_dir, book)
 
+      book.chapters.sort_by!{|c| c.pagenum.to_i}
       book
     end
 

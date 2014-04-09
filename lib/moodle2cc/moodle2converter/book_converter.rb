@@ -19,10 +19,13 @@ module Moodle2CC
         page
       end
 
-      if moodle_book.intro
+      if moodle_book.intro && moodle_book.intro.length > 0
         page = create_page(moodle_book.name)
         page.identifier = generate_unique_identifier_for_book_intro(moodle_book)
         page.body = moodle_book.intro
+        if pages.any?{|p| page.title == p.title}
+          page.title = "#{page.title} (Introduction)"
+        end
         pages.unshift(page)
       end
 
@@ -32,7 +35,7 @@ module Moodle2CC
     def convert_to_module_items(moodle_book)
       module_items = []
       module_items << create_title(moodle_book)
-      module_items << create_introduction(moodle_book) if moodle_book.intro
+      module_items << create_introduction(moodle_book) if moodle_book.intro && moodle_book.intro.length > 0
       module_items += moodle_book.chapters.map { |chapter| create_chapter(chapter) }
       module_items
     end
