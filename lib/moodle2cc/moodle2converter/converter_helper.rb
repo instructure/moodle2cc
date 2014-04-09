@@ -30,7 +30,7 @@ module Moodle2CC
     }
 
     def generate_unique_resource_path(base_path, readable_name, file_extension = 'html')
-      file_name_suffix = readable_name ? readable_name.downcase.strip.gsub(/\s/, '-') : ''
+      file_name_suffix = readable_name ? CGI::escape(readable_name.downcase.strip.gsub(/\s/, '-')) : ''
       ext = file_extension ? ".#{file_extension}" : ''
       File.join(base_path, generate_unique_identifier(), "#{file_name_suffix}#{ext}")
     end

@@ -29,7 +29,7 @@ describe Moodle2CC::Moodle2::Parsers::BookParser do
 
   it "sets subchapter to true for subchapters" do
     book = subject.parse.first
-    chapter = book.chapters[1]
+    chapter = book.chapters.detect{|c| c.id == "2"}
     expect(chapter.subchapter).to be_true
   end
 end
