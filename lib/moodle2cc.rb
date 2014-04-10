@@ -126,5 +126,6 @@ module Moodle2CC
     autoload :HtmlConverter, 'moodle2cc/moodle2converter/html_converter'
     autoload :HomepageConverter, 'moodle2cc/moodle2converter/homepage_converter'
     autoload :GlossaryConverter, 'moodle2cc/moodle2converter/glossary_converter'
+    autoload :LabelConverter, 'moodle2cc/moodle2converter/label_converter'
   end
 end

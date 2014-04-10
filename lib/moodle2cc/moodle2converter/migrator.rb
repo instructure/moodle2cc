@@ -21,6 +21,7 @@ module Moodle2CC::Moodle2Converter
         cc_course.pages += convert_sections_to_pages(moodle_course.sections)
         cc_course.pages += convert_folders(moodle_course)
         cc_course.pages += convert_books(moodle_course.books)
+        cc_course.pages += convert_labels(moodle_course.labels)
         cc_course.pages += convert_glossaries(moodle_course)
 
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
@@ -80,6 +81,11 @@ module Moodle2CC::Moodle2Converter
     def convert_books(books)
       book_converter = Moodle2CC::Moodle2Converter::BookConverter.new
       books.map { |book| book_converter.convert_to_pages(book) }.flatten
+    end
+
+    def convert_labels(labels)
+      label_converter = Moodle2CC::Moodle2Converter::LabelConverter.new
+      labels.map { |label| label_converter.convert_to_pages(label) }.flatten
     end
 
     def convert_glossaries(moodle_course)
