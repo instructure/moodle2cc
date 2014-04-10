@@ -14,7 +14,7 @@ module Moodle2CC::Moodle2Converter
       canvas_assignment.points_possible = moodle_assignment.grade
       canvas_assignment.grading_type = 'points'
       canvas_assignment.submission_types << 'online_text_entry' if moodle_assignment.online_text_submission == '1'
-      canvas_assignment.submission_types += %w(online_url online_upload) if moodle_assignment.file_submission == '1'
+      canvas_assignment.submission_types << 'online_upload' if moodle_assignment.file_submission == '1'
 
       canvas_assignment
     end
