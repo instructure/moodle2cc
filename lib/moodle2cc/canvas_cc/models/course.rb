@@ -26,7 +26,7 @@ module Moodle2CC::CanvasCC::Models
     end
 
     def all_resources
-      @resources + @files + @pages + @discussions.map(&:resources).flatten + @assignments.map(&:resources).flatten
+      @resources + @files + @pages + @discussions.map(&:resources).flatten + @assignments.map(&:resources).flatten + @assessments.map(&:resources).flatten
     end
 
     def method_missing(m, *args, &block)

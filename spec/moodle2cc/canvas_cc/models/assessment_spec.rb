@@ -19,23 +19,30 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
   it_behaves_like 'it has an attribute for', :question_references, []
   it_behaves_like 'it has an attribute for', :items
 
-  it 'creates a resource' do
-    subject.stub(:assessment_resource) {:assessment_resource}
-    expect(subject.resources).to eq [:assessment_resource]
+  it 'returns both resources' do
+    subject.stub(:cc_assessment_resource) {:cc_resource}
+    subject.stub(:canvas_assessment_resource) {:canvas_resource}
+    expect(subject.resources).to eq [:cc_resource, :canvas_resource]
   end
 
-  it 'generates an assessment resource' do
+  it 'creates resources' do
     subject.identifier = 'assessment_id'
     subject.title = 'My Assessment'
 
-    resource = subject.assessment_resource
-    expect(resource).to be_a_kind_of Moodle2CC::CanvasCC::Models::Resource
-    expect(resource.files.count).to eq 2
-    expect(resource.identifier).to eq 'assessment_id'
-    expect(resource.type).to eq 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
-    expect(resource.href).to eq 'assessment_id/assessment_meta.xml'
-    expect(resource.files).to include 'assessment_id/assessment_meta.xml'
-    expect(resource.files).to include 'non_cc_assessments/assessment_id.xml.qti'
+    cc_resource = subject.cc_assessment_resource
+    expect(cc_resource).to be_a_kind_of Moodle2CC::CanvasCC::Models::Resource
+    expect(cc_resource.type).to eq 'imsqti_xmlv1p2/imscc_xmlv1p1/assessment'
+    expect(cc_resource.identifier).to eq 'assessment_id'
+    expect(cc_resource.dependencies).to include 'assessment_id_meta'
+
+    canvas_resource = subject.canvas_assessment_resource
+    expect(canvas_resource).to be_a_kind_of Moodle2CC::CanvasCC::Models::Resource
+    expect(canvas_resource.files.count).to eq 2
+    expect(canvas_resource.identifier).to eq 'assessment_id_meta'
+    expect(canvas_resource.type).to eq 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
+    expect(canvas_resource.href).to eq 'assessment_id/assessment_meta.xml'
+    expect(canvas_resource.files).to include 'assessment_id/assessment_meta.xml'
+    expect(canvas_resource.files).to include 'non_cc_assessments/assessment_id.xml.qti'
   end
 
   it 'resolves assessment questions' do
