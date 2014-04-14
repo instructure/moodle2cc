@@ -70,6 +70,13 @@ module Moodle2CC
         expect(subject).to have_received(:generate_unique_identifier_for).with('id', '_assessment')
       end
 
+      it 'generates a unique identifier for a Choice' do
+        choice = Moodle2CC::Moodle2::Models::Choice.new
+        choice.id = 'id'
+        subject.generate_unique_identifier_for_activity(choice)
+        expect(subject).to have_received(:generate_unique_identifier_for).with('id', '_choice_assessment')
+      end
+
       it 'generates a unique identifier for an Assignment' do
         assignment = Moodle2CC::Moodle2::Models::Assignment.new
         assignment.id = 'id'
@@ -105,6 +112,11 @@ module Moodle2CC
       it 'looks up the content type for a Quiz' do
         quiz = Moodle2CC::Moodle2::Models::Quizzes::Quiz.new
         expect(subject.activity_content_type(quiz)).to eq CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ
+      end
+
+      it 'looks up the content type for a Choice' do
+        choice = Moodle2CC::Moodle2::Models::Choice.new
+        expect(subject.activity_content_type(choice)).to eq CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ
       end
 
       it 'looks up the content type for an Assignment' do

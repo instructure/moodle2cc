@@ -2,6 +2,7 @@ module Moodle2CC::Moodle2::Parsers
   require_relative 'parsers/parser_helper'
   require_relative 'parsers/assignment_parser'
   require_relative 'parsers/book_parser'
+  require_relative 'parsers/choice_parser'
   require_relative 'parsers/course_parser'
   require_relative 'parsers/file_parser'
   require_relative 'parsers/folder_parser'

@@ -3,6 +3,7 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/assignment'
   require_relative 'models/book'
   require_relative 'models/book_chapter'
+  require_relative 'models/choice'
   require_relative 'models/course'
   require_relative 'models/folder'
   require_relative 'models/forum'
