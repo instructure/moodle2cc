@@ -9,6 +9,7 @@ module Moodle2CC::Moodle2::Parsers
   require_relative 'parsers/forum_parser'
   require_relative 'parsers/page_parser'
   require_relative 'parsers/question_category_parser'
+  require_relative 'parsers/questionnaire_parser'
   require_relative 'parsers/quiz_parser'
   require_relative 'parsers/section_parser'
   require_relative 'parsers/question_parsers'

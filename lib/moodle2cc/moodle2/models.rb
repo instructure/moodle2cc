@@ -5,6 +5,7 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/book_chapter'
   require_relative 'models/choice'
   require_relative 'models/course'
+  require_relative 'models/external_url'
   require_relative 'models/folder'
   require_relative 'models/forum'
   require_relative 'models/moodle2_file'
@@ -13,6 +14,7 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/glossary'
   require_relative 'models/glossary_entry'
   require_relative 'models/label'
+  require_relative 'models/questionnaire'
   require_relative 'models/resource'
-  require_relative 'models/external_url'
+
 end

@@ -49,14 +49,14 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
 
     qb1 = Moodle2CC::CanvasCC::Models::QuestionBank.new
     q1 = Moodle2CC::CanvasCC::Models::Question.new
-    q1.identifier = '1'
+    q1.original_identifier = '1'
     q2 = Moodle2CC::CanvasCC::Models::Question.new
-    q2.identifier = '3'
+    q2.original_identifier = '3'
     qb1.questions = [q1, q2]
 
     qb2 = Moodle2CC::CanvasCC::Models::QuestionBank.new
     q3 = Moodle2CC::CanvasCC::Models::Question.new
-    q3.identifier = '2'
+    q3.original_identifier = '2'
     qb2.questions = [q3]
 
     group = Moodle2CC::CanvasCC::Models::QuestionGroup.new
@@ -68,10 +68,10 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
     subject.resolve_question_references([qb1, qb2])
 
     expect(subject.items.count).to eq 3
-    expect(subject.items.detect{|q| q.identifier == '1'}.points_possible).to eq '2'
-    expect(subject.items.detect{|q| q.identifier == '2'}.points_possible).to eq '3'
+    expect(subject.items[0].points_possible).to eq '2'
+    expect(subject.items[1].points_possible).to eq '3'
     # should not include q2 because it's already part of the group
-    expect(subject.items.detect{|q| q.identifier == group.identifier}.points_per_item).to eq 2
+    expect(subject.items[2].points_per_item).to eq 2
   end
 
 

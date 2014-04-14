@@ -3,7 +3,7 @@ module Moodle2CC::Moodle2::Models
     attr_accessor :id_number, :fullname, :shortname, :startdate, :summary,
                   :course_id, :sections, :files, :pages, :forums, :assignments,
                   :books, :folders, :question_categories, :quizzes, :glossaries,
-                  :labels, :resources, :external_urls, :choices
+                  :labels, :resources, :external_urls, :choices, :questionnaires
 
     def initialize
       @sections = []
@@ -16,6 +16,7 @@ module Moodle2CC::Moodle2::Models
       @question_categories = []
       @quizzes = []
       @choices = []
+      @questionnaires = []
       @glossaries = []
       @labels = []
       @resources = []
@@ -23,7 +24,7 @@ module Moodle2CC::Moodle2::Models
     end
 
     def activities
-      pages + forums + assignments + books + folders + quizzes + labels + resources + glossaries + external_urls + choices
+      pages + forums + assignments + books + folders + quizzes + labels + resources + glossaries + external_urls + choices + questionnaires
     end
 
   end
