@@ -1,6 +1,8 @@
 module Moodle2CC::Moodle2Converter
   module QuestionConverters
     class QuestionConverter
+      include ConverterHelper
+
       class << self
         attr_accessor :canvas_question_type
       end
@@ -30,7 +32,8 @@ module Moodle2CC::Moodle2Converter
 
       def convert_question(moodle_question, question_type = nil)
         canvas_question = create_canvas_question(question_type)
-        canvas_question.identifier = moodle_question.id
+        canvas_question.identifier = generate_unique_identifier_for(moodle_question.id, '_quiz_question')
+        canvas_question.original_identifier = moodle_question.id
         canvas_question.title = moodle_question.name
         canvas_question.general_feedback = moodle_question.general_feedback
         canvas_question.answers = moodle_question.answers.map do |moodle_answer|

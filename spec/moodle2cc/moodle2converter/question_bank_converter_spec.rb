@@ -38,7 +38,7 @@ describe Moodle2CC::Moodle2Converter::QuestionBankConverter do
 
     canvas_group = canvas_bank.question_groups.first
     expect(canvas_group.questions.count).to eq 2
-    expect(canvas_group.questions.detect{|q| q.identifier == question1.id}).not_to be_nil
-    expect(canvas_group.questions.detect{|q| q.identifier == question2.id}).not_to be_nil
+    expect(canvas_group.questions.detect{|q| q.original_identifier == question1.id}).not_to be_nil
+    expect(canvas_group.questions.detect{|q| q.original_identifier == question2.id}).not_to be_nil
   end
 end

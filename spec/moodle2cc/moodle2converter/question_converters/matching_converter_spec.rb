@@ -15,7 +15,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
 
       converted_question = QuestionConverter.new.convert(moodle_question)
 
-      expect(converted_question.identifier).to eq moodle_question.id
+      expect(converted_question.original_identifier).to eq moodle_question.id
 
       expected_text = "<p>This is <strong>bold</strong> and this is <em>italic</em></p>\n"
       expect(converted_question.matches.first[:question_text]).to eq expected_text
