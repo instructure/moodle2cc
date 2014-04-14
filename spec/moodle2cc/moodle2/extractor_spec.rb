@@ -17,6 +17,7 @@ module Moodle2CC::Moodle2
       Parsers::FolderParser.any_instance.stub(:parse)
       Parsers::QuestionCategoryParser.any_instance.stub(:parse)
       Parsers::QuizParser.any_instance.stub(:parse)
+      Parsers::ChoiceParser.any_instance.stub(:parse)
       Parsers::GlossaryParser.any_instance.stub(:parse)
       Parsers::LabelParser.any_instance.stub(:parse)
       Parsers::ExternalUrlParser.any_instance.stub(:parse)
@@ -142,6 +143,13 @@ module Moodle2CC::Moodle2
       Parsers::QuizParser.any_instance.stub(:parse).and_return([quiz])
       extractor.extract {}
       expect(course.quizzes).to eq [quiz]
+    end
+
+    it 'parses choices' do
+      choice = Models::Choice.new
+      Parsers::ChoiceParser.any_instance.stub(:parse).and_return([choice])
+      extractor.extract {}
+      expect(course.choices).to eq [choice]
     end
 
     it 'parses glossaries' do

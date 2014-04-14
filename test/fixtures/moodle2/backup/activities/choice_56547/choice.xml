@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="56547" modulename="choice" contextid="149808">
+  <choice id="1">
+    <name>Example Choice Activity</name>
+    <intro>Choice activity description</intro>
+    <introformat>1</introformat>
+    <publish>0</publish>
+    <showresults>0</showresults>
+    <display>1</display>
+    <allowupdate>1</allowupdate>
+    <showunanswered>1</showunanswered>
+    <limitanswers>1</limitanswers>
+    <timeopen>0</timeopen>
+    <timeclose>0</timeclose>
+    <timemodified>1376437841</timemodified>
+    <completionsubmit>0</completionsubmit>
+    <options>
+      <option id="1">
+        <text>Option 1</text>
+        <maxanswers>14</maxanswers>
+        <timemodified>1376437841</timemodified>
+      </option>
+      <option id="2">
+        <text>Option 2</text>
+        <maxanswers>15</maxanswers>
+        <timemodified>1376437841</timemodified>
+      </option>
+    </options>
+    <answers>
+    </answers>
+  </choice>
+</activity>

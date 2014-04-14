@@ -2,7 +2,7 @@ module Moodle2CC::Moodle2Converter
   class AssessmentConverter
     include ConverterHelper
 
-    def convert(moodle_quiz)
+    def convert_quiz(moodle_quiz)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
       canvas_assessment.identifier = generate_unique_identifier_for(moodle_quiz.id, ASSESSMENT_SUFFIX)
       canvas_assessment.title = moodle_quiz.name
@@ -27,5 +27,34 @@ module Moodle2CC::Moodle2Converter
       canvas_assessment
     end
 
+    def convert_choice(moodle_choice)
+      canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
+      canvas_assessment.identifier = generate_unique_identifier_for(moodle_choice.id, CHOICE_ASSESSMENT_SUFFIX)
+      canvas_assessment.title = moodle_choice.name
+      canvas_assessment.description = ''
+      canvas_assessment.workflow_state = workflow_state(moodle_choice.visible)
+
+      canvas_assessment.lock_at = Time.at(Integer(moodle_choice.time_close)) if moodle_choice.time_close
+      canvas_assessment.unlock_at = Time.at(Integer(moodle_choice.time_open)) if moodle_choice.time_open
+
+      canvas_assessment.allowed_attempts = moodle_choice.completion_submit.to_i == 1 ? 1 : -1
+      canvas_assessment.scoring_policy = 'keep_latest'
+      canvas_assessment.quiz_type = 'survey'
+
+      question = Moodle2CC::CanvasCC::Models::Question.create('multiple_choice_question')
+      question.identifier = generate_unique_identifier_for(moodle_choice.id, '_question')
+      question.title = moodle_choice.name
+      question.material = moodle_choice.intro
+      question.answers = []
+      moodle_choice.options.each_with_index do |option, num|
+        answer = Moodle2CC::CanvasCC::Models::Answer.new
+        answer.id = generate_unique_identifier_for(moodle_choice.id, "_answer#{num + 1}")
+        answer.answer_text = option
+        question.answers << answer
+      end
+
+      canvas_assessment.items = [question]
+      canvas_assessment
+    end
   end
 end

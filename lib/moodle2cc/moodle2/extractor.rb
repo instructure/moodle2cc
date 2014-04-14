@@ -22,6 +22,7 @@ module Moodle2CC::Moodle2
         parse_folders(work_dir, course)
         parse_question_categories(work_dir, course)
         parse_quizzes(work_dir, course)
+        parse_choices(work_dir, course)
         parse_glossaries(work_dir, course)
         parse_labels(work_dir, course)
         parse_external_urls(work_dir, course)
@@ -96,6 +97,12 @@ module Moodle2CC::Moodle2
     def parse_quizzes(work_dir, course)
       if quizzes = Moodle2CC::Moodle2::Parsers::QuizParser.new(work_dir).parse
         course.quizzes += quizzes
+      end
+    end
+
+    def parse_choices(work_dir, course)
+      if choices = Moodle2CC::Moodle2::Parsers::ChoiceParser.new(work_dir).parse
+        course.choices += choices
       end
     end
 
