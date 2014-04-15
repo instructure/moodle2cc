@@ -4,6 +4,7 @@ module Moodle2CC::CanvasCC::Models
                        :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit, :quiz_type]
     DATETIME_ATTRIBUTES = [:lock_at, :unlock_at]
 
+    ASSESSMENT_TYPE = 'imsqti_xmlv1p2/imscc_xmlv1p1/assessment'
     LAR_TYPE = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
     ASSESSMENT_NON_CC_FOLDER = 'non_cc_assessments'
 
@@ -14,12 +15,21 @@ module Moodle2CC::CanvasCC::Models
     end
 
     def resources
-      [assessment_resource]
+      [cc_assessment_resource, canvas_assessment_resource]
     end
 
-    def assessment_resource
+    def cc_assessment_resource
       resource = Moodle2CC::CanvasCC::Models::Resource.new
       resource.identifier = @identifier
+      resource.type = ASSESSMENT_TYPE
+      resource.dependencies = ["#{@identifier}_meta"]
+      resource.files = [] # TODO: export cc qti file
+      resource
+    end
+
+    def canvas_assessment_resource
+      resource = Moodle2CC::CanvasCC::Models::Resource.new
+      resource.identifier = "#{@identifier}_meta"
       resource.href = meta_file_path
       resource.type = LAR_TYPE
       resource.files = [meta_file_path, qti_file_path]
