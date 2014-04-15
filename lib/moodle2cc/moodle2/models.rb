@@ -6,6 +6,7 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/choice'
   require_relative 'models/course'
   require_relative 'models/external_url'
+  require_relative 'models/feedback'
   require_relative 'models/folder'
   require_relative 'models/forum'
   require_relative 'models/moodle2_file'

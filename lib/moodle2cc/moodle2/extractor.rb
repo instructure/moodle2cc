@@ -24,6 +24,7 @@ module Moodle2CC::Moodle2
 
         parse_quizzes(work_dir, course)
         parse_choices(work_dir, course)
+        parse_feedbacks(work_dir, course)
         parse_questionnaires(work_dir, course)
 
         parse_glossaries(work_dir, course)
@@ -106,6 +107,12 @@ module Moodle2CC::Moodle2
     def parse_choices(work_dir, course)
       if choices = Moodle2CC::Moodle2::Parsers::ChoiceParser.new(work_dir).parse
         course.choices += choices
+      end
+    end
+
+    def parse_feedbacks(work_dir, course)
+      if feedbacks = Moodle2CC::Moodle2::Parsers::FeedbackParser.new(work_dir).parse
+        course.feedbacks += feedbacks
       end
     end
 

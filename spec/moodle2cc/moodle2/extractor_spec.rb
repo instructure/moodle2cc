@@ -18,6 +18,7 @@ module Moodle2CC::Moodle2
       Parsers::QuestionCategoryParser.any_instance.stub(:parse)
       Parsers::QuizParser.any_instance.stub(:parse)
       Parsers::ChoiceParser.any_instance.stub(:parse)
+      Parsers::FeedbackParser.any_instance.stub(:parse)
       Parsers::QuestionnaireParser.any_instance.stub(:parse)
       Parsers::GlossaryParser.any_instance.stub(:parse)
       Parsers::LabelParser.any_instance.stub(:parse)
@@ -151,6 +152,13 @@ module Moodle2CC::Moodle2
       Parsers::ChoiceParser.any_instance.stub(:parse).and_return([choice])
       extractor.extract {}
       expect(course.choices).to eq [choice]
+    end
+
+    it 'parses feedbacks' do
+      feedback = Models::Feedback.new
+      Parsers::FeedbackParser.any_instance.stub(:parse).and_return([feedback])
+      extractor.extract {}
+      expect(course.feedbacks).to eq [feedback]
     end
 
     it 'parses questionnaires' do

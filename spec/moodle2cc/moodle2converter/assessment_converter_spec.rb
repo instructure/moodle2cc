@@ -135,4 +135,70 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     expect(canvas_question2.answers.map(&:answer_text)).to eq (question2.choices.map{|c| c[:content]})
   end
 
+  it "should convert a moodle2 feedback activity to an ungraded assessment" do
+    moodle_feedback = Moodle2CC::Moodle2::Models::Feedback.new
+    moodle_feedback.id = 'feedback_id'
+    moodle_feedback.name = "i'm an silly feedback"
+    moodle_feedback.intro = 'i should be an ungraderded survey'
+
+    moodle_feedback.visible = false
+    moodle_feedback.time_open = Time.parse('Sat, 08 Feb 2014 16:00:00 GMT').to_i.to_s
+    moodle_feedback.time_close = Time.parse('Sat, 08 Feb 2014 18:00:00 GMT').to_i.to_s
+
+    question1 = Moodle2CC::Moodle2::Models::Feedback::Question.new
+    question1.id = '2'
+    question1.name = 'actualy question'
+    question1.label = 'q name'
+    question1.type = 'multichoice'
+    question1.presentation = 'r>>>>>Option 1\n|Option 2\n|Option 3'
+
+    question2 = Moodle2CC::Moodle2::Models::Feedback::Question.new
+    question2.id = '2'
+    question2.name = 'actualy also question'
+    question2.label = 'q name 2'
+    question2.type = 'multichoicerated'
+    question2.presentation = 'r>>>>>1####Option1\n    |2####Option2\n     |3####Option3'
+
+    question3 = Moodle2CC::Moodle2::Models::Feedback::Question.new
+    question3.id = '2'
+    question3.name = 'label label'
+    question3.label = ''
+    question3.type = 'label'
+    question3.presentation = 'actually the text for the label'
+
+    moodle_feedback.items = [question1, question2, question3]
+
+    canvas_assessment = subject.convert_feedback(moodle_feedback)
+
+    expect(canvas_assessment.identifier).to eq 'm20188a0c97e17ce57511316621805da83_feedback_assessment'
+    expect(canvas_assessment.title).to eq moodle_feedback.name
+    expect(canvas_assessment.description).to eq moodle_feedback.intro
+
+    expect(canvas_assessment.unlock_at).to eq Time.parse('Sat, 08 Feb 2014 16:00:00 GMT')
+    expect(canvas_assessment.lock_at).to eq Time.parse('Sat, 08 Feb 2014 18:00:00 GMT')
+    expect(canvas_assessment.scoring_policy).to eq 'keep_latest'
+    expect(canvas_assessment.quiz_type).to eq 'survey'
+    expect(canvas_assessment.workflow_state).to eq Moodle2CC::CanvasCC::Models::WorkflowState::UNPUBLISHED
+
+    expect(canvas_assessment.items.count).to eq 3
+
+    canvas_question1 = canvas_assessment.items[0]
+    expect(canvas_question1.question_type).to eq 'multiple_choice_question'
+    expect(canvas_question1.material).to eq question1.name
+    expect(canvas_question1.title).to eq question1.label
+    expect(canvas_question1.answers.count).to eq 3
+    expect(canvas_question1.answers.map(&:answer_text)).to eq ['Option 1', 'Option 2', 'Option 3']
+
+    canvas_question2 = canvas_assessment.items[1]
+    expect(canvas_question2.question_type).to eq 'multiple_choice_question'
+    expect(canvas_question2.material).to eq question2.name
+    expect(canvas_question2.title).to eq question2.label
+    expect(canvas_question2.answers.count).to eq 3
+    expect(canvas_question2.answers.map(&:answer_text)).to eq ['[1] Option1', '[2] Option2', '[3] Option3']
+
+    canvas_question3 = canvas_assessment.items[2]
+    expect(canvas_question3.question_type).to eq 'text_only_question'
+    expect(canvas_question3.material).to eq question3.presentation
+    expect(canvas_question3.title).to eq question3.name
+  end
 end

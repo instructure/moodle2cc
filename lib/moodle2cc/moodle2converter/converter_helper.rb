@@ -6,6 +6,7 @@ module Moodle2CC
     PAGE_SUFFIX = '_page'
     ASSESSMENT_SUFFIX = '_assessment'
     CHOICE_ASSESSMENT_SUFFIX = '_choice_assessment'
+    FEEDBACK_ASSESSMENT_SUFFIX = '_feedback_assessment'
     QUESTIONNAIRE_ASSESSMENT_SUFFIX = '_questionnaire_assessment'
     ASSIGNMENT_SUFFIX = '_assignment'
     COURSE_SUFFIX = '_course'
@@ -25,6 +26,7 @@ module Moodle2CC
       Moodle2::Models::BookChapter => {suffix: CHAPTER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
       Moodle2::Models::Quizzes::Quiz => {suffix: ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
       Moodle2::Models::Choice => {suffix: CHOICE_ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
+      Moodle2::Models::Feedback => {suffix: FEEDBACK_ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
       Moodle2::Models::Questionnaire => {suffix: QUESTIONNAIRE_ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
       Moodle2::Models::Section => {suffix: SUMMARY_PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
       Moodle2::Models::Label => {suffix: nil, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_CONTEXT_MODULE_SUB_HEADER},
