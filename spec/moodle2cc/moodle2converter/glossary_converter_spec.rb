@@ -28,9 +28,8 @@ module Moodle2CC
       expect(canvas_page.editing_roles).to eq('teachers,students')
 
       expect(canvas_page.body).to include('<h2>Glossary Name</h2>')
-      expect(canvas_page.body).to include('<table><tr><th>Concept</th><th>Definition</th></tr>')
-      expect(canvas_page.body).to include("<tr><td style='padding-right:10px'>Concept number 0</td><td>Definition number 0</td></tr>")
-      expect(canvas_page.body).to include("<tr><td style='padding-right:10px'>Concept number 1</td><td>Definition number 1</td></tr>")
+      expect(canvas_page.body).to include("<dt>Concept number 0</dt><dd>Definition number 0</dd>")
+      expect(canvas_page.body).to include("<dt>Concept number 1</dt><dd>Definition number 1</dd>")
     end
   end
 end
