@@ -24,7 +24,11 @@ module Moodle2CC::CanvasCC::Models
 
     def page_name= name
       @title = name
-      @href = "#{WIKI_CONTENT}/#{CGI::escape(name.downcase.gsub(/\s/, '-'))}.html"
+      @href = "#{WIKI_CONTENT}/#{self.class.convert_name_to_url(name)}.html"
+    end
+
+    def self.convert_name_to_url(name)
+      CGI::escape(name.downcase.gsub(/\s/, '-').gsub('.', 'dot'))
     end
 
   end

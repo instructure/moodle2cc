@@ -3,7 +3,8 @@ module Moodle2CC
     include Moodle2Converter::ConverterHelper
 
     ACTIVITY_CONVERTERS = {
-      Moodle2::Models::Book => Moodle2Converter::BookConverter
+      Moodle2::Models::Book => Moodle2Converter::BookConverter,
+      Moodle2::Models::Label => Moodle2Converter::LabelConverter,
     }
 
     def initialize
@@ -30,7 +31,7 @@ module Moodle2CC
       canvas_page.workflow_state = workflow_state(moodle_section.visible)
       canvas_page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
       canvas_page.body = moodle_section.summary
-      canvas_page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT, CGI::escape("#{moodle_section.name}-summary"))
+      canvas_page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT, Moodle2CC::CanvasCC::Models::Page.convert_name_to_url("#{moodle_section.name}-summary"))
 
       canvas_page
     end
@@ -49,7 +50,7 @@ module Moodle2CC
       module_item.workflow_state = workflow_state(moodle_activity.visible)
       module_item.title = moodle_activity.name
       unless moodle_activity.is_a? Moodle2::Models::Label
-        if  moodle_activity.is_a? Moodle2::Models::ExternalUrl
+        if moodle_activity.is_a? Moodle2::Models::ExternalUrl
           module_item.identifierref = module_item.identifier
           module_item.url = moodle_activity.external_url.gsub(/\s/, '%20')
         elsif moodle_activity.is_a? Moodle2::Models::Resource
