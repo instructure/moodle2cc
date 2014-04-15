@@ -114,6 +114,20 @@
           <directory>activities/questionnaire_9</directory>
         </activity>
         <activity>
+          <moduleid>56547</moduleid>
+          <sectionid>7</sectionid>
+          <modulename>choice</modulename>
+          <title>Example Choice Activity</title>
+          <directory>activities/choice_56547</directory>
+        </activity>
+        <activity>
+          <moduleid>58588</moduleid>
+          <sectionid>7</sectionid>
+          <modulename>feedback</modulename>
+          <title>feedback name</title>
+          <directory>activities/feedback_58588</directory>
+        </activity>
+        <activity>
           <moduleid>14</moduleid>
           <sectionid>7</sectionid>
           <modulename>resource</modulename>

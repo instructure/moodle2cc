@@ -50,7 +50,7 @@ module Moodle2CC::CanvasCC::Models
         question = nil
         group = nil
         question_banks.each do |bank|
-          break if (question = bank.questions.detect{|q| q.identifier.to_s == ref[:question]}) ||
+          break if (question = bank.questions.detect{|q| q.original_identifier.to_s == ref[:question]}) ||
             (group = bank.question_groups.detect{|g| g.identifier.to_s == ref[:question]})
         end
 
@@ -70,7 +70,7 @@ module Moodle2CC::CanvasCC::Models
 
       @items.select{|i| i.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup)}.each do |group|
         group.questions.each do |q|
-          @items.delete_if{|i| i.identifier.to_s == q.identifier}
+          @items.delete_if{|i| i.respond_to?(:original_identifier) && i.original_identifier == q.original_identifier}
         end
       end
     end

@@ -17,7 +17,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
 
       converted_question = QuestionConverter.new.convert(moodle_question)
 
-      expect(converted_question.identifier).to eq moodle_question.id
+      expect(converted_question.original_identifier).to eq moodle_question.id
       expect(converted_question.answers.count).to eq 2
     end
 

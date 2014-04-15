@@ -14,7 +14,8 @@ module Moodle2CC::Moodle2Converter
         cc_course.discussions += convert_discussions(moodle_course.forums)
         cc_course.assignments += convert_assignments(moodle_course.assignments)
 
-        cc_course.assessments += convert_assessments(moodle_course.quizzes)
+        cc_course.assessments += convert_assessments(moodle_course.quizzes, moodle_course.choices,
+          moodle_course.feedbacks, moodle_course.questionnaires)
         cc_course.question_banks += convert_question_banks(moodle_course.question_categories)
         cc_course.resolve_question_references
 
@@ -94,9 +95,14 @@ module Moodle2CC::Moodle2Converter
     end
 
     # convert quizzes to assessments
-    def convert_assessments(quizzes)
+    def convert_assessments(quizzes, choices, feedbacks, questionnaires)
       assessment_converter = Moodle2CC::Moodle2Converter::AssessmentConverter.new
-      quizzes.map { |quiz| assessment_converter.convert(quiz) }
+      assessments = []
+      assessments += quizzes.map { |quiz| assessment_converter.convert_quiz(quiz) }
+      assessments += choices.map { |choice| assessment_converter.convert_choice(choice) }
+      assessments += feedbacks.map { |feedback| assessment_converter.convert_feedback(feedback) }
+      assessments += questionnaires.map { |questionnaire| assessment_converter.convert_questionnaire(questionnaire) }
+      assessments
     end
 
     # convert question categories to question banks

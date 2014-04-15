@@ -119,6 +119,7 @@ end
 require_relative 'calculated_question_writer'
 require_relative 'essay_question_writer'
 require_relative 'matching_question_writer'
+require_relative 'multiple_answers_question_writer'
 require_relative 'multiple_blanks_question_writer'
 require_relative 'multiple_choice_question_writer'
 require_relative 'numerical_question_writer'
