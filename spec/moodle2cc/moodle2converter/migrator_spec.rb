@@ -144,10 +144,12 @@ module Moodle2CC
         end
 
         it 'converts assignments' do
+          moodle_course.show_grades = false
           canvas_course.assignments = [Moodle2CC::CanvasCC::Models::Assignment.new, Moodle2CC::CanvasCC::Models::Assignment.new]
           migrator.migrate
           expect(converter).to have_received(:convert).exactly(2)
           canvas_course.assignments.each{|assignment| expect(assignment.body).to eq 'converted_html'}
+          canvas_course.assignments.each{|assignment| expect(assignment.muted).to eq true}
         end
 
         it 'converts assessment' do

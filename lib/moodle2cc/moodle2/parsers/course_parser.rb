@@ -1,5 +1,6 @@
 module Moodle2CC::Moodle2::Parsers
   class CourseParser
+    include ParserHelper
 
     COURSE_XML_PATH = 'course/course.xml'
 
@@ -16,6 +17,7 @@ module Moodle2CC::Moodle2::Parsers
         course.fullname = course_doc.at_xpath('/course/fullname').text
         course.shortname = course_doc.at_xpath('/course/shortname').text
         course.summary = course_doc.at_xpath('/course/summary').text
+        course.show_grades = parse_boolean(course_doc, '/course/showgrades')
         if unix_start_date = course_doc.at_xpath('/course/startdate').text
           course.startdate = Time.at(unix_start_date.to_i)
         end

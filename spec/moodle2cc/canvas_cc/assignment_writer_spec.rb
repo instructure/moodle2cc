@@ -29,6 +29,7 @@ describe Moodle2CC::CanvasCC::AssignmentWriter do
     assignment.peer_reviews = 'false'
     assignment.automatic_peer_reviews = 'true'
     assignment.grade_group_students_individually = 'false'
+    assignment.muted = true
 
     subject.write
     xml = Nokogiri::XML(File.read(File.join(work_dir, assignment.assignment_resource.files.select{ |f| f.split(//).last(4).join("").to_s == '.xml'}.first)))
@@ -51,6 +52,7 @@ describe Moodle2CC::CanvasCC::AssignmentWriter do
     expect(xml.%('assignment/peer_reviews').text).to eq 'false'
     expect(xml.%('assignment/automatic_peer_reviews').text).to eq 'true'
     expect(xml.%('assignment/grade_group_students_individually').text).to eq 'false'
+    expect(xml.%('assignment/muted').text).to eq 'true'
 
   end
 

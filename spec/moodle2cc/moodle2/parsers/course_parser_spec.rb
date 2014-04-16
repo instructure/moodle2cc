@@ -12,6 +12,7 @@ module Moodle2CC::Moodle2::Parsers
       expect(course.startdate).to eq(Time.parse('Sat, 15 Feb 2014 00:00:00 GMT'))
       expect(course.summary).to eq('<p>This is my course summary</p>')
       expect(course.course_id).to eq('2')
+      expect(course.show_grades).to eq true
     end
 
   end
