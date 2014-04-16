@@ -24,7 +24,8 @@ module Moodle2CC::Moodle2Converter
 
     def generate_body(moodle_folder)
       files = sort_files(parse_files_from_course(moodle_folder))
-      html = "<ul>\n"
+      html = moodle_folder.intro.to_s
+      html += "<ul>\n"
       files.each do |f|
         #create a moodle style link that will be replaced in the html converter
         link = "<a href=\"@@PLUGINFILE@@#{f.file_path}#{f.file_name}\">#{f.file_path[1..-1]}#{f.file_name}</a>"

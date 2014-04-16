@@ -25,6 +25,7 @@ module Moodle2CC
     it 'converts a moodle folder to a canvas page' do
       moodle2_folder.id = '3'
       moodle2_folder.name = 'Folder Name'
+      moodle2_folder.intro = 'introduction and stuff'
       moodle2_folder.visible = true
       canvas_page = subject.convert(moodle2_folder)
       expect(canvas_page.identifier).to eq 'm2eccbc87e4b5ce2fe28308fd9f2a7baf3_folder'
@@ -32,6 +33,7 @@ module Moodle2CC
       expect(canvas_page.workflow_state).to eq('active')
       expect(canvas_page.editing_roles).to eq('teachers')
       expect(canvas_page.body).to include('ul')
+      expect(canvas_page.body).to include(moodle2_folder.intro)
       expect(canvas_page.body).to include('<li><p><a href="@@PLUGINFILE@@/file1.txt">file1.txt</a></p></li>')
       expect(canvas_page.body).to include('<li><p><a href="@@PLUGINFILE@@/file2.txt">file2.txt</a></p></li>')
       expect(canvas_page.body).to include('<li><p><a href="@@PLUGINFILE@@/subfolder1/file4.txt">subfolder1/file4.txt</a></p></li>')
