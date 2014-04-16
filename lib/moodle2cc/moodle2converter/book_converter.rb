@@ -26,6 +26,7 @@ module Moodle2CC
         if pages.any?{|p| page.title == p.title}
           page.title = "#{page.title} (Introduction)"
         end
+        page.workflow_state = workflow_state(moodle_book.visible)
         pages.unshift(page)
       end
 
