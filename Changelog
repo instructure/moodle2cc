@@ -1,71 +1,79 @@
+2014-04-16 Version 0.2.5
+  * Don't default to allowing url submissions for assignments
+	* Long labels are converted to html pages instead of being truncated
+	* Handle assessments, questionnaires, choice activities, and feedback activities
+	* Use definition lists for glossary
+	* Include folder descriptions
+	* Handle some visibility issues better
+
 2014-04-09 Version 0.2.4
-    * Fix Moodle book conversion for titles and order
+  * Fix Moodle book conversion for titles and order
 
 2014-04-09 Version 0.2.3
-    * Add converting of HSU forums
+  * Add converting of HSU forums
 
 2014-04-03 Version 0.2.2
-    * Fixed parse exception for quizzes with no configures attempt count
+  * Fixed parse exception for quizzes with no configures attempt count
 
 2014-04-02 Version 0.2.1
-    * Fixed true/false questions conversion for moodle 2
+  * Fixed true/false questions conversion for moodle 2
 
 2014-04-01 Version 0.2.0
-    * Add support for converting Moodle 2 exports to canvas
-		  flavored common cartridge
-		* TODO of adding better plain CC support for Moodle 2 conversions
+  * Add support for converting Moodle 2 exports to canvas
+    flavored common cartridge
+  * TODO of adding better plain CC support for Moodle 2 conversions
 
 2014-01-21 Version 0.1.11
-    * files with associated text/html content are now made into
-		  html pages with that text and a link to the file
+  * files with associated text/html content are now made into
+    html pages with that text and a link to the file
 
 2013-08-15 Version 0.1.10
-    * improve multiple dropdown question handling
+  * improve multiple dropdown question handling
 
 2013-08-01 Version 0.1.9
-    * fix whitespace handling issue with mod_type
+  * fix whitespace handling issue with mod_type
 
 2013-07-02 Version 0.1.8
-    * Improved question image conversion by putting it in its own p tag
-		* Added support for hsuforum content
+  * Improved question image conversion by putting it in its own p tag
+  * Added support for hsuforum content
 
 2013-06-27 Version 0.1.7
-    * Include question images when converting to QTI
-		* Added travis setup for happiness
+  * Include question images when converting to QTI
+  * Added travis setup for happiness
 
 2012-12-07 Version 0.1.6
-    * Added Changelog
-    * Don't error out when trying to reference non-existent quiz question
+  * Added Changelog
+  * Don't error out when trying to reference non-existent quiz question
 
 2012-08-20 Version 0.1.5
 
-    * Readme improvements
-        * Listed todo items for complete Common Cartridge conversion support
-    * Added assignment conversion to plain CC
-    * Added wiki page conversion to plain CC
+  * Readme improvements
+    * Listed todo items for complete Common Cartridge conversion support
+  * Added assignment conversion to plain CC
+  * Added wiki page conversion to plain CC
 
 2012-08-15 Version 0.1.4
 
-    * More robust URI parsing
+  * More robust URI parsing
 
 2012-08-06 Version 0.1.3
 
-    * Fix external link and attachment references
-    * Fix ordering of module items
+* Fix external link and attachment references
+  * Fix ordering of module items
 
 
 2012-08-03 Version 0.1.2
 
-    * Add quiz support
-    * Better handle wiki titles and summaries
+  * Add quiz support
+  * Better handle wiki titles and summaries
 
 
 2012-07-26 Version 0.1.1
 
-    * Fix extra whitespace errors
-    * Add ability to inject logger during conversion process 
+  * Fix extra whitespace errors
+  * Add ability to inject logger during conversion process 
 
 
 2012-7-24 Version 0.1.0
 
-    * Initial release
+  * Initial release
