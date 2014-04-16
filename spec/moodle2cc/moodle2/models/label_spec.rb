@@ -51,7 +51,7 @@ module Moodle2CC::Moodle2::Models
         subject.name = '<hr>'
         subject.intro = '<img src="somelinky">'
 
-        expect(subject.converted_title).to eq 'Section Description'
+        expect(subject.converted_title).to eq Moodle2CC::Moodle2::Models::Label::DEFAULT_PAGE_TITLE
         expect(subject.convert_to_page?).to eq true
         expect(subject.convert_to_header?).to eq false
       end
