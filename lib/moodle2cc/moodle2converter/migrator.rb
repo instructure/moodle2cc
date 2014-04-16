@@ -14,6 +14,8 @@ module Moodle2CC::Moodle2Converter
         cc_course.discussions += convert_discussions(moodle_course.forums)
         cc_course.assignments += convert_assignments(moodle_course.assignments)
 
+        cc_course.mute_assignments! unless moodle_course.show_grades
+
         cc_course.assessments += convert_assessments(moodle_course.quizzes, moodle_course.choices,
           moodle_course.feedbacks, moodle_course.questionnaires)
         cc_course.question_banks += convert_question_banks(moodle_course.question_categories)

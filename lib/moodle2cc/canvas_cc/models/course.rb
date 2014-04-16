@@ -42,5 +42,11 @@ module Moodle2CC::CanvasCC::Models
       return unless @assessments && @question_banks
       @assessments.each{|a| a.resolve_question_references(@question_banks)}
     end
+
+    def mute_assignments!
+      @assignments.each do |assignment|
+        assignment.muted = true
+      end
+    end
   end
 end
