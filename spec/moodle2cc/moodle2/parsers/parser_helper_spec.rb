@@ -44,6 +44,16 @@ describe Moodle2CC::Moodle2::Parsers::ParserHelper do
       expect(subject.parse_text(parent_node, 'path')).to eq nil
     end
 
+    it "replaces the @$FILEPHP$@ token with $IMS_CC_FILEBASE$" do
+      child_node.stub(:text) { "<a href=\"$@FILEPHP@$/somefile\">linkylink</a>" }
+      expect(subject.parse_text(parent_node, 'path')).to eq "<a href=\"$IMS_CC_FILEBASE$/somefile\">linkylink</a>"
+    end
+
+    it "replaces the @$SLASH$@ token with a slash" do
+      child_node.stub(:text) { "<a href=\"something$@SLASH@$somefile\">linkylink</a>" }
+      expect(subject.parse_text(parent_node, 'path')).to eq "<a href=\"something/somefile\">linkylink</a>"
+    end
+
     it "uses #at_xpath when ns is true" do
       expect(subject.parse_text(parent_node, 'path', true)).to eq 'value'
       expect(parent_node).to have_received(:at_xpath).with('path')

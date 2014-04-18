@@ -5,6 +5,10 @@ module Moodle2CC::Moodle2::Parsers
     XML_NULL_VALUE = '$@NULL@$'
     MODULE_XML = 'module.xml'
 
+    MOODLE_FILEBASE_TOKEN = '$@FILEPHP@$'
+    IMS_FILEBASE_TOKEN = '$IMS_CC_FILEBASE$'
+    SLASH_TOKEN = '$@SLASH@$'
+
     def activity_directories(work_dir, activity_types)
       File.open(File.join(work_dir, Moodle2CC::Moodle2::Extractor::MOODLE_BACKUP_XML)) do |f|
         moodle_backup_xml = Nokogiri::XML(f)
@@ -16,7 +20,8 @@ module Moodle2CC::Moodle2::Parsers
     def parse_text(node, xpath, use_xpath=false)
       if v_node = (use_xpath && node.at_xpath(xpath)) || (!use_xpath && node.%(xpath))
         value = v_node.text
-        value unless value == XML_NULL_VALUE
+        return nil if value == XML_NULL_VALUE
+        value.to_s.gsub(MOODLE_FILEBASE_TOKEN, IMS_FILEBASE_TOKEN).gsub(SLASH_TOKEN, '/')
       end
     end
 
