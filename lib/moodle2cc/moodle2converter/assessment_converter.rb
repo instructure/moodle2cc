@@ -25,7 +25,9 @@ module Moodle2CC::Moodle2Converter
       canvas_assessment.access_code = moodle_quiz.password
       canvas_assessment.ip_filter = moodle_quiz.subnet
       canvas_assessment.shuffle_answers = moodle_quiz.shuffle_answers
-      canvas_assessment.time_limit = Integer(moodle_quiz.time_limit) if moodle_quiz.time_limit
+      if moodle_quiz.time_limit && moodle_quiz.time_limit.to_i > 0
+        canvas_assessment.time_limit = (moodle_quiz.time_limit.to_f / 60).ceil
+      end
       canvas_assessment.quiz_type = 'practice_quiz'
 
       canvas_assessment.question_references = moodle_quiz.question_instances
