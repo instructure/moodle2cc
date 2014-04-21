@@ -69,6 +69,11 @@ module Moodle2CC::Moodle2::Parsers
           }
         end
 
+        question_order = parse_text(xml, '/activity/quiz/questions').to_s.split(',')
+        unless question_order.empty?
+          quiz.question_instances.sort_by!{|qi| question_order.index(qi[:question])}
+        end
+
         xml.search('/activity/quiz/feedbacks/feedback').each do |node|
           quiz.feedbacks << {
             :text => parse_text(node, 'feedbacktext'),
