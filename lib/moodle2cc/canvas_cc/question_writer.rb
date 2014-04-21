@@ -79,7 +79,7 @@ module Moodle2CC::CanvasCC
     end
 
     def self.write_general_feedback(item_node, question)
-      if question.general_feedback
+      if question.general_feedback && question.general_feedback.length > 0
         item_node.itemfeedback(:ident => 'general_fb') do |fb_node|
           fb_node.flow_mat do |flow_node|
             flow_node.material do |material_node|
