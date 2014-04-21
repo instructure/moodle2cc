@@ -13,12 +13,12 @@ module Moodle2CC::Moodle2::Parsers
       File.open(File.join(@backup_folder, COURSE_XML_PATH)) do |f|
         course_doc = Nokogiri::XML(f)
         course.course_id = course_doc.at_xpath('/course/@id').value
-        course.id_number = course_doc.at_xpath('/course/idnumber').text
-        course.fullname = course_doc.at_xpath('/course/fullname').text
-        course.shortname = course_doc.at_xpath('/course/shortname').text
-        course.summary = course_doc.at_xpath('/course/summary').text
+        course.id_number = parse_text(course_doc, '/course/idnumber')
+        course.fullname = parse_text(course_doc, '/course/fullname')
+        course.shortname = parse_text(course_doc, '/course/shortname')
+        course.summary = parse_text(course_doc, '/course/summary')
         course.show_grades = parse_boolean(course_doc, '/course/showgrades')
-        if unix_start_date = course_doc.at_xpath('/course/startdate').text
+        if unix_start_date = parse_text(course_doc, '/course/startdate')
           course.startdate = Time.at(unix_start_date.to_i)
         end
 
