@@ -2,9 +2,10 @@ module Moodle2CC::Moodle2
   class Parsers::QuestionParsers::MatchParser < Parsers::QuestionParsers::QuestionParser
     include Parsers::ParserHelper
     register_parser_type('match')
+    register_parser_type('ddmatch')
 
     def parse_question(node)
-      question = super
+      question = super(node, 'match')
 
       q_node = node.at_xpath("plugin_qtype_#{question.qtype}_question")
 

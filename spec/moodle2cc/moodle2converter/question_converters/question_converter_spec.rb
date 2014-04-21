@@ -73,9 +73,6 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
 
       converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create('shortanswer'))
       expect(converted_question.question_type).to eq 'short_answer_question'
-
-      converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create('multichoice'))
-      expect(converted_question.question_type).to eq 'multiple_choice_question'
     end
 
   end

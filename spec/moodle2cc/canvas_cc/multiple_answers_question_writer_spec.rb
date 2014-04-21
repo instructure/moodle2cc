@@ -14,12 +14,15 @@ module Moodle2CC::CanvasCC
       answer1 = Moodle2CC::CanvasCC::Models::Answer.new
       answer1.id = '1'
       answer1.answer_text = 'something'
+      answer1.fraction = '0.5'
       answer2 = Moodle2CC::CanvasCC::Models::Answer.new
       answer2.id = '2'
       answer2.answer_text = 'something else'
+      answer2.fraction = '0'
       answer3 = Moodle2CC::CanvasCC::Models::Answer.new
       answer3.id = '3'
       answer3.answer_text = 'something something else'
+      answer3.fraction = '0.5'
       question.answers = [answer1, answer2, answer3]
 
       xml = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |node|
@@ -41,7 +44,7 @@ module Moodle2CC::CanvasCC
       condition = xml.at_xpath("item/resprocessing/respcondition[@continue=\"No\"]")
       expect(condition.at_xpath("conditionvar/and/varequal[@respident=\"response1\" and text()=\"#{answer1.id}\"]")).not_to be_nil
       expect(condition.at_xpath("conditionvar/and/not/varequal[@respident=\"response1\" and text()=\"#{answer2.id}\"]")).not_to be_nil
-      expect(condition.at_xpath("conditionvar/and/not/varequal[@respident=\"response1\" and text()=\"#{answer3.id}\"]")).not_to be_nil
+      expect(condition.at_xpath("conditionvar/and/varequal[@respident=\"response1\" and text()=\"#{answer3.id}\"]")).not_to be_nil
     end
   end
 end

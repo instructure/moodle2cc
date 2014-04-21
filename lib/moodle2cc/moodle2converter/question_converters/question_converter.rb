@@ -15,7 +15,6 @@ module Moodle2CC::Moodle2Converter
       STANDARD_CONVERSIONS = {
         'description' => 'text_only_question',
         'essay' => 'essay_question',
-        'multichoice' => 'multiple_choice_question',
         'shortanswer' => 'short_answer_question'
       }
 
@@ -31,7 +30,7 @@ module Moodle2CC::Moodle2Converter
       end
 
       def convert_question(moodle_question, question_type = nil)
-        canvas_question = create_canvas_question(question_type)
+        canvas_question = create_canvas_question(question_type, moodle_question)
         canvas_question.identifier = generate_unique_identifier_for(moodle_question.id, '_quiz_question')
         canvas_question.original_identifier = moodle_question.id
         canvas_question.title = moodle_question.name
@@ -50,7 +49,7 @@ module Moodle2CC::Moodle2Converter
         material
       end
 
-      def create_canvas_question(question_type = nil)
+      def create_canvas_question(question_type = nil, question = nil)
         question_type ||= self.class.canvas_question_type
         raise 'set canvas_question_type in question converter subclasses' unless question_type
         Moodle2CC::CanvasCC::Models::Question.create(question_type)

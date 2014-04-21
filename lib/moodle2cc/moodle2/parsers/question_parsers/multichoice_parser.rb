@@ -9,6 +9,8 @@ module Moodle2CC::Moodle2
       answer_parser = Parsers::AnswerParser.new
       question.answers += node.search('answers/answer').map { |n| answer_parser.parse(n) }
 
+      question.single = parse_boolean(node, 'plugin_qtype_multichoice_question/multichoice/single')
+
       question
     end
 

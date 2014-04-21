@@ -16,7 +16,7 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     moodle_quiz.password = "password"
     moodle_quiz.subnet = "255.255.255.0"
     moodle_quiz.shuffle_answers = false
-    moodle_quiz.time_limit = "100"
+    moodle_quiz.time_limit = "120"
     moodle_quiz.visible = false
 
     canvas_assessment = subject.convert_quiz(moodle_quiz)
@@ -33,7 +33,7 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     expect(canvas_assessment.access_code).to eq moodle_quiz.password
     expect(canvas_assessment.ip_filter).to eq moodle_quiz.subnet
     expect(canvas_assessment.shuffle_answers).to eq moodle_quiz.shuffle_answers
-    expect(canvas_assessment.time_limit).to eq 100
+    expect(canvas_assessment.time_limit).to eq 2 # moodle time limit is in seconds
     expect(canvas_assessment.quiz_type).to eq 'practice_quiz'
     expect(canvas_assessment.question_references).to eq moodle_quiz.question_instances
     expect(canvas_assessment.workflow_state).to eq Moodle2CC::CanvasCC::Models::WorkflowState::UNPUBLISHED
