@@ -21,14 +21,15 @@ module Moodle2CC::CanvasCC
     def self.write_response_conditions(processing_node, question)
       return unless question.answers.count > 0
       processing_node.respcondition(:continue => 'No') do |condition_node|
-        first = question.answers.first
-        rest = question.answers[1..-1]
         condition_node.conditionvar do |var_node|
           var_node.and do |and_node|
-            and_node.varequal first.id, :respident => 'response1'
-            rest.each do |answer|
-              and_node.not do |not_node|
-                not_node.varequal answer.id, :respident => 'response1'
+            question.answers.each do |answer|
+              if answer.fraction.to_f > 0
+                and_node.varequal answer.id, :respident => 'response1'
+              else
+                and_node.not do |not_node|
+                  not_node.varequal answer.id, :respident => 'response1'
+                end
               end
             end
           end

@@ -3,7 +3,7 @@ module Moodle2CC::Moodle2::Models::Quizzes
 
     @@subclasses = {}
 
-    STANDARD_TYPES = ['description', 'essay', 'multichoice', 'shortanswer']
+    STANDARD_TYPES = ['description', 'essay', 'shortanswer']
 
     def self.create(type)
       if c = @@subclasses[type]
