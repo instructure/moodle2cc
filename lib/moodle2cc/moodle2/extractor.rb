@@ -20,6 +20,7 @@ module Moodle2CC::Moodle2
         parse_assignments(work_dir, course)
         parse_books(work_dir, course)
         parse_folders(work_dir, course)
+        parse_wikis(work_dir, course)
         parse_question_categories(work_dir, course)
 
         parse_quizzes(work_dir, course)
@@ -64,6 +65,12 @@ module Moodle2CC::Moodle2
     def parse_pages(work_dir, course)
       if pages = Moodle2CC::Moodle2::Parsers::PageParser.new(work_dir).parse
         course.pages += pages
+      end
+    end
+
+    def parse_wikis(work_dir, course)
+      if wikis = Moodle2CC::Moodle2::Parsers::WikiParser.new(work_dir).parse
+        course.wikis += wikis
       end
     end
 

@@ -17,5 +17,5 @@ module Moodle2CC::Moodle2::Models
   require_relative 'models/label'
   require_relative 'models/questionnaire'
   require_relative 'models/resource'
-
+  require_relative 'models/wiki'
 end

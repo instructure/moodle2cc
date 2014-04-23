@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="19" moduleid="58541" modulename="wiki" contextid="162282">
+  <wiki id="19">
+    <name>wiki name</name>
+    <intro>&lt;p&gt;wiki page description.&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <timecreated>0</timecreated>
+    <timemodified>1360632329</timemodified>
+    <firstpagetitle>Main Page</firstpagetitle>
+    <wikimode>collaborative</wikimode>
+    <defaultformat>html</defaultformat>
+    <forceformat>0</forceformat>
+    <editbegin>0</editbegin>
+    <editend>0</editend>
+    <subwikis>
+      <subwiki id="11">
+        <groupid>0</groupid>
+        <userid>0</userid>
+        <pages>
+          <page id="27">
+            <title>Main Page</title>
+            <cachedcontent>&lt;p&gt;front page content&lt;/p&gt;</cachedcontent>
+            <timecreated>1360632345</timecreated>
+            <timemodified>1362421535</timemodified>
+            <timerendered>1397173623</timerendered>
+            <userid>15470</userid>
+            <pageviews>199</pageviews>
+            <readonly>0</readonly>
+            <versions>
+              <version id="81">
+                <content></content>
+                <contentformat>html</contentformat>
+                <version>0</version>
+                <timecreated>1360632345</timecreated>
+                <userid>15478</userid>
+              </version>
+              <version id="82">
+                <content></content>
+                <contentformat>html</contentformat>
+                <version>1</version>
+                <timecreated>1360632353</timecreated>
+                <userid>15478</userid>
+              </version>
+            </versions>
+            <tags>
+            </tags>
+          </page>
+          <page id="28">
+            <title>other page</title>
+            <cachedcontent>&lt;p&gt;other page content&lt;/p&gt;</cachedcontent>
+            <timecreated>1360632345</timecreated>
+            <timemodified>1362421535</timemodified>
+            <timerendered>1397173623</timerendered>
+            <userid>15470</userid>
+            <pageviews>199</pageviews>
+            <readonly>0</readonly>
+            <versions>
+            </versions>
+            <tags>
+            </tags>
+          </page>
+        </pages>
+        <synonyms>
+        </synonyms>
+        <links>
+        </links>
+      </subwiki>
+    </subwikis>
+  </wiki>
+</activity>

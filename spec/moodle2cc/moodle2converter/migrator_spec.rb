@@ -21,6 +21,7 @@ module Moodle2CC
       Moodle2Converter::SectionConverter.any_instance.stub(:convert)
       Moodle2Converter::FileConverter.any_instance.stub(:convert)
       Moodle2Converter::PageConverter.any_instance.stub(:convert)
+      Moodle2Converter::WikiConverter.any_instance.stub(:convert)
       Moodle2Converter::DiscussionConverter.any_instance.stub(:convert)
       Moodle2Converter::AssignmentConverter.any_instance.stub(:convert)
       Moodle2Converter::FolderConverter.any_instance.stub(:convert)
@@ -56,6 +57,13 @@ module Moodle2CC
         Moodle2Converter::PageConverter.any_instance.stub(:convert).and_return(canvas_page)
         migrator.migrate
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
+      end
+
+      it 'converts wikis' do
+        moodle_course.wikis = [:wiki1, :wiki2]
+        Moodle2Converter::WikiConverter.any_instance.stub(:convert).and_return([canvas_page, canvas_page])
+        migrator.migrate
+        expect(canvas_course.pages).to eq [canvas_page] * 4
       end
 
       it 'converts discussions' do

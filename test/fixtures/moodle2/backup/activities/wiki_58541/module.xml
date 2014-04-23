@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="58541" version="2013050100">
+  <modulename>wiki</modulename>
+  <sectionid>36100</sectionid>
+  <sectionnumber>1</sectionnumber>
+  <idnumber></idnumber>
+  <added>1360632329</added>
+  <score>0</score>
+  <indent>0</indent>
+  <visible>1</visible>
+  <visibleold>1</visibleold>
+  <groupmode>0</groupmode>
+  <groupingid>0</groupingid>
+  <groupmembersonly>0</groupmembersonly>
+  <completion>0</completion>
+  <completiongradeitemnumber>$@NULL@$</completiongradeitemnumber>
+  <completionview>0</completionview>
+  <completionexpected>0</completionexpected>
+  <availablefrom>0</availablefrom>
+  <availableuntil>0</availableuntil>
+  <releasecode>$@NULL@$</releasecode>
+  <showavailability>1</showavailability>
+  <showdescription>0</showdescription>
+  <plugin_outcomesupport_mod_module>
+  </plugin_outcomesupport_mod_module>
+  <availability_info>
+  </availability_info>
+</module>
