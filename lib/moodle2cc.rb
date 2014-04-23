@@ -128,5 +128,6 @@ module Moodle2CC
     autoload :HomepageConverter, 'moodle2cc/moodle2converter/homepage_converter'
     autoload :GlossaryConverter, 'moodle2cc/moodle2converter/glossary_converter'
     autoload :LabelConverter, 'moodle2cc/moodle2converter/label_converter'
+    autoload :WikiConverter, 'moodle2cc/moodle2converter/wiki_converter'
   end
 end

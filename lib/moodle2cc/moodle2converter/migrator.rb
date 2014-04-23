@@ -11,6 +11,7 @@ module Moodle2CC::Moodle2Converter
         cc_course = convert_course(moodle_course)
         cc_course.files += convert_files(moodle_course.files)
         cc_course.pages += convert_pages(moodle_course.pages)
+        cc_course.pages += convert_wikis(moodle_course.wikis)
         cc_course.discussions += convert_discussions(moodle_course.forums)
         cc_course.assignments += convert_assignments(moodle_course.assignments)
 
@@ -59,6 +60,11 @@ module Moodle2CC::Moodle2Converter
     def convert_pages(pages)
       page_converter = Moodle2CC::Moodle2Converter::PageConverter.new
       pages.map { |page| page_converter.convert(page) }
+    end
+
+    def convert_wikis(wikis)
+      wiki_converter = Moodle2CC::Moodle2Converter::WikiConverter.new
+      wikis.map { |wiki| wiki_converter.convert(wiki) }.flatten
     end
 
     def convert_discussions(discussions)

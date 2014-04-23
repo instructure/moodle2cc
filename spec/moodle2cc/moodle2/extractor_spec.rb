@@ -11,6 +11,7 @@ module Moodle2CC::Moodle2
       Parsers::SectionParser.any_instance.stub(:parse)
       Parsers::FileParser.any_instance.stub(:parse)
       Parsers::PageParser.any_instance.stub(:parse)
+      Parsers::WikiParser.any_instance.stub(:parse)
       Parsers::ForumParser.any_instance.stub(:parse)
       Parsers::AssignmentParser.any_instance.stub(:parse)
       Parsers::BookParser.any_instance.stub(:parse)
@@ -101,6 +102,13 @@ module Moodle2CC::Moodle2
       Parsers::PageParser.any_instance.stub(:parse).and_return([page])
       extractor.extract {}
       expect(course.pages).to eq [page]
+    end
+
+    it 'parses wikis' do
+      wiki = Models::Wiki.new
+      Parsers::WikiParser.any_instance.stub(:parse).and_return([wiki])
+      extractor.extract {}
+      expect(course.wikis).to eq [wiki]
     end
 
     it 'parses forums' do
