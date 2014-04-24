@@ -5,7 +5,7 @@ module Moodle2CC::Moodle2Converter
     def convert_feedback(moodle_feedback)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
       canvas_assessment.identifier = generate_unique_identifier_for(moodle_feedback.id, FEEDBACK_ASSESSMENT_SUFFIX)
-      canvas_assessment.title = moodle_feedback.name
+      canvas_assessment.title = truncate_text(moodle_feedback.name)
       canvas_assessment.description = moodle_feedback.intro
       canvas_assessment.workflow_state = workflow_state(moodle_feedback.visible)
 
@@ -40,10 +40,10 @@ module Moodle2CC::Moodle2Converter
       canvas_question = Moodle2CC::CanvasCC::Models::Question.create(canvas_type)
       canvas_question.identifier = generate_unique_identifier_for(moodle_question.id, "_feedback_question")
       if moodle_question.type == 'label'
-        canvas_question.title = moodle_question.name
+        canvas_question.title = truncate_text(moodle_question.name)
         canvas_question.material = moodle_question.presentation
       else
-        canvas_question.title = moodle_question.label
+        canvas_question.title = truncate_text(moodle_question.label)
         canvas_question.material = moodle_question.name
       end
 

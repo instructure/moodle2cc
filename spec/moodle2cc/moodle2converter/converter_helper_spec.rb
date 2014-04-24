@@ -168,6 +168,11 @@ module Moodle2CC
 
     end
 
+    describe '#truncate_text' do
+      it 'should truncate text' do
+        expect(subject.truncate_text('truncate me', 8)).to eq 'trunc...'
+      end
+    end
 
   end
 end

@@ -36,6 +36,8 @@ module Moodle2CC
       Moodle2::Models::Resource => {suffix: nil, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_ATTACHMENT}
     }
 
+    MAX_TITLE_LENGTH = 250
+
     def generate_unique_resource_path(base_path, readable_name, file_extension = 'html')
       file_name_suffix = readable_name ? Moodle2CC::CanvasCC::Models::Page.convert_name_to_url(readable_name) : ''
       ext = file_extension ? ".#{file_extension}" : ''
@@ -70,6 +72,17 @@ module Moodle2CC
       moodle_visibility ? CanvasCC::Models::WorkflowState::ACTIVE : CanvasCC::Models::WorkflowState::UNPUBLISHED
     end
 
+    def truncate_text(text, max_length = nil, ellipsis = '...')
+      max_length ||= MAX_TITLE_LENGTH
+      return text if !text || text.length <= max_length
+
+      actual_length = max_length - ellipsis.length
+
+      # First truncate the text down to the bytes max, then lop off any invalid
+      # unicode characters at the end.
+      truncated = text[0,actual_length][/.{0,#{actual_length}}/mu]
+      truncated + ellipsis
+    end
 
   end
 end

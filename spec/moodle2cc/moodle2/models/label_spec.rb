@@ -33,16 +33,16 @@ module Moodle2CC::Moodle2::Models
         subject.name = ("a" * 50) + "..."
         subject.intro = ("a" * 70)
 
-        expect(subject.converted_title).to eq ("a" * 70)
+        expect(subject.converted_title).to eq subject.intro
         expect(subject.convert_to_page?).to eq false
         expect(subject.convert_to_header?).to eq true
       end
 
-      it 'should truncate the intro text if it is too long' do
+      it 'should convert to page if the intro text is too long' do
         subject.name = '<hr>'
-        subject.intro = ("a" * 90)
+        subject.intro = ("a" * (Moodle2CC::Moodle2Converter::ConverterHelper::MAX_TITLE_LENGTH + 20))
 
-        expect(subject.converted_title).to eq (("a" * 80) + '...')
+        expect(subject.converted_title).to eq subject.intro
         expect(subject.convert_to_page?).to eq true
         expect(subject.convert_to_header?).to eq false
       end

@@ -8,7 +8,7 @@ module Moodle2CC::Moodle2Converter
       moodle_wiki.pages.each do |moodle_page|
         canvas_page = Moodle2CC::CanvasCC::Models::Page.new
         canvas_page.identifier = generate_unique_identifier_for("#{moodle_wiki.id}#{moodle_page[:id]}") + PAGE_SUFFIX
-        canvas_page.page_name = moodle_page[:title]
+        canvas_page.page_name = truncate_text(moodle_page[:title])
         canvas_page.workflow_state = workflow_state(moodle_wiki.visible)
         canvas_page.editing_roles = 'teachers'
         canvas_page.body = moodle_page[:content]

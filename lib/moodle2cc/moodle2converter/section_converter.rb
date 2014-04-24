@@ -14,7 +14,7 @@ module Moodle2CC
     def convert(moodle_section)
       canvas_module = CanvasCC::Models::CanvasModule.new
       canvas_module.identifier = generate_unique_identifier_for(moodle_section.id, MODULE_SUFFIX)
-      canvas_module.title = moodle_section.name
+      canvas_module.title = truncate_text(moodle_section.name)
       canvas_module.workflow_state = workflow_state(moodle_section.visible)
 
       canvas_module.module_items += convert_activity(moodle_section) if moodle_section.summary && !moodle_section.summary.strip.empty?
@@ -27,7 +27,7 @@ module Moodle2CC
     def convert_to_summary_page(moodle_section)
       canvas_page = CanvasCC::Models::Page.new
       canvas_page.identifier = generate_unique_identifier_for_activity(moodle_section)
-      canvas_page.title = moodle_section.name
+      canvas_page.title = truncate_text(moodle_section.name)
       canvas_page.workflow_state = workflow_state(moodle_section.visible)
       canvas_page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
       canvas_page.body = moodle_section.summary
@@ -48,7 +48,7 @@ module Moodle2CC
       module_item = CanvasCC::Models::ModuleItem.new
       module_item.identifier = generate_unique_identifier
       module_item.workflow_state = workflow_state(moodle_activity.visible)
-      module_item.title = moodle_activity.name
+      module_item.title = truncate_text(moodle_activity.name)
       unless moodle_activity.is_a? Moodle2::Models::Label
         if moodle_activity.is_a? Moodle2::Models::ExternalUrl
           module_item.identifierref = module_item.identifier
