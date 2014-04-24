@@ -72,7 +72,7 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
     group.questions = [q2]
     qb2.question_groups = [group]
 
-    subject.resolve_question_references([qb1, qb2])
+    subject.resolve_question_references!([qb1, qb2])
 
     expect(subject.items.count).to eq 3
     expect(subject.items[0].points_possible).to eq '2'

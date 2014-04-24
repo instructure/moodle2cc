@@ -20,7 +20,6 @@ module Moodle2CC::Moodle2Converter
         cc_course.assessments += convert_assessments(moodle_course.quizzes, moodle_course.choices,
           moodle_course.feedbacks, moodle_course.questionnaires)
         cc_course.question_banks += convert_question_banks(moodle_course.question_categories)
-        cc_course.resolve_question_references
 
         cc_course.pages += convert_sections_to_pages(moodle_course.sections)
         cc_course.pages += convert_folders(moodle_course)
@@ -32,6 +31,7 @@ module Moodle2CC::Moodle2Converter
 
         convert_html!(cc_course, moodle_course)
 
+        cc_course.resolve_question_references!
         @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
       end
       @path
@@ -124,7 +124,34 @@ module Moodle2CC::Moodle2Converter
       cc_course.pages.each {|page| page.body = html_converter.convert(page.body)}
       cc_course.discussions.each {|discussion| discussion.text = html_converter.convert(discussion.text)}
       cc_course.assignments.each {|assignment| assignment.body = html_converter.convert(assignment.body)}
-      cc_course.assessments.each {|assessment| assessment.description = html_converter.convert(assessment.description)}
+
+      cc_course.assessments.each do |assessment|
+        assessment.description = html_converter.convert(assessment.description)
+
+        next unless assessment.items
+        assessment.items.each do |item|
+          if item.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup)
+            item.questions.each do |question|
+              convert_question_html!(question, html_converter)
+            end
+          elsif item.is_a?(Moodle2CC::CanvasCC::Models::Question)
+            convert_question_html!(item, html_converter)
+          end
+        end
+      end
+
+      cc_course.question_banks.each do |question_bank|
+        question_bank.questions.each do |question|
+          convert_question_html!(question, html_converter)
+        end
+      end
+    end
+
+    def convert_question_html!(question, html_converter)
+      question.material = html_converter.convert(question.material)
+      question.answers.each do |answer|
+        answer.answer_text = html_converter.convert(answer.answer_text)
+      end
     end
 
   end

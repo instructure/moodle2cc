@@ -38,7 +38,7 @@ module Moodle2CC
       expect(html.css('img').first.attr('src')).to eq '%24IMS_CC_FILEBASE%24/path/a'
     end
 
-    it 'replaces moodle 2 url in hrefs with cavans url' do
+    it 'replaces moodle 2 url in hrefs with canvas url' do
       content = '<p>a link to <a href="@@PLUGINFILE@@/a97"></p>'
       html = Nokogiri::HTML.fragment(subject.convert(content))
       expect(html.css('a[href]').first.attr('href')).to eq '%24IMS_CC_FILEBASE%24/path/a'
@@ -179,8 +179,13 @@ module Moodle2CC
 
         expect(html).to eq '<audio controls="controls"><source src="/some/path/to/video.webm" type="video/webm"></source><a href="/some/path/to/video.webm">My Video</a></audio>'
       end
-   end
+    end
 
+    it 'converts equations into canvas equations' do
+      content = 'stuff $$a + b$$'
+      html = subject.convert(content)
+      expect(html).to eq "stuff <img class=\"equation_image\" title=\"a + b\" alt=\"a + b\" src=\"/equation_images/a%2520%252B%2520b\">"
+    end
 
   end
 end

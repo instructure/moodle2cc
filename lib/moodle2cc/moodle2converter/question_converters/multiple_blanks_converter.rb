@@ -7,7 +7,7 @@ module Moodle2CC::Moodle2Converter
       def convert_question(moodle_question)
         canvas_question = super
 
-        canvas_question.material.gsub!(/\[\#(\d+)\]/) do |match|
+        canvas_question.material.gsub!(/\{\#(\d+)\}/) do |match|
           "[response#{$1}]"
         end
 

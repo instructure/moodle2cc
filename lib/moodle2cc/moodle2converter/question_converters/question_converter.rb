@@ -44,7 +44,6 @@ module Moodle2CC::Moodle2Converter
 
       def convert_question_text(moodle_question)
         material = moodle_question.question_text || ''
-        material = material.gsub(/\{(.*?)\}/, '[\1]')
         material = RDiscount.new(material).to_html if moodle_question.question_text_format.to_i == 4 # markdown
         material
       end

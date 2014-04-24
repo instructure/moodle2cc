@@ -38,9 +38,9 @@ module Moodle2CC::CanvasCC::Models
       @settings[method.to_sym]
     end
 
-    def resolve_question_references
+    def resolve_question_references!
       return unless @assessments && @question_banks
-      @assessments.each{|a| a.resolve_question_references(@question_banks)}
+      @assessments.each{|a| a.resolve_question_references!(@question_banks)}
     end
 
     def mute_assignments!
