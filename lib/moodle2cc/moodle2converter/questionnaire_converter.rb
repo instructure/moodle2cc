@@ -17,6 +17,7 @@ module Moodle2CC::Moodle2Converter
 
       canvas_assessment.items = []
       moodle_questionnaire.questions.each do |question|
+        next if question.deleted
         if canvas_question = convert_questionnaire_question(question)
           canvas_assessment.items << canvas_question
         end

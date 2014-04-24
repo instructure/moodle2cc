@@ -27,7 +27,7 @@ module Moodle2CC::Moodle2::Parsers
 
     def parse_boolean(node, xpath)
       value = parse_text(node, xpath)
-      value && (value == '1' || value.downcase == 'true') ? true : false
+      value && (value == '1' || value.downcase == 'true' || value.downcase == 'y') ? true : false
     end
 
     def parse_module(activity_dir, activity)

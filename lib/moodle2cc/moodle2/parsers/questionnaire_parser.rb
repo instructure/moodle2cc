@@ -39,6 +39,7 @@ module Moodle2CC::Moodle2::Parsers
           question.type_id = parse_text(node, 'type_id')
           question.position = parse_text(node, 'position')
           question.content = parse_text(node, 'content')
+          question.deleted = parse_boolean(node, 'deleted')
           node.search('quest_choices/quest_choice').each do |choice_node|
             question.choices << {
               :id => choice_node.attributes['id'].value,
