@@ -7,7 +7,7 @@ module Moodle2CC
       module_item = CanvasCC::Models::ModuleItem.new
       module_item.identifier = generate_unique_identifier
       module_item.workflow_state = workflow_state(moodle_label.visible)
-      module_item.title = moodle_label.converted_title
+      module_item.title = truncate_text(moodle_label.converted_title)
       module_item.indent = '0'
 
       if moodle_label.convert_to_page?
@@ -25,7 +25,7 @@ module Moodle2CC
       if moodle_label.convert_to_page?
         canvas_page = CanvasCC::Models::Page.new
         canvas_page.identifier = generate_unique_identifier_for_activity(moodle_label)
-        canvas_page.title = moodle_label.converted_title
+        canvas_page.title = truncate_text(moodle_label.converted_title)
         canvas_page.workflow_state = workflow_state(moodle_label.visible)
         canvas_page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
         canvas_page.body = moodle_label.intro

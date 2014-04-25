@@ -5,7 +5,7 @@ module Moodle2CC::Moodle2Converter
     def convert_questionnaire(moodle_questionnaire)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
       canvas_assessment.identifier = generate_unique_identifier_for(moodle_questionnaire.id, QUESTIONNAIRE_ASSESSMENT_SUFFIX)
-      canvas_assessment.title = moodle_questionnaire.name
+      canvas_assessment.title = truncate_text(moodle_questionnaire.name)
       canvas_assessment.description = moodle_questionnaire.intro
       canvas_assessment.workflow_state = workflow_state(moodle_questionnaire.visible)
 
@@ -17,6 +17,7 @@ module Moodle2CC::Moodle2Converter
 
       canvas_assessment.items = []
       moodle_questionnaire.questions.each do |question|
+        next if question.deleted
         if canvas_question = convert_questionnaire_question(question)
           canvas_assessment.items << canvas_question
         end
@@ -43,7 +44,7 @@ module Moodle2CC::Moodle2Converter
 
       canvas_question = Moodle2CC::CanvasCC::Models::Question.create(canvas_type)
       canvas_question.identifier = generate_unique_identifier_for(moodle_question.id, "_questionnaire_question")
-      canvas_question.title = moodle_question.name
+      canvas_question.title = truncate_text(moodle_question.name)
       canvas_question.material = moodle_question.content
       canvas_question.answers = []
       moodle_question.choices.each do |choice|

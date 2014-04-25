@@ -24,5 +24,11 @@ module Moodle2CC::CanvasCC::Models
       expect(page.title).to eq 'My Page Name'
     end
 
+    it "truncates urls that are too long" do
+      page.page_name = 'a' * 500
+      expected = "wiki_content/#{'a' * Moodle2CC::CanvasCC::Models::Page::MAX_URL_LENGTH}.html"
+      expect(page.href).to eq expected
+    end
+
   end
 end

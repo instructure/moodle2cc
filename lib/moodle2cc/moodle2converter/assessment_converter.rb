@@ -11,7 +11,7 @@ module Moodle2CC::Moodle2Converter
     def convert_quiz(moodle_quiz)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
       canvas_assessment.identifier = generate_unique_identifier_for(moodle_quiz.id, ASSESSMENT_SUFFIX)
-      canvas_assessment.title = moodle_quiz.name
+      canvas_assessment.title = truncate_text(moodle_quiz.name)
       canvas_assessment.description = moodle_quiz.intro
       canvas_assessment.workflow_state = workflow_state(moodle_quiz.visible)
 
@@ -38,7 +38,7 @@ module Moodle2CC::Moodle2Converter
     def convert_choice(moodle_choice)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
       canvas_assessment.identifier = generate_unique_identifier_for(moodle_choice.id, CHOICE_ASSESSMENT_SUFFIX)
-      canvas_assessment.title = moodle_choice.name
+      canvas_assessment.title = truncate_text(moodle_choice.name)
       canvas_assessment.description = ''
       canvas_assessment.workflow_state = workflow_state(moodle_choice.visible)
 
@@ -51,7 +51,7 @@ module Moodle2CC::Moodle2Converter
 
       question = Moodle2CC::CanvasCC::Models::Question.create('multiple_choice_question')
       question.identifier = generate_unique_identifier_for(moodle_choice.id, '_choice_question')
-      question.title = moodle_choice.name
+      question.title = truncate_text(moodle_choice.name)
       question.material = moodle_choice.intro
       question.answers = []
       moodle_choice.options.each_with_index do |option, num|

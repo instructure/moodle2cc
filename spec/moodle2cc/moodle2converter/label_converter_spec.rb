@@ -81,6 +81,23 @@ module Moodle2CC
         pages = subject.convert_to_pages(moodle_label)
         expect(pages.size).to eq 0
       end
+
+      it 'truncates titles that are too long' do
+        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+
+        moodle_label.id = '1'
+        moodle_label.name = ''
+        moodle_label.intro = 'a' * 500
+        moodle_label.visible = true
+
+        pages = subject.convert_to_pages(moodle_label)
+        expect(pages.size).to eq 1
+
+        page = pages.first
+
+        expect(page.title.length).to eq Moodle2CC::Moodle2Converter::ConverterHelper::MAX_TITLE_LENGTH
+        expect(page.body).to eq moodle_label.intro
+      end
     end
   end
 end

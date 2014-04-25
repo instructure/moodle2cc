@@ -7,6 +7,8 @@ module Moodle2CC::CanvasCC::Models
 
     EDITING_ROLE_TEACHER = 'teachers'
 
+    MAX_URL_LENGTH = 80
+
     attr_accessor :workflow_state, :editing_roles, :body, :title
 
     def initialize
@@ -28,7 +30,11 @@ module Moodle2CC::CanvasCC::Models
     end
 
     def self.convert_name_to_url(name)
-      CGI::escape(name.downcase.gsub(/\s/, '-').gsub('.', 'dot'))
+      url = CGI::escape(name.downcase.gsub(/\s/, '-').gsub('.', 'dot'))
+      if url.length > MAX_URL_LENGTH
+        url = url[0,MAX_URL_LENGTH][/.{0,#{MAX_URL_LENGTH}}/mu]
+      end
+      url
     end
 
   end

@@ -33,7 +33,7 @@ module Moodle2CC::Moodle2Converter
         canvas_question = create_canvas_question(question_type, moodle_question)
         canvas_question.identifier = generate_unique_identifier_for(moodle_question.id, '_quiz_question')
         canvas_question.original_identifier = moodle_question.id
-        canvas_question.title = moodle_question.name
+        canvas_question.title = truncate_text(moodle_question.name)
         canvas_question.general_feedback = moodle_question.general_feedback
         canvas_question.answers = moodle_question.answers.map do |moodle_answer|
            Moodle2CC::CanvasCC::Models::Answer.new(moodle_answer)

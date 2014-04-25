@@ -38,9 +38,9 @@ module Moodle2CC::Moodle2::Models
       @converted_title = name_text
 
       if @converted_title == "Label" || @converted_title.end_with?("...") || @converted_title.length == 0
-        if intro_text.length > 80
-
-          @converted_title = intro_text[0..79] + "..."
+        if intro_text.length > Moodle2CC::Moodle2Converter::ConverterHelper::MAX_TITLE_LENGTH
+          @truncate = true
+          @converted_title = intro_text # we will truncate in the label_converter
           @convert_to_page = true
         else
           if intro_text.length > 0
@@ -52,8 +52,8 @@ module Moodle2CC::Moodle2::Models
         end
       end
 
-      # if the intro has no text or the text is identical, then convert to page if it has tags
-      if @converted_title == intro_text || intro_text.length == 0
+      # if the intro has no text or the text is identical, then convert to page only if it has tags
+      if (@converted_title == intro_text && !@truncate) || intro_text.length == 0
         @convert_to_page = intro_html.search('img[src]').length > 0 ||
             intro_html.search('a[href]').length > 0 ||
             intro_html.search('iframe[src]').length > 0
