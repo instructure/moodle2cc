@@ -53,6 +53,17 @@ module Moodle2CC::CanvasCC
               end
             end
           end
+
+          calculated_node.var_sets do |var_sets_node|
+            question.var_sets.each do |var_set|
+              ident = var_set[:vars].sort.map { |k,v| v.to_s.split('.').join }.flatten.join
+              var_sets_node.var_set(:ident => ident) do |var_set_node|
+                var_set[:vars].each do |k, v|
+                  var_set_node.var(v, :name => k)
+                end
+              end
+            end
+          end
         end
       end
 

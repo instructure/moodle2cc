@@ -152,9 +152,14 @@ module Moodle2CC::Moodle2Converter
 
     def convert_question_html!(question, html_converter)
       question.material = html_converter.convert(question.material)
+      question.general_feedback = html_converter.convert(question.general_feedback) if question.general_feedback
+
       question.answers.each do |answer|
         answer.answer_text = html_converter.convert(answer.answer_text)
+        answer.feedback = html_converter.convert(answer.feedback) if answer.feedback
       end
+
+      question.post_process! if question.is_a?(Moodle2CC::CanvasCC::Models::CalculatedQuestion)
     end
 
     def resolve_duplicate_page_titles!(cc_course)

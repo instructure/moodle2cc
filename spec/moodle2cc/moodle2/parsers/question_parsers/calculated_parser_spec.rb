@@ -36,6 +36,12 @@ module Moodle2CC::Moodle2
       var2 = question.dataset_definitions[1]
       expect(var2[:name]).to eq 'B'
       expect(var2[:options]).to eq 'uniform:1:10:1'
+
+      expect(question.var_sets.count).to eq 1
+      set = question.var_sets.first
+      expect(set[:ident]).to eq '1'
+      expect(set[:vars]["A"]).to eq "3.5"
+      expect(set[:vars]["B"]).to eq "3.1"
     end
 
     it 'parses a calculated multiple choice question into a standard calculated question' do
@@ -58,6 +64,12 @@ module Moodle2CC::Moodle2
       var2 = question.dataset_definitions[1]
       expect(var2[:name]).to eq 'B'
       expect(var2[:options]).to eq 'uniform:1:10:1'
+
+      expect(question.var_sets.count).to eq 1
+      set = question.var_sets.first
+      expect(set[:ident]).to eq '1'
+      expect(set[:vars]["A"]).to eq "5.1"
+      expect(set[:vars]["B"]).to eq "7.1"
     end
 
     it 'parses a calculated simple question' do
@@ -78,6 +90,11 @@ module Moodle2CC::Moodle2
       var = question.dataset_definitions.first
       expect(var[:name]).to eq 'A'
       expect(var[:options]).to eq 'uniform:1.0:10.0:1'
+
+      expect(question.var_sets.count).to eq 1
+      set = question.var_sets.first
+      expect(set[:ident]).to eq '1'
+      expect(set[:vars]["A"]).to eq "3.6"
     end
   end
 end

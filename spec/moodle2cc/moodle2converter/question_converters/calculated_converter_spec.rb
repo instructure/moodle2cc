@@ -11,6 +11,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       answer.id = 'blah'
       moodle_question.answers = [answer]
       moodle_question.dataset_definitions = ['mock datasets']
+      moodle_question.var_sets = ['mock varsets']
       moodle_question.correct_answer_format = '1'
       moodle_question.correct_answer_length = '2'
       moodle_question.tolerance = '3'
@@ -21,6 +22,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       expect(converted_question.answers.count).to eq moodle_question.answers.count
       expect(converted_question.answers.first.id).to eq moodle_question.answers.first.id
       expect(converted_question.dataset_definitions).to eq moodle_question.dataset_definitions
+      expect(converted_question.var_sets).to eq moodle_question.var_sets
       expect(converted_question.correct_answer_format).to eq moodle_question.correct_answer_format
       expect(converted_question.correct_answer_length).to eq moodle_question.correct_answer_length
       expect(converted_question.tolerance).to eq moodle_question.tolerance
