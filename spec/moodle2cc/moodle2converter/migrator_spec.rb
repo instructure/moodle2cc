@@ -26,7 +26,7 @@ module Moodle2CC
       Moodle2Converter::AssignmentConverter.any_instance.stub(:convert)
       Moodle2Converter::FolderConverter.any_instance.stub(:convert)
       Moodle2Converter::BookConverter.any_instance.stub(:convert_to_pages)
-      Moodle2CC::CanvasCC::Models::Assessment.any_instance.stub(:resolve_question_references)
+      Moodle2CC::CanvasCC::Models::Assessment.any_instance.stub(:resolve_question_references!)
       Moodle2Converter::HtmlConverter.stub(:new) { double('html_converter', convert: true) }
       Moodle2Converter::GlossaryConverter.any_instance.stub(:convert)
       CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
@@ -196,11 +196,46 @@ module Moodle2CC
           migrator.migrate
           expect(converter).to have_received(:convert).exactly(2)
           canvas_course.assessments.each do |assessment|
-            expect(assessment).to have_received(:resolve_question_references).exactly(1)
+            expect(assessment).to have_received(:resolve_question_references!).exactly(1)
             expect(assessment.description).to eq 'converted_html'
           end
         end
 
+        it 'converts assessment questions' do
+          assmt = Moodle2CC::CanvasCC::Models::Assessment.new
+          q1 = Moodle2CC::CanvasCC::Models::Question.new
+          a1 = Moodle2CC::CanvasCC::Models::Answer.new
+          q1.answers = [a1]
+
+          q_group = Moodle2CC::CanvasCC::Models::QuestionGroup.new
+          q2 = Moodle2CC::CanvasCC::Models::Question.new
+          a2 = Moodle2CC::CanvasCC::Models::Answer.new
+          q2.answers = [a2]
+          q_group.questions = [q2]
+
+          assmt.items = [q1, q_group]
+          canvas_course.assessments = [assmt]
+          migrator.migrate
+
+          expect(q1.material).to eq 'converted_html'
+          expect(q2.material).to eq 'converted_html'
+          expect(a1.answer_text).to eq 'converted_html'
+          expect(a2.answer_text).to eq 'converted_html'
+        end
+
+        it 'converts question bank questions' do
+          qb = Moodle2CC::CanvasCC::Models::QuestionBank.new
+          q1 = Moodle2CC::CanvasCC::Models::Question.new
+          a1 = Moodle2CC::CanvasCC::Models::Answer.new
+          q1.answers = [a1]
+          qb.questions = [q1]
+
+          canvas_course.question_banks = [qb]
+          migrator.migrate
+
+          expect(q1.material).to eq 'converted_html'
+          expect(a1.answer_text).to eq 'converted_html'
+        end
       end
     end
 

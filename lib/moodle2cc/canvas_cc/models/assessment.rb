@@ -44,7 +44,7 @@ module Moodle2CC::CanvasCC::Models
       "#{ASSESSMENT_NON_CC_FOLDER}/#{@identifier}.xml.qti"
     end
 
-    def resolve_question_references(question_banks)
+    def resolve_question_references!(question_banks)
       @items ||= []
       @question_references.each do |ref|
         question = nil

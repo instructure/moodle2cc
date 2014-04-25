@@ -17,7 +17,9 @@ module Moodle2CC::Moodle2Converter
     end
 
     def convert(content)
-      update_links(content.gsub('id="main"', ''))
+      content = update_links(content.gsub('id="main"', ''))
+      content = convert_equations(content)
+      content
     end
 
     private
@@ -92,5 +94,18 @@ module Moodle2CC::Moodle2Converter
       end
     end
 
+    def convert_equations(content)
+      # turn moodle equations ( e.g. $$3 * x$$ ) into canvas equations
+      content.gsub(/\$\$([^\$]*)\$\$/) do |match|
+        latex = $1.to_s.gsub("\"", "\\\"")
+        if latex.length > 0
+          url = "/equation_images/#{CGI.escape(CGI.escape(latex).gsub("+", "%20"))}"
+
+          "<img class=\"equation_image\" title=\"#{latex}\" alt=\"#{latex}\" src=\"#{url}\">"
+        else
+          ""
+        end
+      end
+    end
   end
 end
