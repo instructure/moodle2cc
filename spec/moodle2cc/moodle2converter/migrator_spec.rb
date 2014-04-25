@@ -129,6 +129,37 @@ module Moodle2CC
         end
       end
 
+      context '#resolve_duplicate_page_titles!' do
+        it "should order renumbering of page titles according to position in index" do
+          page1 = Moodle2CC::CanvasCC::Models::Page.new
+          page2 = Moodle2CC::CanvasCC::Models::Page.new
+          page3 = Moodle2CC::CanvasCC::Models::Page.new
+
+          canvas_course.pages = [page1, page2, page3]
+          canvas_course.pages.each_with_index do |page, idx|
+            page.identifier = idx.to_s
+            page.title = 'page title'
+          end
+
+          module1 = Moodle2CC::CanvasCC::Models::CanvasModule.new
+          module_item1 = Moodle2CC::CanvasCC::Models::ModuleItem.new
+          module_item1.identifierref = page3.identifier
+          module1.module_items = [module_item1]
+
+          module2 = Moodle2CC::CanvasCC::Models::CanvasModule.new
+          module_item2 = Moodle2CC::CanvasCC::Models::ModuleItem.new
+          module_item2.identifierref = page2.identifier
+          module2.module_items = [module_item2]
+
+          canvas_course.canvas_modules = [module1, module2]
+
+          migrator.migrate
+
+          expect(page3.title).to eq 'page title'
+          expect(page2.title).to eq 'page title-2'
+          expect(page1.title).to eq 'page title-3'
+        end
+      end
 
       context "html conversion" do
         let(:converter){double('invitation', :convert => 'converted_html')}

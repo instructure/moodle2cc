@@ -1,6 +1,8 @@
 module Moodle2CC::Moodle2Converter
   class Migrator
 
+    include ConverterHelper
+
     def initialize(source_file, output_dir)
       @extractor = Moodle2CC::Moodle2::Extractor.new(source_file)
       @output_dir = output_dir
@@ -30,6 +32,7 @@ module Moodle2CC::Moodle2Converter
 
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
 
+        resolve_duplicate_page_titles!(cc_course)
         convert_html!(cc_course, moodle_course)
 
         @path = Moodle2CC::CanvasCC::CartridgeCreator.new(cc_course).create(@output_dir)
@@ -127,5 +130,32 @@ module Moodle2CC::Moodle2Converter
       cc_course.assessments.each {|assessment| assessment.description = html_converter.convert(assessment.description)}
     end
 
+    def resolve_duplicate_page_titles!(cc_course)
+      page_titles = cc_course.pages.map(&:title)
+      duplicate_page_map = cc_course.pages.group_by(&:title).select{|k, v| v.count > 1}
+      duplicate_page_map.each do |title, dup_pages|
+        dup_pages.sort_by!{|page| find_module_index_for_page(cc_course, page)}
+
+        dup_pages.each_with_index do |page, index|
+          next if index == 0
+          num = index + 1
+          while (title = "#{page.title}-#{num}") && page_titles.include?(title)
+            num += 1
+          end
+          page.title = title
+        end
+      end
+    end
+
+    def find_module_index_for_page(cc_course, canvas_page)
+      cc_course.canvas_modules.each_with_index do |canvas_module, module_index|
+        canvas_module.module_items.each_with_index do |module_item, item_index|
+          if module_item.identifierref.to_s == canvas_page.identifier.to_s
+            return [module_index, item_index]
+          end
+        end
+      end
+      [Float::INFINITY]
+    end
   end
 end
