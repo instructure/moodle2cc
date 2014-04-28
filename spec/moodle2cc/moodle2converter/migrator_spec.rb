@@ -225,16 +225,23 @@ module Moodle2CC
 
         it 'converts question bank questions' do
           qb = Moodle2CC::CanvasCC::Models::QuestionBank.new
-          q1 = Moodle2CC::CanvasCC::Models::Question.new
+          q1 = Moodle2CC::CanvasCC::Models::CalculatedQuestion.new
+          q1.stub(:post_process!)
           a1 = Moodle2CC::CanvasCC::Models::Answer.new
+          q1.general_feedback = 'a'
+          a1.feedback = 'a'
+
           q1.answers = [a1]
           qb.questions = [q1]
 
           canvas_course.question_banks = [qb]
           migrator.migrate
 
+          expect(q1).to have_received(:post_process!)
           expect(q1.material).to eq 'converted_html'
+          expect(q1.general_feedback).to eq 'converted_html'
           expect(a1.answer_text).to eq 'converted_html'
+          expect(a1.feedback).to eq 'converted_html'
         end
       end
     end

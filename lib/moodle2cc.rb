@@ -96,6 +96,7 @@ module Moodle2CC
       autoload :Assessment, 'moodle2cc/canvas_cc/models/assessment'
       autoload :DiscussionTopic, 'moodle2cc/canvas_cc/models/discussion_topic'
       autoload :Question, 'moodle2cc/canvas_cc/models/question'
+      autoload :CalculatedQuestion, 'moodle2cc/canvas_cc/models/calculated_question'
       autoload :Answer, 'moodle2cc/canvas_cc/models/answer'
       autoload :QuestionBank, 'moodle2cc/canvas_cc/models/question_bank'
       autoload :QuestionGroup, 'moodle2cc/canvas_cc/models/question_group'

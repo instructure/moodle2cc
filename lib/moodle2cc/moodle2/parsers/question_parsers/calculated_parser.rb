@@ -22,10 +22,20 @@ module Moodle2CC::Moodle2
       end
 
       q_node.search('dataset_definitions/dataset_definition').each do |ds_node|
+        var_name = parse_text(ds_node, 'name')
         question.dataset_definitions << {
-            :name => parse_text(ds_node, 'name'),
+            :name => var_name,
             :options => parse_text(ds_node, 'options')
         }
+        ds_node.search('dataset_items/dataset_item').each do |ds_item_node|
+          ident = parse_text(ds_item_node, 'number')
+          var_set = question.var_sets.detect{|vs| vs[:ident] == ident}
+          unless var_set
+            var_set = {:ident => ident, :vars => {}}
+            question.var_sets << var_set
+          end
+          var_set[:vars][var_name] = parse_text(ds_item_node, 'value')
+        end
       end
 
       q_node.search('calculated_records/calculated_record').each do |cr_node|

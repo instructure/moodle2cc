@@ -9,6 +9,7 @@ module Moodle2CC::Moodle2Converter
         canvas_question.correct_answer_format = moodle_question.correct_answer_format
         canvas_question.correct_answer_length = moodle_question.correct_answer_length
         canvas_question.dataset_definitions = moodle_question.dataset_definitions
+        canvas_question.var_sets = moodle_question.var_sets
         canvas_question.tolerance = moodle_question.tolerance
         canvas_question
       end

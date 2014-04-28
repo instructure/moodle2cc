@@ -31,6 +31,8 @@ module Moodle2CC::CanvasCC
         }
       ]
 
+      question.var_sets = [{:ident => '1', :vars => {'A' => '3.6', 'B' => '3.1'}}]
+
       xml = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |node|
         QuestionWriter.write_question(node, question)
       end.doc
@@ -76,6 +78,11 @@ module Moodle2CC::CanvasCC
       b_var = calculated.at_xpath('vars/var[@scale="1"][@name="B"]')
       expect(b_var.at_xpath('min').text).to eq '10.0'
       expect(b_var.at_xpath('max').text).to eq '20.0'
+
+      # Var sets
+      var_set = calculated.at_xpath('var_sets/var_set[@ident="3631"]')
+      expect(var_set.at_xpath('var[@name="A"]').text).to eq "3.6"
+      expect(var_set.at_xpath('var[@name="B"]').text).to eq "3.1"
     end
   end
 end
