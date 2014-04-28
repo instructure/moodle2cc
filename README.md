@@ -90,14 +90,14 @@ made about these things:
 
 ## Todo
 
- - [ ] Support exporting to CC 1.3
- - [ ] Support converting to multiple versions of CC?
- - [ ] Quiz conversion
- - [ ] Question Category conversion
- - [ ] LTI configurations?
- - [ ] Convert more Moodle features as requested
- - [ ] Moodle 2 support for standard CC
- - [x] Moodle 2 support for canvas-flavored CC
+- [ ] Support exporting to CC 1.3
+- [ ] Support converting to multiple versions of CC?
+- [ ] Quiz conversion
+- [ ] Question Category conversion
+- [ ] LTI configurations?
+- [ ] Convert more Moodle features as requested
+- [ ] Moodle 2 support for standard CC
+- [x] Moodle 2 support for canvas-flavored CC
 
 ## Contributing
 
