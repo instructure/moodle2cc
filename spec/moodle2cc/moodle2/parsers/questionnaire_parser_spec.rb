@@ -27,6 +27,10 @@ describe Moodle2CC::Moodle2::Parsers::QuestionnaireParser do
 
     expect(question.choices.count).to eq 3
     expect(question.choices.first).to eq ({:id => '1', :content => 'possible answer 1'})
+
+    rating_question = questionnaire.questions.detect{|q| q.id == "8"}
+    rating_question.length.should == "5"
+    rating_question.precise.should == "0"
   end
 
 end

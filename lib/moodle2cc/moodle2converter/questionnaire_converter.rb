@@ -33,7 +33,7 @@ module Moodle2CC::Moodle2Converter
         4 =>  'multiple_choice_question', # radio buttons question
         5 =>  'multiple_answers_question', # check boxes question
         6 =>  'multiple_choice_question', # dropdown box question
-        8 =>  'multiple_choice_question', # rate 1..5 question
+        8 =>  'multiple_dropdowns_question', # rate 1..5 question
         9 =>  'essay_question', # date question
         10 =>  'numerical_question', # numeric question
         100 =>  'text_only_question', # label question
@@ -47,13 +47,48 @@ module Moodle2CC::Moodle2Converter
       canvas_question.title = truncate_text(moodle_question.name)
       canvas_question.material = moodle_question.content
       canvas_question.answers = []
-      moodle_question.choices.each do |choice|
-        answer = Moodle2CC::CanvasCC::Models::Answer.new
-        answer.id = choice[:id]
-        answer.answer_text = choice[:content]
-        canvas_question.answers << answer
+
+      if canvas_type == 'multiple_dropdowns_question'
+        # rating scale question
+        convert_rating_question(moodle_question, canvas_question)
+      else
+        moodle_question.choices.each do |choice|
+          answer = Moodle2CC::CanvasCC::Models::Answer.new
+          answer.id = choice[:id]
+          answer.answer_text = choice[:content]
+          canvas_question.answers << answer
+        end
       end
+
       canvas_question
+    end
+
+    # For l..x rating questions
+    def convert_rating_question(moodle_question, canvas_question)
+      choices = create_rating_choices(moodle_question)
+      canvas_question.responses = []
+
+      moodle_question.choices.each_with_index do |answer, answer_idx|
+        response = {:id => "response#{answer_idx + 1}", :choices => []}
+
+        # add dropdown to the question text
+        canvas_question.material = canvas_question.material.to_s + "<p>#{answer[:content]} [#{response[:id]}]</p>"
+
+        choices.each_with_index do |choice, choice_idx|
+          response[:choices] << {:id => "#{moodle_question.id}_choice_#{answer_idx}_#{choice_idx}", :text => choice}
+        end
+
+        canvas_question.responses << response
+      end
+    end
+
+    def create_rating_choices(moodle_question)
+      scale = (moodle_question.length || 5).to_i
+      choices = (1..scale).map(&:to_s)
+      if moodle_question.precise.to_i == 1
+        choices << "N/A"
+      end
+      choices
     end
   end
 end

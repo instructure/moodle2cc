@@ -101,6 +101,8 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     question2.name = 'q name 2'
     question2.content = 'question2 text'
     question2.type_id = '8'
+    question2.length = '3'
+    question2.precise = '1'
     question2.choices = [{:id => '4', :content => 'choice3'}, {:id => '5', :content => 'choice4'}]
 
     moodle_questionnaire.questions = [question1, question2]
@@ -126,13 +128,16 @@ describe Moodle2CC::Moodle2Converter::AssessmentConverter do
     expect(canvas_question1.answers).to eq []
 
     canvas_question2 = canvas_assessment.items[1]
-    expect(canvas_question2.question_type).to eq 'multiple_choice_question'
-    expect(canvas_question2.material).to eq question2.content
+    expect(canvas_question2.question_type).to eq 'multiple_dropdowns_question'
+    expect(canvas_question2.material).to eq question2.content + "<p>choice3 [response1]</p><p>choice4 [response2]</p>"
     expect(canvas_question2.title).to eq question2.name
-    expect(canvas_question2.answers.count).to eq 2
+    expect(canvas_question2.answers.count).to eq 0
 
-    expect(canvas_question2.answers.map(&:id)).to eq (question2.choices.map{|c| c[:id]})
-    expect(canvas_question2.answers.map(&:answer_text)).to eq (question2.choices.map{|c| c[:content]})
+    expect(canvas_question2.responses.count).to eq 2
+    expect(canvas_question2.responses.map{|r| r[:id]}).to eq ["response1", "response2"]
+    canvas_question2.responses.each do |response|
+      expect(response[:choices].map{|c| c[:text]}).to eq ["1", "2", "3", "N/A"]
+    end
   end
 
   it "should convert a moodle2 feedback activity to an ungraded assessment" do

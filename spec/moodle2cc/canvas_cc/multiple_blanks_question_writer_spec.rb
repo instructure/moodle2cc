@@ -5,7 +5,7 @@ module Moodle2CC::CanvasCC
 
     let(:question) { Moodle2CC::CanvasCC::Models::Question.create('fill_in_multiple_blanks_question')}
 
-    it 'creates the question item xml for a multiple_choice_question' do
+    it 'creates the question item xml for a multiple blanks question' do
       question.identifier = 4200
       question.title = 'hello'
       question.general_feedback = 'feedbacks'

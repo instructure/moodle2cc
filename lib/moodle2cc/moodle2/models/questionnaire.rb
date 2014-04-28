@@ -9,7 +9,7 @@ module Moodle2CC::Moodle2::Models
     end
 
     class Question
-      attr_accessor :id, :name, :type_id, :content, :position, :deleted, :choices
+      attr_accessor :id, :name, :type_id, :content, :position, :deleted, :choices, :precise, :length
 
       def initialize
         @choices = []
