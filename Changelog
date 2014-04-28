@@ -1,3 +1,10 @@
+2014-04-16 Version 0.2.6
+  * Substituting more variables in urls/file paths
+	* Many quiz settings fixes and quiz question improvements
+	* Wiki activity converted to html pages
+	* Better handle duplicate page names
+	* Better handling of long titles
+
 2014-04-16 Version 0.2.5
   * Don't default to allowing url submissions for assignments
 	* Long labels are converted to html pages instead of being truncated
