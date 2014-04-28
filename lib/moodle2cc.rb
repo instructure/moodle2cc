@@ -82,6 +82,7 @@ module Moodle2CC
     autoload :MultipleAnswersQuestionWriter, 'moodle2cc/canvas_cc/multiple_answers_question_writer'
     autoload :MultipleBlanksQuestionWriter, 'moodle2cc/canvas_cc/multiple_blanks_question_writer'
     autoload :MultipleChoiceQuestionWriter, 'moodle2cc/canvas_cc/multiple_choice_question_writer'
+    autoload :MultipleDropdownsQuestionWriter, 'moodle2cc/canvas_cc/multiple_dropdowns_question_writer'
     autoload :NumericalQuestionWriter, 'moodle2cc/canvas_cc/numerical_question_writer'
     autoload :ShortAnswerQuestionWriter, 'moodle2cc/canvas_cc/short_answer_question_writer'
     autoload :TextOnlyQuestionWriter, 'moodle2cc/canvas_cc/text_only_question_writer'

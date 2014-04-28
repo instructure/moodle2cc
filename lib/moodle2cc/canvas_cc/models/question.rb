@@ -33,4 +33,5 @@ end
 
 require_relative 'calculated_question'
 require_relative 'matching_question'
+require_relative 'multiple_dropdowns_question'
 require_relative 'numerical_question'
