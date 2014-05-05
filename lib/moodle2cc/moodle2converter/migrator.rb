@@ -15,7 +15,7 @@ module Moodle2CC::Moodle2Converter
         cc_course.pages += convert_pages(moodle_course.pages)
         cc_course.pages += convert_wikis(moodle_course.wikis)
         cc_course.discussions += convert_discussions(moodle_course.forums)
-        cc_course.assignments += convert_assignments(moodle_course.assignments)
+        cc_course.assignments += convert_assignments(moodle_course.assignments, moodle_course.grading_scales)
 
         cc_course.mute_assignments! unless moodle_course.show_grades
 
@@ -75,9 +75,9 @@ module Moodle2CC::Moodle2Converter
       discussions.map { |discussion| discussion_converter.convert(discussion) }
     end
 
-    def convert_assignments(assignments)
+    def convert_assignments(assignments, grading_scales)
       assignment_converter = Moodle2CC::Moodle2Converter::AssignmentConverter.new
-      assignments.map { |assignment| assignment_converter.convert(assignment) }
+      assignments.map { |assignment| assignment_converter.convert(assignment, grading_scales) }
     end
 
     def convert_sections_to_pages(sections)

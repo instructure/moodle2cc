@@ -15,7 +15,7 @@ describe Moodle2CC::Moodle2Converter::AssignmentConverter do
     moodle_assign.file_submission = '1'
     moodle_assign.visible = 1
 
-    canvas_assign = subject.convert(moodle_assign)
+    canvas_assign = subject.convert(moodle_assign, {})
 
     expect(canvas_assign.identifier).to eq 'm2d12c3b616363d9f3088155447732972b_assignment'
     expect(canvas_assign.title).to eq 'Assignment Name'
@@ -24,11 +24,24 @@ describe Moodle2CC::Moodle2Converter::AssignmentConverter do
     expect(canvas_assign.lock_at).to eq Time.parse('Sat, 08 Feb 2014 18:00:00 GMT')
     expect(canvas_assign.unlock_at).to eq Time.parse('Sat, 08 Feb 2014 01:00:00 GMT')
     expect(canvas_assign.workflow_state).to eq 'active'
-    expect(canvas_assign.points_possible).to eq '30'
+    expect(canvas_assign.points_possible).to eq 30
     expect(canvas_assign.grading_type).to eq 'points'
-
-
-
   end
 
+  it 'converts a not graded moodle2 assignment' do
+    moodle_assign.grade = '0'
+
+    canvas_assign = subject.convert(moodle_assign, {})
+
+    expect(canvas_assign.submission_types).to eq ['not_graded']
+    expect(canvas_assign.grading_type).to eq 'not_graded'
+  end
+
+  it 'converts a moodle2 assignment with a two part grading scale to pass/fail' do
+    moodle_assign.grade = '-500'
+
+    canvas_assign = subject.convert(moodle_assign, {500 => ['complete', 'not complete']})
+
+    expect(canvas_assign.grading_type).to eq 'pass_fail'
+  end
 end

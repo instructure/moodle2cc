@@ -2,7 +2,7 @@ module Moodle2CC::Moodle2Converter
   class AssignmentConverter
     include ConverterHelper
 
-    def convert(moodle_assignment)
+    def convert(moodle_assignment, moodle_grading_scales)
       canvas_assignment = Moodle2CC::CanvasCC::Models::Assignment.new
       canvas_assignment.identifier = generate_unique_identifier_for(moodle_assignment.id, ASSIGNMENT_SUFFIX)
       canvas_assignment.title = truncate_text(moodle_assignment.name)
@@ -11,13 +11,23 @@ module Moodle2CC::Moodle2Converter
       canvas_assignment.lock_at = Time.at(Integer(moodle_assignment.cut_off_date)) if moodle_assignment.cut_off_date
       canvas_assignment.unlock_at = Time.at(Integer(moodle_assignment.allow_submissions_from_date)) if moodle_assignment.allow_submissions_from_date
       canvas_assignment.workflow_state = workflow_state(moodle_assignment.visible)
-      canvas_assignment.points_possible = moodle_assignment.grade
-      canvas_assignment.grading_type = 'points'
-      canvas_assignment.submission_types << 'online_text_entry' if moodle_assignment.online_text_submission == '1'
-      canvas_assignment.submission_types << 'online_upload' if moodle_assignment.file_submission == '1'
+      points = Integer(moodle_assignment.grade)
+      if points > 0 || scale = moodle_grading_scales[-1 * points] # moodle uses negative numbers for grading scale ids
+        if scale && scale.count == 2
+          # I'm asssuming that if there's only two choices, that the best way to convert it will probably be pass/fail
+          canvas_assignment.grading_type = 'pass_fail'
+        else
+          canvas_assignment.grading_type = 'points'
+          canvas_assignment.points_possible = points
+        end
+        canvas_assignment.submission_types << 'online_text_entry' if moodle_assignment.online_text_submission == '1'
+        canvas_assignment.submission_types << 'online_upload' if moodle_assignment.file_submission == '1'
+      else
+        canvas_assignment.grading_type = 'not_graded'
+        canvas_assignment.submission_types << 'not_graded'
+      end
 
       canvas_assignment
     end
-
   end
 end
