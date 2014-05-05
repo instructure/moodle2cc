@@ -3,6 +3,7 @@ module Moodle2CC::Moodle2::Parsers
     include ParserHelper
 
     COURSE_XML_PATH = 'course/course.xml'
+    SCALES_XML_PATH = 'scales.xml'
 
     def initialize(backup_folder)
       @backup_folder = backup_folder
@@ -21,10 +22,18 @@ module Moodle2CC::Moodle2::Parsers
         if unix_start_date = parse_text(course_doc, '/course/startdate')
           course.startdate = Time.at(unix_start_date.to_i)
         end
-
       end
+
+      File.open(File.join(@backup_folder, SCALES_XML_PATH)) do |f|
+        scales_doc = Nokogiri::XML(f)
+        scales_doc.search('scales_definition/scale').each do |node|
+          course.grading_scales[node.attributes['id'].value.to_i] = parse_text(node, 'scale').split(',')
+        end
+      end
+
       course
     end
+
 
   end
 end

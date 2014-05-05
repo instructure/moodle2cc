@@ -19,7 +19,7 @@ module Moodle2CC::CanvasCC::Models
     def assignment_resource
       resource = Moodle2CC::CanvasCC::Models::Resource.new
       resource.identifier = @identifier
-      resource.href = "#{resource.identifier}/assignment-#{title.downcase.gsub(/\s/, '-')}.html"
+      resource.href = "#{resource.identifier}/assignment-#{CGI::escape(title.downcase.gsub(/\s/, '-'))}.html"
       resource.type = LAR_TYPE
       resource.files = [resource.href, "#{resource.identifier}/#{ASSIGNMENT_SETTINGS_FILE}"]
 

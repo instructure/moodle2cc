@@ -4,7 +4,7 @@ module Moodle2CC::Moodle2::Models
                   :course_id, :show_grades, :sections, :files, :pages, :forums, :assignments,
                   :books, :folders, :question_categories, :quizzes, :glossaries,
                   :labels, :resources, :external_urls, :choices, :questionnaires,
-                  :feedbacks, :wikis
+                  :feedbacks, :wikis, :grading_scales
 
     def initialize
       @sections = []
@@ -24,6 +24,7 @@ module Moodle2CC::Moodle2::Models
       @resources = []
       @external_urls = []
       @wikis = []
+      @grading_scales = {}
     end
 
     def activities

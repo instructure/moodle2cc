@@ -26,7 +26,8 @@ module Moodle2CC::Moodle2Converter
     def generate_body(moodle_glossary)
       html = "<h2>#{moodle_glossary.name}</h2>"
       html += '<dl>'
-      moodle_glossary.entries.each { |entry| html += "<dt>#{entry.concept}</dt><dd>#{entry.definition}</dd>" }
+      entries = moodle_glossary.entries.sort_by{|entry| entry.concept.to_s.downcase}
+      entries.each { |entry| html += "<dt>#{entry.concept}</dt><dd>#{entry.definition}</dd>" }
       html += '</dl>'
       html
     end
