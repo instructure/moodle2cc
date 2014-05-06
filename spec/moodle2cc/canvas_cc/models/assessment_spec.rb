@@ -82,4 +82,50 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
   end
 
 
+  it 'resolves random quesiton references' do
+    subject.question_references = [
+        {:question => 'random1', :grade => '2'},
+        {:question => 'random2', :grade => '3'},
+        {:question => 'random3', :grade => '3'},
+        {:question => 'nonexistent', :grade => '4'}
+    ]
+
+    qb1 = Moodle2CC::CanvasCC::Models::QuestionBank.new
+    q1 = Moodle2CC::CanvasCC::Models::Question.new
+    q1.identifier = '1'
+    q2 = Moodle2CC::CanvasCC::Models::Question.new
+    q2.identifier = '2'
+
+    qb1.questions = [q1, q2]
+    qb1.original_id = 'parent'
+    qb1.random_question_references = ['random1', 'random2']
+
+    qb2 = Moodle2CC::CanvasCC::Models::QuestionBank.new
+    q3 = Moodle2CC::CanvasCC::Models::Question.new
+    q3.identifier = '3'
+    qb2.parent_id = 'parent'
+    qb2.questions = [q3]
+
+    qb3 = Moodle2CC::CanvasCC::Models::QuestionBank.new
+    q4 = Moodle2CC::CanvasCC::Models::Question.new
+    q4.identifier = '4'
+    q5 = Moodle2CC::CanvasCC::Models::Question.new
+    q5.identifier = '5'
+    qb3.questions = [q4, q5]
+    qb3.random_question_references = ['random3']
+
+    subject.resolve_question_references!([qb1, qb2, qb3])
+
+    expect(subject.items.count).to eq 2
+    group1 = subject.items[0]
+    expect(group1.class).to eq Moodle2CC::CanvasCC::Models::QuestionGroup
+    expect(group1.selection_number).to eq 2
+    expect(group1.questions.map(&:identifier)).to eq [q1, q2, q3].map(&:identifier)
+
+    group2 = subject.items[1]
+    expect(group2.class).to eq Moodle2CC::CanvasCC::Models::QuestionGroup
+    expect(group2.selection_number).to eq 1
+    expect(group2.questions.map(&:identifier)).to eq qb3.questions.map(&:identifier)
+  end
+
 end
