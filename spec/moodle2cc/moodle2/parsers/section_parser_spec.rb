@@ -10,7 +10,7 @@ module Moodle2CC::Moodle2::Parsers
 
       expect(section.position).to eq(0)
       expect(section.number).to eq('0')
-      expect(section.name).to be_nil
+      expect(section.name).to eq('This is the General Summary')
       expect(section.summary).to eq('<p>This is the General Summary</p>')
       expect(section.summary_format).to eq('1')
       expect(section.sequence).to eq(['1', '11'])

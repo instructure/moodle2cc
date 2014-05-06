@@ -41,4 +41,21 @@ describe Moodle2CC::Moodle2Converter::QuestionBankConverter do
     expect(canvas_group.questions.detect{|q| q.original_identifier == question1.id}).not_to be_nil
     expect(canvas_group.questions.detect{|q| q.original_identifier == question2.id}).not_to be_nil
   end
+
+  it 'retains references to random questions but does not convert them' do
+    question1 = Moodle2CC::Moodle2::Models::Quizzes::Question.create('random')
+    question2 = Moodle2CC::Moodle2::Models::Quizzes::Question.create('random')
+    question1.id = 'blah'
+    question2.id = 'bloo'
+    question3 = Moodle2CC::Moodle2::Models::Quizzes::Question.create('truefalse')
+    question4 = Moodle2CC::Moodle2::Models::Quizzes::Question.create('truefalse')
+    moodle_category.questions = [question1, question2, question3, question4]
+
+    canvas_bank = subject.convert(moodle_category)
+
+    expect(canvas_bank.questions.count).to eq 2
+    expect(canvas_bank.random_question_references.count).to eq 2
+    expect(canvas_bank.random_question_references.detect{|q| q == question1.id}).not_to be_nil
+    expect(canvas_bank.random_question_references.detect{|q| q == question2.id}).not_to be_nil
+  end
 end

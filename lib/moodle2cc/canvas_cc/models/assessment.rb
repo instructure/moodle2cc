@@ -46,12 +46,22 @@ module Moodle2CC::CanvasCC::Models
 
     def resolve_question_references!(question_banks)
       @items ||= []
+
+      # keep track of each time a bank is referenced through a random question reference
+      random_bank_counts = {}
+
       @question_references.each do |ref|
         question = nil
         group = nil
         question_banks.each do |bank|
           break if (question = bank.questions.detect{|q| q.original_identifier.to_s == ref[:question]}) ||
             (group = bank.question_groups.detect{|g| g.identifier.to_s == ref[:question]})
+
+          if bank.random_question_references.any?{|r| r.to_s == ref[:question]}
+            random_bank_counts[bank] ||= 0
+            random_bank_counts[bank] += 1
+            break
+          end
         end
 
         if question
@@ -66,6 +76,20 @@ module Moodle2CC::CanvasCC::Models
           end
           @items << copy
         end
+      end
+
+      random_bank_counts.each do |bank, count|
+        new_group = Moodle2CC::CanvasCC::Models::QuestionGroup.new
+        new_group.identifier = "#{@identifier}#{bank.identifier}_random_group"
+        new_group.selection_number = count
+
+        new_group.questions = bank.questions.map(&:dup)
+        child_banks = bank.find_children_banks(question_banks)
+        child_banks.each do |child|
+          new_group.questions += child.questions.map(&:dup)
+        end
+
+        @items << new_group
       end
 
       @items.select{|i| i.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup)}.each do |group|
