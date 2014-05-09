@@ -1,3 +1,9 @@
+2014-05-09 Version 0.2.7
+  * Convert File path tokens in questions and answers
+  * Improve assignment gradint_type conversion
+  * Use section summary as title if none exists
+  * Convert random question types into quiz groups
+
 2014-04-16 Version 0.2.6
   * Substituting more variables in urls/file paths
 	* Many quiz settings fixes and quiz question improvements
