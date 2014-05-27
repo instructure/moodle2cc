@@ -92,7 +92,7 @@ module Moodle2CC::Moodle2
 
     it 'parses files' do
       file = Models::Moodle2File.new
-      Parsers::FileParser.any_instance.stub(:parse).and_return([file])
+      Parsers::FileParser.any_instance.stub(:parse).and_return([[file], []])
       extractor.extract {}
       expect(course.files).to eq [file]
     end

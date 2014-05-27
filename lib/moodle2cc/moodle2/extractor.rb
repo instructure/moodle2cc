@@ -32,7 +32,7 @@ module Moodle2CC::Moodle2
         parse_labels(work_dir, course)
         parse_external_urls(work_dir, course)
         parse_resources(work_dir, course)
-        collect_files_for_resources(course.files, course.resources)
+        collect_files_for_resources(course)
         collect_activities_for_sections(course.sections, course.activities)
         yield course
       end
@@ -57,8 +57,10 @@ module Moodle2CC::Moodle2
     end
 
     def parse_files(work_dir, course)
-      if files = Moodle2CC::Moodle2::Parsers::FileParser.new(work_dir).parse
+      if result = Moodle2CC::Moodle2::Parsers::FileParser.new(work_dir).parse
+        files, missing_files = result
         course.files += files
+        course.missing_files += missing_files
       end
     end
 
@@ -153,12 +155,39 @@ module Moodle2CC::Moodle2
       end
     end
 
-    def collect_files_for_resources(files, resources)
+    def collect_files_for_resources(course)
       files_hash = {}
-      files.each{ |file| files_hash[file.id] = file }
-      resources.each do |resource|
+      course.files.each{ |file| files_hash[file.id] = file }
+
+      translated_resources = []
+      course.resources.each do |resource|
         file_id = resource.file_ids.find{|id| files_hash.key?(id)}
         resource.file = files_hash[file_id]
+        if resource.file.nil? && translate_missing_file_reference(resource, course)
+          translated_resources << resource
+        end
+      end
+
+      translated_resources.each do |resource|
+        course.resources.delete(resource)
+      end
+    end
+
+    def translate_missing_file_reference(resource, course)
+      # turn missing external files to external urls
+      if missing_file = course.missing_files.detect{|f| resource.file_ids.include?(f.id)}
+        if missing_file.reference =~ /\"url\"[^\"]*\"([^\"]*)\"/
+          url = $1.to_s
+          if url.start_with?("http")
+            ext_url = Moodle2CC::Moodle2::Models::ExternalUrl.new
+            ext_url.id = resource.id
+            ext_url.module_id = resource.module_id
+            ext_url.name = resource.name
+            ext_url.external_url = url
+            course.external_urls << ext_url
+            return true
+          end
+        end
       end
     end
 

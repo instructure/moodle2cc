@@ -14,6 +14,7 @@ module Moodle2CC::Moodle2::Parsers
       xml = Nokogiri::XML(File.read(File.join(@work_dir, FILES_XML)))
       file_nodes = xml./('files/file')
       files = []
+      missing_files = []
       file_nodes.each do |node|
         file = Moodle2CC::Moodle2::Models::Moodle2File.new
         file.id = node.at_xpath('@id').value
@@ -38,9 +39,13 @@ module Moodle2CC::Moodle2::Parsers
         file.repository_id = parse_text(node, 'repositoryid')
         file.reference = parse_text(node, 'reference')
         file.file_location = File.join(@work_dir, FILES_DIR, file.content_hash[0..1], file.content_hash)
-        files << file if file.file_size > 0
+        if file.file_size > 0 && File.exists?(file.file_location)
+          files << file
+        else
+          missing_files << file
+        end
       end
-      files
+      [files, missing_files]
     end
 
   end
