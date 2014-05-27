@@ -5,7 +5,7 @@ module Moodle2CC::Moodle2::Parsers
 
     it 'should parse files' do
       file_parser = FileParser.new(fixture_path(File.join('moodle2', 'backup')))
-      files = file_parser.parse
+      files, missing_files = file_parser.parse
       file = files.find{|f| f.id == '29'}
       expect(file.id).to eq('29')
       expect(file.content_hash).to eq('a0f324310c8d8dd9c79458986c4322f5a060a1d9')

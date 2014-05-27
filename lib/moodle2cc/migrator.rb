@@ -3,6 +3,8 @@ require 'zip'
 module Moodle2CC
   class Migrator
 
+    attr_accessor :last_error
+
     MOODLE_1_9 = '1.9'
     MOODLE_2 = '2'
 
@@ -18,6 +20,7 @@ module Moodle2CC
     end
 
     def migrate
+      @last_error = nil
       case moodle_version
         when MOODLE_1_9
           migrate_moodle_1_9
@@ -25,6 +28,7 @@ module Moodle2CC
           migrate_moodle_2
       end
     rescue StandardError => error
+      @last_error = error
       Moodle2CC::Logger.add_warning 'error migrating content', error
     end
 

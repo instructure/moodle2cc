@@ -4,11 +4,12 @@ module Moodle2CC::Moodle2::Models
                   :course_id, :show_grades, :sections, :files, :pages, :forums, :assignments,
                   :books, :folders, :question_categories, :quizzes, :glossaries,
                   :labels, :resources, :external_urls, :choices, :questionnaires,
-                  :feedbacks, :wikis, :grading_scales
+                  :feedbacks, :wikis, :grading_scales, :missing_files
 
     def initialize
       @sections = []
       @files = []
+      @missing_files = []
       @pages = []
       @forums = []
       @assignments = []
