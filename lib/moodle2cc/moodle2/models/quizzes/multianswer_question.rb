@@ -3,6 +3,10 @@ module Moodle2CC::Moodle2::Models::Quizzes
     register_question_type 'multianswer'
     attr_accessor :embedded_question_references, :embedded_questions
 
+    def initialize
+      @embedded_questions = []
+    end
+
     def resolve_embedded_question_references(question_categories)
       return unless @embedded_question_references
 
