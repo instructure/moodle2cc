@@ -1,3 +1,6 @@
+2014-06-05 Version 0.2.9
+  * Minor fixes for multi-answer and html conversion
+
 2014-05-27 Version 0.2.8
   * Improve handling of missing and external file references
 
