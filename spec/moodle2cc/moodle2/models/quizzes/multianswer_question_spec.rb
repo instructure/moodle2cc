@@ -6,7 +6,7 @@ module Moodle2CC::Moodle2::Models::Quizzes
     it_behaves_like 'a Moodle2CC::Moodle2::Models::Quizzes::Question'
 
     it_behaves_like 'it has an attribute for', :embedded_question_references
-    it_behaves_like 'it has an attribute for', :embedded_questions
+    it_behaves_like 'it has an attribute for', :embedded_questions, []
 
     it_behaves_like 'it is registered as a Question', 'multianswer'
 

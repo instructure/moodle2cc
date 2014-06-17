@@ -15,6 +15,8 @@ module Moodle2CC::Moodle2Converter
       canvas_assessment.scoring_policy = 'keep_latest'
       canvas_assessment.quiz_type = 'survey'
 
+      canvas_assessment.allowed_attempts = -1 if moodle_feedback.multiple_submit
+
       canvas_assessment.items = []
       moodle_feedback.items.each do |item|
         if canvas_question = convert_feedback_question(item)

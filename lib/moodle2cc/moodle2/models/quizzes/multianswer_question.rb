@@ -4,6 +4,7 @@ module Moodle2CC::Moodle2::Models::Quizzes
     attr_accessor :embedded_question_references, :embedded_questions
 
     def initialize
+      super
       @embedded_questions = []
     end
 
