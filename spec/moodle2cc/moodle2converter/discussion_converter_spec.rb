@@ -9,6 +9,7 @@ describe DiscussionConverter do
       forum.name = 'Forum Name'
       forum.intro = 'Forum Introduction'
       forum.visible = false
+      forum.type = 'qanda'
 
       discussion = subject.convert(forum)
 
@@ -17,7 +18,11 @@ describe DiscussionConverter do
       expect(discussion.text).to eq 'Forum Introduction'
       expect(discussion.discussion_type).to eq 'threaded'
       expect(discussion.workflow_state).to eq 'unpublished'
+      expect(discussion.require_initial_post).to eq true
 
+      forum.type = 'general'
+      discussion2 = subject.convert(forum)
+      expect(discussion2.require_initial_post).to eq false
     end
   end
 end
