@@ -128,6 +128,13 @@
           <directory>activities/feedback_58588</directory>
         </activity>
         <activity>
+          <moduleid>58589</moduleid>
+          <sectionid>7</sectionid>
+          <modulename>feedback</modulename>
+          <title>feedback name</title>
+          <directory>activities/feedback_58589</directory>
+        </activity>
+        <activity>
           <moduleid>58541</moduleid>
           <sectionid>7</sectionid>
           <modulename>wiki</modulename>

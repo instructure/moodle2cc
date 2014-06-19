@@ -32,6 +32,8 @@ module Moodle2CC::Moodle2::Parsers
         feedback.time_close = parse_text(xml, '/activity/feedback/timeclose')
         feedback.time_modified = parse_text(xml, '/activity/feedback/timemodified')
 
+        feedback.multiple_submit = parse_boolean(xml, '/activity/feedback/multiple_submit')
+
         xml.search('/activity/feedback/items/item').each do |node|
           item = Moodle2CC::Moodle2::Models::Feedback::Question.new
           item.id = node.attributes['id'].value

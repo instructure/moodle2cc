@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="8" moduleid="58589" modulename="feedback" contextid="162391">
+  <feedback id="8">
+    <name>feedback name</name>
+    <intro>&lt;p&gt;feedback description&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <anonymous>1</anonymous>
+    <email_notification>0</email_notification>
+    <multiple_submit>1</multiple_submit>
+    <autonumbering>0</autonumbering>
+    <site_after_submit></site_after_submit>
+    <page_after_submit></page_after_submit>
+    <page_after_submitformat>1</page_after_submitformat>
+    <publish_stats>0</publish_stats>
+    <timeopen>0</timeopen>
+    <timeclose>0</timeclose>
+    <timemodified>1397566320</timemodified>
+    <completionsubmit>0</completionsubmit>
+    <items>
+      <item id="123">
+        <template>0</template>
+        <name>Captcha</name>
+        <label>Captcha</label>
+        <presentation></presentation>
+        <typ>captcha</typ>
+        <hasvalue>0</hasvalue>
+        <position>1</position>
+        <required>1</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="124">
+        <template>0</template>
+        <name>Information question</name>
+        <label>informationlabel</label>
+        <presentation>3</presentation>
+        <typ>info</typ>
+        <hasvalue>1</hasvalue>
+        <position>2</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="125">
+        <template>0</template>
+        <name>label</name>
+        <label></label>
+        <presentation>&lt;p&gt;Label "question"&lt;/p&gt;</presentation>
+        <typ>label</typ>
+        <hasvalue>0</hasvalue>
+        <position>3</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="126">
+        <template>0</template>
+        <name></name>
+        <label></label>
+        <presentation></presentation>
+        <typ>pagebreak</typ>
+        <hasvalue>0</hasvalue>
+        <position>4</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="127">
+        <template>0</template>
+        <name>longer text answer</name>
+        <label>longertextanswerlabel</label>
+        <presentation>30|5</presentation>
+        <typ>textarea</typ>
+        <hasvalue>1</hasvalue>
+        <position>5</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="128">
+        <template>0</template>
+        <name>multiple choice question</name>
+        <label>multiplechoicelabel</label>
+        <presentation>r&gt;&gt;&gt;&gt;&gt;Option 1
+|Option 2
+|Option 3</presentation>
+        <typ>multichoice</typ>
+        <hasvalue>1</hasvalue>
+        <position>6</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="129">
+        <template>0</template>
+        <name>multiple choice rated</name>
+        <label>ratedlabel</label>
+        <presentation>r&gt;&gt;&gt;&gt;&gt;1####Something
+          |2####something else
+          |3####something something else</presentation>
+        <typ>multichoicerated</typ>
+        <hasvalue>1</hasvalue>
+        <position>7</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="130">
+        <template>0</template>
+        <name>numeric question</name>
+        <label>numbericquestisonlabel</label>
+        <presentation>1|100</presentation>
+        <typ>numeric</typ>
+        <hasvalue>1</hasvalue>
+        <position>8</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+      <item id="131">
+        <template>0</template>
+        <name>short text question</name>
+        <label>shorttextlabel</label>
+        <presentation>30|5</presentation>
+        <typ>textfield</typ>
+        <hasvalue>1</hasvalue>
+        <position>9</position>
+        <required>0</required>
+        <dependitem>0</dependitem>
+        <dependvalue></dependvalue>
+        <options></options>
+      </item>
+    </items>
+    <completeds>
+    </completeds>
+    <trackings>
+    </trackings>
+  </feedback>
+</activity>
