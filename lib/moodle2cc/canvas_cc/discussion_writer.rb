@@ -42,6 +42,7 @@ module Moodle2CC::CanvasCC
           xml.position
           xml.type 'topic'
           xml.discussion_type discussion.discussion_type
+          xml.require_initial_post discussion.require_initial_post
         }
       end.to_xml
       File.open(File.join(@work_dir, meta_resource.href), 'w') { |f| f.write(xml) }
