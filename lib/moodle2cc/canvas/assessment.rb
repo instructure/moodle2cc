@@ -22,7 +22,7 @@ module Moodle2CC::Canvas
       @access_code = mod.password
       @ip_filter = mod.subnet
       @shuffle_answers = mod.shuffle_answers
-      @quiz_type = mod.mod_type == 'quiz' ? 'practice_quiz' : 'survey'
+      @quiz_type = 'survey' unless mod.mod_type == 'quiz'
       @non_cc_assessments_identifier = create_key(@id, 'non_cc_assessments_')
       @questions = []
       mod.questions.each do |question|

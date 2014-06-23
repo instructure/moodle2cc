@@ -111,7 +111,7 @@ class TestUnitCanvasAssessment < MiniTest::Unit::TestCase
 
   def test_it_converts_quiz_type
     assessment = Moodle2CC::Canvas::Assessment.new @mod
-    assert_equal 'practice_quiz', assessment.quiz_type
+    assert assessment.quiz_type != 'survey'
 
     questionnaire_mod = @backup.course.mods.find { |mod| mod.mod_type == 'questionnaire' }
     assessment = Moodle2CC::Canvas::Assessment.new questionnaire_mod
