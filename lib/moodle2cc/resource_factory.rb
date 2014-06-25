@@ -30,9 +30,10 @@ class Moodle2CC::ResourceFactory
       if html.search('img[src]').length > 0 ||
         html.search('a[href]').length > 0 ||
         html.search('iframe[src]').length > 0 ||
-        html.text.strip.length > 50
+        html.text.strip.length > 200
         @namespace.const_get(:WebContent).new(mod)
       else
+        mod.name = html.text.strip
         @namespace.const_get(:Label).new(mod)
       end
     end
