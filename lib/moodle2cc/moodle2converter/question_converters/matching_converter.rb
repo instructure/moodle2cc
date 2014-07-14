@@ -13,8 +13,6 @@ module Moodle2CC::Moodle2Converter
           copy[:question_text] ||= ''
           copy[:question_text].gsub(/\{(.*?)\}/, '[\1]')
           copy[:question_text] = RDiscount.new(copy[:question_text]).to_html if copy[:question_text_format].to_i == 4 # markdown
-          copy[:question_text] = Nokogiri::HTML(copy[:question_text]).text
-          copy[:answer_text] = Nokogiri::HTML(copy[:answer_text]).text
 
           canvas_question.matches << copy
         end
