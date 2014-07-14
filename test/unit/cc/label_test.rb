@@ -22,8 +22,8 @@ class TestUnitCCLabel < MiniTest::Unit::TestCase
   end
 
   def test_it_converts_title
-    @mod.name = 'label123'
+    @mod.name = 'Section 1'
     label = Moodle2CC::CC::Label.new @mod
-    assert_equal 'label123', label.title
+    assert_equal 'Section 1', label.title
   end
 end

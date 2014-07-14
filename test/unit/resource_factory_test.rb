@@ -163,7 +163,7 @@ class TestUnitCCResource < MiniTest::Unit::TestCase
         I will always test my code,
         I will always test my code,
         I will always test my code
-      </p>)
+      </p>) * 10
     resource = @cc_factory.get_resource_from_mod(mod)
     assert_kind_of Moodle2CC::CC::WebContent, resource
 
