@@ -1,3 +1,8 @@
+2014-07-14 Version 0.2.11
+  * Allow longer labels for Moodle 1.9
+  * Remove practice quiz default setting in Moodle 1.9
+  * Allow html in matching questions for Moodle 2
+
 2014-06-19 Version 0.2.10
   * Require students to post before viewing converted Q & A forums
   * Convert multiple attempts settings from feedback activites
