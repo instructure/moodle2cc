@@ -17,7 +17,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       expect(converted_question.original_identifier).to eq moodle_question.id
 
       expected_text = "This is a bunch of html"
-      expect(converted_question.matches.first[:question_text]).to eq expected_text
+      expect(converted_question.matches.first[:question_text]).to include(expected_text)
       expect(converted_question.matches.first[:answer_text]).to eq moodle_question.matches.first[:answer_text]
     end
   end
