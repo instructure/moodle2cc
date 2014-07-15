@@ -26,7 +26,7 @@ module Moodle2CC::Moodle
         @files.each do |file|
           destination_file = File.join(dir, file)
           FileUtils.mkdir_p(File.dirname(destination_file))
-          File.open(destination_file, 'w') do |f|
+          File.open(destination_file, 'wb') do |f|
             f.write zipfile.read("course_files/#{file}")
           end
         end
