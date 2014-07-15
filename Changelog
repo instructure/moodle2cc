@@ -1,3 +1,6 @@
+2014-07-15 Version 0.2.12
+  * Minor encoding fix for Moodle 1.9
+
 2014-07-14 Version 0.2.11
   * Allow longer labels for Moodle 1.9
   * Remove practice quiz default setting in Moodle 1.9
