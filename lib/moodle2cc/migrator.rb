@@ -50,11 +50,19 @@ module Moodle2CC
     private
 
     def moodle_version
-      Zip::File.open(@source) do |zipfile|
-        if zipfile.find_entry('moodle_backup.xml')
+      if File.directory?(@source)
+        if File.exists?(File.join(@source, 'moodle_backup.xml'))
           MOODLE_2
-        elsif zipfile.find_entry('moodle.xml')
+        elsif File.exists?(File.join(@source, 'moodle.xml'))
           MOODLE_1_9
+        end
+      else
+        Zip::File.open(@source) do |zipfile|
+          if zipfile.find_entry('moodle_backup.xml')
+            MOODLE_2
+          elsif zipfile.find_entry('moodle.xml')
+            MOODLE_1_9
+          end
         end
       end
     end

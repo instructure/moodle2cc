@@ -5,47 +5,63 @@ module Moodle2CC::Moodle2
 
     MOODLE_BACKUP_XML = 'moodle_backup.xml'
 
-    def initialize(zip_path)
-      @zip_path = zip_path
+    def initialize(backup_path)
+      @backup_path = backup_path
     end
 
     def extract
-      Dir.mktmpdir do |work_dir|
-        extract_zip(work_dir)
-        course = Moodle2CC::Moodle2::Parsers::CourseParser.new(work_dir).parse
-        parse_sections(work_dir, course)
-        parse_files(work_dir, course)
-        parse_pages(work_dir, course)
-        parse_forums(work_dir, course)
-        parse_assignments(work_dir, course)
-        parse_books(work_dir, course)
-        parse_folders(work_dir, course)
-        parse_wikis(work_dir, course)
-        parse_question_categories(work_dir, course)
-
-        parse_quizzes(work_dir, course)
-        parse_choices(work_dir, course)
-        parse_feedbacks(work_dir, course)
-        parse_questionnaires(work_dir, course)
-
-        parse_glossaries(work_dir, course)
-        parse_labels(work_dir, course)
-        parse_external_urls(work_dir, course)
-        parse_resources(work_dir, course)
-        collect_files_for_resources(course)
-        collect_activities_for_sections(course.sections, course.activities)
+      if File.directory?(@backup_path) # it's already extracted
+        course = extract_course(@backup_path)
         yield course
+      else
+        Dir.mktmpdir do |work_dir|
+          extract_zip(work_dir)
+          course = extract_course(work_dir)
+          yield course
+        end
       end
     end
 
     private
 
+    def extract_course(work_dir)
+      course = Moodle2CC::Moodle2::Parsers::CourseParser.new(work_dir).parse
+      parse_sections(work_dir, course)
+      parse_files(work_dir, course)
+      parse_pages(work_dir, course)
+      parse_forums(work_dir, course)
+      parse_assignments(work_dir, course)
+      parse_books(work_dir, course)
+      parse_folders(work_dir, course)
+      parse_wikis(work_dir, course)
+      parse_question_categories(work_dir, course)
+
+      parse_quizzes(work_dir, course)
+      parse_choices(work_dir, course)
+      parse_feedbacks(work_dir, course)
+      parse_questionnaires(work_dir, course)
+
+      parse_glossaries(work_dir, course)
+      parse_labels(work_dir, course)
+      parse_external_urls(work_dir, course)
+      parse_resources(work_dir, course)
+      collect_files_for_resources(course)
+      collect_activities_for_sections(course.sections, course.activities)
+      course
+    end
+
     def extract_zip(work_dir)
-      Zip::File.open(@zip_path) do |zip_file|
-        zip_file.each do |f|
+      if File.directory?(@backup_path)
+        Dir["#{@backup_path}/**/*"].each do |f_path|
           f_path=File.join(work_dir, f.name)
-          FileUtils.mkdir_p(File.dirname(f_path))
-          zip_file.extract(f, f_path) unless File.exist?(f_path)
+        end
+      else
+        Zip::File.open(@backup_path) do |zip_file|
+          zip_file.each do |f|
+            f_path=File.join(work_dir, f.name)
+            FileUtils.mkdir_p(File.dirname(f_path))
+            zip_file.extract(f, f_path) unless File.exist?(f_path)
+          end
         end
       end
     end
