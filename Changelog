@@ -1,3 +1,7 @@
+2014-07-21 Version 0.2.14
+  * Internal refactor to import from folders instead of zip files
+  * Minor fix for exporting discussion topics in Moodle 2
+
 2014-07-15 Version 0.2.12
   * Minor encoding fix for Moodle 1.9
 
