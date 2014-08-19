@@ -1,3 +1,6 @@
+2014-08-19 Version 0.2.15
+  * Fix course files importing in Moodle 1.9 packages
+
 2014-07-21 Version 0.2.14
   * Internal refactor to import from folders instead of zip files
   * Minor fix for exporting discussion topics in Moodle 2
