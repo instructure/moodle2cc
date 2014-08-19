@@ -15,8 +15,9 @@ module Moodle2CC::Moodle
       files = nil
       if File.directory?(backup_path)
         xml = File.read(File.join(backup_path, "moodle.xml"))
-        files = Dir["#{backup_path}/**/*"].select { |e| e =~ /^course_files/ && !File.directory?(e) }.
-              map { |e| e.sub('course_files/', '') }.sort
+        files = Dir["#{backup_path}/**/*"].reject { |e| File.directory?(e) }.
+            map { |e| e.sub("#{backup_path}/", '') }.select { |e| e =~ /^course_files/ }.
+            map { |e| e.sub('course_files/', '') }.sort
       else
         Zip::File.open(backup_path) do |zipfile|
           xml = zipfile.read("moodle.xml")
