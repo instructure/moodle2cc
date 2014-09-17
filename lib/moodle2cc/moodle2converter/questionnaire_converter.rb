@@ -27,7 +27,7 @@ module Moodle2CC::Moodle2Converter
     end
 
     QUESTION_TYPE_ID_MAP = {
-        1 =>  'true_false_question', # yes/no question
+        1 =>  'multiple_choice_question', # yes/no question
         2 =>  'essay_question', # text box question
         3 =>  'essay_question', # essay box question
         4 =>  'multiple_choice_question', # radio buttons question
@@ -47,6 +47,11 @@ module Moodle2CC::Moodle2Converter
       canvas_question.title = truncate_text(moodle_question.name)
       canvas_question.material = moodle_question.content
       canvas_question.answers = []
+
+      if moodle_question.type_id.to_i == 1
+        # yes/no question
+        moodle_question.choices = [{:id => 'yes', :content => "Yes"}, {:id => 'no', :content => "No"}]
+      end
 
       if canvas_type == 'multiple_dropdowns_question'
         # rating scale question
