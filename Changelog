@@ -1,3 +1,6 @@
+2014-09-17 Version 0.2.16
+  * Add choices to yes/no questionnaire questions
+
 2014-08-19 Version 0.2.15
   * Fix course files importing in Moodle 1.9 packages
 
