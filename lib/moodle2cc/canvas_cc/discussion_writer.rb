@@ -44,6 +44,14 @@ module Moodle2CC::CanvasCC
           xml.discussion_type discussion.discussion_type
           xml.require_initial_post discussion.require_initial_post
           xml.workflow_state discussion.workflow_state
+          if discussion.points_possible
+            xml.assignment('identifier' => "#{meta_resource.identifier}_assignment" ) do |a|
+              a.title discussion.title
+              a.submission_types 'discussion_topic'
+              a.grading_type 'points'
+              a.points_possible discussion.points_possible
+            end
+          end
         }
       end.to_xml
       File.open(File.join(@work_dir, meta_resource.href), 'w') { |f| f.write(xml) }

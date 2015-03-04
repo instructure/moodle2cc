@@ -46,6 +46,15 @@ module Moodle2CC::Moodle2::Parsers
         forum.completion_replies = parse_text(forum_xml, "/activity/#{module_name}/completionreplies")
         forum.completion_posts = parse_text(forum_xml, "/activity/#{module_name}/completionposts")
       end
+      grade_file = File.join(activity_dir, "grades.xml")
+      if File.exists?(grade_file)
+        File.open(grade_file) do |f|
+          grade_xml = Nokogiri::XML(f)
+          if node = grade_xml.at_xpath("activity_gradebook/grade_items/grade_item/grademax")
+            forum.points_possible = node.text
+          end
+        end
+      end
       parse_module(activity_dir, forum)
       forum
     end

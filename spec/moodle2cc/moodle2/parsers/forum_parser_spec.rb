@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Moodle2CC::Moodle2::Parsers::ForumParser do
   subject(:parser) { Moodle2CC::Moodle2::Parsers::ForumParser.new(fixture_path(File.join('moodle2', 'backup')))}
 
-
   it 'parses a moodle forum' do
     forums = parser.parse
     expect(forums.count).to eq 2
@@ -32,6 +31,7 @@ describe Moodle2CC::Moodle2::Parsers::ForumParser do
     expect(forum.completion_replies).to eq '0'
     expect(forum.completion_posts).to eq '0'
     expect(forum.visible).to eq true
+    expect(forum.points_possible).to eq "42"
   end
 
 

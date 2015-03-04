@@ -25,6 +25,7 @@ describe Moodle2CC::CanvasCC::DiscussionWriter do
     discussion.title = 'Discussion Title'
     discussion.text = '<p>discussion_text</p>'
     discussion.discussion_type = 'threaded'
+    discussion.points_possible = 99
     writer.write
     xml = Nokogiri::XML(File.read(File.join(work_dir, discussion.meta_resource.href)))
     expect(xml.at_xpath('xmlns:topicMeta/@identifier').value).to eq('discussion_id_meta')
@@ -33,6 +34,7 @@ describe Moodle2CC::CanvasCC::DiscussionWriter do
     expect(xml.%('topicMeta/type').text).to eq 'topic'
     expect(xml.%('topicMeta/position').text).to eq ''
     expect(xml.%('topicMeta/discussion_type').text).to eq 'threaded'
+    expect(xml.%('topicMeta/assignment/points_possible').text).to eq '99'
   end
 
 end

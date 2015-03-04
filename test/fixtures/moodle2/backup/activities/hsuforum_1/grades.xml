@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <activity_gradebook>
   <grade_items>
+    <grade_item>
+      <grademax>42</grademax>
+    </grade_item>
   </grade_items>
   <grade_letters>
   </grade_letters>
