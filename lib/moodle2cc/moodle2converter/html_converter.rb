@@ -61,6 +61,9 @@ module Moodle2CC::Moodle2Converter
       else
         link
       end
+    rescue => e
+      puts "invalid url #{link} - #{e.message}"
+      link
     end
 
     def lookup_cc_file(link)
@@ -73,6 +76,8 @@ module Moodle2CC::Moodle2Converter
       if cc_file = @file_index[CGI::unescape(moodle_path).downcase]
         "#{WEB_CONTENT_TOKEN}#{cc_file.file_path}"
       end
+    rescue => e
+      puts "invalid url #{moodle_path} - #{e.message}"
     end
 
     def lookup_cc_link(activity, id, anchor)
