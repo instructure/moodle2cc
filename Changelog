@@ -1,3 +1,6 @@
+2015-05-11 Version 0.2.19
+  * Fix quiz question association parsing for Moodle 2.7+
+
 2015-04-13 Version 0.2.18
   * Improve invalid URL handling
 
