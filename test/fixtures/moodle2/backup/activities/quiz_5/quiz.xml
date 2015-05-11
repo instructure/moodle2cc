@@ -40,7 +40,7 @@
     <showblocks>0</showblocks>
     <question_instances>
       <question_instance id="1">
-        <question>1</question>
+        <questionid>1</questionid>
         <grade>1.0000000</grade>
       </question_instance>
       <question_instance id="2">
