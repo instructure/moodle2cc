@@ -38,6 +38,7 @@ module Moodle2CC::Canvas
       @length = question.length
 
       @answers = []
+      @matches = []
 
       unless question.answers.empty?
         @answers = question.answers.map do |answer|
@@ -119,6 +120,7 @@ module Moodle2CC::Canvas
       material = material + image_html(question.image) unless question.image.nil? || question.image.strip == ''
       material = RDiscount.new(material).to_html if question.format == 4 # markdown
       material = convert_file_path_tokens(material)
+
       if @answers
         @answers.each do |answer|
           answer.text = convert_file_path_tokens(answer.text) if answer.text

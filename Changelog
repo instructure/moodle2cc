@@ -1,3 +1,6 @@
+2015-05-20 Version 0.2.20
+  * Fix certain matching question parsing errors for Moodle 1.9
+
 2015-05-11 Version 0.2.19
   * Fix quiz question association parsing for Moodle 2.7+
 
