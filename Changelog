@@ -1,3 +1,6 @@
+2015-06-10 Version 0.2.21
+  * Add question point conversion for Moodle 2
+
 2015-05-20 Version 0.2.20
   * Fix certain matching question parsing errors for Moodle 1.9
 
@@ -124,7 +127,7 @@
 2012-07-26 Version 0.1.1
 
   * Fix extra whitespace errors
-  * Add ability to inject logger during conversion process 
+  * Add ability to inject logger during conversion process
 
 
 2012-7-24 Version 0.1.0
