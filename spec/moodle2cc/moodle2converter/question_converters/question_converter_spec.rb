@@ -37,6 +37,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
       answer.id = 'blah'
       moodle_question.answers = [answer]
+      moodle_question.default_mark = 2
       moodle_question.general_feedback = 'random stuff'
       moodle_question.question_text = 'other stuff'
 
@@ -47,6 +48,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       expect(converted_question.answers.count).to eq moodle_question.answers.count
       expect(converted_question.answers.first.id).to eq moodle_question.answers.first.id
       expect(converted_question.general_feedback).to eq moodle_question.general_feedback
+      expect(converted_question.points_possible).to eq moodle_question.default_mark
       expect(converted_question.material).to eq moodle_question.question_text
     end
 
