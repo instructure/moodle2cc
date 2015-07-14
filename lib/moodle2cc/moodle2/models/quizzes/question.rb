@@ -23,7 +23,7 @@ module Moodle2CC::Moodle2::Models::Quizzes
       @@subclasses[name] = self
     end
 
-    attr_accessor :id, :parent, :name, :question_text, :question_text_format, :general_feedback, :default_mark,
+    attr_accessor :id, :parent, :name, :question_text, :question_text_format, :general_feedback, :default_mark, :max_mark,
                   :penalty, :qtype, :length, :stamp, :version, :hidden, :answers, :type
 
     def initialize
