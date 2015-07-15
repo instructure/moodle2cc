@@ -34,6 +34,7 @@ module Moodle2CC::Moodle2
         question.question_text_format = parse_text(node, 'questiontextformat')
         question.general_feedback = parse_text(node, 'generalfeedback')
         question.default_mark = parse_text(node, 'defaultmark')
+        question.max_mark = parse_text(node, 'maxmark')
         question.penalty = parse_text(node, 'penalty')
         question.qtype = parse_text(node, 'qtype')
         question.length = parse_text(node, 'length')
