@@ -162,6 +162,13 @@
           <title>Hidden Assignmnet</title>
           <directory>activities/assign_12</directory>
         </activity>
+        <activity>
+          <moduleid>42</moduleid>
+          <sectionid>10</sectionid>
+          <modulename>assignment</modulename>
+          <title>Hidden Assignmnet</title>
+          <directory>activities/assignment_42</directory>
+        </activity>
       </activities>
       <sections>
         <section>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="2" moduleid="42" modulename="assignment" contextid="31">
+  <assignment id="2">
+    <name>Hidden Assignmnet</name>
+    <intro>silly assignment</intro>
+    <introformat>1</introformat>
+    <alwaysshowdescription>1</alwaysshowdescription>
+    <submissiondrafts>0</submissiondrafts>
+    <sendnotifications>1</sendnotifications>
+    <sendlatenotifications>1</sendlatenotifications>
+    <duedate>1396505100</duedate>
+    <cutoffdate>1396505100</cutoffdate>
+    <allowsubmissionsfromdate>1395900300</allowsubmissionsfromdate>
+    <grade>87</grade>
+    <timemodified>1395900501</timemodified>
+    <completionsubmit>0</completionsubmit>
+    <requiresubmissionstatement>0</requiresubmissionstatement>
+    <teamsubmission>0</teamsubmission>
+    <requireallteammemberssubmit>0</requireallteammemberssubmit>
+    <teamsubmissiongroupingid>0</teamsubmissiongroupingid>
+    <blindmarking>0</blindmarking>
+    <revealidentities>0</revealidentities>
+    <submissions>
+    </submissions>
+    <grades>
+    </grades>
+  </assignment>
+</activity>

@@ -5,7 +5,9 @@ describe Moodle2CC::Moodle2::Parsers::AssignmentParser do
 
   it 'should parse an assignment' do
     assignments = subject.parse
-    expect(assignments.count).to eq 2
+    expect(assignments.count).to eq 3
+    expect(assignments.detect{|a| a.module_id == '42'}.intro).to eq 'silly assignment'
+
     assign = assignments.first
     expect(assign.id).to eq '1'
     expect(assign.module_id).to eq '4'
