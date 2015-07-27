@@ -1,9 +1,8 @@
-2015-07-24 Version 0.2.22
+2015-07-24 Version 0.2.23
   * Fix question point conversion for Moodle 2
-  * Fix assignment importing for Moodle 2.1
 
-2015-06-10 Version 0.2.21
-  * Add question point conversion for Moodle 2
+2015-07-24 Version 0.2.22
+  * Fix assignment importing for Moodle 2.1
 
 2015-05-20 Version 0.2.20
   * Fix certain matching question parsing errors for Moodle 1.9

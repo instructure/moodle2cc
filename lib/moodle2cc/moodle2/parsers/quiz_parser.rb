@@ -65,7 +65,7 @@ module Moodle2CC::Moodle2::Parsers
         xml.search('/activity/quiz/question_instances/question_instance').each do |node|
           quiz.question_instances << {
             :question => parse_text(node, 'question') || parse_text(node, 'questionid'),
-            :grade => parse_text(node, 'grade')
+            :grade => parse_text(node, 'grade') || parse_text(node, 'maxmark')
           }
         end
 
