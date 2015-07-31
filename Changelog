@@ -1,3 +1,6 @@
+2015-07-31 Version 0.2.24
+  * Fix question bank and quiz question reference collisions
+
 2015-07-24 Version 0.2.23
   * Fix question point conversion for Moodle 2
 
