@@ -67,6 +67,7 @@ module Moodle2CC::CanvasCC::Models
         if question
           question.assessment_question_identifierref ||= "question_#{question.identifier}"
           copy = question.dup
+          copy.identifier = "#{copy.identifier}_copy"
           copy.points_possible = ref[:grade] if ref[:grade]
           @items << copy
         elsif group
