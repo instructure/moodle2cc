@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
 	gem.license = 'AGPLv3'
 
   gem.add_runtime_dependency "rubyzip", '>=1.0.0'
-  gem.add_runtime_dependency "happymapper"
+  gem.add_runtime_dependency "instructure-happymapper", '~> 0.5.10'
   gem.add_runtime_dependency "builder"
   gem.add_runtime_dependency "thor"
   gem.add_runtime_dependency "nokogiri"
