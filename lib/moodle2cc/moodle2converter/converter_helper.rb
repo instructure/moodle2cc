@@ -57,7 +57,20 @@ module Moodle2CC
     end
 
     def generate_unique_identifier_for(id, suffix = nil)
-      "m2#{Digest::MD5.hexdigest(id.to_s)}#{suffix}"
+      unique_id = "m2#{Digest::MD5.hexdigest(id.to_s)}#{suffix}"
+      @@ids ||= Set.new
+      if @@ids.include?(unique_id)
+        # i was under the impression that moodle ids would be unique themselves
+        # but i have been apparently misinformed
+        original_id = unique_id
+        index = 0
+        while @@ids.include?(unique_id)
+          index += 1
+          unique_id = "#{original_id}#{index}"
+        end
+      end
+      @@ids << unique_id
+      unique_id
     end
 
     def activity_content_type(activity)
