@@ -13,6 +13,7 @@ describe Moodle2CC::CanvasCC::PageWriter do
     page.identifier = 'my_id'
     page.workflow_state = 'active'
     page.body = '<h2>This is the body</h2>'
+    page.href = "testhref.html"
     page.editing_roles = 'teachers'
     page.page_name ='My Page Title'
     writer.write

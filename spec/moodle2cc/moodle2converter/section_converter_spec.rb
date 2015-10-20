@@ -42,7 +42,6 @@ module Moodle2CC
 
     describe '#convert_to_summary_page' do
       it 'converts the section summary to a page' do
-        subject.stub(:generate_unique_identifier).and_return('some_random_id')
         moodle_section.name = 'Name'
         moodle_section.summary = 'Summary Content'
         moodle_section.visible = true
@@ -55,7 +54,6 @@ module Moodle2CC
         expect(page.workflow_state).to eq 'active'
         expect(page.editing_roles).to eq 'teachers'
         expect(page.body).to eq 'Summary Content'
-        expect(page.href).to eq 'wiki_content/some_random_id/name-summary.html'
       end
     end
 

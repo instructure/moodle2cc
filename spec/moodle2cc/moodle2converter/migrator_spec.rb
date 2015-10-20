@@ -6,7 +6,7 @@ module Moodle2CC
     let(:canvas_course) { CanvasCC::Models::Course.new }
 
     let(:moodle_course) { Moodle2CC::Moodle2::Models::Course.new }
-    let(:canvas_page) { Moodle2CC::CanvasCC::Models::Page.new }
+    let(:canvas_page) { p = Moodle2CC::CanvasCC::Models::Page.new; p.title = "sometitle"; p }
     let(:canvas_discussion) {Moodle2CC::CanvasCC::Models::Discussion.new}
     let(:canvas_assignment) {Moodle2CC::CanvasCC::Models::Assignment.new}
     let(:canvas_assessment) {Moodle2CC::CanvasCC::Models::Assessment.new}
@@ -55,8 +55,10 @@ module Moodle2CC
       it 'converts pages' do
         moodle_course.pages = [:page1, :page2]
         Moodle2Converter::PageConverter.any_instance.stub(:convert).and_return(canvas_page)
+        migrator.stub(:generate_unique_identifier).and_return('some_random_id')
         migrator.migrate
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
+        expect(canvas_course.pages.first.href).to eq 'wiki_content/some_random_id/sometitle.html'
       end
 
       it 'converts wikis' do

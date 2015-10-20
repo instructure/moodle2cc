@@ -18,16 +18,18 @@ module Moodle2CC::CanvasCC::Models
       expect(page.identifier).to eq 3
     end
 
-    it "sets the wiki_dir, and title" do
+    it "sets the title" do
       page.page_name = 'My Page Name'
-      expect(page.href).to eq 'wiki_content/my-page-name.html'
       expect(page.title).to eq 'My Page Name'
     end
 
+    it "converts names to urls" do
+      expect(page.class.convert_name_to_url('My Page Name')).to eq 'my-page-name'
+    end
+
     it "truncates urls that are too long" do
-      page.page_name = 'a' * 500
-      expected = "wiki_content/#{'a' * Moodle2CC::CanvasCC::Models::Page::MAX_URL_LENGTH}.html"
-      expect(page.href).to eq expected
+      expected = "#{'a' * Moodle2CC::CanvasCC::Models::Page::MAX_URL_LENGTH}"
+      expect(page.class.convert_name_to_url('a' * 500)).to eq expected
     end
 
   end

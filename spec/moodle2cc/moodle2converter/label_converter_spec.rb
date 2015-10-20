@@ -50,8 +50,6 @@ module Moodle2CC
 
     describe '#convert_to_pages' do
       it 'converts a moodle label with intro content to a page' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
-
         moodle_label.id = '1'
         moodle_label.name = 'label title'
         moodle_label.intro = '<div>hey look i also have html content</div>'
@@ -67,7 +65,6 @@ module Moodle2CC
         expect(page.title).to eq 'label title'
         expect(page.editing_roles).to eq CanvasCC::Models::Page::EDITING_ROLE_TEACHER
         expect(page.body).to eq moodle_label.intro
-        expect(page.href).to end_with("label-title.html")
       end
 
       it 'does not convert a plain moodle label to a page' do
