@@ -4,7 +4,7 @@ Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 
 RSpec.configure do |c|
   c.after :each do
-    Moodle2CC::Moodle2Converter::ConverterHelper.class_variable_set(:@@ids, nil)
+    Moodle2CC::Moodle2Converter::Migrator.clear_unique_id_set!
   end
 end
 

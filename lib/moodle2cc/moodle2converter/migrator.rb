@@ -4,6 +4,7 @@ module Moodle2CC::Moodle2Converter
     include ConverterHelper
 
     def initialize(source_file, output_dir)
+      self.class.clear_unique_id_set!
       @extractor = Moodle2CC::Moodle2::Extractor.new(source_file)
       @output_dir = output_dir
     end
@@ -28,6 +29,10 @@ module Moodle2CC::Moodle2Converter
         cc_course.pages += convert_books(moodle_course.books)
         cc_course.pages += convert_labels(moodle_course.labels)
         cc_course.pages += convert_glossaries(moodle_course)
+
+        cc_course.pages.each do |canvas_page|
+          canvas_page.href = generate_unique_resource_path(Moodle2CC::CanvasCC::Models::Page::WIKI_CONTENT, canvas_page.title)
+        end
 
         cc_course.canvas_modules += convert_sections(moodle_course.sections)
 
@@ -188,6 +193,14 @@ module Moodle2CC::Moodle2Converter
         end
       end
       [Float::INFINITY]
+    end
+
+    def self.clear_unique_id_set!
+      @unique_id_set = Set.new
+    end
+
+    def self.unique_id_set
+      @unique_id_set ||= Set.new
     end
   end
 end

@@ -58,18 +58,18 @@ module Moodle2CC
 
     def generate_unique_identifier_for(id, suffix = nil)
       unique_id = "m2#{Digest::MD5.hexdigest(id.to_s)}#{suffix}"
-      @@ids ||= Set.new
-      if @@ids.include?(unique_id)
+      id_set = Moodle2Converter::Migrator.unique_id_set
+      if id_set.include?(unique_id)
         # i was under the impression that moodle ids would be unique themselves
         # but i have been apparently misinformed
         original_id = unique_id
         index = 0
-        while @@ids.include?(unique_id)
+        while id_set.include?(unique_id)
           index += 1
           unique_id = "#{original_id}#{index}"
         end
       end
-      @@ids << unique_id
+      id_set << unique_id
       unique_id
     end
 

@@ -29,8 +29,6 @@ module Moodle2CC
         canvas_page.workflow_state = workflow_state(moodle_label.visible)
         canvas_page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
         canvas_page.body = moodle_label.intro
-        canvas_page.href = generate_unique_resource_path(CanvasCC::Models::Page::WIKI_CONTENT,
-           Moodle2CC::CanvasCC::Models::Page.convert_name_to_url(canvas_page.title))
         pages << canvas_page
       end
       pages
