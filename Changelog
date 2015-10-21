@@ -1,3 +1,6 @@
+2015-10-21 Version 0.2.27
+  * Handles duplicated wiki names better in Moodle 2 packages
+
 2015-09-23 Version 0.2.26
   * Handles duplicated ids better in Moodle 2 packages
 
