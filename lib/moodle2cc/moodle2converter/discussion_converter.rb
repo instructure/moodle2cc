@@ -8,6 +8,7 @@ module Moodle2CC::Moodle2Converter
       discussion.identifier = generate_unique_identifier_for_activity(forum)
       discussion.title = truncate_text(forum.name)
       discussion.text = forum.intro
+      discussion.is_announcement = forum.force_subscribe
       discussion.discussion_type = 'threaded'
       discussion.workflow_state = workflow_state(forum.visible)
       discussion.require_initial_post = (forum.type == 'qanda')

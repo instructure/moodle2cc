@@ -34,7 +34,7 @@ module Moodle2CC::Moodle2::Parsers
         forum.scale = parse_text(forum_xml, "/activity/#{module_name}/scale")
         forum.max_bytes = parse_text(forum_xml, "/activity/#{module_name}/maxbytes")
         forum.max_attachments = parse_text(forum_xml, "/activity/#{module_name}/maxattachments")
-        forum.force_subsscribe = parse_text(forum_xml, "/activity/#{module_name}/forcesubscribe")
+        forum.force_subscribe = parse_boolean(forum_xml, "/activity/#{module_name}/forcesubscribe")
         forum.tracking_type = parse_text(forum_xml, "/activity/#{module_name}/trackingtype")
         forum.rss_type = parse_text(forum_xml, "/activity/#{module_name}/rsstype")
         forum.rss_articles = parse_text(forum_xml, "/activity/#{module_name}/rssarticles")

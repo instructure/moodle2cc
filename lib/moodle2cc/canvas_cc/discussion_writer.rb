@@ -40,7 +40,7 @@ module Moodle2CC::CanvasCC
           xml.topic_id discussion_resource.identifier
           xml.title discussion.title
           xml.position
-          xml.type 'topic'
+          xml.type (discussion.is_announcement ? 'announcement' : 'topic')
           xml.discussion_type discussion.discussion_type
           xml.require_initial_post discussion.require_initial_post
           xml.workflow_state discussion.workflow_state
