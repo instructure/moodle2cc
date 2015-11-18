@@ -8,7 +8,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert(moodle_glossary)
       canvas_page = Moodle2CC::CanvasCC::Models::Page.new
-      canvas_page.identifier = generate_unique_identifier_for(moodle_glossary.id) + GLOSSARY_SUFFIX
+      canvas_page.identifier = generate_unique_identifier_for_activity(moodle_glossary)
       canvas_page.page_name = moodle_glossary.name
       canvas_page.workflow_state = 'active'
       canvas_page.editing_roles = 'teachers,students'

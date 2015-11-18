@@ -197,10 +197,15 @@ module Moodle2CC::Moodle2Converter
 
     def self.clear_unique_id_set!
       @unique_id_set = Set.new
+      @activity_id_map = {}
     end
 
     def self.unique_id_set
       @unique_id_set ||= Set.new
+    end
+
+    def self.activity_id_map
+      @activity_id_map ||= {}
     end
   end
 end

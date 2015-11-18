@@ -54,7 +54,7 @@ module Moodle2CC
         elsif moodle_activity.is_a? Moodle2::Models::Resource
           module_item.identifierref = moodle_activity.file.content_hash if moodle_activity.file
         else
-          module_item.identifierref = generate_unique_identifier_for_activity(moodle_activity)
+          module_item.identifierref = get_unique_identifier_for_activity(moodle_activity)
         end
       end
       module_item.content_type = activity_content_type(moodle_activity)

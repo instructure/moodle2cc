@@ -4,7 +4,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert_feedback(moodle_feedback)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
-      canvas_assessment.identifier = generate_unique_identifier_for(moodle_feedback.id, FEEDBACK_ASSESSMENT_SUFFIX)
+      canvas_assessment.identifier = generate_unique_identifier_for_activity(moodle_feedback)
       canvas_assessment.title = truncate_text(moodle_feedback.name)
       canvas_assessment.description = moodle_feedback.intro
       canvas_assessment.workflow_state = workflow_state(moodle_feedback.visible)

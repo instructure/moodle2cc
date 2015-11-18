@@ -17,12 +17,12 @@ module Moodle2CC::Moodle2Converter
 
       if moodle_wiki.first_page_title.to_s.strip.length > 0 &&
         (first_page = canvas_pages.detect{|page| page.title.to_s.strip == moodle_wiki.first_page_title.to_s.strip})
-        first_page.identifier = generate_unique_identifier_for("#{moodle_wiki.id}") + PAGE_SUFFIX
+        first_page.identifier = generate_unique_identifier_for_activity(moodle_wiki)
         first_page.body = moodle_wiki.intro.to_s + first_page.body.to_s
         first_page.page_name = moodle_wiki.name
       else
         first_page = Moodle2CC::CanvasCC::Models::Page.new
-        first_page.identifier = generate_unique_identifier_for("#{moodle_wiki.id}") + PAGE_SUFFIX
+        first_page.identifier = generate_unique_identifier_for_activity(moodle_wiki)
         first_page.body = moodle_wiki.intro
         first_page.workflow_state = workflow_state(moodle_wiki.visible)
         first_page.editing_roles = 'teachers'

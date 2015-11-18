@@ -48,9 +48,21 @@ module Moodle2CC
       "m2#{SecureRandom.uuid.gsub('-', '')}"
     end
 
+    def get_unique_identifier_for_activity(activity)
+      # use when we want to retrieve an existing id, not generate a new one
+      id = Moodle2Converter::Migrator.activity_id_map[activity.hash]
+      unless id
+        puts "could not find matching id for #{activity.inspect}"
+        id = generate_unique_identifier_for_activity(activity)
+      end
+      id
+    end
+
     def generate_unique_identifier_for_activity(activity)
       if lookup = ACTIVITY_LOOKUP[activity.class]
-        generate_unique_identifier_for(activity.id, lookup[:suffix])
+        unique_id = generate_unique_identifier_for(activity.id, lookup[:suffix])
+        Moodle2Converter::Migrator.activity_id_map[activity.hash] = unique_id
+        unique_id
       else
         raise "Unknown activity type: #{activity.class}"
       end

@@ -11,7 +11,7 @@ module Moodle2CC
       module_item.indent = '0'
 
       if moodle_label.convert_to_page?
-        module_item.identifierref = generate_unique_identifier_for_activity(moodle_label)
+        module_item.identifierref = get_unique_identifier_for_activity(moodle_label)
         module_item.content_type = CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE
       elsif moodle_label.convert_to_header?
         module_item.content_type = CanvasCC::Models::ModuleItem::CONTENT_TYPE_CONTEXT_MODULE_SUB_HEADER

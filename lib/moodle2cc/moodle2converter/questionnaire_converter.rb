@@ -4,7 +4,7 @@ module Moodle2CC::Moodle2Converter
 
     def convert_questionnaire(moodle_questionnaire)
       canvas_assessment = Moodle2CC::CanvasCC::Models::Assessment.new
-      canvas_assessment.identifier = generate_unique_identifier_for(moodle_questionnaire.id, QUESTIONNAIRE_ASSESSMENT_SUFFIX)
+      canvas_assessment.identifier = generate_unique_identifier_for_activity(moodle_questionnaire)
       canvas_assessment.title = truncate_text(moodle_questionnaire.name)
       canvas_assessment.description = moodle_questionnaire.intro
       canvas_assessment.workflow_state = workflow_state(moodle_questionnaire.visible)

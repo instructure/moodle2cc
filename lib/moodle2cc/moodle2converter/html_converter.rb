@@ -84,7 +84,7 @@ module Moodle2CC::Moodle2Converter
       case activity
         when 'assignment'
           if assignment = @moodle_course.assignments.find { |assignment| assignment.id == id }
-            "#{OBJECT_TOKEN}/assignments/#{generate_unique_identifier_for_activity(assignment)}#{anchor}"
+            "#{OBJECT_TOKEN}/assignments/#{get_unique_identifier_for_activity(assignment)}#{anchor}"
           end
         when 'page'
           if page = @moodle_course.pages.find { |page| page.id == id }
@@ -92,7 +92,7 @@ module Moodle2CC::Moodle2Converter
           end
         when 'forum'
           if forum = @moodle_course.forums.find { |forum| forum.id == id }
-            "#{OBJECT_TOKEN}/discussion_topics/#{generate_unique_identifier_for_activity(forum)}#{anchor}"
+            "#{OBJECT_TOKEN}/discussion_topics/#{get_unique_identifier_for_activity(forum)}#{anchor}"
           end
         else
           puts "unknown activity to replace link for. activity:#{activity} id:#{id}"

@@ -5,7 +5,7 @@ module Moodle2CC::Moodle2Converter
     def convert(moodle_assignment, moodle_grading_scales)
 
       canvas_assignment = Moodle2CC::CanvasCC::Models::Assignment.new
-      canvas_assignment.identifier = generate_unique_identifier_for(moodle_assignment.id, ASSIGNMENT_SUFFIX)
+      canvas_assignment.identifier = generate_unique_identifier_for_activity(moodle_assignment)
       canvas_assignment.title = truncate_text(moodle_assignment.name)
       canvas_assignment.body = moodle_assignment.intro
       canvas_assignment.due_at = Time.at(Integer(moodle_assignment.due_date)) if moodle_assignment.due_date
