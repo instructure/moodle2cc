@@ -17,6 +17,7 @@ module Moodle2CC
     GLOSSARY_SUFFIX = '_glossary'
     SUMMARY_PAGE_SUFFIX = '_summary_page'
     EXTERNAL_URL_SUFFIX = '_external_url'
+    LTI_SUFFIX = '_lti'
 
     ACTIVITY_LOOKUP = {
       Moodle2::Models::Page => {suffix: PAGE_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
@@ -33,7 +34,8 @@ module Moodle2CC
       Moodle2::Models::Label => {suffix: nil, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_CONTEXT_MODULE_SUB_HEADER},
       Moodle2::Models::Glossary => {suffix: GLOSSARY_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
       Moodle2::Models::ExternalUrl => {suffix: EXTERNAL_URL_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_EXTERNAL_URL},
-      Moodle2::Models::Resource => {suffix: nil, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_ATTACHMENT}
+      Moodle2::Models::Resource => {suffix: nil, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_ATTACHMENT},
+      Moodle2::Models::Lti => {suffix: LTI_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_CONTEXT_EXTERNAL_TOOL}
     }
 
     MAX_TITLE_LENGTH = 250

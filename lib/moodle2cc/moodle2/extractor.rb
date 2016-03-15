@@ -45,6 +45,7 @@ module Moodle2CC::Moodle2
       parse_labels(work_dir, course)
       parse_external_urls(work_dir, course)
       parse_resources(work_dir, course)
+      parse_lti_links(work_dir, course)
       collect_files_for_resources(course)
       collect_activities_for_sections(course.sections, course.activities)
       course
@@ -168,6 +169,12 @@ module Moodle2CC::Moodle2
     def parse_resources(work_dir, course)
       if resources = Parsers::ResourceParser.new(work_dir).parse
         course.resources += resources
+      end
+    end
+
+    def parse_lti_links(work_dir, course)
+      if lti_links = Parsers::LtiParser.new(work_dir).parse
+        course.lti_links = lti_links
       end
     end
 

@@ -15,6 +15,7 @@ module Moodle2CC::Moodle2::Models
     it_behaves_like 'it has an attribute for', :labels, []
     it_behaves_like 'it has an attribute for', :external_urls, []
     it_behaves_like 'it has an attribute for', :resources, []
+    it_behaves_like 'it has an attribute for', :lti_links, []
 
     describe '#activities' do
       it 'collects pages' do

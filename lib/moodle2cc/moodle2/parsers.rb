@@ -20,4 +20,5 @@ module Moodle2CC::Moodle2::Parsers
   require_relative 'parsers/external_url_parser'
   require_relative 'parsers/resource_parser'
   require_relative 'parsers/wiki_parser'
+  require_relative 'parsers/lti_parser'
 end

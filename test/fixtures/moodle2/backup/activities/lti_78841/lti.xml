@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="47236" moduleid="78841" modulename="lti" contextid="82672">
+  <lti id="47236">
+    <name>eTeacher Guide</name>
+    <intro></intro>
+    <introformat>1</introformat>
+    <timecreated>1375814377</timecreated>
+    <timemodified>1375968182</timemodified>
+    <typeid>0</typeid>
+    <toolurl>https://lti.flvsgl.com/tool.php?id=11&amp;launch=educator_psychology1_v14_gs_guide/index.htm</toolurl>
+    <securetoolurl></securetoolurl>
+    <launchcontainer>1</launchcontainer>
+    <instructorchoicesendname>$@NULL@$</instructorchoicesendname>
+    <instructorchoicesendemailaddr>$@NULL@$</instructorchoicesendemailaddr>
+    <instructorchoiceacceptgrades>$@NULL@$</instructorchoiceacceptgrades>
+    <instructorchoiceallowroster>$@NULL@$</instructorchoiceallowroster>
+    <instructorchoiceallowsetting>$@NULL@$</instructorchoiceallowsetting>
+    <grade>100</grade>
+    <instructorcustomparameters></instructorcustomparameters>
+    <debuglaunch>0</debuglaunch>
+    <showtitlelaunch>0</showtitlelaunch>
+    <showdescriptionlaunch>0</showdescriptionlaunch>
+    <icon></icon>
+    <secureicon></secureicon>
+  </lti>
+</activity>

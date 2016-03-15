@@ -25,6 +25,7 @@ module Moodle2CC::Moodle2
       Parsers::LabelParser.any_instance.stub(:parse)
       Parsers::ExternalUrlParser.any_instance.stub(:parse)
       Parsers::ResourceParser.any_instance.stub(:parse)
+      Parsers::LtiParser.any_instance.stub(:parse)
       Zip::File.stub(:open).and_yield([])
     end
 
@@ -202,6 +203,13 @@ module Moodle2CC::Moodle2
       Parsers::ResourceParser.any_instance.stub(:parse).and_return([resource])
       extractor.extract {}
       expect(course.resources).to eq [resource]
+    end
+
+    it 'parses lti links' do
+      resource = Models::Lti.new
+      Parsers::LtiParser.any_instance.stub(:parse).and_return([resource])
+      extractor.extract {}
+      expect(course.lti_links).to eq [resource]
     end
   end
 end

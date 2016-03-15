@@ -169,6 +169,13 @@
           <title>Hidden Assignmnet</title>
           <directory>activities/assignment_42</directory>
         </activity>
+        <activity>
+          <moduleid>78841</moduleid>
+          <sectionid>3443</sectionid>
+          <modulename>lti</modulename>
+          <title>eTeacher Guide</title>
+          <directory>activities/lti_78841</directory>
+        </activity>
       </activities>
       <sections>
         <section>

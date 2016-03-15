@@ -151,7 +151,7 @@ module Moodle2CC
         expect(module_item.indent).to eq '0'
       end
 
-      it 'converts a moodle external url to a external url module item' do
+      it 'converts a moodle resource to a file module item' do
         moodle_resource = Moodle2::Models::Resource.new
         moodle_file = Moodle2::Models::Moodle2File.new
         moodle_file.content_hash = 'some_id'
@@ -163,6 +163,27 @@ module Moodle2CC
         module_item = module_items.first
 
         expect(module_item.identifierref).to eq 'some_id'
+      end
+
+      it 'converts a moodle LTI item to an external tool module item' do
+        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+
+        moodle_lti = Moodle2::Models::Lti.new
+        moodle_lti.id = 1
+        moodle_lti.name = 'Whatever'
+        moodle_lti.url = 'http://whatever.invalid'
+        moodle_lti.visible = false
+
+        module_items = subject.convert_to_module_items(moodle_lti)
+        expect(module_items.size).to eq 1
+
+        expect(module_items[0].identifier).to eq 'some_random_id'
+        expect(module_items[0].workflow_state).to eq 'unpublished'
+        expect(module_items[0].title).to eq 'Whatever'
+        expect(module_items[0].identifierref).to eq 'some_random_id'
+        expect(module_items[0].content_type).to eq 'ContextExternalTool'
+        expect(module_items[0].url).to eq 'http://whatever.invalid'
+        expect(module_items[0].indent).to eq '0'
       end
 
     end
