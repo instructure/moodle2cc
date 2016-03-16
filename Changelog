@@ -1,3 +1,7 @@
+2016-03-16 Version 0.2.29
+  * Imports LTI links as Canvas External Tool module items
+  * Uses the first section label as a module name if needed
+
 2015-11-18 Version 0.2.28
   * Fixes module item reference resolution caused by 0.2.26
   * Also distinguishes Announcement type discussion topics
