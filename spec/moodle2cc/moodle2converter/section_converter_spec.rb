@@ -186,6 +186,26 @@ module Moodle2CC
         expect(module_items[0].indent).to eq '0'
       end
 
+      it 'infers a default name for an untitled section' do
+        moodle_section.id = 'section_id'
+        moodle_section.name = ''
+        canvas_module = subject.convert(moodle_section)
+        expect(canvas_module.title).to eq('Untitled Module')
+      end
+
+      it 'uses the first label as a title if needed' do
+        moodle_section.id = 'section_id'
+        moodle_section.name = ''
+        label = Moodle2::Models::Label.new
+        label.module_id = 'section_id'
+        label.id = 'label_id'
+        label.name = 'blah'
+        moodle_section.activities << label
+        canvas_module = subject.convert(moodle_section)
+        expect(canvas_module.title).to eq 'blah'
+        expect(canvas_module.module_items).to be_empty
+      end
+
     end
   end
 end

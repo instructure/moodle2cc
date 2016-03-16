@@ -3,8 +3,6 @@ module Moodle2CC::Moodle2::Models
     attr_accessor :id, :number, :name, :summary, :summary_format, :sequence, :visible, :available_from, :available_until,
                   :release_code, :show_availability, :grouping_id, :position, :activities
 
-    DEFAULT_NAME = 'Untitled Module'
-
     def initialize
       @sequence = []
       @activities = []

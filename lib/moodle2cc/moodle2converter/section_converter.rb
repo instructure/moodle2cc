@@ -7,6 +7,8 @@ module Moodle2CC
       Moodle2::Models::Label => Moodle2Converter::LabelConverter,
     }
 
+    DEFAULT_NAME = 'Untitled Module'
+
     def initialize
       @converters ={}
     end
@@ -20,6 +22,8 @@ module Moodle2CC
       canvas_module.module_items += convert_activity(moodle_section) if moodle_section.summary && !moodle_section.summary.strip.empty?
       canvas_module.module_items += moodle_section.activities.map { |a| convert_activity(a) }
       canvas_module.module_items = canvas_module.module_items.flatten.compact
+
+      handle_untitled_module!(canvas_module)
 
       canvas_module
     end
@@ -71,6 +75,20 @@ module Moodle2CC
     def activity_converter_for(moodle_activity)
       @converters[moodle_activity.class] ||=
         ACTIVITY_CONVERTERS[moodle_activity.class] ? ACTIVITY_CONVERTERS[moodle_activity.class].new : self
+    end
+
+    # If a module has no title, but its first item is a subheader, promote that to the title
+    # (per example package provided by a customer)
+    def handle_untitled_module!(canvas_module)
+      if canvas_module.title.nil? || canvas_module.title.empty?
+        if canvas_module.module_items.any? &&
+           canvas_module.module_items.first.is_a?(CanvasCC::Models::ModuleItem) &&
+           canvas_module.module_items.first.content_type == 'ContextModuleSubHeader'
+          canvas_module.title = canvas_module.module_items.shift.title
+        else
+          canvas_module.title = DEFAULT_NAME
+        end
+      end
     end
 
   end

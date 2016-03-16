@@ -37,10 +37,7 @@ module Moodle2CC::Moodle2::Parsers
         section.grouping_id = parse_text(section_xml, 'section/groupingid')
       end
       if section.name.to_s.strip.length == 0
-        section.name = Nokogiri::HTML(section.summary.to_s).text rescue ''
-        if section.name.to_s.strip.length == 0
-          section.name = Moodle2CC::Moodle2::Models::Section::DEFAULT_NAME
-        end
+        section.name = Nokogiri::HTML(section.summary.to_s).text.to_s.strip rescue ''
       end
 
       section
