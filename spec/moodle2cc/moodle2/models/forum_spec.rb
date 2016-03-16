@@ -14,7 +14,7 @@ describe Moodle2CC::Moodle2::Models::Forum do
   it_behaves_like 'it has an attribute for', :scale
   it_behaves_like 'it has an attribute for', :max_bytes
   it_behaves_like 'it has an attribute for', :max_attachments
-  it_behaves_like 'it has an attribute for', :force_subsscribe
+  it_behaves_like 'it has an attribute for', :force_subscribe
   it_behaves_like 'it has an attribute for', :tracking_type
   it_behaves_like 'it has an attribute for', :rss_type
   it_behaves_like 'it has an attribute for', :rss_articles

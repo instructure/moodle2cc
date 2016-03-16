@@ -19,7 +19,7 @@ describe Moodle2CC::Moodle2::Parsers::ForumParser do
     expect(forum.scale).to eq '1'
     expect(forum.max_bytes).to eq '0'
     expect(forum.max_attachments).to eq '1'
-    expect(forum.force_subsscribe).to eq '1'
+    expect(forum.force_subscribe).to eq '1'
     expect(forum.tracking_type).to eq '1'
     expect(forum.rss_type).to eq '0'
     expect(forum.rss_articles).to eq '0'
