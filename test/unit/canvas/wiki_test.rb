@@ -4,7 +4,7 @@ require 'test_helper'
 require 'test_wiki_helper'
 require 'moodle2cc'
 
-class TestUnitCanvasWiki < MiniTest::Unit::TestCase
+class TestUnitCanvasWiki < MiniTest::Test
   include TestHelper
   include TestWikiHelper
 

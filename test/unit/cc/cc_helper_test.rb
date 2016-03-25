@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'test_helper'
 require 'moodle2cc'
 
-class TestUnitCCCCHelper < MiniTest::Unit::TestCase
+class TestUnitCCCCHelper < MiniTest::Test
   include TestHelper
 
   def test_it_creates_valid_file_names

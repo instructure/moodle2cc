@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'test_helper'
 require 'moodle2cc'
 
-class TestUnitMoodleQuestionCategory < MiniTest::Unit::TestCase
+class TestUnitMoodleQuestionCategory < MiniTest::Test
   include TestHelper
 
   def setup
