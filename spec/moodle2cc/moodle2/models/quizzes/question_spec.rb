@@ -25,7 +25,9 @@ module Moodle2CC::Moodle2::Models::Quizzes
     end
 
     it 'raises an exception for unknown question types' do
-      expect { Question.create('non_existing_question_type') }.to raise_exception
+      expect {
+        Question.create('non_existing_question_type')
+      }.to raise_exception 'Unknown question type: non_existing_question_type'
     end
 
     it 'creates a standard question for essay questions' do

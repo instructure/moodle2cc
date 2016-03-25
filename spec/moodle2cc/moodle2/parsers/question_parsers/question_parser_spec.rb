@@ -18,7 +18,7 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
 
     it 'raises an exception for unknown parser types' do
       node = Nokogiri::XML('<question><qtype>non_existing_parser_type</qtype></question>')
-      expect { FooBarParser.parse(node) }.to raise_exception
+      expect { FooBarParser.parse(node) }.to raise_exception 'Unknown parser type: non_existing_parser_type'
     end
 
 

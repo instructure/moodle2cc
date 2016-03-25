@@ -23,7 +23,9 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
       moodle_question.type = 'nonexistenttype'
 
-      expect { QuestionConverter.new.convert(moodle_question) }.to raise_exception
+      expect {
+        QuestionConverter.new.convert(moodle_question)
+      }.to raise_exception 'Unknown converter type: nonexistenttype'
     end
 
     it 'converts common question attributes' do

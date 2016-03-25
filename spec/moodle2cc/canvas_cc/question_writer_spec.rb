@@ -40,7 +40,7 @@ module Moodle2CC::CanvasCC
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |node|
           QuestionWriter.write_question(node, question)
         end
-      }.to raise_exception
+      }.to raise_exception 'Unknown question writer type: nonexistenttype'
     end
 
     it 'writes item metadata' do

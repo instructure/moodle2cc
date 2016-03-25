@@ -106,7 +106,9 @@ module Moodle2CC
       end
 
       it 'raises an exception for unknown activity types' do
-        expect { subject.generate_unique_identifier_for_activity(nil) }.to raise_exception
+        expect {
+          subject.generate_unique_identifier_for_activity(nil)
+        }.to raise_exception 'Unknown activity type: NilClass'
       end
     end
 
@@ -152,7 +154,9 @@ module Moodle2CC
       end
 
       it 'raises an exception for unknown activity types' do
-        expect { subject.activity_content_type(nil) }.to raise_exception
+        expect {
+          subject.activity_content_type(nil)
+        }.to raise_exception 'Unknown activity type: NilClass'
       end
     end
 
