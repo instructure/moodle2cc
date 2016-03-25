@@ -15,8 +15,8 @@ module Moodle2CC::CanvasCC
       question.identifier = 42
 
       QuestionWriter.register_writer_type(nil)
-      QuestionWriter.stub(:write_responses)
-      QuestionWriter.stub(:write_response_conditions)
+      allow(QuestionWriter).to receive(:write_responses)
+      allow(QuestionWriter).to receive(:write_response_conditions)
 
       question_bank.identifier = 'qb_id'
       question_bank.title = 'Bank title'

@@ -19,7 +19,7 @@ module Moodle2CC::Moodle2
     it 'parses a calculated question' do
       question = subject.parse_question(calculated_node)
 
-      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::CalculatedQuestion)).to be_true
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::CalculatedQuestion)).to be_truthy
       expect(question.qtype).to eq 'calculated'
       expect(question.answers.count).to eq 1
       expect(question.answers.first.answer_text).to eq '{A}*{B}'
@@ -47,7 +47,7 @@ module Moodle2CC::Moodle2
     it 'parses a calculated multiple choice question into a standard calculated question' do
       question = subject.parse_question(calculatedmulti_node)
 
-      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::CalculatedQuestion)).to be_true
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::CalculatedQuestion)).to be_truthy
       expect(question.qtype).to eq 'calculatedmulti'
       expect(question.answers.count).to eq 1
       expect(question.answers.first.answer_text).to eq '{A}*{B}'
@@ -75,7 +75,7 @@ module Moodle2CC::Moodle2
     it 'parses a calculated simple question' do
       question = subject.parse_question(calculatedsimple_node)
 
-      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::CalculatedQuestion)).to be_true
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::CalculatedQuestion)).to be_truthy
       expect(question.qtype).to eq 'calculatedsimple'
       expect(question.answers.count).to eq 1
 

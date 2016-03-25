@@ -8,12 +8,12 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
 
     it 'registers a question type for conversion' do
       converter = FooBarConverter.new
-      converter.stub(:convert_question)
+      allow(converter).to receive(:convert_question)
 
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
       moodle_question.type = 'foobar'
 
-      FooBarConverter.stub(:new).and_return(converter)
+      allow(FooBarConverter).to receive(:new).and_return(converter)
       FooBarConverter.register_converter_type 'foobar'
       QuestionConverter.new.convert(moodle_question)
       expect(converter).to have_received(:convert_question)
@@ -29,7 +29,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
     it 'converts common question attributes' do
       converter = QuestionConverter.new
       mock_canvas_question = Moodle2CC::CanvasCC::Models::Question.new
-      converter.stub(:create_canvas_question).and_return(mock_canvas_question)
+      allow(converter).to receive(:create_canvas_question).and_return(mock_canvas_question)
 
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
       moodle_question.id = 42
@@ -55,7 +55,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
     it 'converts markdown text in question to html material' do
       converter = QuestionConverter.new
       mock_canvas_question = Moodle2CC::CanvasCC::Models::Question.new
-      converter.stub(:create_canvas_question).and_return(mock_canvas_question)
+      allow(converter).to receive(:create_canvas_question).and_return(mock_canvas_question)
 
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
       moodle_question.question_text = "This is **bold** and this is _italic_"

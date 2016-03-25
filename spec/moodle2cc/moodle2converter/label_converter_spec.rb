@@ -6,7 +6,7 @@ module Moodle2CC
 
     describe '#convert_to_module_items' do
       it 'converts a moodle label with intro content to a wiki page module item' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_label.id = '1'
         moodle_label.name = 'label title'
@@ -27,7 +27,7 @@ module Moodle2CC
       end
 
       it 'converts a plain moodle label to a title module item' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_label.id = '1'
         moodle_label.name = 'label title'
@@ -68,7 +68,7 @@ module Moodle2CC
       end
 
       it 'does not convert a plain moodle label to a page' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_label.id = '1'
         moodle_label.name = 'label title'
@@ -80,7 +80,7 @@ module Moodle2CC
       end
 
       it 'truncates titles that are too long' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_label.id = '1'
         moodle_label.name = ''

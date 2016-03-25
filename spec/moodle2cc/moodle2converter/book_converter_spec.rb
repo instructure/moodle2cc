@@ -10,7 +10,7 @@ module Moodle2CC
     }
 
     before(:each) do
-      subject.stub(:generate_unique_identifier) { 'some_unique_uuid' }
+      allow(subject).to receive(:generate_unique_identifier) { 'some_unique_uuid' }
     end
 
     describe '#convert_to_pages' do

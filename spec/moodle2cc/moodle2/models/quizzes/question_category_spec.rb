@@ -17,7 +17,7 @@ module Moodle2CC::Moodle2::Models::Quizzes
 
     it 'should pass resolve_embedded_question_references to multianswer questions' do
       question = Moodle2CC::Moodle2::Models::Quizzes::MultianswerQuestion.new
-      question.stub(:resolve_embedded_question_references)
+      allow(question).to receive(:resolve_embedded_question_references)
 
       category = Moodle2CC::Moodle2::Models::Quizzes::QuestionCategory.new
       category.questions = [question]

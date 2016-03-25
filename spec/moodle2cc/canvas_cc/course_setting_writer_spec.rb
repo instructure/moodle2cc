@@ -20,7 +20,7 @@ module Moodle2CC::CanvasCC
 
       valid_schema = File.read(fixture_path(File.join('common_cartridge', 'schema', 'cccv1p0.xsd')))
       xsd = Nokogiri::XML::Schema(valid_schema)
-      expect(xsd.validate(xml)).to be_true
+      expect(xsd.validate(xml)).to be_truthy
     end
 
     it 'applies settings to xml' do

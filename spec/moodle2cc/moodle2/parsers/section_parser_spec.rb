@@ -14,13 +14,13 @@ module Moodle2CC::Moodle2::Parsers
       expect(section.summary).to eq('<p>This is the General Summary</p>')
       expect(section.summary_format).to eq('1')
       expect(section.sequence).to eq(['1', '11'])
-      expect(section.visible).to be_true
+      expect(section.visible).to be_truthy
       expect(section.available_from).to eq('0')
       expect(section.available_until).to eq('0')
       expect(section.show_availability).to eq('0')
       expect(section.grouping_id).to eq('0')
       expect(sections[3].position).to eq(3)
-      expect(sections[1].visible).to be_false
+      expect(sections[1].visible).to be_falsey
     end
 
   end

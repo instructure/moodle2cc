@@ -24,7 +24,7 @@ describe Moodle2CC::CanvasCC::Models::Assignment do
   it_behaves_like 'it has an attribute for', :grade_group_students_individually
 
   it 'creates a resource' do
-    subject.stub(:assignment_resource) {:assignment_resource}
+    allow(subject).to receive(:assignment_resource) {:assignment_resource}
     expect(subject.resources).to eq [:assignment_resource]
   end
 

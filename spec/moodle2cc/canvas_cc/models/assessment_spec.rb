@@ -20,8 +20,8 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
   it_behaves_like 'it has an attribute for', :items
 
   it 'returns both resources' do
-    subject.stub(:cc_assessment_resource) {:cc_resource}
-    subject.stub(:canvas_assessment_resource) {:canvas_resource}
+    allow(subject).to receive(:cc_assessment_resource) {:cc_resource}
+    allow(subject).to receive(:canvas_assessment_resource) {:canvas_resource}
     expect(subject.resources).to eq [:cc_resource, :canvas_resource]
   end
 

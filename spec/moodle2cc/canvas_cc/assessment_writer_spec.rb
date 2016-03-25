@@ -64,8 +64,8 @@ module Moodle2CC::CanvasCC
       assessment.items = [question]
 
       QuestionWriter.register_writer_type(nil)
-      QuestionWriter.stub(:write_responses)
-      QuestionWriter.stub(:write_response_conditions)
+      allow(QuestionWriter).to receive(:write_responses)
+      allow(QuestionWriter).to receive(:write_response_conditions)
 
       subject.write
 
