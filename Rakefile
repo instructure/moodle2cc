@@ -14,7 +14,9 @@ Rake::TestTask.new do |t|
   t.verbose = false
 end
 
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.verbose = false
+end
 
 task :all_tests => [:test, :spec]
 
