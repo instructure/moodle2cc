@@ -60,7 +60,7 @@ module Moodle2CC::Moodle2Converter
         link
       end
     rescue => e
-      puts "invalid url #{link} - #{e.message}"
+      Moodle2CC::OutputLogger.logger.info "invalid url #{link} - #{e.message}"
       link
     end
 
@@ -75,7 +75,8 @@ module Moodle2CC::Moodle2Converter
         "#{WEB_CONTENT_TOKEN}#{cc_file.file_path}"
       end
     rescue => e
-      puts "invalid url #{moodle_path} - #{e.message}"
+      Moodle2CC::OutputLogger.logger.info "invalid url #{moodle_path} - #{e.message}"
+      nil
     end
 
     def lookup_cc_link(activity, id, anchor)
@@ -93,7 +94,10 @@ module Moodle2CC::Moodle2Converter
             "#{OBJECT_TOKEN}/discussion_topics/#{get_unique_identifier_for_activity(forum)}#{anchor}"
           end
         else
-          puts "unknown activity to replace link for. activity:#{activity} id:#{id}"
+          Moodle2CC::OutputLogger.logger.info(
+            "unknown activity to replace link for. activity:#{activity} id:#{id}"
+          )
+          nil
       end
     end
 

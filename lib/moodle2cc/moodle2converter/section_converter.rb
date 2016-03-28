@@ -42,7 +42,8 @@ module Moodle2CC
       begin
         activity_converter_for(moodle_activity).convert_to_module_items(moodle_activity)
       rescue Exception => e
-        puts e.message
+        Moodle2CC::OutputLogger.logger.info e.message
+        nil
       end
     end
 

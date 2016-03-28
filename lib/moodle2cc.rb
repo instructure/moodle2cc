@@ -13,6 +13,7 @@ require 'securerandom'
 require 'moodle2cc/error'
 require 'moodle2cc/logger'
 require 'moodle2cc/migrator'
+require 'moodle2cc/output_logger'
 
 require 'moodle2cc/moodle2'
 
