@@ -26,9 +26,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "byebug"
 
 
-  gem.files         = `git ls-files`.split($\)
+  gem.files         = Dir["{bin,lib}/**/*"] + ["Rakefile"]
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "moodle2cc"
   gem.require_paths = ["lib"]
   gem.version       = Moodle2CC::VERSION
