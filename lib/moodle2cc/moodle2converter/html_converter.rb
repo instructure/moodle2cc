@@ -38,13 +38,9 @@ module Moodle2CC::Moodle2Converter
     def replace_media_anchor(tag)
       if tag.name == 'a'
         href = tag['href']
-        match = href.match(/\.([A-z0-9]+)?/)
+        match = href.match(/\.([A-z0-9]+)$/)
         if (match && MEDIA_TYPES.key?(match.captures[0]))
-          html = tag.to_s
-          tag.delete('href')
-          tag.name = 'audio'
-          tag['controls'] = 'controls'
-          tag.children = "<source src=\"#{href}\" type=\"#{MEDIA_TYPES[match.captures[0]]}\"></source>#{html.to_s}"
+          tag['class'] = 'instructure_inline_media_comment'
         end
       end
     end
