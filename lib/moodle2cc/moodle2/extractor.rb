@@ -173,8 +173,17 @@ module Moodle2CC::Moodle2
     end
 
     def parse_lti_links(work_dir, course)
-      if lti_links = Parsers::LtiParser.new(work_dir).parse
-        course.lti_links = lti_links
+      if lti_items = Parsers::LtiParser.new(work_dir).parse
+        course.assignments ||= []
+        course.lti_links ||= []
+        lti_items.each do |item|
+          case item
+          when Models::Lti
+            course.lti_links << item
+          when Models::Assignment
+            course.assignments << item
+          end
+        end
       end
     end
 

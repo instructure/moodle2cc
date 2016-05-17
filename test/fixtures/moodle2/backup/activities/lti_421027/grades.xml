@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity_gradebook>
+  <grade_items>
+    <grade_item id="254148">
+      <categoryid>21503</categoryid>
+      <itemname>Plate Tectonics 1</itemname>
+      <itemtype>mod</itemtype>
+      <itemmodule>lti</itemmodule>
+      <iteminstance>306565</iteminstance>
+      <itemnumber>0</itemnumber>
+      <iteminfo>$@NULL@$</iteminfo>
+      <idnumber>$@NULL@$</idnumber>
+      <calculation>$@NULL@$</calculation>
+      <gradetype>3</gradetype>
+      <grademax>100.00000</grademax>
+      <grademin>0.00000</grademin>
+      <scaleid>$@NULL@$</scaleid>
+      <outcomeid>$@NULL@$</outcomeid>
+      <gradepass>0.00000</gradepass>
+      <multfactor>1.00000</multfactor>
+      <plusfactor>0.00000</plusfactor>
+      <aggregationcoef>0.00000</aggregationcoef>
+      <aggregationcoef2>0.00000</aggregationcoef2>
+      <weightoverride>0</weightoverride>
+      <sortorder>205</sortorder>
+      <display>0</display>
+      <decimals>$@NULL@$</decimals>
+      <hidden>0</hidden>
+      <locked>0</locked>
+      <locktime>0</locktime>
+      <needsupdate>0</needsupdate>
+      <timecreated>1440600702</timecreated>
+      <timemodified>1442849578</timemodified>
+      <grade_grades>
+      </grade_grades>
+    </grade_item>
+  </grade_items>
+  <grade_letters>
+  </grade_letters>
+</activity_gradebook>

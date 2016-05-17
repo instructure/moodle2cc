@@ -43,6 +43,7 @@ module Moodle2CC::CanvasCC
           xml.automatic_peer_reviews assignment.automatic_peer_reviews unless assignment.automatic_peer_reviews.nil?
           xml.grade_group_students_individually assignment.grade_group_students_individually unless assignment.grade_group_students_individually.nil?
           xml.muted assignment.muted unless assignment.muted.nil?
+          xml.external_tool_url assignment.external_tool_url unless assignment.external_tool_url.nil?
         }
       end.to_xml
       File.open(File.join(assignment_dir, Moodle2CC::CanvasCC::Models::Assignment::ASSIGNMENT_SETTINGS_FILE), 'w') { |f| f.write(xml) }
