@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="306565" moduleid="421027" modulename="lti" contextid="621466">
+  <lti id="306565">
+    <name>Plate Tectonics 1</name>
+    <intro></intro>
+    <introformat>1</introformat>
+    <timecreated>1440007711</timecreated>
+    <timemodified>1440007711</timemodified>
+    <typeid>0</typeid>
+    <toolurl>https://www.thelearningodyssey.com/lti/resources/learningactivity/ea003</toolurl>
+    <securetoolurl></securetoolurl>
+    <launchcontainer>1</launchcontainer>
+    <instructorchoicesendname>1</instructorchoicesendname>
+    <instructorchoicesendemailaddr>1</instructorchoicesendemailaddr>
+    <instructorchoiceacceptgrades>1</instructorchoiceacceptgrades>
+    <instructorchoiceallowroster>$@NULL@$</instructorchoiceallowroster>
+    <instructorchoiceallowsetting>$@NULL@$</instructorchoiceallowsetting>
+    <grade>0</grade>
+    <instructorcustomparameters></instructorcustomparameters>
+    <debuglaunch>0</debuglaunch>
+    <showtitlelaunch>1</showtitlelaunch>
+    <showdescriptionlaunch>0</showdescriptionlaunch>
+    <icon></icon>
+    <secureicon></secureicon>
+  </lti>
+</activity>

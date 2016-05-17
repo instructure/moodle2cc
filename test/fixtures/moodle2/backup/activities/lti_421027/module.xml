@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="421027" version="2015051100">
+  <modulename>lti</modulename>
+  <sectionid>59711</sectionid>
+  <sectionnumber>9</sectionnumber>
+  <idnumber></idnumber>
+  <added>1440007711</added>
+  <score>0</score>
+  <indent>0</indent>
+  <visible>1</visible>
+  <visibleold>1</visibleold>
+  <groupmode>0</groupmode>
+  <groupingid>0</groupingid>
+  <completion>2</completion>
+  <completiongradeitemnumber>$@NULL@$</completiongradeitemnumber>
+  <completionview>1</completionview>
+  <completionexpected>0</completionexpected>
+  <availability>$@NULL@$</availability>
+  <showdescription>0</showdescription>
+  <plugin_outcomesupport_mod_module>
+    <outcome_areas>
+    </outcome_areas>
+  </plugin_outcomesupport_mod_module>
+</module>

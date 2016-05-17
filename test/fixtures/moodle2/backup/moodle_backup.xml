@@ -176,6 +176,13 @@
           <title>eTeacher Guide</title>
           <directory>activities/lti_78841</directory>
         </activity>
+        <activity>
+          <moduleid>421027</moduleid>
+          <sectionid>59711</sectionid>
+          <modulename>lti</modulename>
+          <title>Plate Tectonics 1</title>
+          <directory>activities/lti_421027</directory>
+        </activity>
       </activities>
       <sections>
         <section>

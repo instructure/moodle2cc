@@ -205,11 +205,13 @@ module Moodle2CC::Moodle2
       expect(course.resources).to eq [resource]
     end
 
-    it 'parses lti links' do
-      resource = Models::Lti.new
-      Parsers::LtiParser.any_instance.stub(:parse).and_return([resource])
+    it 'parses lti links and assignments' do
+      link = Models::Lti.new
+      graded = Models::Assignment.new
+      Parsers::LtiParser.any_instance.stub(:parse).and_return([link, graded])
       extractor.extract {}
-      expect(course.lti_links).to eq [resource]
+      expect(course.lti_links).to eq [link]
+      expect(course.assignments).to eq [graded]
     end
   end
 end
