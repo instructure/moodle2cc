@@ -1,4 +1,3 @@
-require 'byebug'
 module Moodle2CC::Moodle2
   class Parsers::LtiParser
     include Parsers::ParserHelper
