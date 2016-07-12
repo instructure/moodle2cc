@@ -12,8 +12,10 @@ module Moodle2CC::Moodle2Converter
           copy = match.dup
           copy[:question_text] ||= ''
           copy[:question_text].gsub(/\{(.*?)\}/, '[\1]')
-          copy[:question_text] = RDiscount.new(copy[:question_text]).to_html if copy[:question_text_format].to_i == 4 # markdown
-
+          if copy[:question_text_format].to_i == 4 # markdown
+            copy[:question_text] = RDiscount.new(copy[:question_text]).to_html
+            copy[:question_text_format] = '1' # html
+          end
           canvas_question.matches << copy
         end
         canvas_question

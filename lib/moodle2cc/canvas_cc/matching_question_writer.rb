@@ -9,13 +9,13 @@ module Moodle2CC::CanvasCC
         presentation_node.response_lid(:ident => "response_#{match[:id]}") do |response_node|
           next unless match[:question_text].length > 0
           response_node.material do |material_node|
-            material_node.mattext(match[:question_text], :texttype => 'text/plain')
+            material_node.mattext(match[:question_text], :texttype => ((match[:question_text_format].to_i == 1) ? 'text/html' : 'text/plain'))
           end
           response_node.render_choice do |choice_node|
             question.matches.each do |possible_match|
               choice_node.response_label(:ident => possible_match[:id]) do |label_node|
                 label_node.material do |material_node|
-                  material_node.mattext(possible_match[:answer_text], :texttype => 'text/plain')
+                  material_node.mattext(possible_match[:answer_text], :texttype => ((match[:answer_text_format].to_i == 1) ? 'text/html' : 'text/plain'))
                 end
               end
             end

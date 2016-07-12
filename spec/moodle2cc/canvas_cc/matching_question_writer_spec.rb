@@ -12,7 +12,7 @@ module Moodle2CC::CanvasCC
       question.material = 'this is a question, or is it?'
 
       match1 = {:id => '1', :question_text => 'qtext', :question_text_format => '1', :answer_text => 'answer1'}
-      match2 = {:id => '2', :question_text => 'qtext2', :question_text_format => '1', :answer_text => 'answer2'}
+      match2 = {:id => '2', :question_text => 'qtext2', :question_text_format => '0', :answer_text => 'answer2'}
       question.matches = [match1, match2]
 
       xml = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |node|
@@ -24,7 +24,7 @@ module Moodle2CC::CanvasCC
       expect(xml.at_xpath("item/itemmetadata/qtimetadata/qtimetadatafield[fieldlabel=\"question_type\" and fieldentry=\"#{question.question_type}\"]")).to_not be_nil
 
       response = xml.at_xpath("item/presentation/response_lid[@ident=\"response_#{match1[:id]}\"]")
-      expect(response.at_xpath('material/mattext[@texttype="text/plain"]').text).to eq match1[:question_text]
+      expect(response.at_xpath('material/mattext[@texttype="text/html"]').text).to eq match1[:question_text]
       expect(response.at_xpath("render_choice/response_label[@ident=\"#{match1[:id]}\"]/material/mattext").text).to eq match1[:answer_text]
       expect(response.at_xpath("render_choice/response_label[@ident=\"#{match2[:id]}\"]/material/mattext").text).to eq match2[:answer_text]
 
