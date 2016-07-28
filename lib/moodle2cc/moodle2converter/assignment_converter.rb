@@ -13,7 +13,7 @@ module Moodle2CC::Moodle2Converter
       canvas_assignment.unlock_at = Time.at(Integer(moodle_assignment.allow_submissions_from_date)) if moodle_assignment.allow_submissions_from_date
       canvas_assignment.workflow_state = workflow_state(moodle_assignment.visible)
       canvas_assignment.external_tool_url = moodle_assignment.external_tool_url
-      points = Integer(moodle_assignment.grade)
+      points = Float(moodle_assignment.grade).to_i
       if points > 0 || scale = moodle_grading_scales[-1 * points] # moodle uses negative numbers for grading scale ids
         if scale && scale.count == 2
           # I'm asssuming that if there's only two choices, that the best way to convert it will probably be pass/fail
