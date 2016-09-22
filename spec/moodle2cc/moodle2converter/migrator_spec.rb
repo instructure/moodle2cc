@@ -49,7 +49,7 @@ module Moodle2CC
         moodle_course.files = files
         Moodle2Converter::FileConverter.any_instance.stub(:convert).and_return('file')
         migrator.migrate
-        expect(canvas_course.files).to eq ['file', 'file']
+        expect(canvas_course.files).to eq ['file', 'file', 'file']
       end
 
       it 'converts pages' do

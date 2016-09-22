@@ -8,7 +8,7 @@ module Moodle2CC::Moodle2Converter
       unique_id = moodle_file.content_hash
       # we probably shouldn't have been using these as identifiers but if we change it now we'll break updates on re-import
 
-      id_set = Moodle2Converter::Migrator.unique_id_set
+      id_set = Migrator.unique_id_set
       if id_set.include?(unique_id)
         original_id = unique_id
         index = 0
