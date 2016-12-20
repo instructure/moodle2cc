@@ -17,6 +17,7 @@ module Moodle2CC::Moodle2Converter
     end
 
     def convert(content)
+      return "" unless content
       content = update_links(content.gsub('id="main"', ''))
       content = convert_equations(content)
       content
