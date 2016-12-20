@@ -1,3 +1,6 @@
+2016-12-20 Version 0.2.37
+  * Handle empty content errors
+
 2016-09-22 Version 0.2.36
   * Fix for importing duplicated files
 

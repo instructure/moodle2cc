@@ -1,3 +1,3 @@
 module Moodle2CC
-  VERSION = "0.2.36.1"
+  VERSION = "0.2.37"
 end
