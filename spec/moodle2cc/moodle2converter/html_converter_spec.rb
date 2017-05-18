@@ -187,5 +187,9 @@ module Moodle2CC
       expect(html).to eq "stuff <img class=\"equation_image\" title=\"a + b\" alt=\"a + b\" src=\"/equation_images/a%2520%252B%2520b\">"
     end
 
+    it "leaves characters in plain text alone" do
+      content = "something <3"
+      expect(subject.convert(content)).to eq content
+    end
   end
 end

@@ -27,6 +27,7 @@ module Moodle2CC::Moodle2Converter
 
     def update_links(content)
       html = Nokogiri::HTML.fragment(content)
+      return content if html.children.size == 1 && html.children.first.is_a?(Nokogiri::XML::Text)
       html.css('img[src]').each { |img| img['src'] = update_url(img.attr('src')) }
       html.css('a[href]').each do |tag|
         tag['href'] = update_url(tag.attr('href'))
