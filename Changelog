@@ -1,3 +1,6 @@
+2017-05-18 Version 0.2.38
+  * Work better with special characters in plain text
+
 2016-12-20 Version 0.2.37
   * Handle empty content errors
 
