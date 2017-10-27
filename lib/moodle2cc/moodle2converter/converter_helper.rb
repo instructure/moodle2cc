@@ -25,6 +25,7 @@ module Moodle2CC
       Moodle2::Models::Assignment => {suffix: ASSIGNMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_ASSIGNMENT},
       Moodle2::Models::Folder => {suffix: FOLDER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
       Moodle2::Models::Forum => {suffix: DISCUSSION_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_DISCUSSION_TOPIC},
+      Moodle2::Models::Book => {suffix: INTRO_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
       Moodle2::Models::BookChapter => {suffix: CHAPTER_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_WIKI_PAGE},
       Moodle2::Models::Quizzes::Quiz => {suffix: ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},
       Moodle2::Models::Choice => {suffix: CHOICE_ASSESSMENT_SUFFIX, content_type: CanvasCC::Models::ModuleItem::CONTENT_TYPE_QUIZ},

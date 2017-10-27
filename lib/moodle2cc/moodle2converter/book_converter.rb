@@ -21,7 +21,7 @@ module Moodle2CC
 
       if moodle_book.intro && moodle_book.intro.length > 0
         page = create_page(moodle_book.name)
-        page.identifier = generate_unique_identifier_for_book_intro(moodle_book)
+        page.identifier = generate_unique_identifier_for_activity(moodle_book)
         page.body = moodle_book.intro
         if pages.any?{|p| page.title == p.title}
           page.title = "#{truncate_text(page.title, MAX_TITLE_LENGTH - 20)} (Introduction)"
@@ -58,8 +58,7 @@ module Moodle2CC
       module_item = create_module_item_with_defaults()
       module_item.title = 'Introduction'
       module_item.indent = '1'
-      module_item.identifier = generate_unique_identifier()
-      module_item.identifierref = generate_unique_identifier_for_book_intro(moodle_book)
+      module_item.identifierref = get_unique_identifier_for_activity(moodle_book)
       module_item.workflow_state = workflow_state(moodle_book.visible)
 
       module_item
@@ -69,8 +68,7 @@ module Moodle2CC
       module_item = create_module_item_with_defaults()
       module_item.title = truncate_text(moodle_chapter.title)
       module_item.indent = moodle_chapter.subchapter ? "2" : "1"
-      module_item.identifier = generate_unique_identifier()
-      module_item.identifierref = generate_unique_identifier_for_activity(moodle_chapter)
+      module_item.identifierref = get_unique_identifier_for_activity(moodle_chapter)
       module_item.workflow_state = CanvasCC::Models::WorkflowState::UNPUBLISHED if moodle_chapter.hidden
 
       module_item
@@ -92,10 +90,6 @@ module Moodle2CC
       page.workflow_state = CanvasCC::Models::WorkflowState::ACTIVE
       page.editing_roles = CanvasCC::Models::Page::EDITING_ROLE_TEACHER
       page
-    end
-
-    def generate_unique_identifier_for_book_intro(moodle_book)
-      generate_unique_identifier_for(moodle_book.id, INTRO_SUFFIX)
     end
   end
 end
