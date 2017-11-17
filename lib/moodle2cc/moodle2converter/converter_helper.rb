@@ -55,7 +55,7 @@ module Moodle2CC
       # use when we want to retrieve an existing id, not generate a new one
       id = Moodle2Converter::Migrator.activity_id_map[activity.hash]
       unless id
-        puts "could not find matching id for #{activity.inspect}"
+        Moodle2CC::OutputLogger.logger.info "could not find matching id for #{activity.inspect}"
         id = generate_unique_identifier_for_activity(activity)
       end
       id

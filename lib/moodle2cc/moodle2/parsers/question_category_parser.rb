@@ -39,7 +39,8 @@ module Moodle2CC::Moodle2
       begin
         Parsers::QuestionParsers::QuestionParser.parse(node)
       rescue Exception => e
-        puts e.message
+        Moodle2CC::OutputLogger.logger.info e.message
+        nil
       end
     end
 

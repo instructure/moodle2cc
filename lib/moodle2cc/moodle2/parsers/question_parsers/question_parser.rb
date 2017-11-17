@@ -44,7 +44,8 @@ module Moodle2CC::Moodle2
 
         question
       rescue Exception => e
-        puts e.message
+        Moodle2CC::OutputLogger.logger.info e.message
+        nil
       end
     end
 
