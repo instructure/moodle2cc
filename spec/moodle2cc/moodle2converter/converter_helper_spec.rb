@@ -10,7 +10,7 @@ module Moodle2CC
 
     describe '#generate_unique_resource_path' do
       before(:each) do
-        subject.stub(:generate_unique_identifier) { 'some_unique_hash' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_unique_hash' }
       end
 
       it 'generates a unique resource path' do
@@ -34,13 +34,13 @@ module Moodle2CC
 
     describe '#generate_unique_identifier' do
       it 'generates a uuid prefixed with m2' do
-        SecureRandom.stub(:uuid) { 'unique-id' }
+        allow(SecureRandom).to receive(:uuid) { 'unique-id' }
         expect(subject.generate_unique_identifier).to eq 'm2uniqueid'
       end
     end
 
     describe '#generate_unique_identifier_for' do
-      before(:each) { Digest::MD5.stub(:hexdigest) { 'hash' } }
+      before(:each) { allow(Digest::MD5).to receive(:hexdigest) { 'hash' } }
       it 'hashes an id prefixed with m2' do
         expect(subject.generate_unique_identifier_for('some_id')).to eq 'm2hash'
         expect(Digest::MD5).to have_received(:hexdigest).with('some_id')
@@ -53,7 +53,7 @@ module Moodle2CC
     end
 
     describe '#generate_unique_identifier_for_activity' do
-      before (:each) { subject.stub(:generate_unique_identifier_for) }
+      before (:each) { allow(subject).to receive(:generate_unique_identifier_for) }
       it 'generates a unique identifier for a page' do
         page = Moodle2CC::Moodle2::Models::Page.new
         page.id = 'id'
@@ -106,7 +106,9 @@ module Moodle2CC
       end
 
       it 'raises an exception for unknown activity types' do
-        expect { subject.generate_unique_identifier_for_activity(nil) }.to raise_exception
+        expect {
+          subject.generate_unique_identifier_for_activity(nil)
+        }.to raise_exception 'Unknown activity type: NilClass'
       end
     end
 
@@ -152,7 +154,9 @@ module Moodle2CC
       end
 
       it 'raises an exception for unknown activity types' do
-        expect { subject.activity_content_type(nil) }.to raise_exception
+        expect {
+          subject.activity_content_type(nil)
+        }.to raise_exception 'Unknown activity type: NilClass'
       end
     end
 

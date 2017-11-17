@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'test_helper'
 require 'moodle2cc'
 
-class TestUnitCCWebContent < MiniTest::Unit::TestCase
+class TestUnitCCWebContent < MiniTest::Test
   include TestHelper
 
   def setup

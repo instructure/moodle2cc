@@ -16,7 +16,7 @@ module Moodle2CC::CanvasCC
 
     it 'xml contains the correct schema' do
       meta_writer = writer(file)
-      meta_writer.stub(:copy_files) { nil }
+      allow(meta_writer).to receive(:copy_files) { nil }
       xml = write_xml(meta_writer)
       assert_xml_schema(xml)
     end
@@ -29,7 +29,7 @@ module Moodle2CC::CanvasCC
         file.file_path = 'sample.txt'
         write_xml(writer(file))
         path = File.join(tmpdir, Models::CanvasFile::WEB_RESOURCES, 'sample.txt')
-        expect(File.exist?(path)).to be_true
+        expect(File.exist?(path)).to be_truthy
       end
     end
 

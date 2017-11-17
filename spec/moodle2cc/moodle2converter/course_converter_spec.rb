@@ -15,8 +15,8 @@ module Moodle2CC
       expect(cc_course.course_code).to eq('Short Name')
       expect(cc_course.start_at).to eq('2014-02-08T16:00:00')
       expect(cc_course.identifier).to eq('m2ea134da7ce0152b54fb73853f6d62644_course')
-      expect(cc_course.allow_student_discussion_topics).to be_false
-      expect(cc_course.allow_student_wiki_edits).to be_false
+      expect(cc_course.allow_student_discussion_topics).to be_falsey
+      expect(cc_course.allow_student_wiki_edits).to be_falsey
       expect(cc_course.default_view).to eq 'modules'
     end
 

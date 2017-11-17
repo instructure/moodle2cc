@@ -4,7 +4,7 @@ require 'test_helper'
 require 'test_question_helper'
 require 'moodle2cc'
 
-class TestUnitCCQuestion < MiniTest::Unit::TestCase
+class TestUnitCCQuestion < MiniTest::Test
   include TestHelper
   include TestQuestionHelper
 

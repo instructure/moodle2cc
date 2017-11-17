@@ -8,17 +8,15 @@ Rake::TestTask.new do |t|
   t.libs.push "lib"
   t.libs.push "test"
   t.pattern = "test/**/*_test.rb"
-  t.verbose = true
+
+  # setting to true shows ruby interpreter warnings
+  t.warning = false
+  t.verbose = false
 end
 
-Rake::TestTask.new(:moodle2_test) do |t|
-  t.libs.push "lib"
-  t.libs.push "test"
-  t.pattern = "test/unit/moodle2*/**/*_test.rb"
-  t.verbose = true
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.verbose = false
 end
-
-RSpec::Core::RakeTask.new(:spec)
 
 task :all_tests => [:test, :spec]
 

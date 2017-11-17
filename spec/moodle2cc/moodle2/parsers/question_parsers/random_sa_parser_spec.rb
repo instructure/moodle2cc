@@ -9,7 +9,7 @@ module Moodle2CC::Moodle2
     it 'parses a random short answer question' do
       question = subject.parse_question(node)
 
-      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::RandomSAQuestion)).to be_true
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::RandomSAQuestion)).to be_truthy
       expect(question.qtype).to eq 'randomsamatch'
 
       expect(question.choose).to eq '2'

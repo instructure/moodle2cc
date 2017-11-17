@@ -11,7 +11,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
 
       converted_group = QuestionConverter.new.convert(moodle_question)
 
-      expect(converted_group.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup)).to be_true
+      expect(converted_group.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup)).to be_truthy
       expect(converted_group.identifier).to eq moodle_question.id
       expect(converted_group.title).to eq moodle_question.name
       expect(converted_group.selection_number).to eq moodle_question.choose

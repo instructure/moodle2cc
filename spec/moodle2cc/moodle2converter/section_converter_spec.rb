@@ -17,7 +17,7 @@ module Moodle2CC
       end
 
       it 'converts all activities to module_items' do
-        subject.stub(:convert_activity) { [:module_item] }
+        allow(subject).to receive(:convert_activity) { [:module_item] }
         3.times { moodle_section.activities << [:activity] }
         canvas_module = subject.convert(moodle_section)
 
@@ -25,7 +25,7 @@ module Moodle2CC
       end
 
       it 'creates a module item for the summary page' do
-        subject.stub(:convert_activity) { [:module_item] }
+        allow(subject).to receive(:convert_activity) { [:module_item] }
         moodle_section.summary = 'Summary Content'
 
         canvas_module = subject.convert(moodle_section)
@@ -59,28 +59,28 @@ module Moodle2CC
 
     describe '#convert_activity' do
       it 'uses the default converter for pages' do
-        subject.stub(:convert_to_module_items) { [:module_item] }
+        allow(subject).to receive(:convert_to_module_items) { [:module_item] }
         module_items = subject.convert_activity(Moodle2::Models::Page.new)
 
         expect(module_items).to eq [:module_item]
       end
 
       it 'uses the default converter for sections' do
-        subject.stub(:convert_to_module_items) { [:module_item] }
+        allow(subject).to receive(:convert_to_module_items) { [:module_item] }
         module_items = subject.convert_activity(moodle_section)
 
         expect(module_items).to eq [:module_item]
       end
 
       it 'uses the book converter for books' do
-        Moodle2Converter::BookConverter.any_instance.stub(:convert_to_module_items) { [:module_item] }
+        allow_any_instance_of(Moodle2Converter::BookConverter).to receive(:convert_to_module_items) { [:module_item] }
         module_items = subject.convert_activity(Moodle2::Models::Book.new)
 
         expect(module_items).to eq [:module_item]
       end
 
       it 'uses the label converter for labels' do
-        Moodle2Converter::LabelConverter.any_instance.stub(:convert_to_module_items) { [:module_item] }
+        allow_any_instance_of(Moodle2Converter::LabelConverter).to receive(:convert_to_module_items) { [:module_item] }
         module_items = subject.convert_activity(Moodle2::Models::Label.new)
 
         expect(module_items).to eq [:module_item]
@@ -89,7 +89,7 @@ module Moodle2CC
 
     describe '#convert_to_module_items' do
       it 'converts a moodle page to a module item' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_page = Moodle2::Models::Page.new
         moodle_page.id = '1'
@@ -109,7 +109,7 @@ module Moodle2CC
       end
 
       it 'converts a moodle section to a module item' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_section.id = '1'
         moodle_section.name = 'page title'
@@ -129,7 +129,7 @@ module Moodle2CC
       end
 
       it 'converts a moodle external url to a external url module item' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_url = Moodle2::Models::ExternalUrl.new
         moodle_url.id = '1'
@@ -166,7 +166,7 @@ module Moodle2CC
       end
 
       it 'converts a moodle LTI item to an external tool module item' do
-        subject.stub(:generate_unique_identifier) { 'some_random_id' }
+        allow(subject).to receive(:generate_unique_identifier) { 'some_random_id' }
 
         moodle_lti = Moodle2::Models::Lti.new
         moodle_lti.id = 1

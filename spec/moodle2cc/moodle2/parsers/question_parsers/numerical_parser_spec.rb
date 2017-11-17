@@ -9,7 +9,7 @@ module Moodle2CC::Moodle2
     it 'parses a numerical question' do
       question = subject.parse_question(node)
 
-      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::NumericalQuestion)).to be_true
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::NumericalQuestion)).to be_truthy
       expect(question.qtype).to eq 'numerical'
 
       expect(question.answers.count).to eq 3

@@ -11,7 +11,7 @@ module Moodle2CC::CanvasCC
     end
 
     it 'raises an error unless question references are first resolved' do
-      expect { subject.write }.to raise_exception
+      expect { subject.write }.to raise_exception 'need to resolve questions references'
     end
 
     it 'creates the assessment meta file' do
@@ -64,8 +64,8 @@ module Moodle2CC::CanvasCC
       assessment.items = [question]
 
       QuestionWriter.register_writer_type(nil)
-      QuestionWriter.stub(:write_responses)
-      QuestionWriter.stub(:write_response_conditions)
+      allow(QuestionWriter).to receive(:write_responses)
+      allow(QuestionWriter).to receive(:write_response_conditions)
 
       subject.write
 

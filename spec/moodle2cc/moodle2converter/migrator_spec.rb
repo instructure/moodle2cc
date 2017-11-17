@@ -14,28 +14,28 @@ module Moodle2CC
     before(:each) do
       extractor = double('extractor', extract: nil)
 
-      extractor.stub(:extract).and_yield(moodle_course)
+      allow(extractor).to receive(:extract).and_yield(moodle_course)
 
-      Moodle2::Extractor.stub(:new).and_return(extractor)
-      Moodle2Converter::CourseConverter.any_instance.stub(:convert).and_return(canvas_course)
-      Moodle2Converter::SectionConverter.any_instance.stub(:convert)
-      Moodle2Converter::FileConverter.any_instance.stub(:convert)
-      Moodle2Converter::PageConverter.any_instance.stub(:convert)
-      Moodle2Converter::WikiConverter.any_instance.stub(:convert)
-      Moodle2Converter::DiscussionConverter.any_instance.stub(:convert)
-      Moodle2Converter::AssignmentConverter.any_instance.stub(:convert)
-      Moodle2Converter::FolderConverter.any_instance.stub(:convert)
-      Moodle2Converter::BookConverter.any_instance.stub(:convert_to_pages)
-      Moodle2CC::CanvasCC::Models::Assessment.any_instance.stub(:resolve_question_references!)
-      Moodle2Converter::HtmlConverter.stub(:new) { double('html_converter', convert: true) }
-      Moodle2Converter::GlossaryConverter.any_instance.stub(:convert)
-      CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: nil))
+      allow(Moodle2::Extractor).to receive(:new).and_return(extractor)
+      allow_any_instance_of(Moodle2Converter::CourseConverter).to receive(:convert).and_return(canvas_course)
+      allow_any_instance_of(Moodle2Converter::SectionConverter).to receive(:convert)
+      allow_any_instance_of(Moodle2Converter::FileConverter).to receive(:convert)
+      allow_any_instance_of(Moodle2Converter::PageConverter).to receive(:convert)
+      allow_any_instance_of(Moodle2Converter::WikiConverter).to receive(:convert)
+      allow_any_instance_of(Moodle2Converter::DiscussionConverter).to receive(:convert)
+      allow_any_instance_of(Moodle2Converter::AssignmentConverter).to receive(:convert)
+      allow_any_instance_of(Moodle2Converter::FolderConverter).to receive(:convert)
+      allow_any_instance_of(Moodle2Converter::BookConverter).to receive(:convert_to_pages)
+      allow_any_instance_of(Moodle2CC::CanvasCC::Models::Assessment).to receive(:resolve_question_references!)
+      allow(Moodle2Converter::HtmlConverter).to receive(:new) { double('html_converter', convert: true) }
+      allow_any_instance_of(Moodle2Converter::GlossaryConverter).to receive(:convert)
+      allow(CanvasCC::CartridgeCreator).to receive(:new).and_return(double(create: nil))
     end
 
     describe '#migrate' do
       it 'converts courses' do
         converter = double(convert: canvas_course)
-        Moodle2Converter::CourseConverter.stub(:new).and_return(converter)
+        allow(Moodle2Converter::CourseConverter).to receive(:new).and_return(converter)
         migrator.migrate
         expect(converter).to have_received(:convert)
       end
@@ -47,15 +47,15 @@ module Moodle2CC
           double('file_1', content_hash: 'b')
         ]
         moodle_course.files = files
-        Moodle2Converter::FileConverter.any_instance.stub(:convert).and_return('file')
+        allow_any_instance_of(Moodle2Converter::FileConverter).to receive(:convert).and_return('file')
         migrator.migrate
         expect(canvas_course.files).to eq ['file', 'file', 'file']
       end
 
       it 'converts pages' do
         moodle_course.pages = [:page1, :page2]
-        Moodle2Converter::PageConverter.any_instance.stub(:convert).and_return(canvas_page)
-        migrator.stub(:generate_unique_identifier).and_return('some_random_id')
+        allow_any_instance_of(Moodle2Converter::PageConverter).to receive(:convert).and_return(canvas_page)
+        allow(migrator).to receive(:generate_unique_identifier).and_return('some_random_id')
         migrator.migrate
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
         expect(canvas_course.pages.first.href).to eq 'wiki_content/some_random_id/sometitle.html'
@@ -63,35 +63,35 @@ module Moodle2CC
 
       it 'converts wikis' do
         moodle_course.wikis = [:wiki1, :wiki2]
-        Moodle2Converter::WikiConverter.any_instance.stub(:convert).and_return([canvas_page, canvas_page])
+        allow_any_instance_of(Moodle2Converter::WikiConverter).to receive(:convert).and_return([canvas_page, canvas_page])
         migrator.migrate
         expect(canvas_course.pages).to eq [canvas_page] * 4
       end
 
       it 'converts discussions' do
         moodle_course.forums = [:discussion1, :discussion2]
-        Moodle2Converter::DiscussionConverter.any_instance.stub(:convert).and_return(canvas_discussion)
+        allow_any_instance_of(Moodle2Converter::DiscussionConverter).to receive(:convert).and_return(canvas_discussion)
         migrator.migrate
         expect(canvas_course.discussions).to eq [canvas_discussion, canvas_discussion]
       end
 
       it 'converts assignments' do
         moodle_course.assignments = [:assign1, :assign2]
-        Moodle2CC::Moodle2Converter::AssignmentConverter.any_instance.stub(:convert).and_return(canvas_assignment)
+        allow_any_instance_of(Moodle2CC::Moodle2Converter::AssignmentConverter).to receive(:convert).and_return(canvas_assignment)
         migrator.migrate
         expect(canvas_course.assignments).to eq [canvas_assignment, canvas_assignment]
       end
 
       it 'converts folders' do
         moodle_course.folders = [:folder1, :folder2]
-        Moodle2CC::Moodle2Converter::FolderConverter.any_instance.stub(:convert).and_return(canvas_page)
+        allow_any_instance_of(Moodle2CC::Moodle2Converter::FolderConverter).to receive(:convert).and_return(canvas_page)
         migrator.migrate
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
       end
 
       it 'converts books' do
         moodle_course.books = [:book1, :book2]
-        Moodle2CC::Moodle2Converter::BookConverter.any_instance.stub(:convert_to_pages).and_return([canvas_page])
+        allow_any_instance_of(Moodle2CC::Moodle2Converter::BookConverter).to receive(:convert_to_pages).and_return([canvas_page])
         migrator.migrate
 
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
@@ -99,7 +99,7 @@ module Moodle2CC
 
       it 'converts glossaries' do
         moodle_course.glossaries = [:glossary1, :glossary1]
-        Moodle2CC::Moodle2Converter::GlossaryConverter.any_instance.stub(:convert).and_return(canvas_page)
+        allow_any_instance_of(Moodle2CC::Moodle2Converter::GlossaryConverter).to receive(:convert).and_return(canvas_page)
         migrator.migrate
 
         expect(canvas_course.pages.compact).to eq [canvas_page, canvas_page]
@@ -107,7 +107,7 @@ module Moodle2CC
 
       context 'sections' do
         it 'converts sections with summaries to pages' do
-          Moodle2CC::Moodle2Converter::SectionConverter.any_instance.stub(:convert_to_summary_page).and_return(canvas_page)
+          allow_any_instance_of(Moodle2CC::Moodle2Converter::SectionConverter).to receive(:convert_to_summary_page).and_return(canvas_page)
           section1 = Moodle2CC::Moodle2::Models::Section.new
           section1.summary = 'summary'
           section2 = Moodle2CC::Moodle2::Models::Section.new
@@ -123,7 +123,7 @@ module Moodle2CC
           section1.summary = 'summary'
           section2 = Moodle2CC::Moodle2::Models::Section.new
           section2.summary = '  '
-          Moodle2CC::Moodle2Converter::SectionConverter.any_instance.stub(:convert).and_return(:canvas_module)
+          allow_any_instance_of(Moodle2CC::Moodle2Converter::SectionConverter).to receive(:convert).and_return(:canvas_module)
           moodle_course.sections = [section1, section2]
           migrator.migrate
 
@@ -167,7 +167,7 @@ module Moodle2CC
         let(:converter){double('invitation', :convert => 'converted_html')}
 
         before(:each) do
-          Moodle2CC::Moodle2Converter::HtmlConverter.stub(:new).and_return(converter)
+          allow(Moodle2CC::Moodle2Converter::HtmlConverter).to receive(:new).and_return(converter)
         end
 
         it 'converts pages' do
@@ -228,7 +228,7 @@ module Moodle2CC
         it 'converts question bank questions' do
           qb = Moodle2CC::CanvasCC::Models::QuestionBank.new
           q1 = Moodle2CC::CanvasCC::Models::CalculatedQuestion.new
-          q1.stub(:post_process!)
+          allow(q1).to receive(:post_process!)
           a1 = Moodle2CC::CanvasCC::Models::Answer.new
           q1.general_feedback = 'a'
           a1.feedback = 'a'
@@ -249,9 +249,9 @@ module Moodle2CC
     end
 
     it 'sets the imscc_path' do
-      CanvasCC::CartridgeCreator.stub(:new).and_return(double(create: 'out_dir'))
+      allow(CanvasCC::CartridgeCreator).to receive(:new).and_return(double(create: 'out_dir'))
       migrator.migrate
-      migrator.imscc_path.should == 'out_dir'
+      expect(migrator.imscc_path).to eq('out_dir')
     end
 
   end

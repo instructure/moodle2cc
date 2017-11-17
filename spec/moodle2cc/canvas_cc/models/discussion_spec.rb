@@ -10,8 +10,8 @@ module Moodle2CC::CanvasCC::Models
     it_behaves_like 'it has an attribute for', :workflow_state
 
     it 'creates resource' do
-      subject.stub(:discussion_resource) { :discussion_resource }
-      subject.stub(:meta_resource) { :meta_resource }
+      allow(subject).to receive(:discussion_resource) { :discussion_resource }
+      allow(subject).to receive(:meta_resource) { :meta_resource }
       expect(subject.resources).to eq [:discussion_resource, :meta_resource]
     end
 

@@ -11,7 +11,10 @@ module Moodle2CC::CanvasCC::Models
     it_behaves_like 'it has an attribute for', :body
     it_behaves_like 'it has an attribute for', :title
 
-    its(:type) { should eq 'webcontent' }
+    describe '#type' do
+      subject { super().type }
+      it { is_expected.to eq 'webcontent' }
+    end
 
     it "hashes the identifier" do
       page.identifier = 3

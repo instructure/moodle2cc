@@ -9,8 +9,8 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
     it 'registers a question type for object creation' do
       node = Nokogiri::XML('<question><qtype>foobar</qtype></question>')
       parser = FooBarParser.new
-      parser.stub(:parse_question)
-      FooBarParser.stub(:new).and_return(parser)
+      allow(parser).to receive(:parse_question)
+      allow(FooBarParser).to receive(:new).and_return(parser)
       FooBarParser.register_parser_type 'foobar'
       QuestionParser.parse(node)
       expect(parser).to have_received(:parse_question)
@@ -18,7 +18,7 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
 
     it 'raises an exception for unknown parser types' do
       node = Nokogiri::XML('<question><qtype>non_existing_parser_type</qtype></question>')
-      expect { FooBarParser.parse(node) }.to raise_exception
+      expect { FooBarParser.parse(node) }.to raise_exception 'Unknown parser type: non_existing_parser_type'
     end
 
 
@@ -46,7 +46,7 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
       node = xml.at_xpath('/question_categories/question_category[@id = "2"]/questions/question[@id = "10"]')
       question = subject.parse_question(node)
 
-      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::Question)).to be_true
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::Question)).to be_truthy
       expect(question.type).to eq 'essay'
     end
 
@@ -55,7 +55,7 @@ module Moodle2CC::Moodle2::Parsers::QuestionParsers
       node = xml.at_xpath('/question_categories/question_category[@id = "2"]/questions/question[@id = "18"]')
       question = subject.parse_question(node)
 
-      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::Question)).to be_true
+      expect(question.is_a?(Moodle2CC::Moodle2::Models::Quizzes::Question)).to be_truthy
       expect(question.type).to eq 'description'
     end
   end

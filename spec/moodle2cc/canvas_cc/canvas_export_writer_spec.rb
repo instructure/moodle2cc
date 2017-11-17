@@ -19,7 +19,7 @@ module Moodle2CC::CanvasCC
       path = File.join(tmpdir,
                        CartridgeCreator::COURSE_SETTINGS_DIR,
                        CanvasExportWriter::CANVAS_EXPORT_FILE)
-      expect(File.exist?(path)).to be_true
+      expect(File.exist?(path)).to be_truthy
     end
 
   end

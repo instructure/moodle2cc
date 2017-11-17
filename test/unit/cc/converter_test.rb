@@ -3,7 +3,7 @@ require 'test_helper'
 require 'moodle2cc'
 require 'nokogiri'
 
-class TestUnitCCConverter < MiniTest::Unit::TestCase
+class TestUnitCCConverter < MiniTest::Test
   include TestHelper
 
   def setup

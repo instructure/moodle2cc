@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'test_helper'
 require 'moodle2cc'
 
-class TestUnitCanvasAssessment < MiniTest::Unit::TestCase
+class TestUnitCanvasAssessment < MiniTest::Test
   include TestHelper
 
   def setup

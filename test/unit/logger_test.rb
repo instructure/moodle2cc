@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'moodle2cc'
 require 'stringio'
 
-class TestUnitLogger < MiniTest::Unit::TestCase
+class TestUnitLogger < MiniTest::Test
   class MyLogger
     attr_accessor :message, :exception
 
