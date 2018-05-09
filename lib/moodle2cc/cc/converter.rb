@@ -95,7 +95,7 @@ module Moodle2CC::CC
               root_item.item(:identifier => create_key(section.id, "section_")) do |item_node|
                 item_node.title "#{course.format} #{section.number}"
                 section.mods.each do |mod|
-                  resource = @resource_factory.get_resource_from_mod(mod.instance)
+                  resource = @resource_factory.get_resource_from_mod(mod.instance) if mod.instance
                   resource.create_organization_item_node(item_node) if resource
                 end
               end
