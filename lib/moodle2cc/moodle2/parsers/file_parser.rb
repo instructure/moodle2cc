@@ -39,7 +39,7 @@ module Moodle2CC::Moodle2::Parsers
         file.repository_id = parse_text(node, 'repositoryid')
         file.reference = parse_text(node, 'reference')
         file.file_location = File.join(@work_dir, FILES_DIR, file.content_hash[0..1], file.content_hash)
-        if file.file_size > 0 && File.exists?(file.file_location)
+        if file.file_size > 0 && File.exist?(file.file_location)
           files << file
         else
           missing_files << file

@@ -37,7 +37,7 @@ module Moodle2CC::CanvasCC
       end.to_xml
 
       file_path = File.join(@work_dir, assessment.meta_file_path)
-      FileUtils.mkdir_p(File.dirname(file_path)) unless File.exists?(File.dirname(file_path))
+      FileUtils.mkdir_p(File.dirname(file_path)) unless File.exist?(File.dirname(file_path))
       File.open(file_path, 'w') { |f| f.write(xml) }
     end
 
@@ -75,7 +75,7 @@ module Moodle2CC::CanvasCC
       end.to_xml
 
       file_path = File.join(@work_dir, assessment.qti_file_path)
-      FileUtils.mkdir_p(File.dirname(file_path)) unless File.exists?(File.dirname(file_path))
+      FileUtils.mkdir_p(File.dirname(file_path)) unless File.exist?(File.dirname(file_path))
       File.open(file_path, 'w') { |f| f.write(xml) }
     end
   end
