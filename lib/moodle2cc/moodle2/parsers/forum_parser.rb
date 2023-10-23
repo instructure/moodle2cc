@@ -22,8 +22,8 @@ module Moodle2CC::Moodle2::Parsers
       activity_dir = File.join(@backup_dir, forum_dir)
       File.open(File.join(activity_dir, xml_file)) do |f|
         forum_xml = Nokogiri::XML(f)
-        forum.id = forum_xml.at_xpath("/activity/#{module_name}/@id").value
-        forum.module_id = forum_xml.at_xpath("/activity/@moduleid").value
+        forum.id = forum_xml.at_xpath("/activity/#{module_name}/@id")&.value
+        forum.module_id = forum_xml.at_xpath("/activity/@moduleid")&.value
         forum.name = parse_text(forum_xml, "/activity/#{module_name}/name")
         forum.type = parse_text(forum_xml, "/activity/#{module_name}/type")
         forum.intro = parse_text(forum_xml, "/activity/#{module_name}/intro")
