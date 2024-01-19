@@ -6,8 +6,8 @@ module Moodle2CC::Moodle2
 
     it 'pareses quiz categories' do
       question_categories = subject.parse
-      expect(question_categories.count).to eq 2
-      category = question_categories.last
+      expect(question_categories.count).to eq 3
+      category = question_categories[1]
       expect(category).to be_instance_of Models::Quizzes::QuestionCategory
       expect(category.id).to eq '2'
       expect(category.name).to eq 'Default for SC'
@@ -20,7 +20,7 @@ module Moodle2CC::Moodle2
       expect(category.parent).to eq '0'
       expect(category.sort_order).to eq '999'
 
-      expect(category.questions.count).to eq 18
+      expect(category.questions.count).to eq 17
     end
 
   end

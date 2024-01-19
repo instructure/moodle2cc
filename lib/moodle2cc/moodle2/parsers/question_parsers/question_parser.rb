@@ -28,6 +28,7 @@ module Moodle2CC::Moodle2
         question = Models::Quizzes::Question.create question_type
 
         question.id = node.at_xpath('@id').value
+        question.bank_entry_id = parse_text(node, 'bank_entry_id')
         question.parent = parse_text(node, 'parent')
         question.name = parse_text(node, 'name')
         question.question_text = parse_text(node, 'questiontext')

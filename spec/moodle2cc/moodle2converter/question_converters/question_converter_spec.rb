@@ -35,6 +35,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
 
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
       moodle_question.id = 42
+      moodle_question.bank_entry_id = 1
       moodle_question.name = 'has anyone really been far even as decided to use even go want to do look more like'
       answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
       answer.id = 'blah'
@@ -46,6 +47,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       converted_question = converter.convert_question(moodle_question)
 
       expect(converted_question.original_identifier).to eq moodle_question.id
+      expect(converted_question.bank_entry_id).to eq moodle_question.bank_entry_id
       expect(converted_question.title).to eq moodle_question.name
       expect(converted_question.answers.count).to eq moodle_question.answers.count
       expect(converted_question.answers.first.id).to eq moodle_question.answers.first.id

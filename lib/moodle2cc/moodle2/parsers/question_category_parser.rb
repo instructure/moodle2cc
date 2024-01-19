@@ -31,6 +31,17 @@ module Moodle2CC::Moodle2
       category.sort_order = parse_text(node, 'sortorder')
 
       category.questions += node.search('questions/question').map { |question_node| question_parser(question_node) }.compact
+      category.questions += node.search("question_bank_entries/question_bank_entry").map do |question_bank_entry|
+        question_bank_entry.search("question_version/question_versions").map do |question_versions|
+          question_versions.search("questions/question").map do |question_node|
+            bank_entry_reference = Nokogiri::XML::DocumentFragment.parse("<bank_entry_id>#{question_bank_entry.at_xpath("@id").value}</bank_entry_id>")
+            question_node.add_child(bank_entry_reference)
+            question_parser(question_node)
+          end
+        end
+      end.flatten.compact
+
+      category.questions = category.questions.flatten
 
       category
     end

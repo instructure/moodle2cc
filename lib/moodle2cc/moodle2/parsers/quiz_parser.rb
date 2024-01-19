@@ -65,13 +65,14 @@ module Moodle2CC::Moodle2::Parsers
         xml.search('/activity/quiz/question_instances/question_instance').each do |node|
           quiz.question_instances << {
             :question => parse_text(node, 'question') || parse_text(node, 'questionid'),
+            :bank_entry_id => parse_text(node, 'question_reference/questionbankentryid'),
             :grade => parse_text(node, 'grade') || parse_text(node, 'maxmark')
           }
         end
 
         question_order = parse_text(xml, '/activity/quiz/questions').to_s.split(',')
         unless question_order.empty?
-          quiz.question_instances.sort_by!{|qi| question_order.index(qi[:question])}
+          quiz.question_instances.sort_by!{|qi| question_order.index(qi[:question]) || 0}
         end
 
         xml.search('/activity/quiz/feedbacks/feedback').each do |node|

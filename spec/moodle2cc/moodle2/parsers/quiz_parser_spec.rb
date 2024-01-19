@@ -52,7 +52,7 @@ describe Moodle2CC::Moodle2::Parsers::QuizParser do
     expect(quiz.visible).to eq true
 
     expect(quiz.question_instances.map{|q| q[:question]}).to eq (
-      ['1', '3', '2', '4', '10', '11', '12', '13', '14', '15', '17']
+      ["1", nil, "3", "4", "10", "11", "12", "13", "14", "15", "17"]
     )
     expect(quiz.question_instances.map{|q| q[:grade]}).to eq (
       ["1.0000000", "1.0000000", "1.0000000", "5.0000000", "1.0000000",

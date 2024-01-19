@@ -54,8 +54,9 @@ module Moodle2CC::CanvasCC::Models
         question = nil
         group = nil
         question_banks.each do |bank|
-          break if (question = bank.questions.detect{|q| q.original_identifier.to_s == ref[:question]}) ||
-            (group = bank.question_groups.detect{|g| g.identifier.to_s == ref[:question]})
+          break if (question = bank.questions.detect { |q| q.original_identifier.to_s == ref[:question] })
+          break if (question = bank.questions.detect { |q| q.bank_entry_id.to_s == ref[:bank_entry_id] })
+          break if (group = bank.question_groups.detect { |g| g.identifier.to_s == ref[:question] })
 
           if bank.random_question_references.any?{|r| r.to_s == ref[:question]}
             random_bank_counts[bank] ||= 0

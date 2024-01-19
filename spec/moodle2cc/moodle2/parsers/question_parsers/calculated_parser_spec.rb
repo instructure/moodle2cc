@@ -8,7 +8,7 @@ module Moodle2CC::Moodle2
     end
 
     let(:calculatedmulti_node) do
-      xml.at_xpath('/question_categories/question_category[@id = "2"]/questions/question[@id = "2"]')
+      xml.at_xpath('/question_categories/question_category[@id = "?"]/question_bank_entries/question_bank_entry[@id = 1]/question_version/question_versions/questions/question[@id = "2"]')
     end
 
     let(:calculatedsimple_node) do

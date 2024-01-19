@@ -5,7 +5,7 @@ module Moodle2CC::CanvasCC::Models
                                'multiple_choice_question', 'multiple_answers_question',
                                'short_answer_question', 'text_only_question', 'true_false_question']
 
-    attr_accessor :identifier, :original_identifier, :title, :material, :answers, :general_feedback, *QTI_META_ATTRIBUTES
+    attr_accessor :identifier, :original_identifier, :bank_entry_id, :title, :material, :answers, :general_feedback, *QTI_META_ATTRIBUTES
 
     @@subclasses = {}
 
