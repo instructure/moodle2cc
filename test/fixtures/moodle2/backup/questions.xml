@@ -119,109 +119,6 @@
         <tags>
         </tags>
       </question>
-      <question id="2">
-        <parent>0</parent>
-        <name>Calculated Multiple Choice</name>
-        <questiontext>&lt;p&gt;What is the Perimeter of a square that is {A} x {B}?&lt;/p&gt;</questiontext>
-        <questiontextformat>1</questiontextformat>
-        <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
-        <generalfeedbackformat>1</generalfeedbackformat>
-        <defaultmark>1.0000000</defaultmark>
-        <penalty>0.3333333</penalty>
-        <qtype>calculatedmulti</qtype>
-        <length>1</length>
-        <stamp>10.0.21.141+140304214608+jB8GoP</stamp>
-        <version>10.0.21.141+140304214608+ud0uPZ</version>
-        <hidden>0</hidden>
-        <timecreated>1393969568</timecreated>
-        <timemodified>1393969568</timemodified>
-        <createdby>2</createdby>
-        <modifiedby>2</modifiedby>
-        <plugin_qtype_calculatedmulti_question>
-          <answers>
-            <answer id="2">
-              <answertext>{A}*{B}</answertext>
-              <answerformat>1</answerformat>
-              <fraction>1.0000000</fraction>
-              <feedback></feedback>
-              <feedbackformat>1</feedbackformat>
-            </answer>
-            <answer id="3">
-              <answertext>{A}+{B}</answertext>
-              <answerformat>1</answerformat>
-              <fraction>0.0000000</fraction>
-              <feedback></feedback>
-              <feedbackformat>1</feedbackformat>
-            </answer>
-          </answers>
-          <numerical_units>
-          </numerical_units>
-          <numerical_options>
-          </numerical_options>
-          <dataset_definitions>
-            <dataset_definition id="3">
-              <category>0</category>
-              <name>A</name>
-              <type>1</type>
-              <options>uniform:1:10:1</options>
-              <itemcount>1</itemcount>
-              <dataset_items>
-                <dataset_item id="3">
-                  <number>1</number>
-                  <value>5.1</value>
-                </dataset_item>
-              </dataset_items>
-            </dataset_definition>
-            <dataset_definition id="4">
-              <category>0</category>
-              <name>B</name>
-              <type>1</type>
-              <options>uniform:1:10:1</options>
-              <itemcount>1</itemcount>
-              <dataset_items>
-                <dataset_item id="4">
-                  <number>1</number>
-                  <value>7.1</value>
-                </dataset_item>
-              </dataset_items>
-            </dataset_definition>
-          </dataset_definitions>
-          <calculated_records>
-            <calculated_record id="2">
-              <answer>2</answer>
-              <tolerance>0.01</tolerance>
-              <tolerancetype>1</tolerancetype>
-              <correctanswerlength>2</correctanswerlength>
-              <correctanswerformat>1</correctanswerformat>
-            </calculated_record>
-            <calculated_record id="3">
-              <answer>3</answer>
-              <tolerance>0.01</tolerance>
-              <tolerancetype>1</tolerancetype>
-              <correctanswerlength>2</correctanswerlength>
-              <correctanswerformat>1</correctanswerformat>
-            </calculated_record>
-          </calculated_records>
-          <calculated_options>
-            <calculated_option id="2">
-              <synchronize>0</synchronize>
-              <single>1</single>
-              <shuffleanswers>1</shuffleanswers>
-              <correctfeedback></correctfeedback>
-              <correctfeedbackformat>1</correctfeedbackformat>
-              <partiallycorrectfeedback></partiallycorrectfeedback>
-              <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
-              <incorrectfeedback></incorrectfeedback>
-              <incorrectfeedbackformat>1</incorrectfeedbackformat>
-              <answernumbering>abc</answernumbering>
-            </calculated_option>
-          </calculated_options>
-        </plugin_qtype_calculatedmulti_question>
-        <question_hints>
-        </question_hints>
-        <tags>
-        </tags>
-      </question>
       <question id="3">
         <parent>0</parent>
         <name>Calculated Simple</name>
@@ -296,11 +193,11 @@
         <parent>0</parent>
         <name>Embeded Answers (Cloze)</name>
         <questiontext>&lt;pre&gt;Match the following cities with the correct state:
-* San Francisco: {#1}
-* Tucson: {#2}
-* Los Angeles: {#3}
-* Phoenix: {#4}
-The capital of France is {#5}.&lt;/pre&gt;</questiontext>
+          * San Francisco: {#1}
+          * Tucson: {#2}
+          * Los Angeles: {#3}
+          * Phoenix: {#4}
+          The capital of France is {#5}.&lt;/pre&gt;</questiontext>
         <questiontextformat>1</questiontextformat>
         <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
         <generalfeedbackformat>1</generalfeedbackformat>
@@ -552,8 +449,8 @@ The capital of France is {#5}.&lt;/pre&gt;</questiontext>
         <parent>4</parent>
         <name>Embeded Answers (Cloze)</name>
         <questiontext>{1:SHORTANSWER:%100%Paris#Congratulations!
-~%50%Marseille#No, that is the second largest city in France (after
-Paris).~*#Wrong answer. The capital of France is Paris, of course.}</questiontext>
+          ~%50%Marseille#No, that is the second largest city in France (after
+          Paris).~*#Wrong answer. The capital of France is Paris, of course.}</questiontext>
         <questiontextformat>1</questiontextformat>
         <generalfeedback></generalfeedback>
         <generalfeedbackformat>1</generalfeedbackformat>
@@ -582,7 +479,7 @@ Paris).~*#Wrong answer. The capital of France is Paris, of course.}</questiontex
               <answerformat>0</answerformat>
               <fraction>0.5000000</fraction>
               <feedback>No, that is the second largest city in France (after
-Paris).</feedback>
+                Paris).</feedback>
               <feedbackformat>1</feedbackformat>
             </answer>
             <answer id="15">
@@ -1183,5 +1080,121 @@ Paris).</feedback>
         </tags>
       </question>
     </questions>
+  </question_category>
+  <question_category id="?">
+    <question_bank_entries>
+      <question_bank_entry id="1">
+        <questioncategoryid>178114</questioncategoryid>
+        <question_version>
+          <question_versions>
+            <questions>
+              <question id="2">
+                <parent>0</parent>
+                <name>Calculated Multiple Choice</name>
+                <questiontext>&lt;p&gt;What is the Perimeter of a square that is {A} x {B}?&lt;/p&gt;</questiontext>
+                <questiontextformat>1</questiontextformat>
+                <generalfeedback>&lt;p&gt;General Feedback&lt;/p&gt;</generalfeedback>
+                <generalfeedbackformat>1</generalfeedbackformat>
+                <defaultmark>1.0000000</defaultmark>
+                <penalty>0.3333333</penalty>
+                <qtype>calculatedmulti</qtype>
+                <length>1</length>
+                <stamp>10.0.21.141+140304214608+jB8GoP</stamp>
+                <version>10.0.21.141+140304214608+ud0uPZ</version>
+                <hidden>0</hidden>
+                <timecreated>1393969568</timecreated>
+                <timemodified>1393969568</timemodified>
+                <createdby>2</createdby>
+                <modifiedby>2</modifiedby>
+                <plugin_qtype_calculatedmulti_question>
+                  <answers>
+                    <answer id="2">
+                      <answertext>{A}*{B}</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>1.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                    <answer id="3">
+                      <answertext>{A}+{B}</answertext>
+                      <answerformat>1</answerformat>
+                      <fraction>0.0000000</fraction>
+                      <feedback></feedback>
+                      <feedbackformat>1</feedbackformat>
+                    </answer>
+                  </answers>
+                  <numerical_units>
+                  </numerical_units>
+                  <numerical_options>
+                  </numerical_options>
+                  <dataset_definitions>
+                    <dataset_definition id="3">
+                      <category>0</category>
+                      <name>A</name>
+                      <type>1</type>
+                      <options>uniform:1:10:1</options>
+                      <itemcount>1</itemcount>
+                      <dataset_items>
+                        <dataset_item id="3">
+                          <number>1</number>
+                          <value>5.1</value>
+                        </dataset_item>
+                      </dataset_items>
+                    </dataset_definition>
+                    <dataset_definition id="4">
+                      <category>0</category>
+                      <name>B</name>
+                      <type>1</type>
+                      <options>uniform:1:10:1</options>
+                      <itemcount>1</itemcount>
+                      <dataset_items>
+                        <dataset_item id="4">
+                          <number>1</number>
+                          <value>7.1</value>
+                        </dataset_item>
+                      </dataset_items>
+                    </dataset_definition>
+                  </dataset_definitions>
+                  <calculated_records>
+                    <calculated_record id="2">
+                      <answer>2</answer>
+                      <tolerance>0.01</tolerance>
+                      <tolerancetype>1</tolerancetype>
+                      <correctanswerlength>2</correctanswerlength>
+                      <correctanswerformat>1</correctanswerformat>
+                    </calculated_record>
+                    <calculated_record id="3">
+                      <answer>3</answer>
+                      <tolerance>0.01</tolerance>
+                      <tolerancetype>1</tolerancetype>
+                      <correctanswerlength>2</correctanswerlength>
+                      <correctanswerformat>1</correctanswerformat>
+                    </calculated_record>
+                  </calculated_records>
+                  <calculated_options>
+                    <calculated_option id="2">
+                      <synchronize>0</synchronize>
+                      <single>1</single>
+                      <shuffleanswers>1</shuffleanswers>
+                      <correctfeedback></correctfeedback>
+                      <correctfeedbackformat>1</correctfeedbackformat>
+                      <partiallycorrectfeedback></partiallycorrectfeedback>
+                      <partiallycorrectfeedbackformat>1</partiallycorrectfeedbackformat>
+                      <incorrectfeedback></incorrectfeedback>
+                      <incorrectfeedbackformat>1</incorrectfeedbackformat>
+                      <answernumbering>abc</answernumbering>
+                    </calculated_option>
+                  </calculated_options>
+                </plugin_qtype_calculatedmulti_question>
+                <question_hints>
+                </question_hints>
+                <tags>
+                </tags>
+              </question>
+            </questions>
+          </question_versions>
+        </question_version>
+      </question_bank_entry>
+    </question_bank_entries>
   </question_category>
 </question_categories>

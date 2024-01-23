@@ -1,12 +1,21 @@
+# frozen_string_literal: true
+
 module Moodle2CC::CanvasCC::Models
   class Assessment
-    META_ATTRIBUTES = [:title, :description, :allowed_attempts,
-                       :scoring_policy, :access_code, :ip_filter, :shuffle_answers, :time_limit, :quiz_type]
-    DATETIME_ATTRIBUTES = [:lock_at, :unlock_at]
+    META_ATTRIBUTES = %i[title
+                         description
+                         allowed_attempts
+                         scoring_policy
+                         access_code
+                         ip_filter
+                         shuffle_answers
+                         time_limit
+                         quiz_type].freeze
+    DATETIME_ATTRIBUTES = [:lock_at, :unlock_at].freeze
 
-    ASSESSMENT_TYPE = 'imsqti_xmlv1p2/imscc_xmlv1p1/assessment'
-    LAR_TYPE = 'associatedcontent/imscc_xmlv1p1/learning-application-resource'
-    ASSESSMENT_NON_CC_FOLDER = 'non_cc_assessments'
+    ASSESSMENT_TYPE = "imsqti_xmlv1p2/imscc_xmlv1p1/assessment"
+    LAR_TYPE = "associatedcontent/imscc_xmlv1p1/learning-application-resource"
+    ASSESSMENT_NON_CC_FOLDER = "non_cc_assessments"
 
     attr_accessor :identifier, :workflow_state, :question_references, :items, *META_ATTRIBUTES, *DATETIME_ATTRIBUTES
 
@@ -54,14 +63,15 @@ module Moodle2CC::CanvasCC::Models
         question = nil
         group = nil
         question_banks.each do |bank|
-          break if (question = bank.questions.detect{|q| q.original_identifier.to_s == ref[:question]}) ||
-            (group = bank.question_groups.detect{|g| g.identifier.to_s == ref[:question]})
+          break if (question = bank.questions.detect { |q| q.original_identifier.to_s == ref[:question] })
+          break if (question = bank.questions.detect { |q| q.bank_entry_id.to_s == ref[:bank_entry_id] })
+          break if (group = bank.question_groups.detect { |g| g.identifier.to_s == ref[:question] })
 
-          if bank.random_question_references.any?{|r| r.to_s == ref[:question]}
-            random_bank_counts[bank] ||= 0
-            random_bank_counts[bank] += 1
-            break
-          end
+          next unless bank.random_question_references.any? { |r| r.to_s == ref[:question] }
+
+          random_bank_counts[bank] ||= 0
+          random_bank_counts[bank] += 1
+          break
         end
 
         if question
@@ -93,9 +103,9 @@ module Moodle2CC::CanvasCC::Models
         @items << new_group
       end
 
-      @items.select{|i| i.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup)}.each do |group|
+      @items.select { |i| i.is_a?(Moodle2CC::CanvasCC::Models::QuestionGroup) }.each do |group|
         group.questions.each do |q|
-          @items.delete_if{|i| i.respond_to?(:original_identifier) && i.original_identifier == q.original_identifier}
+          @items.delete_if { |i| i.respond_to?(:original_identifier) && i.original_identifier == q.original_identifier }
         end
       end
     end

@@ -44,8 +44,10 @@
         <grade>1.0000000</grade>
       </question_instance>
       <question_instance id="2">
-        <question>2</question>
-        <grade>1.0000000</grade>
+        <maxmark>1.0000000</maxmark>
+        <question_reference id="?">
+          <questionbankentryid>1</questionbankentryid>
+        </question_reference>
       </question_instance>
       <question_instance id="3">
         <question>3</question>

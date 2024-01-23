@@ -1,51 +1,54 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 module Moodle2CC::Moodle2Converter::QuestionConverters
   describe QuestionConverter do
-
     class FooBarConverter < QuestionConverter
     end
 
-    it 'registers a question type for conversion' do
+    it "registers a question type for conversion" do
       converter = FooBarConverter.new
       allow(converter).to receive(:convert_question)
 
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
-      moodle_question.type = 'foobar'
+      moodle_question.type = "foobar"
 
       allow(FooBarConverter).to receive(:new).and_return(converter)
-      FooBarConverter.register_converter_type 'foobar'
+      FooBarConverter.register_converter_type "foobar"
       QuestionConverter.new.convert(moodle_question)
       expect(converter).to have_received(:convert_question)
     end
 
-    it 'raises an exception for unknown converter types' do
+    it "raises an exception for unknown converter types" do
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
-      moodle_question.type = 'nonexistenttype'
+      moodle_question.type = "nonexistenttype"
 
-      expect {
+      expect do
         QuestionConverter.new.convert(moodle_question)
-      }.to raise_exception 'Unknown converter type: nonexistenttype'
+      end.to raise_exception "Unknown converter type: nonexistenttype"
     end
 
-    it 'converts common question attributes' do
+    it "converts common question attributes" do
       converter = QuestionConverter.new
       mock_canvas_question = Moodle2CC::CanvasCC::Models::Question.new
       allow(converter).to receive(:create_canvas_question).and_return(mock_canvas_question)
 
       moodle_question = Moodle2CC::Moodle2::Models::Quizzes::Question.new
       moodle_question.id = 42
-      moodle_question.name = 'has anyone really been far even as decided to use even go want to do look more like'
+      moodle_question.bank_entry_id = 1
+      moodle_question.name = "has anyone really been far even as decided to use even go want to do look more like"
       answer = Moodle2CC::Moodle2::Models::Quizzes::Answer.new
-      answer.id = 'blah'
+      answer.id = "blah"
       moodle_question.answers = [answer]
       moodle_question.max_mark = 2
-      moodle_question.general_feedback = 'random stuff'
-      moodle_question.question_text = 'other stuff'
+      moodle_question.general_feedback = "random stuff"
+      moodle_question.question_text = "other stuff"
 
       converted_question = converter.convert_question(moodle_question)
 
       expect(converted_question.original_identifier).to eq moodle_question.id
+      expect(converted_question.bank_entry_id).to eq moodle_question.bank_entry_id
       expect(converted_question.title).to eq moodle_question.name
       expect(converted_question.answers.count).to eq moodle_question.answers.count
       expect(converted_question.answers.first.id).to eq moodle_question.answers.first.id
@@ -54,7 +57,7 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       expect(converted_question.material).to eq moodle_question.question_text
     end
 
-    it 'converts markdown text in question to html material' do
+    it "converts markdown text in question to html material" do
       converter = QuestionConverter.new
       mock_canvas_question = Moodle2CC::CanvasCC::Models::Question.new
       allow(converter).to receive(:create_canvas_question).and_return(mock_canvas_question)
@@ -69,15 +72,14 @@ module Moodle2CC::Moodle2Converter::QuestionConverters
       expect(converted_question.material).to eq expected_text
     end
 
-    it 'converts standard questions' do
+    it "converts standard questions" do
       converter = QuestionConverter.new
 
-      converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create('essay'))
-      expect(converted_question.question_type).to eq 'essay_question'
+      converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create("essay"))
+      expect(converted_question.question_type).to eq "essay_question"
 
-      converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create('shortanswer'))
-      expect(converted_question.question_type).to eq 'short_answer_question'
+      converted_question = converter.convert(Moodle2CC::Moodle2::Models::Quizzes::Question.create("shortanswer"))
+      expect(converted_question.question_type).to eq "short_answer_question"
     end
-
   end
 end
