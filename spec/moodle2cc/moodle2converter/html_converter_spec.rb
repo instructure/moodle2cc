@@ -35,13 +35,13 @@ module Moodle2CC
     it 'replaces moodle2 img src with canvas url' do
       content = '<p>a link to <img src="@@PLUGINFILE@@/a97" alt="Image Description" ></p>'
       html = Nokogiri::HTML.fragment(subject.convert(content))
-      expect(html.css('img').first.attr('src')).to eq '%24IMS_CC_FILEBASE%24/path/a'
+      expect(html.css('img').first.attr('src')).to eq '$IMS_CC_FILEBASE$/path/a'
     end
 
     it 'replaces moodle 2 url in hrefs with canvas url' do
       content = '<p>a link to <a href="@@PLUGINFILE@@/a97"></p>'
       html = Nokogiri::HTML.fragment(subject.convert(content))
-      expect(html.css('a[href]').first.attr('href')).to eq '%24IMS_CC_FILEBASE%24/path/a'
+      expect(html.css('a[href]').first.attr('href')).to eq '$IMS_CC_FILEBASE$/path/a'
     end
 
     it 'removes link tags' do
@@ -70,7 +70,7 @@ module Moodle2CC
 
       content = '<p>a link to <a href="@@PLUGINFILE@@/path%20with%20space/text.txt"></p>'
       html = Nokogiri::HTML.fragment(subject.convert(content))
-      expect(html.css('a[href]').first.attr('href')).to eq '%24IMS_CC_FILEBASE%24/my_dir/test.txt'
+      expect(html.css('a[href]').first.attr('href')).to eq '$IMS_CC_FILEBASE$/my_dir/test.txt'
     end
 
     it 'replaces a moodle2 page url with a canvas url' do
@@ -82,7 +82,7 @@ module Moodle2CC
 
       html = Nokogiri::HTML.fragment(subject.convert(content))
 
-      expect(html.css('a[href]').first.attr('href')).to eq '%24WIKI_REFERENCE%24/pages/my_page_name#Lesson3-1'
+      expect(html.css('a[href]').first.attr('href')).to eq '$WIKI_REFERENCE$/pages/my_page_name#Lesson3-1'
     end
 
     it 'replaces a moodle2 forum url with a canvas url' do
@@ -94,7 +94,7 @@ module Moodle2CC
 
       html = Nokogiri::HTML.fragment(subject.convert(content))
 
-      expect(html.css('a[href]').first.attr('href')).to eq '%24CANVAS_OBJECT_REFERENCE%24/discussion_topics/m2c98831cde22c0529955a2218a2ed66bc_discussion#Lesson3-1'
+      expect(html.css('a[href]').first.attr('href')).to eq '$CANVAS_OBJECT_REFERENCE$/discussion_topics/m2c98831cde22c0529955a2218a2ed66bc_discussion#Lesson3-1'
     end
 
     it 'replaces a moodle2 assignment url with a canvas url' do
@@ -106,7 +106,7 @@ module Moodle2CC
 
       html = Nokogiri::HTML.fragment(subject.convert(content))
 
-      expect(html.css('a[href]').first.attr('href')).to eq '%24CANVAS_OBJECT_REFERENCE%24/assignments/m2c98831cde22c0529955a2218a2ed66bc_assignment'
+      expect(html.css('a[href]').first.attr('href')).to eq '$CANVAS_OBJECT_REFERENCE$/assignments/m2c98831cde22c0529955a2218a2ed66bc_assignment'
     end
 
     it 'replaces @assignview links with canvas links' do
@@ -118,7 +118,7 @@ module Moodle2CC
 
       html = Nokogiri::HTML.fragment(subject.convert(content))
 
-      expect(html.css('a[href]').first.attr('href')).to eq '%24CANVAS_OBJECT_REFERENCE%24/assignments/m2c98831cde22c0529955a2218a2ed66bc_assignment'
+      expect(html.css('a[href]').first.attr('href')).to eq '$CANVAS_OBJECT_REFERENCE$/assignments/m2c98831cde22c0529955a2218a2ed66bc_assignment'
     end
 
     it 'returns the original url if a matching moodle activity is not found' do
@@ -145,7 +145,7 @@ module Moodle2CC
 
       content = '<p> a link to <a href="http://moodle.extn.washington.edu/file.php/908/graphics/arrow.JPG">link</a></p>'
       html = Nokogiri::HTML.fragment(subject.convert(content))
-      expect(html.css('a[href]').first.attr('href')).to eq '%24IMS_CC_FILEBASE%24/graphics/arrow.JPG'
+      expect(html.css('a[href]').first.attr('href')).to eq '$IMS_CC_FILEBASE$/graphics/arrow.JPG'
 
     end
 
