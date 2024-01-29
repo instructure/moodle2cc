@@ -53,10 +53,10 @@ describe Moodle2CC::Moodle2::Parsers::QuizParser do
     expect(quiz.show_blocks).to eq "0"
     expect(quiz.visible).to be true
 
-    expect(quiz.question_instances.pluck(:question)).to eq(
+    expect(quiz.question_instances.map{|qi| qi[:question]}).to eq(
       ["1", nil, "3", "4", "10", "11", "12", "13", "14", "15", "17"]
     )
-    expect(quiz.question_instances.pluck(:grade)).to eq(
+    expect(quiz.question_instances.map{|qi| qi[:grade]}).to eq(
       ["1.0000000",
        "1.0000000",
        "1.0000000",
@@ -70,9 +70,9 @@ describe Moodle2CC::Moodle2::Parsers::QuizParser do
        "1.0000000"]
     )
 
-    expect(quiz.feedbacks.pluck(:text)).to eq ["<p>100% feedback</p>", "<p>50% feedback</p>"]
-    expect(quiz.feedbacks.pluck(:format)).to eq ["1", "1"]
-    expect(quiz.feedbacks.pluck(:min_grade)).to eq ["50.00000", "0.00000"]
-    expect(quiz.feedbacks.pluck(:max_grade)).to eq ["101.00000", "50.00000"]
+    expect(quiz.feedbacks.map{|f| f[:text]}).to eq ["<p>100% feedback</p>", "<p>50% feedback</p>"]
+    expect(quiz.feedbacks.map{|f| f[:format]}).to eq ["1", "1"]
+    expect(quiz.feedbacks.map{|f| f[:min_grade]}).to eq ["50.00000", "0.00000"]
+    expect(quiz.feedbacks.map{|f| f[:max_grade]}).to eq ["101.00000", "50.00000"]
   end
 end
