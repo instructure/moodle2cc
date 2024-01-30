@@ -120,12 +120,12 @@ describe Moodle2CC::CanvasCC::Models::Assessment do
     group1 = subject.items[0]
     expect(group1.class).to eq Moodle2CC::CanvasCC::Models::QuestionGroup
     expect(group1.selection_number).to eq 2
-    expect(group1.questions.map(&:identifier)).to eq [q1, q2, q3].map(&:identifier)
+    expect(group1.questions.map(&:identifier)).to eq [q1, q2, q3].map{|q| "random_#{q.identifier}"}
 
     group2 = subject.items[1]
     expect(group2.class).to eq Moodle2CC::CanvasCC::Models::QuestionGroup
     expect(group2.selection_number).to eq 1
-    expect(group2.questions.map(&:identifier)).to eq qb3.questions.map(&:identifier)
+    expect(group2.questions.map(&:identifier)).to eq qb3.questions.map{|q| "random_#{q.identifier}"}
   end
 
 end

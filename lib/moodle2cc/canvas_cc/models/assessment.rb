@@ -93,11 +93,10 @@ module Moodle2CC::CanvasCC::Models
         new_group = Moodle2CC::CanvasCC::Models::QuestionGroup.new
         new_group.identifier = "#{@identifier}#{bank.identifier}_random_group"
         new_group.selection_number = count
-
-        new_group.questions = bank.questions.map(&:dup)
+        new_group.questions = bank.questions.map(&:dup).map{|q| (q.identifier = "random_#{q.identifier}") && q }
         child_banks = bank.find_children_banks(question_banks)
         child_banks.each do |child|
-          new_group.questions += child.questions.map(&:dup)
+          new_group.questions += child.questions.map(&:dup).map{|q| (q.identifier = "random_#{q.identifier}") && q }
         end
 
         @items << new_group
