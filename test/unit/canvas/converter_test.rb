@@ -19,7 +19,7 @@ class TestUnitCCConverter < MiniTest::Test
   end
 
   def test_it_creates_imscc_package
-    assert File.exists?(@converter.imscc_path)
+    assert File.exist?(@converter.imscc_path)
   end
 
   def test_it_creates_imsmanifest_xml
@@ -165,7 +165,7 @@ class TestUnitCCConverter < MiniTest::Test
   end
 
   def test_it_deletes_all_files_except_imscc
-    refute File.exists? @converter.imscc_tmp_path
-    assert File.exists? @converter.imscc_path
+    refute File.exist? @converter.imscc_tmp_path
+    assert File.exist? @converter.imscc_path
   end
 end

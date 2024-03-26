@@ -1,3 +1,6 @@
+2024-03-26 Version 0.2.45
+  * Remove deprecated usage of File.exists?
+
 2024-01-29 Version 0.2.44
   * Have random question types have separate identifiers to the originals
 

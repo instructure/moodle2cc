@@ -18,6 +18,6 @@ class TestAcceptanceMigrator < MiniTest::Test
   def test_it_creates_a_cc_package
     migrator = Moodle2CC::Migrator.new @source, @destination
     migrator.migrate
-    assert File.exists?(@package), "#{@package} not created"
+    assert File.exist?(@package), "#{@package} not created"
   end
 end

@@ -154,6 +154,6 @@ class TestUnitCCWebLink < MiniTest::Test
     tmp_dir = File.expand_path('../../../tmp', __FILE__)
     web_link = Moodle2CC::CC::WebLink.new @mod
     web_link.create_xml(tmp_dir)
-    refute File.exists?(File.join(tmp_dir, "#{web_link.identifier}.xml")), 'xml file was created for local file'
+    refute File.exist?(File.join(tmp_dir, "#{web_link.identifier}.xml")), 'xml file was created for local file'
   end
 end

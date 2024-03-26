@@ -51,7 +51,7 @@ class TestUnitMigrator < MiniTest::Test
     migrator = Moodle2CC::Migrator.new @valid_source, @valid_destination
     migrator.migrate
     imscc_file = File.join(@valid_destination, "my-course.imscc")
-    assert File.exists?(imscc_file), "#{imscc_file} does not exist"
+    assert File.exist?(imscc_file), "#{imscc_file} does not exist"
   end
 
   def test_it_detects_moodle2_package
