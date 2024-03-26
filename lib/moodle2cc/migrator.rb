@@ -13,7 +13,7 @@ module Moodle2CC
       @destination = destination
       @format = options['format'] || 'cc'
       Moodle2CC::Logger.logger = options['logger'] || ::Logger.new(STDOUT)
-      raise(Moodle2CC::Error, "'#{@source}' does not exist") unless File.exists?(@source)
+      raise(Moodle2CC::Error, "'#{@source}' does not exist") unless File.exist?(@source)
       raise(Moodle2CC::Error, "'#{@destination}' is not a directory") unless File.directory?(@destination)
       raise(Moodle2CC::Error, "'#{@format}' is not a valid format. Please use 'cc' or 'canvas'.") unless ['cc', 'canvas'].include?(@format)
       @converter_class = @format == 'cc' ? Moodle2CC::CC::Converter : Moodle2CC::Canvas::Converter
@@ -51,9 +51,9 @@ module Moodle2CC
 
     def moodle_version
       if File.directory?(@source)
-        if File.exists?(File.join(@source, 'moodle_backup.xml'))
+        if File.exist?(File.join(@source, 'moodle_backup.xml'))
           MOODLE_2
-        elsif File.exists?(File.join(@source, 'moodle.xml'))
+        elsif File.exist?(File.join(@source, 'moodle.xml'))
           MOODLE_1_9
         end
       else
