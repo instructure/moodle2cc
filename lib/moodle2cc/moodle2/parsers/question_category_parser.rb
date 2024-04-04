@@ -32,7 +32,7 @@ module Moodle2CC::Moodle2
       category.parent = parse_text(node, "parent")
       category.sort_order = parse_text(node, "sortorder")
 
-      category.questions += node.search("questions/question").filter_map { |question_node| question_parser(question_node) }
+      category.questions += node.search("./questions/question").filter_map { |question_node| question_parser(question_node) }
       category.questions += node.search("question_bank_entries/question_bank_entry").map do |question_bank_entry|
         question_bank_entry.search("question_version/question_versions").map do |question_versions|
           question_versions.search("questions/question").map do |question_node|
