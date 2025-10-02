@@ -28,7 +28,7 @@ module Moodle2CC::CC
         create_manifest
       end
       create_web_resources
-      Zip::File.open(imscc_tmp_path, Zip::File::CREATE) do |zipfile|
+      Zip::File.open(imscc_tmp_path, create: true) do |zipfile|
         Dir["#{@export_dir}/**/*"].each do |file|
           zipfile.add(file.sub(@export_dir + '/', ''), file)
         end

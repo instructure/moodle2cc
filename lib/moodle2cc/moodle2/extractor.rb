@@ -61,7 +61,11 @@ module Moodle2CC::Moodle2
           zip_file.each do |f|
             f_path=File.join(work_dir, f.name)
             FileUtils.mkdir_p(File.dirname(f_path))
-            zip_file.extract(f, f_path) unless File.exist?(f_path)
+            if f.respond_to?(:extract_v3)
+              f.extract_v3(destination_directory: work_dir) unless File.exist?(f_path)
+            else
+              f.extract(destination_directory: work_dir) unless File.exist?(f_path)
+            end
           end
         end
       end

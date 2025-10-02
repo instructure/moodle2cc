@@ -46,7 +46,7 @@ module Moodle2CC::CanvasCC
     end
 
     def zip_dir(out_file, dir)
-      Zip::File.open(out_file, Zip::File::CREATE) do |zipfile|
+      Zip::File.open(out_file, create: true) do |zipfile|
         Dir["#{dir}/**/*"].each do |file|
           zipfile.add(file.sub(dir + '/', ''), file)
         end
