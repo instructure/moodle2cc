@@ -9,7 +9,9 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/instructure/moodle2cc"
 	gem.license = 'AGPLv3'
 
-  gem.add_runtime_dependency "rubyzip", '>=1.0.0'
+  gem.required_ruby_version = '>= 3.1.0'
+
+  gem.add_runtime_dependency "rubyzip", '>= 2.4.1'
   gem.add_runtime_dependency "instructure-happymapper", '~> 0.5.10'
   gem.add_runtime_dependency "builder"
   gem.add_runtime_dependency "thor"
